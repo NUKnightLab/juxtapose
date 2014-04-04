@@ -1,0 +1,13 @@
+div.image {
+	height: 400px;
+	width: 600px;
+}
+
+div.image.left {
+	background-color: red;
+}
+
+div.image.right {
+	background-color: blue;
+}
+
