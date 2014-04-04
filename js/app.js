@@ -17,7 +17,17 @@ $(document).ready(function() {
 	leftImage.width('50%');
 	rightImage.width('50%');
 
-	wrapper.click(function(e) { updateSlider(e) });
+	wrapper.mousedown(function(e) {
+
+		$(this).mousemove(function(d) {
+			updateSlider(d);
+		});
+
+		$(this).mouseup(function(){
+			e.unbind();
+		});
+
+	});
 
 	function updateSlider(e) {
 		var offset = wrapper.offset();
@@ -29,7 +39,6 @@ $(document).ready(function() {
 
 		leftImage.width(leftPercent);
 		rightImage.width(rightPercent);
-
 	}
 
 	//createBASlider();
