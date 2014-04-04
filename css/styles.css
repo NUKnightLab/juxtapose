@@ -1,13 +1,24 @@
-div.image {
-	height: 400px;
+div.wrapper {
+	background-color: black;
 	width: 600px;
+	height: 400px;
+}
+
+div.image {
+	height: 100%;
+	position: relative;
+	/*display: inline-block;*/
+	float: left;
+	top: 0;
 }
 
 div.image.left {
+	left: 0;
 	background-color: red;
 }
 
 div.image.right {
+	right: 0;
 	background-color: blue;
 }
 
