@@ -10,6 +10,7 @@ div.image {
 	/*display: inline-block;*/
 	float: left;
 	top: 0;
+	overflow: hidden;
 }
 
 div.image.left {
@@ -22,5 +23,24 @@ div.image.right {
 	right: 0;
 	background-color: blue;
 	background-position: right;
+}
+
+div.image div.date {
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-top: .5em;
+	padding-bottom: .5em;
+	position: absolute;
+	top: 0;
+	background-color: black;
+	color: white;
+}
+
+div.left div.date {
+	left: 0;
+}
+
+div.right div.date {
+	right: 0;
 }
 
