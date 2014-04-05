@@ -1,54 +1,55 @@
-$(document).ready(function() {
-	
-	function Image(url) {
-		this.url = '';
-		this.title = '';
-	}
 
-	var wrapper = $('div.wrapper');
-	
-	$('div.wrapper').append("<div class='image left'></div>");
-	$('div.wrapper').append("<div class='image right'></div>");
-	
-	leftImage = $('div.image.left')
-	rightImage = $('div.image.right')
+(function (document, window) {
 
-	leftImage.width('50%');
-	rightImage.width('50%');
+	var imageSlider = function(element, images, options) {
 
-	wrapper.mousedown(function(e) {
-	//http://stackoverflow.com/questions/1909760/how-to-get-mouseup-to-fire-once-mousemove-complete
-	
-		var dragging = true; 
+		function Image(a) {
+			this.url = a.url;
+			this.title = a.title;
+		};
 
-		$(this).mousemove(function(e) {
-			e.preventDefault();
-			if (dragging) {
-				updateSlider(e);
+		function ImageSlider(elementID, images, options) {
+			var i;
+
+			if (images.length == 2) {
+				this.images = images;
+				console.log(images[1].url);
+			} else {
+				throw new Error("The images paramater takes two Image objects.");
 			}
-			return false;
-		});
 
-		$(document).mouseup(function() {
-			dragging = false;
-		});
+			this.options = {
+				animate: true,
+				transition: 400
+			};
 
-		$(this).mouseleave(function() {
-			dragging = false;
-		});
+			for (i in options) {
+				this.options[i] = options[i];
+			}
 
-	});
+			this.wrapper = $('#' + elementID);
 
-	function updateSlider(e) {
-		var offset = wrapper.offset();
-		var width = wrapper.width();
-		var relX = e.pageX - offset.left;
+			this._init(this);
+		};
 
-		var leftPercent = (relX / width) * 100 + "%";
-		var rightPercent = (100 - (relX / width) * 100) + "%";
+		ImageSlider.prototype = {
 
-		leftImage.width(leftPercent);
-		rightImage.width(rightPercent);
-	}
+			_init: function() {
+				this.wrapper.append("<div class='image left'></div>");
+				this.wrapper.append("<div class='image right'></div>");
+				
+				this.leftImage = $('div.image.left')
+				this.rightImage = $('div.image.right')
 
-});
+				this.leftImage.width('50%');
+				this.rightImage.width('50%');
+			}
+
+		};
+
+		return new ImageSlider(element, images, options);
+	};
+	
+	window.imageSlider = imageSlider;
+
+}(document, window));

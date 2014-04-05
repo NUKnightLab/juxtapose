@@ -6,6 +6,24 @@
 	<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-	<div class="wrapper">
+	<div id="wrapper">
 	</div>
+	<script>
+
+		left = new Image({
+			url: 'http://c300221.r21.cf1.rackcdn.com/blue-ii-1961-by-joan-miro-1375021434_b.jpg',
+			title: '2012'
+		});
+
+		right = new Image({
+			url: 'http://uploads8.wikipaintings.org/images/joan-miro/the-nightingale-s-song-at-midnight-and-the-morning-rain.jpg',
+			title: '2012'
+		});
+
+		slider = new imageSlider('wrapper', [left, right], {
+			animate: true,
+			transition: 500
+		});
+
+	</script>
 </body>
