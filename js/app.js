@@ -26,7 +26,7 @@
 
 			this.options = {
 				animate: true,
-				transition: 400,
+				transition: 100,
 				showDates: true
 			};
 
@@ -56,8 +56,13 @@
 				var leftPercent = (relativeX / width) * 100 + "%";
 				var rightPercent = (100 - (relativeX / width) * 100) + "%";
 
-				this.leftImage.width(leftPercent);
-				this.rightImage.width(rightPercent);
+				if(this.options.animate) {
+					this.leftImage.animate({width: leftPercent}, this.transition);
+					this.rightImage.animate({width: rightPercent}, this.transition);
+				} else {
+					this.leftImage.width(leftPercent);
+					this.rightImage.width(rightPercent);
+				}
 			},
 
 			displayDates: function() {
