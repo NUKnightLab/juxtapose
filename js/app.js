@@ -49,10 +49,8 @@
 			_init: function() {
 				this.leftImage.width('50%');
 				this.rightImage.width('50%');
-
-				setBackgroundImage(this.leftImage, this.imgBefore.imgSrc)
-				setBackgroundImage(this.rightImage, this.imgAfter.imgSrc)
-
+				setBackgroundImage(this.leftImage, this.imgBefore.imgSrc);
+				setBackgroundImage(this.rightImage, this.imgAfter.imgSrc);
 			}
 
 		};

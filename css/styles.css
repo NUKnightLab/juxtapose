@@ -15,10 +15,12 @@ div.image {
 div.image.left {
 	left: 0;
 	background-color: red;
+	background-position: left;
 }
 
 div.image.right {
 	right: 0;
 	background-color: blue;
+	background-position: right;
 }
 
