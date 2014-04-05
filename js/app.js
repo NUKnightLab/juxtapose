@@ -1,11 +1,10 @@
-
-function Image(url) {
-	this.url = '';
-	this.title = '';
-}
-
 $(document).ready(function() {
 	
+	function Image(url) {
+		this.url = '';
+		this.title = '';
+	}
+
 	var wrapper = $('div.wrapper');
 	
 	$('div.wrapper').append("<div class='image left'></div>");
@@ -18,13 +17,24 @@ $(document).ready(function() {
 	rightImage.width('50%');
 
 	wrapper.mousedown(function(e) {
+	//http://stackoverflow.com/questions/1909760/how-to-get-mouseup-to-fire-once-mousemove-complete
+	
+		var dragging = true; 
 
-		$(this).mousemove(function(d) {
-			updateSlider(d);
+		$(this).mousemove(function(e) {
+			e.preventDefault();
+			if (dragging) {
+				updateSlider(e);
+			}
+			return false;
 		});
 
-		$(this).mouseup(function(){
-			e.unbind();
+		$(document).mouseup(function() {
+			dragging = false;
+		});
+
+		$(this).mouseleave(function() {
+			dragging = false;
 		});
 
 	});
@@ -40,7 +50,5 @@ $(document).ready(function() {
 		leftImage.width(leftPercent);
 		rightImage.width(rightPercent);
 	}
-
-	//createBASlider();
 
 });
