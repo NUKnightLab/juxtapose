@@ -1,13 +1,22 @@
 div#wrapper {
 	background-color: black;
+	position: relative;
 	width: 600px;
 	height: 400px;
 }
 
+
+div.handle {
+	position: absolute;
+	width: 5px;
+	height: 100%;
+	cursor: col-resize;
+	background-color: grey;
+}
+
 div.image {
 	height: 100%;
-	position: relative;
-	/*display: inline-block;*/
+	display: inline-block;
 	float: left;
 	top: 0;
 	overflow: hidden;
@@ -31,6 +40,7 @@ div.image div.date {
 	padding-top: .5em;
 	padding-bottom: .5em;
 	position: absolute;
+	display: inline-block;
 	top: 0;
 	background-color: black;
 	color: white;
@@ -44,11 +54,3 @@ div.right div.date {
 	right: 0;
 }
 
-div.handle {
-	cursor: col-resize;
-	width: 5px;
-	left: -2.5px;
-	height: 100%;
-	position: relative;
-	background-color: green;
-}
