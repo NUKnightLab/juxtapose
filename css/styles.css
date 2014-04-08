@@ -8,16 +8,40 @@ div#wrapper {
 
 div.handle {
 	position: absolute;
-	width: 5px;
 	height: 100%;
 	cursor: col-resize;
 	background-color: grey;
+	z-index: 10;
+	overflow: hidden;
 }
+
+div#wrapper:hover div.arrow {
+	display: block;
+}
+
+div.arrow.left {
+	width: 0px;
+	height: 0px;
+	border-style: solid;
+	border-width: 10px 10px 10px 0;
+	border-color: transparent white transparent transparent;
+	display: none;
+}
+
+
+div.arrow.right {
+	width: 0px;
+	height: 0px;
+	border-style: solid;
+	border-width: 10px 0px 10px 10px;
+	border-color: transparent transparent transparent white;
+	display: none;
+}
+
 
 div.image {
 	height: 100%;
 	display: inline-block;
-	float: left;
 	top: 0;
 	overflow: hidden;
 }
@@ -44,6 +68,7 @@ div.image div.date {
 	top: 0;
 	background-color: black;
 	color: white;
+	z-index: 0;
 }
 
 div.left div.date {
