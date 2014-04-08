@@ -41,6 +41,10 @@
 			this.wrapper.append("<div class='image right'></div>");
 			
 			this.handle = $('div.handle');
+			this.handle.append("<div class='arrow left'></div>");
+			this.handle.append("<div class='control'></div>");
+			this.handle.append("<div class='arrow right'></div>");
+			
 			this.leftImage = $('div.image.left');
 			this.rightImage = $('div.image.right');
 
@@ -56,18 +60,26 @@
 				var width = this.wrapper.width();
 				var relativeX = e.pageX - offset.left;
 
+
 				var leftPercent = (relativeX / width) * 100 + "%";
 				var rightPercent = (100 - (relativeX / width) * 100) + "%";
 
-				if(this.options.animate) {
-					this.handle.animate({left: leftPercent}, this.transition)
-					this.leftImage.animate({width: leftPercent}, this.transition);
-					this.rightImage.animate({width: rightPercent}, this.transition);
-				} else {
-					this.handle.css({left: leftPercent});
-					this.leftImage.width(leftPercent);
-					this.rightImage.width(rightPercent);
+				
+				var a = (relativeX / width) * 100;
+				if (a < 100) {
+
+					if(this.options.animate) {
+						this.handle.animate({left: leftPercent}, this.transition)
+						this.leftImage.animate({width: leftPercent}, this.transition);
+						this.rightImage.animate({width: rightPercent}, this.transition);
+					} else {
+						this.handle.css({left: leftPercent});
+						this.leftImage.width(leftPercent);
+						this.rightImage.width(rightPercent);
+					}
+
 				}
+
 			},
 
 			displayDates: function() {
@@ -93,7 +105,7 @@
 				this.wrapper.mousedown(function(d) {	
 					d.preventDefault();
 					self.updateSlider(d);
-					var dragging = true; 
+					dragging = true;
 
 					$(this).mousemove(function(e) {
 						if (dragging) {
