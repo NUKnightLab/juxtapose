@@ -10,8 +10,8 @@
 
 		function Graphic(a) {
 			this.imgSrc = a.imgSrc;
-			this.date = a.date;
-			this.credit = a.credit
+			this.date = if (a.date) { a.date } else { false };
+			this.credit = if (a.credit) { a.credit } else { false };
 		}
 
 		function ImageSlider(id, images, options) {
@@ -27,7 +27,8 @@
 			this.options = {
 				animate: true,
 				transition: 100,
-				showDates: true
+				showDates: true,
+				handle: true
 			};
 
 			for (i in options) {
@@ -36,10 +37,17 @@
 
 			this.wrapper = $('#' + id);
 			this.wrapper.append("<div class='image left'></div>");
-			this.wrapper.append("<div class='image right'></div>");
 			
-			this.leftImage = $('div.image.left')
-			this.rightImage = $('div.image.right')
+
+			if (handle) {
+				this.wrapper.append("<div class='handle'></div>");
+				this.handle = $('div.handle');
+			}
+
+			this.wrapper.append("<div class='image right'></div>");
+
+			this.leftImage = $('div.image.left');
+			this.rightImage = $('div.image.right');
 
 			this.dragging = false;
 
@@ -57,11 +65,13 @@
 				var rightPercent = (100 - (relativeX / width) * 100) + "%";
 
 				if(this.options.animate) {
+					// this.handle.animate({left: leftPercent}, this.transition)
 					this.leftImage.animate({width: leftPercent}, this.transition);
 					this.rightImage.animate({width: rightPercent}, this.transition);
 				} else {
 					this.leftImage.width(leftPercent);
 					this.rightImage.width(rightPercent);
+					this.handle.css({left: leftPercent});
 				}
 			},
 
@@ -77,6 +87,8 @@
 			_init: function() {
 				this.leftImage.width('50%');
 				this.rightImage.width('50%');
+				// this.handle.css({left: '50%'});
+
 				setBackgroundImage(this.leftImage, this.imgBefore.imgSrc);
 				setBackgroundImage(this.rightImage, this.imgAfter.imgSrc);
 
@@ -86,6 +98,7 @@
 				var self = this;
 				this.wrapper.mousedown(function(d) {	
 					d.preventDefault();
+					self.updateSlider(d);
 					var dragging = true; 
 
 					$(this).mousemove(function(e) {
