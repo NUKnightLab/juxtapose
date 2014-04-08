@@ -8,18 +8,18 @@
 			element.css("background-image", property);
 		}
 
-		function Graphic(a) {
+		function Image(a) {
 			this.imgSrc = a.imgSrc;
-			this.date = if (a.date) { a.date } else { false };
-			this.credit = if (a.credit) { a.credit } else { false };
+			this.date = a.date;
+			this.credit = a.credit;
 		}
 
 		function ImageSlider(id, images, options) {
 			var i;
 
 			if (images.length == 2) {
-				this.imgBefore = new Graphic(images[0]);
-				this.imgAfter = new Graphic(images[1]);
+				this.imgBefore = new Image(images[0]);
+				this.imgAfter = new Image(images[1]);
 			} else {
 				throw new Error("The images paramater takes two Image objects.");
 			}
@@ -28,7 +28,6 @@
 				animate: true,
 				transition: 100,
 				showDates: true,
-				handle: true
 			};
 
 			for (i in options) {
@@ -36,16 +35,12 @@
 			}
 
 			this.wrapper = $('#' + id);
-			this.wrapper.append("<div class='image left'></div>");
 			
-
-			if (handle) {
-				this.wrapper.append("<div class='handle'></div>");
-				this.handle = $('div.handle');
-			}
-
+			this.wrapper.append("<div class='handle'></div>");
+			this.wrapper.append("<div class='image left'></div>");
 			this.wrapper.append("<div class='image right'></div>");
-
+			
+			this.handle = $('div.handle');
 			this.leftImage = $('div.image.left');
 			this.rightImage = $('div.image.right');
 
@@ -65,13 +60,13 @@
 				var rightPercent = (100 - (relativeX / width) * 100) + "%";
 
 				if(this.options.animate) {
-					// this.handle.animate({left: leftPercent}, this.transition)
+					this.handle.animate({left: leftPercent}, this.transition)
 					this.leftImage.animate({width: leftPercent}, this.transition);
 					this.rightImage.animate({width: rightPercent}, this.transition);
 				} else {
+					this.handle.css({left: leftPercent});
 					this.leftImage.width(leftPercent);
 					this.rightImage.width(rightPercent);
-					this.handle.css({left: leftPercent});
 				}
 			},
 
@@ -81,13 +76,12 @@
 
 				$('div.image.left div.date').text(this.imgBefore.date);
 				$('div.image.right div.date').text(this.imgAfter.date);
-
 			},
 
 			_init: function() {
 				this.leftImage.width('50%');
 				this.rightImage.width('50%');
-				// this.handle.css({left: '50%'});
+				this.handle.css({left: '50%'});
 
 				setBackgroundImage(this.leftImage, this.imgBefore.imgSrc);
 				setBackgroundImage(this.rightImage, this.imgAfter.imgSrc);

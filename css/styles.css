@@ -47,8 +47,8 @@ div.right div.date {
 div.handle {
 	cursor: col-resize;
 	width: 5px;
-/*	float: left;
-*/	height: 100%;
+	left: -2.5px;
+	height: 100%;
 	position: relative;
 	background-color: green;
 }
