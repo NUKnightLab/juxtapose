@@ -1,54 +1,63 @@
 div#wrapper {
-	background-color: black;
 	position: relative;
 	width: 600px;
 	height: 400px;
 	overflow: hidden;
 }
 
-
 div.handle {
 	position: absolute;
 	height: 100%;
+	width: 40px;
 	cursor: col-resize;
-	background-color: yellow;
-	width: 3px;
 	z-index: 10;
+	margin-left: -20px;
 }
+
+div.control {
+	height: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	width: 2px;
+	background-color: white;
+}
+
+div.controller {
+	position: absolute;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	height: 60px;
+	width: 8px;
+	margin-left: -3px;
+	background-color: white;
+}
+
+div.handle:hover div.controller {
+/*	background-color: grey;
+*/}
 
 div.arrow {
 	position: absolute;
-}
-
-div#wrapper:hover div.arrow {
-	display: block;
+	margin: auto;
+	top: 0;
+	bottom: 0; 
+	width: 0;
+	height: 0;
 }
 
 div.arrow.left {
-	width: 0px;
-	height: 0px;
-
 	left: 0px;
-	margin-left: -20px;
-
 	border-style: solid;
-	border-width: 10px 10px 10px 0;
+	border-width: 8px 8px 8px 0;
 	border-color: transparent white transparent transparent;
-	display: none;
 }
 
-
 div.arrow.right {
-	width: 0px;
-	height: 0px;
-
 	right: 0px;
-	margin-right: -20px;
-
 	border-style: solid;
-	border-width: 10px 0px 10px 10px;
+	border-width: 8px 0px 8px 8px;
 	border-color: transparent transparent transparent white;
-	display: none;
 }
 
 
@@ -61,13 +70,11 @@ div.image {
 
 div.image.left {
 	left: 0;
-	background-color: red;
 	background-position: left;
 }
 
 div.image.right {
 	right: 0;
-	background-color: blue;
 	background-position: right;
 }
 

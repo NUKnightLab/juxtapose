@@ -42,9 +42,9 @@
 			
 			this.handle = $('div.handle');
 			this.handle.append("<div class='arrow left'></div>");
-			this.handle.append("<div class='control'></div>");
+			this.handle.append("<div class='control'><div class='controller'></div></div>");
 			this.handle.append("<div class='arrow right'></div>");
-			
+
 			this.leftImage = $('div.image.left');
 			this.rightImage = $('div.image.right');
 
