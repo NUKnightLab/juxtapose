@@ -55,11 +55,15 @@
 
 		ImageSlider.prototype = {
 
-			updateSlider: function(e) {
+			updateSlider: function(e, dragging) {
+
+				this.handle.stop();
+				this.rightImage.stop();
+				this.leftImage.stop();
+
 				var offset = this.wrapper.offset();
 				var width = this.wrapper.width();
 				var relativeX = e.pageX - offset.left;
-
 
 				var leftPercent = (relativeX / width) * 100 + "%";
 				var rightPercent = (100 - (relativeX / width) * 100) + "%";
@@ -68,7 +72,7 @@
 				var a = (relativeX / width) * 100;
 				if (a < 100) {
 
-					if(this.options.animate) {
+					if(this.options.animate && dragging) {
 						this.handle.animate({left: leftPercent}, this.transition)
 						this.leftImage.animate({width: leftPercent}, this.transition);
 						this.rightImage.animate({width: rightPercent}, this.transition);
@@ -101,15 +105,16 @@
 				if (this.options.showDates) {
 					this.displayDates();
 				}
+				
 				var self = this;
 				this.wrapper.mousedown(function(d) {	
 					d.preventDefault();
-					self.updateSlider(d);
+					self.updateSlider(d, true);
 					dragging = true;
 
 					$(this).mousemove(function(e) {
 						if (dragging) {
-							self.updateSlider(e);
+							self.updateSlider(e, false);
 						}
 					});
 

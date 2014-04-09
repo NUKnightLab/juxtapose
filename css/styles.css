@@ -3,6 +3,7 @@ div#wrapper {
 	width: 600px;
 	height: 400px;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 div.handle {
@@ -32,10 +33,6 @@ div.controller {
 	margin-left: -3px;
 	background-color: white;
 }
-
-div.handle:hover div.controller {
-/*	background-color: grey;
-*/}
 
 div.arrow {
 	position: absolute;
