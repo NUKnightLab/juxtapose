@@ -66,6 +66,7 @@ div.image {
 	display: inline-block;
 	top: 0;
 	overflow: hidden;
+	background-size: cover;
 }
 
 div.image.left {
