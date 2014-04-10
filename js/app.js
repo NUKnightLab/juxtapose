@@ -10,7 +10,7 @@
 		function Image(a) {
 			this.imgSrc = a.imgSrc;
 			this.date = a.date;
-			this.credit = a.credit;
+			this.caption = a.caption;
 		}
 
 		function ImageSlider(id, images, options) {
@@ -27,7 +27,7 @@
 				animate: true,
 				transition: 100,
 				showDates: true,
-				showCredits: true
+				showCaptions: true
 			};
 
 			for (i in options) {
@@ -99,12 +99,12 @@
 				$('div.image.right div.date').text(this.imgAfter.date);
 			},
 
-			displayCredits: function() {
+			displayCaptions: function() {
 				this.wrapper.append("<div class='credit'></div>")
 				this.credit = $('div.credit');
 
-				this.credit.append("<em>Before: </em>" + this.imgBefore.credit);
-				this.credit.append("<br><em>After: </em>" + this.imgAfter.credit);
+				this.credit.append("<em>Before: </em>" + this.imgBefore.caption);
+				this.credit.append("<br><em>After: </em>" + this.imgAfter.caption);
 
 			},
 
@@ -120,8 +120,8 @@
 					this.displayDates();
 				}
 
-				if (this.options.showCredits) {
-					this.displayCredits();
+				if (this.options.showCaptions) {
+					this.displayCaptions();
 				}
 
 
