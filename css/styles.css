@@ -80,7 +80,7 @@ div.image div.date {
 	padding-right: 1em;
 	padding-top: .5em;
 	padding-bottom: .5em;
-	position: absolute;
+	position: relative;
 	display: inline-block;
 	top: 0;
 	background-color: black;
@@ -93,6 +93,7 @@ div.left div.date {
 }
 
 div.right div.date {
+	float: right;
 	right: 0;
 }
 
