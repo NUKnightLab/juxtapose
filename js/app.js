@@ -1,4 +1,3 @@
-
 (function (document, window) {
 
 	var imageSlider = function(id, images, options) {
@@ -105,7 +104,7 @@
 				if (this.options.showDates) {
 					this.displayDates();
 				}
-				
+
 				var self = this;
 				this.wrapper.mousedown(function(d) {	
 					d.preventDefault();
