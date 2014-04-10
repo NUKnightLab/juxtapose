@@ -1,9 +1,12 @@
 div#wrapper {
-	position: relative;
 	width: 600px;
+}
+
+div.slider {
 	height: 400px;
+	position: relative;
 	overflow: hidden;
-	cursor: pointer;
+	cursor: pointer;	
 }
 
 div.handle {
@@ -97,3 +100,10 @@ div.right div.date {
 	right: 0;
 }
 
+div.credit {
+}
+
+div.credit em {
+	font-weight: bold;
+	font-style: normal;
+}

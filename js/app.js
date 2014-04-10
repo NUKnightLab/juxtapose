@@ -27,6 +27,7 @@
 				animate: true,
 				transition: 100,
 				showDates: true,
+				showCredits: true
 			};
 
 			for (i in options) {
@@ -34,10 +35,15 @@
 			}
 
 			this.wrapper = $('#' + id);
+			this.wrapper.addClass("sliderWrapper")
+
+			this.wrapper.append("<div class='slider'></div>");
 			
-			this.wrapper.append("<div class='handle'></div>");
-			this.wrapper.append("<div class='image left'></div>");
-			this.wrapper.append("<div class='image right'></div>");
+			this.slider = $('div.slider');
+
+			this.slider.append("<div class='handle'></div>");
+			this.slider.append("<div class='image left'></div>");
+			this.slider.append("<div class='image right'></div>");
 			
 			this.handle = $('div.handle');
 			this.handle.append("<div class='arrow left'></div>");
@@ -60,8 +66,8 @@
 				this.rightImage.stop();
 				this.leftImage.stop();
 
-				var offset = this.wrapper.offset();
-				var width = this.wrapper.width();
+				var offset = this.slider.offset();
+				var width = this.slider.width();
 				var relativeX = e.pageX - offset.left;
 
 				var leftPercent = (relativeX / width) * 100 + "%";
@@ -93,6 +99,15 @@
 				$('div.image.right div.date').text(this.imgAfter.date);
 			},
 
+			displayCredits: function() {
+				this.wrapper.append("<div class='credit'></div>")
+				this.credit = $('div.credit');
+
+				this.credit.append("<em>Before: </em>" + this.imgBefore.credit);
+				this.credit.append("<br><em>After: </em>" + this.imgAfter.credit);
+
+			},
+
 			_init: function() {
 				this.leftImage.width('50%');
 				this.rightImage.width('50%');
@@ -105,8 +120,13 @@
 					this.displayDates();
 				}
 
+				if (this.options.showCredits) {
+					this.displayCredits();
+				}
+
+
 				var self = this;
-				this.wrapper.mousedown(function(d) {	
+				this.slider.mousedown(function(d) {	
 					d.preventDefault();
 					self.updateSlider(d, true);
 					dragging = true;
