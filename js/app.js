@@ -7,10 +7,10 @@
 			element.css("background-image", property);
 		}
 
-		function Image(a) {
-			this.imgSrc = a.imgSrc;
-			this.date = a.date;
-			this.caption = a.caption;
+		function Image(properties) {
+			this.imgSrc = properties.imgSrc;
+			this.date = properties.date;
+			this.credit = properties.credit;
 		}
 
 		function ImageSlider(id, images, options) {
@@ -27,7 +27,7 @@
 				animate: true,
 				transition: 100,
 				showDates: true,
-				showCaptions: true,
+				showCredits: true,
 				startingPosition: "50%"
 			};
 
@@ -72,8 +72,7 @@
 				var relativeX = e.pageX - offset.left;
 
 				var leftPercent = (relativeX / width) * 100 + "%";
-				var rightPercent = (100 - (relativeX / width) * 100) + "%";
-
+				var rightPercent = 100 - ((relativeX / width) * 100) + "%";
 				
 				var a = (relativeX / width) * 100;
 				if (a < 100) {
@@ -100,7 +99,7 @@
 				$('div.image.right div.date').text(this.imgAfter.date);
 			},
 
-			displayCaptions: function() {
+			displayCredits: function() {
 				this.wrapper.append("<div class='credit'></div>")
 				this.credit = $('div.credit');
 
@@ -124,7 +123,7 @@
 					this.displayDates();
 				}
 
-				if (this.options.showCaptions) {
+				if (this.options.showCredits) {
 					this.displayCaptions();
 				}
 
