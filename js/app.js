@@ -27,7 +27,8 @@
 				animate: true,
 				transition: 100,
 				showDates: true,
-				showCaptions: true
+				showCaptions: true,
+				startingPosition: "50%"
 			};
 
 			for (i in options) {
@@ -109,9 +110,12 @@
 			},
 
 			_init: function() {
-				this.leftImage.width('50%');
-				this.rightImage.width('50%');
-				this.handle.css({left: '50%'});
+
+				rightStart = 100 - parseInt(this.options.startingPosition) + "%";
+
+				this.leftImage.width(this.options.startingPosition);
+				this.rightImage.width(rightStart);
+				this.handle.css({left: this.options.startingPosition});
 
 				setBackgroundImage(this.leftImage, this.imgBefore.imgSrc);
 				setBackgroundImage(this.rightImage, this.imgAfter.imgSrc);
