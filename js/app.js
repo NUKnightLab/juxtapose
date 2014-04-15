@@ -4,13 +4,17 @@
 	
 		function setBackgroundImage(element, url) {
 			var property = "url(" + url + ")";
-			element.css("background-image", property);
+			element.style.backgroundImage = property;
 		}
 
 		function Image(properties) {
 			this.imgSrc = properties.imgSrc;
-			this.date = properties.date;
+			this.label = properties.label;
 			this.credit = properties.credit;
+		}
+
+		function animate(opts) {
+
 		}
 
 		function ImageSlider(id, images, options) {
@@ -35,24 +39,44 @@
 				this.options[i] = options[i];
 			}
 
-			this.wrapper = $('#' + id);
-			this.wrapper.addClass("sliderWrapper")
+			this.wrapper = document.getElementById(id);
 
-			this.wrapper.append("<div class='slider'></div>");
-			
-			this.slider = $('div.slider');
+			if (this.wrapper.classList) {
+				this.wrapper.classList.add("slider_wrapper");
+			} else {
+				this.wrapper.className += ' ' + "slider_wrapper";
+			}
 
-			this.slider.append("<div class='handle'></div>");
-			this.slider.append("<div class='image left'></div>");
-			this.slider.append("<div class='image right'></div>");
-			
-			this.handle = $('div.handle');
-			this.handle.append("<div class='arrow left'></div>");
-			this.handle.append("<div class='control'><div class='controller'></div></div>");
-			this.handle.append("<div class='arrow right'></div>");
+			this.slider = document.createElement("div");
+			this.slider.className = 'slider';
+			this.wrapper.appendChild(this.slider);
 
-			this.leftImage = $('div.image.left');
-			this.rightImage = $('div.image.right');
+			this.handle = document.createElement("div");
+			this.handle.className = 'handle';
+
+			this.rightImage = document.createElement("div");
+			this.rightImage.className = 'image right';
+			this.leftImage = document.createElement("div");
+			this.leftImage.className = 'image left'
+
+			this.slider.appendChild(this.handle);
+			this.slider.appendChild(this.leftImage);
+			this.slider.appendChild(this.rightImage);
+
+			leftArrow = document.createElement("div");
+			rightArrow = document.createElement("div");
+			control = document.createElement("div");
+			controller = document.createElement("div");
+
+			leftArrow.className = 'arrow left';
+			rightArrow.className = 'arrow right';
+			control.className = 'control';
+			controller.className = 'controller';
+
+			this.handle.appendChild(leftArrow);
+			this.handle.appendChild(control);
+			this.handle.appendChild(rightArrow);
+			control.appendChild(controller);
 
 			this.dragging = false;
 
@@ -63,12 +87,18 @@
 
 			updateSlider: function(e, dragging) {
 
-				this.handle.stop();
-				this.rightImage.stop();
-				this.leftImage.stop();
+				// this.handle.stop();
+				// this.rightImage.stop();
+				// this.leftImage.stop();
 
-				var offset = this.slider.offset();
-				var width = this.slider.width();
+				var sliderRect = this.slider.getBoundingClientRect()
+				var offset = {
+				  top: sliderRect.top + document.body.scrollTop,
+				  left: sliderRect.left + document.body.scrollLeft
+				}
+
+				var width = this.slider.offsetWidth;
+
 				var relativeX = e.pageX - offset.left;
 
 				var leftPercent = (relativeX / width) * 100 + "%";
@@ -78,13 +108,13 @@
 				if (a < 100) {
 
 					if(this.options.animate && dragging) {
-						this.handle.animate({left: leftPercent}, this.transition)
-						this.leftImage.animate({width: leftPercent}, this.transition);
-						this.rightImage.animate({width: rightPercent}, this.transition);
+						// this.handle.animate({left: leftPercent}, this.transition)
+						// this.leftImage.animate({width: leftPercent}, this.transition);
+						// this.rightImage.animate({width: rightPercent}, this.transition);
 					} else {
-						this.handle.css({left: leftPercent});
-						this.leftImage.width(leftPercent);
-						this.rightImage.width(rightPercent);
+						this.handle.style.left = leftPercent;
+						this.leftImage.style.width = leftPercent;
+						this.rightImage.style.width = rightPercent;
 					}
 
 				}
@@ -92,29 +122,36 @@
 			},
 
 			displayDates: function() {
-				this.leftImage.append("<div class='date'></div>");
-				this.rightImage.append("<div class='date'></div>");
+				leftDate = document.createElement("div");
+				leftDate.className = 'label';
+				leftDate.textContent = this.imgBefore.label;
+				rightDate = document.createElement("div");
+				rightDate.className = 'label';
+				rightDate.textContent = this.imgAfter.label;
 
-				$('div.image.left div.date').text(this.imgBefore.date);
-				$('div.image.right div.date').text(this.imgAfter.date);
+				this.leftImage.appendChild(leftDate);
+				this.rightImage.appendChild(rightDate);
 			},
 
 			displayCredits: function() {
-				this.wrapper.append("<div class='credit'></div>")
-				this.credit = $('div.credit');
+				credit = document.createElement("div");
+				credit.className = "credit";
 
-				this.credit.append("<em>Before: </em>" + this.imgBefore.caption);
-				this.credit.append("<br><em>After: </em>" + this.imgAfter.caption);
+				text = 	"<em>Before </em>" + this.imgBefore.credit + 
+						" <em>After </em>" + this.imgAfter.credit;
+				credit.innerHTML = text;
 
+				this.wrapper.appendChild(credit);
 			},
 
 			_init: function() {
 
 				rightStart = 100 - parseInt(this.options.startingPosition) + "%";
 
-				this.leftImage.width(this.options.startingPosition);
-				this.rightImage.width(rightStart);
-				this.handle.css({left: this.options.startingPosition});
+				this.leftImage.style.width = this.options.startingPosition;
+				this.rightImage.style.width = rightStart;
+				this.handle.style.left = this.options.startingPosition;
+
 
 				setBackgroundImage(this.leftImage, this.imgBefore.imgSrc);
 				setBackgroundImage(this.rightImage, this.imgAfter.imgSrc);
@@ -124,29 +161,30 @@
 				}
 
 				if (this.options.showCredits) {
-					this.displayCaptions();
+					this.displayCredits();
 				}
 
 
 				var self = this;
-				this.slider.mousedown(function(d) {	
+				this.slider.addEventListener("mousedown", function(d) {
 					d.preventDefault();
 					self.updateSlider(d, true);
 					dragging = true;
 
-					$(this).mousemove(function(e) {
+					this.addEventListener("mousemove", function(e) {
 						if (dragging) {
 							self.updateSlider(e, false);
 						}
 					});
 
-					$(document).mouseup(function() {
+					document.addEventListener('mouseup', function() {
 						dragging = false;
 					});
 
-					$(this).mouseleave(function() {
+					this.addEventListener('mouseleave', function() {
 						dragging = false;
 					});
+
 				});
 
 			}

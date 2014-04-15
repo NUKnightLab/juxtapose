@@ -79,7 +79,7 @@ div.image.right {
 	background-position: right;
 }
 
-div.image div.date {
+div.image div.label {
 	padding-left: 1em;
 	padding-right: 1em;
 	padding-top: .5em;
@@ -92,11 +92,11 @@ div.image div.date {
 	z-index: 0;
 }
 
-div.left div.date {
+div.left div.label {
 	left: 0;
 }
 
-div.right div.date {
+div.right div.label {
 	float: right;
 	right: 0;
 }
