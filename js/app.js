@@ -25,8 +25,7 @@
 
 			this.options = {
 				animate: true,
-				duration: 100,
-				showDates: true,
+				showLabels: true,
 				showCredits: true,
 				startingPosition: "50%"
 			};
@@ -116,7 +115,7 @@
 
 			},
 
-			displayDates: function() {
+			displayLabels: function() {
 				leftDate = document.createElement("div");
 				leftDate.className = 'label';
 				leftDate.textContent = this.imgBefore.label;
@@ -151,8 +150,8 @@
 				setBackgroundImage(this.leftImage, this.imgBefore.imgSrc);
 				setBackgroundImage(this.rightImage, this.imgAfter.imgSrc);
 
-				if (this.options.showDates) {
-					this.displayDates();
+				if (this.options.showLabels) {
+					this.displayLabels();
 				}
 
 				if (this.options.showCredits) {
