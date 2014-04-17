@@ -13,10 +13,6 @@
 			this.credit = properties.credit;
 		}
 
-		function animate(opts) {
-
-		}
-
 		function ImageSlider(id, images, options) {
 			var i;
 
@@ -29,7 +25,7 @@
 
 			this.options = {
 				animate: true,
-				transition: 100,
+				duration: 100,
 				showDates: true,
 				showCredits: true,
 				startingPosition: "50%"
@@ -87,10 +83,6 @@
 
 			updateSlider: function(e, dragging) {
 
-				// this.handle.stop();
-				// this.rightImage.stop();
-				// this.leftImage.stop();
-
 				var sliderRect = this.slider.getBoundingClientRect()
 				var offset = {
 				  top: sliderRect.top + document.body.scrollTop,
@@ -104,19 +96,22 @@
 				var leftPercent = (relativeX / width) * 100 + "%";
 				var rightPercent = 100 - ((relativeX / width) * 100) + "%";
 				
-				var a = (relativeX / width) * 100;
-				if (a < 100) {
+				var a = (relativeX / width);
+				if (a < 1) {
 
-					if(this.options.animate && dragging) {
-						// this.handle.animate({left: leftPercent}, this.transition)
-						// this.leftImage.animate({width: leftPercent}, this.transition);
-						// this.rightImage.animate({width: rightPercent}, this.transition);
-					} else {
-						this.handle.style.left = leftPercent;
-						this.leftImage.style.width = leftPercent;
-						this.rightImage.style.width = rightPercent;
+					this.handle.classList.remove("transition");
+					this.rightImage.classList.remove("transition");
+					this.leftImage.classList.remove("transition");
+
+					if(this.options.animate && !dragging) {
+						this.handle.classList.add("transition");
+						this.leftImage.classList.add("transition");
+						this.rightImage.classList.add("transition");
 					}
 
+					this.handle.style.left = leftPercent;
+					this.leftImage.style.width = leftPercent;
+					this.rightImage.style.width = rightPercent;
 				}
 
 			},
@@ -168,12 +163,12 @@
 				var self = this;
 				this.slider.addEventListener("mousedown", function(d) {
 					d.preventDefault();
-					self.updateSlider(d, true);
+					self.updateSlider(d, false);
 					dragging = true;
 
 					this.addEventListener("mousemove", function(e) {
 						if (dragging) {
-							self.updateSlider(e, false);
+							self.updateSlider(e, true);
 						}
 					});
 

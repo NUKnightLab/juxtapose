@@ -108,3 +108,16 @@ div.credit em {
 	font-weight: bold;
 	font-style: normal;
 }
+
+
+/* Animation
+ */
+
+div.image.transition {
+	transition: width .5s ease;
+}
+
+div.handle.transition {
+	transition: left .5s ease;
+}
+
