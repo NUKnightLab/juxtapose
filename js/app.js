@@ -8,7 +8,7 @@
 		}
 
 		function Image(properties) {
-			this.imgSrc = properties.imgSrc;
+			this.src = properties.src;
 			this.label = properties.label;
 			this.credit = properties.credit;
 		}
@@ -147,8 +147,8 @@
 				this.handle.style.left = this.options.startingPosition;
 
 
-				setBackgroundImage(this.leftImage, this.imgBefore.imgSrc);
-				setBackgroundImage(this.rightImage, this.imgAfter.imgSrc);
+				setBackgroundImage(this.leftImage, this.imgBefore.src);
+				setBackgroundImage(this.rightImage, this.imgAfter.src);
 
 				if (this.options.showLabels) {
 					this.displayLabels();
@@ -165,9 +165,9 @@
 					self.updateSlider(d, false);
 					dragging = true;
 
-					this.addEventListener("mousemove", function(e) {
+					this.addEventListener("mousemove", function(event) {
 						if (dragging) {
-							self.updateSlider(e, true);
+							self.updateSlider(event, true);
 						}
 					});
 
