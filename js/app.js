@@ -37,22 +37,22 @@
 			this.wrapper = document.getElementById(id);
 
 			if (this.wrapper.classList) {
-				this.wrapper.classList.add("slider_wrapper");
+				this.wrapper.classList.add("klba-wrapper");
 			} else {
-				this.wrapper.className += ' ' + "slider_wrapper";
+				this.wrapper.className += ' ' + "klba-wrapper";
 			}
 
 			this.slider = document.createElement("div");
-			this.slider.className = 'slider';
+			this.slider.className = 'klba-slider';
 			this.wrapper.appendChild(this.slider);
 
 			this.handle = document.createElement("div");
-			this.handle.className = 'handle';
+			this.handle.className = 'klba-handle';
 
 			this.rightImage = document.createElement("div");
-			this.rightImage.className = 'image right';
+			this.rightImage.className = 'klba-image right';
 			this.leftImage = document.createElement("div");
-			this.leftImage.className = 'image left'
+			this.leftImage.className = 'klba-image left'
 
 			this.slider.appendChild(this.handle);
 			this.slider.appendChild(this.leftImage);
@@ -63,10 +63,10 @@
 			control = document.createElement("div");
 			controller = document.createElement("div");
 
-			leftArrow.className = 'arrow left';
-			rightArrow.className = 'arrow right';
-			control.className = 'control';
-			controller.className = 'controller';
+			leftArrow.className = 'klba-arrow left';
+			rightArrow.className = 'klba-arrow right';
+			control.className = 'klba-control';
+			controller.className = 'klba-controller';
 
 			this.handle.appendChild(leftArrow);
 			this.handle.appendChild(control);
@@ -117,10 +117,10 @@
 
 			displayLabels: function() {
 				leftDate = document.createElement("div");
-				leftDate.className = 'label';
+				leftDate.className = 'klba-label';
 				leftDate.textContent = this.imgBefore.label;
 				rightDate = document.createElement("div");
-				rightDate.className = 'label';
+				rightDate.className = 'klba-label';
 				rightDate.textContent = this.imgAfter.label;
 
 				this.leftImage.appendChild(leftDate);
@@ -129,7 +129,7 @@
 
 			displayCredits: function() {
 				credit = document.createElement("div");
-				credit.className = "credit";
+				credit.className = "klba-credit";
 
 				text = 	"<em>Before </em>" + this.imgBefore.credit + 
 						" <em>After </em>" + this.imgAfter.credit;

@@ -11,12 +11,12 @@ The `imageSlider` class takes three arguments. First, is the string of the ID of
     slider = new imageSlider('slider', 
         [
             {
-                imgSrc: 'First Image URL Here',
+                imgSrc: 'http://firstimage.jpg',
                 label: '2009',
                 credit: 'Image Credit'
             },
             {
-                imgSrc: 'Second Image URL Here',
+                imgSrc: 'http://secondimage.jpg',
                 label: '2014',
                 credit: "Image Credit"
             }

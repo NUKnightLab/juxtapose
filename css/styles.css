@@ -1,15 +1,15 @@
-div#wrapper {
+div.klba-wrapper {
 	width: 600px;
 }
 
-div.slider {
+div.klba-slider {
 	height: 400px;
 	position: relative;
 	overflow: hidden;
 	cursor: pointer;	
 }
 
-div.handle {
+div.klba-handle {
 	position: absolute;
 	height: 100%;
 	width: 40px;
@@ -18,7 +18,7 @@ div.handle {
 	margin-left: -20px;
 }
 
-div.control {
+div.klba-control {
 	height: 100%;
 	margin-right: auto;
 	margin-left: auto;
@@ -26,7 +26,7 @@ div.control {
 	background-color: white;
 }
 
-div.controller {
+div.klba-controller {
 	position: absolute;
 	margin: auto;
 	top: 0;
@@ -37,7 +37,7 @@ div.controller {
 	background-color: white;
 }
 
-div.arrow {
+div.klba-arrow {
 	position: absolute;
 	margin: auto;
 	top: 0;
@@ -46,14 +46,14 @@ div.arrow {
 	height: 0;
 }
 
-div.arrow.left {
+div.klba-arrow.left {
 	left: 0px;
 	border-style: solid;
 	border-width: 8px 8px 8px 0;
 	border-color: transparent white transparent transparent;
 }
 
-div.arrow.right {
+div.klba-arrow.right {
 	right: 0px;
 	border-style: solid;
 	border-width: 8px 0px 8px 8px;
@@ -61,7 +61,7 @@ div.arrow.right {
 }
 
 
-div.image {
+div.klba-image {
 	height: 100%;
 	display: inline-block;
 	top: 0;
@@ -69,17 +69,17 @@ div.image {
 	background-size: cover;
 }
 
-div.image.left {
+div.klba-image.left {
 	left: 0;
 	background-position: left;
 }
 
-div.image.right {
+div.klba-image.right {
 	right: 0;
 	background-position: right;
 }
 
-div.image div.label {
+div.klba-image div.klba-label {
 	padding-left: 1em;
 	padding-right: 1em;
 	padding-top: .5em;
@@ -92,19 +92,19 @@ div.image div.label {
 	z-index: 0;
 }
 
-div.left div.label {
+div.klba-image.left div.klba-label {
 	left: 0;
 }
 
-div.right div.label {
+div.klba-image.right div.label {
 	float: right;
 	right: 0;
 }
 
-div.credit {
+div.klba-credit {
 }
 
-div.credit em {
+div.klba-credit em {
 	font-weight: bold;
 	font-style: normal;
 }
@@ -113,11 +113,11 @@ div.credit em {
 /* Animation
  */
 
-div.image.transition {
+div.klba-image.transition {
 	transition: width .5s ease;
 }
 
-div.handle.transition {
+div.klba-handle.transition {
 	transition: left .5s ease;
 }
 
