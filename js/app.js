@@ -181,6 +181,22 @@
 
 				});
 
+				this.slider.addEventListener("touchstart", function(d) {
+					console.log("touchstart");
+					d.preventDefault();
+					self.updateSlider(d, false)
+					dragging = true;
+
+					this.addEventListener("touchmove", function(event) {
+						if (dragging) {
+							self.updateSlider(event, true);
+						}
+					});
+
+
+
+				});
+
 			}
 		}
 
