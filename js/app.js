@@ -1,5 +1,13 @@
 (function (document, window) {
 
+	TOUCHES = [];
+
+	function detectDrag(e) {
+		TOUCHES = (e.changedTouches);
+		console.log(TOUCHES);
+		return true;
+	}
+
 	var imageSlider = function(id, images, options) {
 	
 		function setBackgroundImage(element, url) {
@@ -182,20 +190,18 @@
 				});
 
 				this.slider.addEventListener("touchstart", function(d) {
-					console.log("touchstart");
 					d.preventDefault();
 					self.updateSlider(d, false)
 					dragging = true;
 
 					this.addEventListener("touchmove", function(event) {
+						swipe = detectDrag(event);
 						if (dragging) {
 							self.updateSlider(event, true);
 						}
 					});
-
-
-
 				});
+
 
 			}
 		}
