@@ -1,12 +1,12 @@
 (function (document, window) {
 
-	TOUCHES = [];
+	// TOUCHES = [];
 
-	function detectDrag(e) {
-		TOUCHES = (e.changedTouches);
-		console.log(TOUCHES);
-		return true;
-	}
+	// function detectDrag(e) {
+	// 	TOUCHES = (e.changedTouches);
+	// 	console.log(TOUCHES);
+	// 	return true;
+	// }
 
 	function Graphic(properties) {
 		this.image = new Image();
@@ -19,11 +19,11 @@
 		var dimensions = {
 			width: this.image.naturalWidth,
 			height: this.image.naturalHeight,
-			aspect: function() { return (this.width / this.height) }
-		}
+			aspect: function() { return (this.width / this.height); }
+		};
 		console.log(dimensions);
 		return dimensions;
-	}
+	};
 
 	var imageSlider = function(id, images, options) {
 
@@ -35,6 +35,16 @@
 		function ImageSlider(id, images, options) {
 
 			var i;
+			this.options = {
+				animate: true,
+				showLabels: true,
+				showCredits: true,
+				startingPosition: "50%"
+			};
+
+			for (i in options) {
+				this.options[i] = options[i];
+			}
 
 			if (images.length == 2) {
 				this.imgBefore = new Graphic(images[0]);
@@ -50,13 +60,12 @@
 			this.imgBefore.image.onload = function() {
 				load1 = true;
 				this._onLoaded();
-			}
+			};
 
 			this.imgAfter.image.onload = function() {
 				load2 = true;
 				this._onLoaded();
-			}
-
+			};
 
 			ImageSlider.prototype = {
 
@@ -66,7 +75,7 @@
 					var offset = {
 					  top: sliderRect.top + document.body.scrollTop,
 					  left: sliderRect.left + document.body.scrollLeft
-					}
+					};
 
 					var width = this.slider.offsetWidth;
 
@@ -117,18 +126,17 @@
 					this.wrapper.appendChild(credit);
 				},
 
+				checkImages: function() {
+					if (this.imgBefore.getImageDimensions().aspect() == 
+						this.imgAfter.getImageDimensions().aspect()) {
+						return true;
+					} else {
+						return false;
+					}
+				},
+
 				_onLoaded: function() {
 					if (load1 && load2) {
-						this.options = {
-							animate: true,
-							showLabels: true,
-							showCredits: true,
-							startingPosition: "50%"
-						};
-
-						for (i in options) {
-							this.options[i] = options[i];
-						}
 
 						this.wrapper = document.getElementById(id);
 
@@ -177,7 +185,7 @@
 
 				_init: function() {
 
-					if (this._checkImages() == false) {
+					if (this.checkImages() === false) {
 						throw new Error("The two images need to have the same dimensions.");
 					}
 
@@ -219,7 +227,6 @@
 						this.addEventListener('mouseleave', function() {
 							dragging = false;
 						});
-
 					});
 
 					this.slider.addEventListener("touchstart", function(d) {
@@ -234,21 +241,11 @@
 							}
 						});
 					});
-				},
-
-				_checkImages: function() {
-					if (this.imgBefore.getImageDimensions().aspect() == 
-						this.imgAfter.getImageDimensions().aspect()) {
-						return true;
-					} else {
-						return false;
-					}
 				}
 			}
-
-		return new ImageSlider(id, images, options);
-	};
-	
+			return new ImageSlider(id, images, options);
+		};
+		
 	window.imageSlider = imageSlider;
 
 }(document, window));
