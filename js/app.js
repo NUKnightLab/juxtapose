@@ -56,15 +56,18 @@
 			//Image Loading
 			var load1 = false;
 			var load2 = false;
+			
+			var self = this;
 
 			this.imgBefore.image.onload = function() {
+				console.log(self);
 				load1 = true;
-				this._onLoaded();
+				self._onLoaded();
 			};
 
 			this.imgAfter.image.onload = function() {
 				load2 = true;
-				this._onLoaded();
+				self._onLoaded();
 			};
 
 			ImageSlider.prototype = {
@@ -136,8 +139,11 @@
 				},
 
 				_onLoaded: function() {
-					if (load1 && load2) {
+					
+					//If both images have loaded
+					if (load1 & load2) {
 
+						//Create the HTML structure for the slider
 						this.wrapper = document.getElementById(id);
 
 						if (this.wrapper.classList) {
@@ -179,17 +185,18 @@
 
 						this.dragging = false;
 
-						this._init(this);
+						//Add Interactivity
+						this._init();
 					}
 				},
 
 				_init: function() {
 
-					if (this.checkImages() === false) {
+					if (this.checkImages() == false) {
 						throw new Error("The two images need to have the same dimensions.");
 					}
 
-					rightStart = 100 - parseInt(this.options.startingPosition) + "%";
+					var rightStart = 100 - parseInt(this.options.startingPosition) + "%";
 
 					this.leftImage.style.width = this.options.startingPosition;
 					this.rightImage.style.width = rightStart;
@@ -209,6 +216,7 @@
 
 
 					var self = this;
+
 					this.slider.addEventListener("mousedown", function(d) {
 						d.preventDefault();
 						self.updateSlider(d, false);
@@ -243,8 +251,11 @@
 					});
 				}
 			}
-			return new ImageSlider(id, images, options);
-		};
+
+		}
+
+		return new ImageSlider(id, images, options);
+	};
 		
 	window.imageSlider = imageSlider;
 
