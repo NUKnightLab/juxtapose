@@ -137,24 +137,24 @@
 				}
 			},
 
-			setSliderDimensions: function() {
+			setWrapperDimensions: function() {
 
 				ratio = this.imgBefore.getImageDimensions().aspect();
 
-				width = (parseInt(getComputedStyle(this.slider)['width']));
-				height = (parseInt(getComputedStyle(this.slider)['height']));
+				width = (parseInt(getComputedStyle(this.wrapper)['width']));
+				height = (parseInt(getComputedStyle(this.wrapper)['height']));
 
 				if (width) {
 					height = width * (1 / ratio);
-					this.slider.style.height = height + "px";
+					this.wrapper.style.height = height + "px";
 				} else if (height) {
 					width = height * ratio;
-					this.slider.style.width = width + "px";
+					this.wrapper.style.width = width + "px";
 				} else {
-					w = 600;
-					h = width * (1 / ratio);
-					this.slider.style.width = maxwidth + "px";
-					this.slider.style.height = maxheight + "px";
+					// w = 600;
+					// h = width * (1 / ratio);
+					// this.slider.style.width = maxwidth + "px";
+					// this.slider.style.height = maxheight + "px";
 				}
 			},
 
@@ -169,12 +169,17 @@
 						this.wrapper.className += ' ' + "klba-wrapper";
 					}
 
+					self = this;
+					self.setWrapperDimensions();
+					window.onresize = function(event) {
+						self.setWrapperDimensions()
+					};
+
 
 					this.slider = document.createElement("div");
 					this.slider.className = 'klba-slider';
 					this.wrapper.appendChild(this.slider);
 
-					this.setSliderDimensions()
 
 					this.handle = document.createElement("div");
 					this.handle.className = 'klba-handle';
