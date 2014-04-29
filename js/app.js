@@ -43,7 +43,7 @@
 				this.imgBefore = new Graphic(images[0]);
 				this.imgAfter = new Graphic(images[1]);
 			} else {
-				throw new Error("The images paramater takes two Image objects.");
+				console.warn("The images paramater takes two Image objects.");
 			}
 
 			if (!this.imgBefore.label || !this.imgAfter.label) {
@@ -137,6 +137,27 @@
 				}
 			},
 
+			setSliderDimensions: function() {
+
+				ratio = this.imgBefore.getImageDimensions().aspect();
+
+				width = (parseInt(getComputedStyle(this.slider)['width']));
+				height = (parseInt(getComputedStyle(this.slider)['height']));
+
+				if (width) {
+					height = width * (1 / ratio);
+					this.slider.style.height = height + "px";
+				} else if (height) {
+					width = height * ratio;
+					this.slider.style.width = width + "px";
+				} else {
+					w = 600;
+					h = width * (1 / ratio);
+					this.slider.style.width = maxwidth + "px";
+					this.slider.style.height = maxheight + "px";
+				}
+			},
+
 			_onLoaded: function() {
 				if (this.load1 && this.load2) {
 					//Create the HTML structure for the slider
@@ -148,9 +169,12 @@
 						this.wrapper.className += ' ' + "klba-wrapper";
 					}
 
+
 					this.slider = document.createElement("div");
 					this.slider.className = 'klba-slider';
 					this.wrapper.appendChild(this.slider);
+
+					this.setSliderDimensions()
 
 					this.handle = document.createElement("div");
 					this.handle.className = 'klba-handle';
@@ -189,7 +213,7 @@
 			_init: function() {
 
 				if (this.checkImages() == false) {
-					throw new Error("The two images need to have the same dimensions.");
+					console.warn("You should check to make sure that the two images have the same aspect ratio for the slider to work correctly.");
 				}
 
 				var rightStart = 100 - parseInt(this.options.startingPosition) + "%";

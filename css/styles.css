@@ -1,6 +1,5 @@
+
 div#klba-wrapper {
-	width: 600px;
-	height: 400px;
 }
 
 img.klba-image {
@@ -8,7 +7,7 @@ img.klba-image {
 }
 
 div.klba-slider {
-	height: 400px;
+	/*width: 400px;*/
 	position: relative;
 	overflow: hidden;
 	cursor: pointer;	
