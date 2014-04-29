@@ -236,13 +236,9 @@
 				this.slider.addEventListener("touchstart", function(d) {
 					d.preventDefault();
 					self.updateSlider(d, false)
-					//dragging = true;
 
 					this.addEventListener("touchmove", function(event) {
-						//swipe = detectDrag(event);
-						//if (dragging) {
-							self.updateSlider(event, true);
-						//}
+						self.updateSlider(event, true);
 					});
 				});
 			}
@@ -251,7 +247,7 @@
 	};
 		
 	window.imageSlider = imageSlider;
-	
+
 	var wrapper = document.getElementById('klba-wrapper');
 	var images = wrapper.querySelectorAll('img');
 		
