@@ -251,6 +251,32 @@
 	};
 		
 	window.imageSlider = imageSlider;
+	
+	var wrapper = document.getElementById('klba-wrapper');
+	var images = wrapper.querySelectorAll('img');
+		
+	var options = {
+		animate: wrapper.getAttribute('data-animate'),
+		showLabels: wrapper.getAttribute('data-showlabels'),
+		showCredits: wrapper.getAttribute('data-showcredits'),
+		startingPosition: wrapper.getAttribute('data-startingposition')
+	};
+
+	wrapper.innerHTML = '';
+
+	slider = new imageSlider('klba-wrapper', 
+		[
+			{
+				src: images[0].src,
+				label: images[0].alt,
+				credit: images[0].getAttribute('data-credit')
+			},
+			{
+				src: images[1].src,
+				label: images[1].alt,
+				credit: images[1].getAttribute('data-credit')
+			}
+		], options);
 
 }(document, window));
 
