@@ -1,5 +1,10 @@
-div.klba-wrapper {
+div#klba-wrapper {
 	width: 600px;
+	height: 400px;
+}
+
+img.klba-image {
+	width: 100%;
 }
 
 div.klba-slider {

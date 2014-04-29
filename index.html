@@ -2,34 +2,64 @@
 <head>
 	<title>Before/After Image Slider</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="js/app.js"></script>
+	<!--<script src="js/app.js"></script>-->
 	<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-	<div id="wrapper">
+	<div id="klba-wrapper">
+		<img class="klba-image left" src="http://online.wsj.com/media/LIONDOORA.jpg" alt="2009"></img>
+		<img class="klba-image right" src="http://online.wsj.com/media/LIONDOOR_2A.jpg" alt="2014"></img>
 	</div>
+
 	<script>
-		img = new Image();
-		slider = new imageSlider('wrapper', 
-			[	
+		// slider = new imageSlider('klba-wrapper', 
+		// 	[	
+		// 		{
+		// 			// src: 'http://placehold.it/200x300',
+		// 			src: 'http://online.wsj.com/media/LIONDOORA.jpg',
+		// 			label: '2009',
+		// 			credit: 'Left: Sergei Supinsky/AFP/Getty Images'
+		// 		},
+		// 		{
+		// 			src: 'http://online.wsj.com/media/LIONDOOR_2A.jpg',
+		// 			label: '2014',
+		// 			credit: "Right: Vincent Mundy/Bloomberg News"
+		// 		}
+		// 	], 
+		// 	{
+		// 		animate: true,`
+		// 		showLabels: true,
+		// 		showCredits: true,
+		// 		startingPosition: "50%"
+		// 	});
+
+	var wrapper = document.querySelectorAll('#klba-wrapper');
+	for (var i = wrapper.length - 1; i >= 0; i--) {
+		var images = wrapper[i].querySelectorAll('img');
+		
+		var options = {
+			animate: wrapper[i].getAttribute('data-animate'),
+			showLabels: wrapper[i].getAttribute('data-showlabels'),
+			showCredits: wrapper[i].getAttribute('data-showcredits'),
+			startingPosition: wrapper[i].getAttribute('data-startingposition')
+		};
+
+		wrapper[i].innerHTML = '';
+
+		slider = new imageSlider('klba-wrapper', 
+			[
 				{
-					src: 'http://placehold.it/200x300',
-					// src: 'http://online.wsj.com/media/LIONDOORA.jpg',
-					label: '2009',
-					credit: 'Left: Sergei Supinsky/AFP/Getty Images'
+					src: images[0].src,
+					label: images[0].alt,
+					credit: images[0].getAttribute('data-credit')
 				},
 				{
-					src: 'http://online.wsj.com/media/LIONDOOR_2A.jpg',
-					label: '2014',
-					credit: "Right: Vincent Mundy/Bloomberg News"
+					src: images[1].src,
+					label: images[1].alt,
+					credit: images[1].getAttribute('data-credit')
 				}
-			], 
-			{
-				animate: true,
-				showLabels: true,
-				showCredits: true,
-				startingPosition: "50%"
-			});
+			], options);
+		};
 
 	</script>
 </body>

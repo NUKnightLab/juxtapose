@@ -1,13 +1,5 @@
 (function (document, window) {
 
-	// TOUCHES = [];
-
-	// function detectDrag(e) {
-	// 	TOUCHES = (e.changedTouches);
-	// 	console.log(TOUCHES);
-	// 	return true;
-	// }
-
 	function Graphic(properties) {
 		this.image = new Image();
 		this.image.src = properties.src;
@@ -26,7 +18,7 @@
 
 	var imageSlider = function(id, images, options) {
 
-		function setBackgroundImage(element, url) {
+		function setImage(element, url) {
 			var property = "url(" + url + ")";
 			element.style.backgroundImage = property;
 		}
@@ -42,7 +34,9 @@
 			};
 
 			for (i in options) {
-				this.options[i] = options[i];
+				if(options[i]) {
+					this.options[i] = options[i];
+				}
 			}
 
 			if (images.length == 2) {
@@ -52,6 +46,13 @@
 				throw new Error("The images paramater takes two Image objects.");
 			}
 
+			if (!this.imgBefore.label || !this.imgAfter.label) {
+				this.options.showLabels = false;
+			}
+			if (!this.imgBefore.credit || !this.imgAfter.credit) {
+				this.options.showCredits = false;
+			}
+
   			this.load1 = false;
   			this.load2 = false;
   			
@@ -59,13 +60,11 @@
   			this.imgBefore.image.onload = function() {
   				self.load1 = true;
   				self._onLoaded();
-    			//render = true;
  			}
   
   			this.imgAfter.image.onload = function() {
   				self.load2 = true;
   				self._onLoaded();
-    			//render = true;
 			}
 
 		}		
@@ -182,7 +181,6 @@
 
 					this.dragging = false;
 
-					console.log(this);
 					//Add Interactivity
 					this._init(this);
 				}
@@ -201,8 +199,8 @@
 				this.handle.style.left = this.options.startingPosition;
 
 
-				setBackgroundImage(this.leftImage, this.imgBefore.image.src);
-				setBackgroundImage(this.rightImage, this.imgAfter.image.src);
+				setImage(this.leftImage, this.imgBefore.image.src);
+				setImage(this.rightImage, this.imgAfter.image.src);
 
 				if (this.options.showLabels) {
 					this.displayLabels();
@@ -238,13 +236,13 @@
 				this.slider.addEventListener("touchstart", function(d) {
 					d.preventDefault();
 					self.updateSlider(d, false)
-					dragging = true;
+					//dragging = true;
 
 					this.addEventListener("touchmove", function(event) {
-						swipe = detectDrag(event);
-						if (dragging) {
+						//swipe = detectDrag(event);
+						//if (dragging) {
 							self.updateSlider(event, true);
-						}
+						//}
 					});
 				});
 			}
@@ -255,3 +253,6 @@
 	window.imageSlider = imageSlider;
 
 }(document, window));
+
+
+
