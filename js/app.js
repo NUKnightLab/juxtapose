@@ -293,12 +293,12 @@
 		[
 			{
 				src: images[0].src,
-				label: images[0].alt,
+				label: images[0].getAttribute('data-label'),
 				credit: images[0].getAttribute('data-credit')
 			},
 			{
 				src: images[1].src,
-				label: images[1].alt,
+				label: images[1].getAttribute('data-label'),
 				credit: images[1].getAttribute('data-credit')
 			}
 		], options);
