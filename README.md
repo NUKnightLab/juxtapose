@@ -8,7 +8,7 @@ This is a simple open source tool for creating before/after image sliders. Just 
 ####HTML Implementation
 The easist way to implement the image slider is to add this code to your markup:
 
-    <div class="klba-wrapper">
+    <div id="klba-wrapper">
         <img src="http://firstimage.jpg" />
         <img src="http://secondimage.jpg" />
     </div>
