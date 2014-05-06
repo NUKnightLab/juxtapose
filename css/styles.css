@@ -1,6 +1,7 @@
 
 div#klba-wrapper {
 	max-width: 600px;
+	clear: both;
 }
 
 img.klba-image {
@@ -99,6 +100,7 @@ div.klba-image div.klba-label {
 }
 
 div.klba-image.left div.klba-label {
+	float: left;
 	left: 0;
 }
 
