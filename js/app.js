@@ -87,7 +87,7 @@
 				var rightPercent = 100 - ((relativeX / width) * 100) + "%";
 				
 				var a = (relativeX / width);
-				if (a < 1) {
+				if (a > 0 && a < 1) {
 
 					this.handle.classList.remove("transition");
 					this.rightImage.classList.remove("transition");
@@ -170,6 +170,8 @@
 					}
 
 					self = this;
+
+					this.wrapper.style.width = this.imgBefore.image.naturalWidth + "px"
 					self.setWrapperDimensions();
 					window.onresize = function(event) {
 						self.setWrapperDimensions()
@@ -218,15 +220,15 @@
 			_init: function() {
 
 				if (this.checkImages() == false) {
-					console.warn("You should check to make sure that the two images have the same aspect ratio for the slider to work correctly.");
+					console.warn("Check that the two images have the same aspect ratio for the slider to work correctly.");
 				}
 
 				var rightStart = 100 - parseInt(this.options.startingPosition) + "%";
 
+
 				this.leftImage.style.width = this.options.startingPosition;
 				this.rightImage.style.width = rightStart;
 				this.handle.style.left = this.options.startingPosition;
-
 
 				setImage(this.leftImage, this.imgBefore.image.src);
 				setImage(this.rightImage, this.imgAfter.image.src);
