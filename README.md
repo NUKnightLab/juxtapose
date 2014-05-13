@@ -12,7 +12,7 @@ The easist way to implement the image slider is to add this code to your markup:
         <img src="http://firstimage.jpg" />
         <img src="http://secondimage.jpg" />
     </div>
-    <script src="js/app.js"></script>
+    <script src="path/to/slider.js"></script>
 
 Each image can also take some additional attributes.
 
