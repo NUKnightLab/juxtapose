@@ -1,0 +1,84 @@
+<section class="container" id="create-new">
+  <div class="row-fluid">
+    <div class="span12">
+      <h2>Create SoundCite clips</h2>
+      <p>On your site or blog in no time. As easy as 1-2-3</p>
+    </div>
+  </div>
+  <div class="row-fluid step">
+    <h2 class="span1">1</h2>
+    <div class="span11">
+      <h4>Find a sound on SoundCloud and paste its URL below:</h4>
+      <p>After clicking the "Connect" button, you will see your clip appear in step #2.</p>
+      <input type="search" id="url" class="urlBox" value="https://soundcloud.com/">
+      <img src="{{ STATIC_URL }}/img/btn-connect-l.png" class="connector">
+      <em class="example block">Example: <a id="example">https://soundcloud.com/tame-impala/elephant</a></em>
+    </div>
+  </div> <!-- end row -->
+
+  <div class="row-fluid step">
+    <h2 class="span1">2</h2>
+    <div class="span11">
+      <h4>Use the SoundCloud widget below to set the START and END points for your clip.</h4>
+      <p>You can manually specify the start/end times in the text fields, or you can start playing the SoundCloud clip and click the START/END buttons to copy that time into the fields.</p>
+      <section id="creation_box">
+        <div id="player_container">
+          <iframe id="player" width="100%" height="166" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=true"></iframe>
+        </div>
+        <form id="times" class="form-inline clearfix">
+          <div id="start-group" class="control-group span3 offset1">
+            <label class="control-label" for="start_field">Start time</label>
+            <input type="text" id="start_field" class="input-small start" placeholder="0:00" value="" tabindex="1">
+            <button type="button" id="start_btn" class="btn btn-link">Set from player</button>
+          </div>
+          <div id="end-group" class="control-group span3">
+            <label class="control-label" for="start_field">End time</label>
+                <input type="text" id="end_field" class="input-small end" placeholder="0:05" value="" tabindex="2">
+                <button type="button" id="end_btn" class="btn btn-link">Set from player</button>
+          </div>
+          <div id="text-group" class="control-group span5">
+            <label class="control-label" id="linklabel" for="linktext">Link text</label>
+              <input type="text" class="input-medium span4" id="linktext" placeholder="text to be hyperlinked" value="listen"  tabindex="3">
+            <button type="button" id="create_clip" class="btn btn-primary pull-right" tabindex="4">Create clip</button>
+          </div>
+        </form>
+        <h3>Created clips</h3>
+        <em id="audition_area_status">None</em>
+        <div id="audition_area">
+        </div>
+      </section>
+    </div>
+  </div> <!-- end row -->
+  <div class="row-fluid step">
+    <h2 class="span1">3</h2>
+    <div class="span11">
+     <h4>Embedding</h4>
+      <ol>
+        <li>When you are finished creating clips, take the following embed code and paste it at the top of your page.</li>
+        <textarea id="header" rows="4" readonly="readonly" class="code">&lt;link href='//cdn.knightlab.com/libs/soundcite/latest/css/player.css' rel='stylesheet' type='text/css'&gt;&lt;script type='text/javascript' src='//connect.soundcloud.com/sdk.js'&gt;&lt;/script&gt;&lt;script type='text/javascript' src='//cdn.knightlab.com/libs/soundcite/latest/js/soundcite.min.js'&gt;&lt;/script&gt;
+        </textarea>
+        <li>Then, for each clip, paste its associated embed code where the text would normally go in the page.</li>
+      </ol>
+    </div>
+  </div>
+
+
+</section> <!-- end section -->
+<script id="clip-base-template" type="text/template">
+<span class="soundcite" data-id="<%= id %>" data-start="<%= start %>" data-end="<%= end %>"><%= text %></span>
+</script>
+<script id="clip-preview-template" type="text/template">
+<div class="clip">
+  <button type='button' class='btn btn-text pull-right icon-trash delete-clip'></button>
+  <p>This is your clip <%= clip_html %> shown inline with text.</p>
+  <h6>Embed code</h6>
+  <textarea readonly="readonly" class="code"><%= clip_html %></textarea>
+</div>
+</script>
+
+<script id="create-error-template" type="text/template">
+<div id="create-error" class="alert alert-error clear">
+  <button data-dismiss="alert" class="close" type="button">x</button>
+  <strong>Oops!</strong> Please correct the errors above and try submitting again.
+</div>
+</script>

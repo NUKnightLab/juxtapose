@@ -1,0 +1,87 @@
+<section class="container" id="help">
+  <h2>Help</h2>
+  <p>Have questions? Look below and see if your question is in the frequently asked questions.</p>
+  <div class="accordion" id="accordion2">
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#do-i-need-to-know-code">
+          Do I need to know code to use SoundCite?
+        </a>
+      </div>
+      <div id="do-i-need-to-know-code" class="accordion-body collapse">
+        <div class="accordion-inner">
+          Absolutely not. SoundCite is friction-free. If you can record audio, upload it to <a href="http://soundcloud.com" target="_blank">soundcloud.com</a> you are ready to use SoundCite.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#can-i-use-with-wordpress">
+          Can I use SoundCite with Wordpress?
+        </a>
+      </div>
+      <div id="can-i-use-with-wordpress" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <p>Yes, with some cautions. For some user roles, Wordpress "filters" HTML, stripping out the information that SoundCite needs to function. Specifically, for most Wordpress installs, only users with the <code>administrator</code> and <code>editor</code> roles will be able to enter SoundCite clips. Users with the <code>author</code> or <code>contributor</code> roles will have the SoundCite information stripped out of their posts. This will also happen if an <code>author</code> or <code>contributor</code> edits a post after an <code>administrator</code> or <code>editor</code>  has configured SoundCite. For more, see the <a href="http://codex.wordpress.org/Roles_and_Capabilities#unfiltered_html">Roles and Capabilities</a> page of the Wordpress Codex.</p>
+          <p>
+            You can install the <a href="http://wordpress.org/plugins/user-role-editor/">User Role Editor</a> plugin to grant the "unfiltered_html" capability to the "author" and "contributor" roles. There are risks involved in allowing less trusted users to author unfiltered HTML, so consider your own situation before choosing this solution.
+          </p>
+          <p>
+            Details may be slightly different for Wordpress multiuser sites.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#customize-appearance">
+          Can I customize what SoundCite looks like?
+        </a>
+      </div>
+      <div id="customize-appearance" class="accordion-body collapse">
+        <div class="accordion-inner">
+          SoundCite is designed with a minimalist style meant to work with most websites. If you want to customize the appearance, you can change most of how it looks with CSS rules. Right now it's hard to change the moving progress bar with CSS, which may make it hard to fit other custom styles in. Read more on the <a href="https://github.com/NUKnightLab/soundcite/wiki/Styling-Soundcite">Github Wiki.</a>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#other-audio">
+          Can I use an audio source other than SoundCloud?
+        </a>
+      </div>
+      <div id="other-audio" class="accordion-body collapse">
+        <div class="accordion-inner">
+          We're working on this too. Hopefully we can start expanding the potential sources soon.
+        </div>
+      </div>
+    </div>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#soundcite-on-ios">
+          Does SoundCite work on iPhone, iPad, and other iOS devices?
+        </a>
+      </div>
+      <div id="soundcite-on-ios" class="accordion-body collapse">
+        <div class="accordion-inner">
+          No, it does not. SoundCloud's widget system requires Flash. On iOS devices, users will not notice your SoundCite clips, because the sound will never load. However, you should avoid writing text for your clips like "click here," because iOS users will not hear the clip.
+        </div>
+      </div>
+    </div>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#can-i-help-build-soundcite">
+          Can I help build new features for SoundCite?
+        </a>
+      </div>
+      <div id="can-i-help-build-soundcite" class="accordion-body collapse">
+        <div class="accordion-inner">
+          Absolutely. <a href="http://www.github.com/NUKnightLab/soundcite" target="_blank">Fork the project</a> and get involved. <a href="http://twitter.com/euphonos" target="_blank">Send us feedback</a>. Help us make SoundCite the tool you need and want it to be.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

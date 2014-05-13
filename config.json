@@ -1,0 +1,105 @@
+//
+// soundcite configuration 
+// 
+// All file/directory paths are relative to the project directory.
+//
+// Regular expressions must be specified in python regular expression format,
+// but backslashes must be escaped for JSON.  When used to match files, 
+// matching will take place against the the file/directory path relative to 
+// the project directory.
+//
+{
+    "name": "soundcite",
+    "author": "Tyler J. Fisher and Northwestern University Knight Lab",
+    //
+    // build
+    // These commands will be run the exact order in which they appear.
+    //
+    "build": {
+        //
+        // copy files
+        // input: list of objects specifying inputs and outputs
+        //      @src: source file/directory
+        //      @dst: destination file/directory
+        //      @regex: regular expression to match files (if @src is directory)
+        //
+        "copy": [
+            {   
+                "src": "soundcite",
+                "dst": "build"
+            }
+        ],
+        //
+        // compile less files
+        // input: list of objects specifying inputs and output
+        //      @src: source file/directory
+        //      @dst: destination file/directory
+        //      @regex: regular expression to match files (if @src is directory)
+        //
+        "lessc": [ ],
+        // 
+        // process codekit style imports on files
+        // input: list of objects specifying inputs and output
+        //      @src:    source file
+        //      @dst:    destination file
+        //
+        "process": [ ],
+        //
+        // concatenate files
+        // input: list of objects specifying inputs and output
+        //      @src:    list of source files
+        //      @dst:    destination file
+        //
+        "concat": [ ],
+        //
+        // minify files using uglifyjs
+        // input list of objects specifying inputs and output
+        //      @src:   source file/directory
+        //      @dst:   destination file/directory 
+        //      @opt:   options to pass to uglifyjs
+        //      @ext:   extension to prepend to destination file name (optional, default = none)
+        //
+        "minify": [
+            {
+                "src": "build/js/soundcite.js",
+                "dst": "build/js/soundcite.min.js"
+            }
+         ],
+        //
+        // process usermin style build blocks on html files
+        // input: list of files/directorys to process in-place
+        //
+        "usemin": [ ],
+        //
+        // banner-ize files
+        // input: list of file/directory paths
+        //
+        "banner": [ 
+            {
+                "src": "build",
+                "regex": "(js|css)/.*\\.(js|css)$"
+            }
+        ]
+    },
+    //
+    // stage
+    // copy files a versioned directory in local cdn repository
+    // input: list of objects specifying inputs and outputs
+    //      @src: source file/directory
+    //      @regex: regular expression to match files (if @src is directory)
+    "stage": [
+        {
+            "src": "build",
+            "regex": "(css|js)/.*"
+        }
+    ],
+    //
+    // deploy the website to S3 
+    // - render website/templates >> build/website
+    // - copy website/static >> build/website/static
+    // - run usemin on all html in build/website
+    // - sync build/website with bucket
+    "deploy": {
+        "prd": {"bucket": "soundcite.knightlab.com"}
+    }
+}

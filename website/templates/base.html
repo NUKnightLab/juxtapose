@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{% block title %}SoundCiteJS{% endblock %} -- Northwestern University Knight Lab</title>
+  <!-- IE -->
+  <link rel="shortcut icon" type="image/x-icon" href="http://blueline.knightlab.com/assets/logos/favicon.ico" />
+  <!-- other browsers -->
+  <link rel="icon" type="image/x-icon" href="http://blueline.knightlab.com/assets/logos/favicon.ico" />
+  <!-- Optional: Knight Lab webfonts -->
+  <link href="//cloud.webtype.com/css/d4767ecb-457a-4677-8761-72f890add836.css" rel="stylesheet" type="text/css">
+  <!-- Note: You must include the Blueline CDN stylesheet -->
+  <link rel="stylesheet" href="//cdn.knightlab.com/libs/blueline/latest/css/blueline.min.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}/css/style.css">
+  <!-- build:css href="//cdn.knightlab.com/libs/soundcite/latest/css/player.css -->
+  <link rel="stylesheet" href="/soundcite/css/player.css">
+  <!-- endbuild -->
+  <script src="//connect.soundcloud.com/sdk.js" type="text/javascript"></script>
+  <!-- build:js http://cdn.knightlab.com/libs/soundcite/latest/js/soundcite.min.js -->
+  <script type="text/javascript" src="/soundcite/js/soundcite.js"></script>
+  <!-- endbuild -->
+  <!--[if lt IE 9]>
+  <script src="{{ STATIC_URL }}/js/html5shiv.js"></script>
+  <![endif]-->
+
+  {# Google Analytics: don't mess with this stuff #}
+  {# named tracker notes from https://developers.google.com/analytics/devguides/collection/gajs/ #}
+  {# multi-domain tracking notes from https://developers.google.com/analytics/devguides/collection/gajs/gaTrackingSite #}
+  <script>
+  var _gaq = _gaq || [];
+  _gaq.push(
+            function() {
+                var pageTracker = _gat._createTracker('UA-27829802-1', 'knightlabTracker');
+             },
+            ['knightlabTracker._setDomainName', 'knightlab.com'] // DON'T CHANGE THIS FOR SUBDOMAINS
+            ['knightlabTracker._setAllowLinker', true],
+            ['knightlabTracker._trackPageview']
+  );
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+  {# End Google Analytics #}
+  {% block extrahead %}{% endblock %}
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="100">
+
+  <!-- BEGIN HEADER -->
+
+  <div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="/">SoundCite</a>
+        <div class="nav-collapse navbar-responsive-collapse collapse" style="height: 0px;">
+          <ul class="nav">
+            <li><a href="/#content" data-scroll="true">How it works</a></li>
+            <li><a href="/#examples" data-scroll="true">Examples</a></li>
+            <li><a href="/#create-new"  data-scroll="true">Create</a></li>
+            <li><a href="/#help" data-scroll="true">Help</a></li>
+            <li><a href="/#about" data-scroll="true">About</a></li>
+          </ul>
+          <ul class="nav pull-right">
+            <li class="knightlab-tab">
+              <a data-toggle="preheader" href="http://knightlab.northwestern.edu" title="Northwesten University Knight Lab">
+                <span>Northwestern University Knight Lab</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END HEADER -->
+
+  {% block content %}
+  {% endblock %}
+  <!-- END CONTENT-->
+
+  <!-- BEGIN FOOTER -->
+  <footer>
+    <div class="clearfix" id="footer">
+      <div id="footer-wrapper" class="row-fluid">
+        <div class="span4">
+          <address itemtype="http://data-vocabulary.org/Organization" itemscope="">
+            <span title="Knight Lab | Advancing news media innovation through exploration and experimentation." class="address-name" itemprop="name">Knight Lab</span>
+            <span itemtype="http://data-vocabulary.org/Address" itemscope="" class="address" itemprop="address">
+              <span class="street-address" itemprop="street-address">1845 Sheridan Road<br>Fisk #109 &amp; #111</span>,
+              <div class="address-group">
+                <span itemprop="locality">Evanston, </span><br>
+                <span itemprop="region">IL</span>. <span itemprop="postal-code">60208</span>
+                <a class="map" target="_blank" href="https://maps.google.com/maps?q=1845+Sheridan+Road+Evanston+IL+6020&amp;hl=en&amp;ll=42.050942,-87.673511&amp;spn=0.003059,0.004898&amp;sll=42.050647,-87.674246&amp;sspn=0.012237,0.019591&amp;gl=us&amp;hnear=1845+Sheridan+Rd,+Evanston,+Cook,+Illinois+60201&amp;t=m&amp;z=18&amp;iwloc=A"><i>+</i> <span>map</span></a>
+                <span class="address-country" itemprop="country-name">United States</span>
+              </div>
+            </span>
+            <span itemtype="http://www.data-vocabulary.org/Geo/" itemscope="" class="geo" itemprop="geo">
+                Latitude: <span itemprop="latitude">42.056893</span>
+                Longitude: <span itemprop="longitude">-87.676735</span>
+            </span>
+            <span class="tel" itemprop="tel">(847) 467-4971</span>
+            <a itemprop="url" href="http://knightlab.northwestern.edu" class="url">Northwesten University Knight Lab | Advancing media innovation through exploration and experimentation.</a>
+          </address>
+          <ul class="social">
+            <li><a target="_blank" title="follow @knightlab on twitter" href="http://www.twitter.com/knightlab"><i class="icon-twitter-sign icon-large"></i></a></li>
+            <li><a target="_blank" title="Knight Lab on Facebook" href="https://www.facebook.com/knightlab"><i class="icon-facebook-sign icon-large"></i></a></li>
+            <li><a title="email Knight Lab" href="mailto:Knightlab@northwestern.edu"><i class="icon-sign-blank icon-large iconemail"></i></a></li>
+            <li><a target="_blank" title="Knight Lab on github" href="https://github.com/NUKnightLab/"><i class="icon-github-sign icon-large"></i></a></li>
+            <li><a target="_blank" title="Knight Lab on Tumblr" href="http://knightlab.tumblr.com/"><i class="icon-sign-blank icon-large icontumblr"></i></a></li>
+          </ul>
+        </div>
+        <div class="span8">
+         <ul class="logos clearfix">
+           <li><a title="John S. and James L. Knight Foundation" href="http://www.knightfoundation.org/" class="knightfoundation"><span>John S. and James L. Knight Foundation</span></a></li>
+            <li><a title="National Science Foundation" href="http://www.nsf.gov/" class="nsf"><span>National Science Foundation</span></a></li>
+            <li><a title="Robert R. McCormick Foundation" href="http://www.mccormickfoundation.org/" class="mccormickfound"><span>Robert R. McCormick Foundation</span></a></li>
+            <li><a title="Northwestern University" href="http://www.northwestern.edu/" class="northwestern"><span>Northwestern University</span></a></li>
+            <li><a title="McCormick School of Engineering | Northwestern University" href="http://www.mccormick.northwestern.edu/" class="mccormick"><span>McCormick School of Engineering | Northwestern University</span></a></li>
+            <li><a title="Medill School of Journalism | Northwestern University" href="http://www.medill.northwestern.edu" class="medill"><span>Medill School of Journalism | Northwestern University</span></a></li>
+          </ul>
+          <div class="notes">
+            <p><a target="_blank" href="http://www.northwestern.edu/" title="Northwestern University">Northwestern University</a> Knight Lab is a joint initiative of the <a href="http://www.mccormick.northwestern.edu/">Robert R. McCormick School of Engineering and Applied Science</a> and the<a href="http://www.medill.northwestern.edu/"> Medill School of Journalism, Media, Integrated Marketing Communications</a>.</p>
+            <p>The Lab was launched and is sustained by a grant from the<a href="http://www.knightfoundation.org/"> John S. and James L. Knight Foundation</a>, with additional support from the<a href="http://www.mccormickfoundation.org/"> Robert R. McCormick Foundation</a> and the<a href="http://www.nsf.gov/"> National Science Foundation</a>.</p>
+          </div>
+        </div>
+        <div class="copyright">
+          &copy; Copyright 2013 <span title="Knight Lab">Northwestern University</span>
+        </div>
+      </div><!-- end #footer-wrapper -->
+    </div><!-- end #footer -->
+    <div id="footer-outer"></div>
+  </footer>
+  <!-- END FOOTER -->
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+  <script src="//cdn.knightlab.com/libs/blueline/latest/js/blueline.min.js"></script>
+  <script>
+  var shiftWindow = function() { scrollBy(0, -50) };
+  window.addEventListener("hashchange", shiftWindow);
+  $(document).ready(function (){if (window.location.hash) {
+    setTimeout(shiftWindow,100);
+  }});
+  </script>
+  {% block extrascripts %}{% endblock %}
+</body>
+</html>

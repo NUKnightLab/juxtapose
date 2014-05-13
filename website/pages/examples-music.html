@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Soundcite: Example: Music{% endblock %}
+
+{% block content %}
+
+  {% with active="music" %}
+  {% include "_examples_nav.html" %}
+  {% endwith %}
+  <div id="qa" class="row-fluid">
+    <div class="offset2 span8">
+      <h2><a href="http://pitchfork.com/reviews/tracks/13939-elephant/">Tame Impala: "Elephant"</a></h2>
+      <p class="byline">From <em><a href="http://pitchfork.com/">Pitchfork</a></em></p>
+      <p class="lead">Tame Impala have never shied away from the sounds of classic rock radio, but "Elephant" is the first time they've gone deep into its mythology and symbolism. The first official single from their sophomore LP, Lonerism, initially sounds like a pure top-down songwriting exercise- as in, "let's try to sound like the song's badass title." So, <span class="soundcite" data-id="55728529" data-start="1" data-end="4820">thick, one-note guitar riffs</span> shuffle and stomp with a heavy beat, while Kevin Parker manages to rhyme "elephant" with "shakin' its big red trunk for the hell of it". But Tame Impala songs are never content to simply plod at one speed, and the song's strange syncopations and rhythmic shifts become hints that this beast can pirouette and shake, too. Abetted by Parker and Dave Fridmann's delectable retro-futurist production, "Elephant" splits wide open during its midsection for an expansive and lyrical guitar jam that these guys are doing better than just about anyone else right now.</p>
+    </div>
+  </div>
+{% endblock %}

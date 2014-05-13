@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header id="intro" class="hero-unit">
+  <h1 class="logo-mark xl">SoundCite<span><em>JS</em></span></h1>
+  <h2 class="intro">Making inline audio easy and seamless</h2>
+  <p><a href="#create-new" class="btn btn-large btn-success">Make a clip now</a></p>
+</header>
+<!-- BEGIN CONTENT -->
+<section id="content" class="container">
+  <h2>How it Works</h2>
+  <p>Audio is a powerful device that can add emotion or context to a story. Unfortunately audio clips force uncomfortable choices: read or listen, but not both. Until now. SoundCite is a simple-to-use tool that lets you add inline audio to your story. The audio is not isolated; it plays right under the text <span class="soundcite" data-id="55521179" data-start="5992" data-end="6651">you choose</span>.</p>
+  <div id="screencast">
+    <iframe id="screencast" src="http://player.vimeo.com/video/68383495" height="462" width="500" allowfullscreen="true" frameborder="0"></iframe>
+  </div>
+</section>
+<section id="examples" class="container">
+  <h2>Examples</h2>
+  <p>SoundCite clips can be used in a variety of situations. For more in-depth examples, <a href="/examples-music.html">click here</a>.</p>
+  <div class="example row-fluid">
+    <figure class="span2">
+      <a href="examples-music.html"><img alt="Tame Impala" src="{{ STATIC_URL }}/img/sc-music-tameimpala.jpg"></a>
+    </figure>
+    <!-- NOTE: These columns do not add up to 12 because the Bootstrap 'well's' padding isn't taking into account by the responsive grid. -->
+    <article class="span9">
+       <h5>Music</h5>
+       <p>Tame Impala have never shied away from the sounds of classic rock radio, but "Elephant" is the first time they've gone deep into its mythology and symbolism. <!-- The first official single from their sophomore LP, <em>Lonerism</em>, --> ... [It] initially sounds like a pure top-down songwriting exercise- as in, "let's try to sound like the song's badass title." So, <span data-end="4820" data-start="1" data-id="55728529" class="soundcite soundcite-loaded soundcite-play">thick, one-note guitar riffs</span> shuffle and stomp ... <!-- with a heavy beat.--></p>
+    </article>
+  </div>
+  <div class="example row-fluid">
+    <figure class="span2">
+      <a href="examples-spokenword.html"><img alt="Stephanie Hooks" src="{{ STATIC_URL }}/img/sc-spokenword-911delay.jpg"></a>
+    </figure>
+    <article class="span9">
+      <h5>Spoken Word</h5>
+      <p>Stephanie Hooks pleaded for help after collapsing on the floor of her South Los Angeles home: <span data-end="177000" data-start="175796" data-id="61188346" class="soundcite soundcite-loaded soundcite-play">"I can't breathe... .</span> Help me breathe!" the 53-year-old grandmother wailed as frantic family members took turns on the phone with a Los Angeles Fire Department dispatcher...</p>
+    </article>
+  </div>
+  <div class="example row-fluid">
+    <figure class="span2">
+      <a href="examples-naturalsound.html"><img alt="Protest" src="{{ STATIC_URL }}/img/sc-naturalsound-protest.jpg"></a>
+    </figure>
+    <article class="span9">
+      <h5>Natural Sound</h5>
+      <p>Tens of thousands of Egyptians packed into Tahrir Square in central Cairo on Friday ... <span data-end="81701" data-start="72436" data-id="34598716" class="soundcite soundcite-loaded soundcite-play">The crowd was as large</span> as any that has gathered in the square since the protests that forced out President Hosni Mubarak in February 2011. <!-- Even more unusual in the increasingly polarized political climate, Islamists, liberals and leftists all found common ground on at least one front: the demand that the generals, who took power with Mr. Mubarak's ouster, finally give it up. --></p>
+    </article>
+  </div>
+  <div class="getStarted">
+    <h3>Ready to get started?</h3>
+    <p>&darr; Make a clip below &darr;</p>
+  </div>
+</section>
+{% include "_create.html" %}
+{% include "_faq.html" %}
+{% include "_about.html" %}
+
+
+{% endblock %}
+
+{% block extrascripts %}
+<script src="//w.soundcloud.com/player/api.js"></script>
+<script src="{{ STATIC_URL }}/js/main.js"></script>
+{% endblock %}

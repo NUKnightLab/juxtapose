@@ -1,0 +1,215 @@
+section {
+    padding: 20px 0;
+}
+footer {
+    margin-top: 30px;
+}
+.navbar {
+    font-size: 14px;
+}
+
+/* To center the SoundCite logo and tagline */
+#intro {
+  text-align: center;
+}
+
+/* To manually center the words SoundCite irrespective of the JS badge */
+#intro .logo-mark {
+	padding-left: 100px;
+}
+@media all and (max-width:568px) {
+	#intro .logo-mark {
+		margin-left: -5px;
+		padding: 0;
+	}
+}
+
+/* This media query re-sizes the blueline fixed type sizes. Remove if EMs are implemented */
+@media all and (max-width:568px) {
+	#intro .logo-mark {
+		font-size: 52px;
+	}
+	#intro .logo-mark span {
+		font-size: 18px;
+	}
+	#intro .lead {
+		font-size: 20px;
+		line-height: 24px;
+	}
+	#overview h1 {
+		font-size: 32px;
+	}
+}
+em.example {
+  display: block;
+}
+
+#screencast {
+  margin: 50px auto 0 auto;
+  display: block;
+}
+/* To remove the double padding from the 'well' and the 'H4' */
+#examples {
+	padding-top: 0;
+}
+#examples figure,#examples .getStarted {
+	text-align: center;
+}
+#examples img {
+  border-radius: 100%;
+  width: 100%;
+  height: auto;
+	max-width: 200px;
+}
+
+/*steps from timeline.knightlab.com*/
+
+.step {
+    padding-top: 20px;
+    padding-bottom: 40px;
+    margin-bottom: 20px;
+    border-bottom: 4px double #eee;
+}
+.step.last { border: none; }
+
+.step h2 {
+margin-top: 0;
+margin-bottom: 0;
+color: #ccc;
+font-size: 100px;
+line-height: 1em;
+}
+
+.step h3 { margin-top: 0; }
+
+/*  AUTHOR TOOLS  */
+#right,#left {
+	min-height: 800px;
+	overflow: auto;
+}
+
+@media all and (max-width:568px) {
+	#left,#right,#nav {
+		position: relative;
+		float: none;
+		min-height: auto;
+	}
+}
+.connector {
+  position: relative;
+  top: -5px;
+}
+.connector:hover {
+  cursor: pointer;
+}
+#nav ol li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+#left h3 {
+  text-align: left;
+}
+
+#code {
+  display: none;
+}
+
+#start_btn,
+#end_btn {
+  margin-right: 20px;
+}
+
+pre {
+  background-color: white !important;
+  text-align: center !important;
+}
+
+textarea {
+  width: 95% !important;
+  height: auto !important;
+  font-family: Menlo, Monaco, "Courier New", Courier, monospace !important;
+  background-color: white !important;
+  cursor: auto !important;
+  resize: none !important;
+  overflow: auto !important;
+}
+
+#times {
+  background-color: #e4f8fe;
+  padding: 10px 10px 0px 10px;
+  font-size: .9em;
+}
+
+#times label{
+  font-size: 14px;
+}
+#linktext {
+  width: 40%;
+}
+#times .btn-link {
+  font-size: .9em;
+  padding: 0;
+  margin: 0 auto;
+  display: block;
+}
+
+@media all and (min-width:767px) and (max-width:979px) {
+  #linklabel {
+    display: block;
+  }
+}
+@media all and (max-width:767px) {
+  #times .btn-link {
+    margin: 0;
+  }
+}
+input::-webkit-input-placeholder {
+  font-size: 14px;
+}
+input:-moz-placeholder {
+  font-size: 14px;
+}
+input:-ms-input-placeholder {
+  font-size: 14px;
+}
+
+#player {
+  display: none;
+}
+
+#creation_box{
+  display: none;
+}
+
+#creation_box h3 {
+}
+#examples figure {
+  margin: 0px 0px 35px;
+}
+
+.urlBox {
+  width: 80%;
+  font-size: 14px;
+}
+#audition_area  {
+   display: none;
+}
+#audition_area .soundcite {
+    margin-right: 3px;
+    margin-bottom: 10px;
+}
+.clip {
+    background-color: #FAFAFA;
+    border-left: 4px solid #F3F3F3;
+    font-size: 1.1em;
+    line-height: 1.5em;
+    margin: 0 0 22px;
+    overflow: auto;
+    padding: 1em 1em 0;
+}
+
+.example.block a {
+  cursor: pointer;
+}
+
