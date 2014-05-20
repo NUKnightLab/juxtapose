@@ -94,9 +94,10 @@ div.klba-image div.klba-label {
 	position: relative;
 	display: inline-block;
 	top: 0;
-	background-color: black;
+	background-color: rgba(0,0,0,.8);
 	color: white;
 	z-index: 0;
+	white-space: nowrap;
 }
 
 div.klba-image.left div.klba-label {

@@ -1,8 +1,13 @@
 (function (document, window) {
 
+	var flickr_key = "d90fc2d1f4acc584e08b8eaea5bf4d6c";
+
 	function Graphic(properties) {
 		this.image = new Image();
-		this.image.src = properties.src;
+
+		var url = checkFlickr(properties.src);
+
+		this.image.src = url;
 		this.label = properties.label;
 		this.credit = properties.credit;
 	}
@@ -15,6 +20,35 @@
 		};
 		return dimensions;
 	};
+
+	function checkFlickr(url) {
+		//Get ID
+		var idx = url.indexOf("flickr.com/photos/");
+		if (idx == -1) return url;
+		var pos = idx + "flickr.com/photos/".length;
+		var photo_info = url.substr(pos)
+		if (photo_info.indexOf('/') == -1) return null;
+		if (photo_info.indexOf('/') == 0) photo_info = photo_info.substr(1);
+		id = photo_info.split("/")[1];
+		img = getFlikrImages(id);
+		return img
+	}
+
+	function getFlikrImages(id) {
+		var flickr_best_size = "Large";
+		var url = "//api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=" + flickr_key + "&photo_id=" + id + "&format=json&jsoncallback=?";
+		$.getJSON(url, function(d) {
+			console.log(d);
+			for(var i = 0; i < d.sizes.size.length; i++) {
+				if (d.sizes.size[i].label == flickr_best_size) {
+					flickr_url = d.sizes.size[i].source;
+				}
+			}
+			console.log(flickr_url)
+			return flickr_url;
+		});
+	}
+
 
 	var imageSlider = function(id, images, options) {
 
