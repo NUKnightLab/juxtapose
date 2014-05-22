@@ -1,50 +1,43 @@
 {% extends "base.html" %}
-
 {% block content %}
 <header id="intro" class="hero-unit">
-  <h1 class="logo-mark xl">TBD<span><em>JS</em></span></h1>
-  <h2 class="intro">Catchy tagline goes here.</h2>
-  <p><a href="#create-new" class="btn btn-large btn-success">Make a slider now</a></p>
+	<h1 class="logo-mark xl">TBD<span><em>JS</em></span></h1>
+	<h2 class="intro">Catchy tagline goes here.</h2>
+	<p><a href="#create-new" class="btn btn-large btn-success">Make a slider now</a></p>
 </header>
+
 <!-- BEGIN CONTENT -->
 <section id="content" class="container">
-  <h2>How it Works</h2>
-  <p>Audio is a powerful device that can add emotion or context to a story. Unfortunately audio clips force uncomfortable choices: read or listen, but not both. Until now. SoundCite is a simple-to-use tool that lets you add inline audio to your story. The audio is not isolated; it plays right under the text <span class="soundcite" data-id="55521179" data-start="5992" data-end="6651">you choose</span>.</p>
-  <div id="screencast">
-	<iframe id="screencast" src="http://player.vimeo.com/video/68383495" height="462" width="500" allowfullscreen="true" frameborder="0"></iframe>
-  </div>
-</section>
-<section id="examples" class="container">
-  <h2>Examples</h2>
-  <p>TBD sliders can be used in a variety of situations.</p>
-  <div class="example row-fluid">
-	<figure class="span2">
-	  <img alt="Tame Impala" src="{{ STATIC_URL }}/img/sc-music-tameimpala.jpg">
-	</figure>
-	<!-- NOTE: These columns do not add up to 12 because the Bootstrap 'well's' padding isn't taking into account by the responsive grid. -->
-	<article class="span9">
-		<h5>Satelite Imagery</h5>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit, doloremque, iste eaque nisi officia in maxime. Reprehenderit, enim, commodi, atque voluptas sequi quia dolorem beatae labore omnis velit error minima.</p>
-	</article>
-  </div>
-  <div class="example row-fluid">
-	<figure class="span2">
-	  <a href="examples-spokenword.html"><img alt="Stephanie Hooks" src="{{ STATIC_URL }}/img/sc-spokenword-911delay.jpg"></a>
-	</figure>
-	<article class="span9">
-	  <h5>Spoken Word</h5>
-	  <p>Stephanie Hooks pleaded for help after collapsing on the floor of her South Los Angeles home: <span data-end="177000" data-start="175796" data-id="61188346" class="soundcite soundcite-loaded soundcite-play">"I can't breathe... .</span> Help me breathe!" the 53-year-old grandmother wailed as frantic family members took turns on the phone with a Los Angeles Fire Department dispatcher...</p>
-	</article>
-  </div>
-  <div class="getStarted">
-	<h3>Ready to get started?</h3>
-	<p>&darr; Make a slider below &darr;</p>
-  </div>
+	<h2>How it Works</h2>
+	<p>TBD is a mobile-friendly, easy to use tool for creating before and after image sliders. Visually show change and let readers transform the scene themseleves.</p>
+	<section id="examples" class="container">
+	<h4>TBD can be used in a variety of situations.</h4>
+	<div class="example row-fluid">
+		<div class="span4 text-center">
+			<h5>Satellite Imagery</h5>
+			<p><img src="static/img/sochi.jpg" class="round"></p>
+  		</div>
+  		<div class="span4 text-center">
+  			<h5>Events</h5>
+			<p><img src="static/img/ukraine.jpg" class="round"></p>
+ 		</div>
+  		<div class="span4 text-center">
+  			<h5>Example 3</h5>
+			<p><img src="http://placehold.it/200x200" class="round"></p>
+		</div>
+	</div>
+	<div class="getStarted">
+		<h3>Ready to get started?</h3>
+		<p>&darr; Make a slider below &darr;</p>
+	</div>
+	</section>
+</div>
+
+
 </section>
 {% include "_create.html" %}
 {% include "_faq.html" %}
 {% include "_about.html" %}
-
 
 {% endblock %}
 
