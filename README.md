@@ -20,6 +20,13 @@ Each image can also take some additional attributes.
 
 If each image has an `data-label` attribute defined, the slider will display a label on each image. If each image has a `data-credit` attribute defined, the slider will display a credit for each image.
 
+The main wrapper can also take some additional attributes as well to specify a few options:
+
+    <div id="klba-wrapper" data-startingposition="35%" data-showlabels="false" data-showcredits="false" data-animate="false">
+
+Specifying a starting position with `data-startingposition` lets you focus the users attention on the part of the image where the change is most noticiable. To toggle the visibility of the labels and the credits respectivly, set `data-showlabels` and `data-showcredits` to false. And to disable the animation, set `data-animate` to false.
+
+
 ####Javascript Implementation
 The `imageSlider` class takes three arguments. First, is the string of the ID of the element you want to turn into a slider. Second is an array of two objects. Each object *must* have `src` defined and can optionally define a `label` and a `credit`. The third argument lets you set additional options for the image slider.
 
