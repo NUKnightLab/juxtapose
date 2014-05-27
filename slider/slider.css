@@ -1,7 +1,9 @@
+@import url(http://fonts.googleapis.com/css?family=News+Cycle);
 
 div#klba-wrapper {
 	max-width: 600px;
 	clear: both;
+	font-family: 'News Cycle', Times, sans-serif;
 }
 
 img.klba-image {
@@ -89,7 +91,7 @@ div.klba-image.right {
 div.klba-image div.klba-label {
 	padding-left: 1em;
 	padding-right: 1em;
-	padding-top: .5em;
+	padding-top: .3em;
 	padding-bottom: .5em;
 	position: relative;
 	display: inline-block;
@@ -98,6 +100,9 @@ div.klba-image div.klba-label {
 	color: white;
 	z-index: 0;
 	white-space: nowrap;
+	font-size: 16px;
+	line-height: 18px;
+	vertical-align: middle;
 }
 
 div.klba-image.left div.klba-label {
@@ -129,4 +134,36 @@ div.klba-image.transition {
 div.klba-handle.transition {
 	transition: left .5s ease;
 }
+
+/* Knight Lab Credit */
+a.klba-knightlab {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index: 10;
+	padding: 0em 0.25em 0.1em 0.25em;
+	background-color: rgba(225,225,225,0.8);
+	text-decoration: none;
+	/*height: 0.8em;*/
+}
+
+a.klba-knightlab img {
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+	height: 0.8em;
+	margin-right: 0.1em;
+}
+
+a.klba-knightlab p {
+	margin: 0;
+	display: inline-block;
+	color: black;
+	vertical-align: middle;
+	text-decoration: none;
+	font-size: 0.8em;
+	height: 100%;
+	line-height: 0.8em;
+}
+
 

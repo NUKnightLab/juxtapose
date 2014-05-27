@@ -10,9 +10,9 @@
 	}
 
 	function FlickrGraphic(properties) {
-		this.image = new Image();
-		
 		self = this;
+		this.image = new Image();
+
 		this.flickrID = this.getFlickrID(properties.src);
 		this.callFlickrAPI(this.flickrID, self);
 
@@ -33,10 +33,9 @@
 
 		callFlickrAPI: function(id, self) {
 			var flickr_best_size = "Large";
-			// var url = "//api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=" + flickr_key + "&photo_id=" + id + "&format=json&jsoncallback=?";
-			var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=' + flickr_key + 
-					'&photo_id=' + id + '&format=json&nojsoncallback=1'
-			console.log(url);
+			var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes' +
+					'&api_key=' + flickr_key + 
+					'&photo_id=' + id + '&format=json&nojsoncallback=1';
 			$.getJSON(url, function(d) {
 				for(var i = 0; i < d.sizes.size.length; i++) {
 					if (d.sizes.size[i].label == flickr_best_size) {
@@ -249,7 +248,6 @@
 					this.slider.className = 'klba-slider';
 					this.wrapper.appendChild(this.slider);
 
-
 					this.handle = document.createElement("div");
 					this.handle.className = 'klba-handle';
 
@@ -258,9 +256,20 @@
 					this.leftImage = document.createElement("div");
 					this.leftImage.className = 'klba-image left'
 
+					this.labCredit = document.createElement("a");
+					this.labCredit.setAttribute('href', 'htt://tbd.knightlab.com');
+					this.labCredit.className = 'klba-knightlab';
+					this.labImage = new Image();
+					this.labImage.src = 'http://blueline.knightlab.com/assets/logos/favicon.ico';
+					this.labCredit.appendChild(this.labImage);
+					this.labName = document.createElement('p');
+					this.labName.textContent = 'TBD';
+					this.labCredit.appendChild(this.labName)
+
 					this.slider.appendChild(this.handle);
 					this.slider.appendChild(this.leftImage);
 					this.slider.appendChild(this.rightImage);
+					this.slider.appendChild(this.labCredit);
 
 					leftArrow = document.createElement("div");
 					rightArrow = document.createElement("div");
