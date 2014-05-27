@@ -1,5 +1,14 @@
 (function (document, window) {
 
+	// borrowing underscore.js bind function
+    var bind = function(func, context) {
+        var slice = Array.prototype.slice;
+        var args = slice.call(arguments, 2);
+        return function() {
+          return func.apply(context, args.concat(slice.call(arguments)));
+        };
+    };
+
 	var flickr_key = "d90fc2d1f4acc584e08b8eaea5bf4d6c";
 
 	function Graphic(properties) {
@@ -52,7 +61,7 @@
 	}
 
 
-	var imageSlider = function(id, images, options) {
+	var imageSlider = function(selector, images, options) {
 
 		function setImage(element, url) {
 			var property = "url(" + url + ")";
@@ -77,7 +86,9 @@
 			}
 		}
 
-		function ImageSlider(id, images, options) {
+		function ImageSlider(selector, images, options) {
+
+			this.selector = selector;
 
 			var i;
 			this.options = {
@@ -92,7 +103,6 @@
 					this.options[i] = options[i];
 				}
 			}
-
 
 			if (images.length == 2) {
 
@@ -225,24 +235,26 @@
 			},
 
 			_onLoaded: function() {
-				if (this.load1 && this.load2) {
-					//Create the HTML structure for the slider
-					this.wrapper = document.getElementById(id);
 
-					if (this.wrapper.classList) {
+				if (this.load1 && this.load2) {
+
+					console.log(this.selector);
+					this.wrapper = document.querySelectorAll(this.selector);
+					this.wrapper = this.wrapper[0];
+
+					window.stash = this.wrapper;
+
+					if (this.wrapper.classList.indexOf('klba-wrapper') < 0) {
 						this.wrapper.classList.add("klba-wrapper");
-					} else {
-						this.wrapper.className += ' ' + "klba-wrapper";
 					}
 
-					self = this;
-
 					this.wrapper.style.width = this.imgBefore.image.naturalWidth
+					
+					self = this;
 					self.setWrapperDimensions();
 					window.onresize = function(event) {
 						self.setWrapperDimensions()
 					};
-
 
 					this.slider = document.createElement("div");
 					this.slider.className = 'klba-slider';
@@ -350,36 +362,55 @@
 				});
 			}
 		}
-		return new ImageSlider(id, images, options);
+		return new ImageSlider(selector, images, options);
 	};
 		
 	window.imageSlider = imageSlider;
 
-	var wrapper = document.getElementById('klba-wrapper');
-	var images = wrapper.querySelectorAll('img');
-		
-	var options = {
-		animate: wrapper.getAttribute('data-animate'),
-		showLabels: wrapper.getAttribute('data-showlabels'),
-		showCredits: wrapper.getAttribute('data-showcredits'),
-		startingPosition: wrapper.getAttribute('data-startingposition')
-	};
+	//Enable HTML Implementation
+	function scanPage() {
+		var sliders = []
+		var wrapper_array = document.querySelectorAll('.klba-wrapper');
 
-	wrapper.innerHTML = '';
+		for (var i = 0; i < wrapper_array.length; i++) {
 
-	slider = new imageSlider('klba-wrapper', 
-		[
-			{
-				src: images[0].src,
-				label: images[0].getAttribute('data-label'),
-				credit: images[0].getAttribute('data-credit')
-			},
-			{
-				src: images[1].src,
-				label: images[1].getAttribute('data-label'),
-				credit: images[1].getAttribute('data-credit')
-			}
-		], options);
+			var w = wrapper_array[i];
+
+			var images = w.querySelectorAll('img');
+			var options = {
+				animate: w.getAttribute('data-animate'),
+				showLabels: w.getAttribute('data-showlabels'),
+				showCredits: w.getAttribute('data-showcredits'),
+				startingPosition: w.getAttribute('data-startingposition')
+			};
+
+			specfificClass = 'klba-wrapper-' + i;
+			w.classList.add(specfificClass);		
+			selector = '.' + specfificClass;
+
+			w.innerHTML = '';
+
+			object = [
+				selector, 
+				[
+					{
+						src: images[0].src,
+						label: images[0].getAttribute('data-label'),
+						credit: images[0].getAttribute('data-credit')
+					},
+					{
+						src: images[1].src,
+						label: images[1].getAttribute('data-label'),
+						credit: images[1].getAttribute('data-credit')
+					}
+				],
+				options
+			];
+			sliders.push(object)
+		};
+	}
+
+	scanPage();
 
 }(document, window));
 

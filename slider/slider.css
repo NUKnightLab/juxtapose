@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=News+Cycle);
 
-div#klba-wrapper {
+div.klba-wrapper {
 	max-width: 600px;
 	clear: both;
 	font-family: 'News Cycle', Times, sans-serif;
@@ -149,7 +149,6 @@ a.klba-knightlab {
 
 a.klba-knightlab img {
 	display: inline-block;
-	height: 100%;
 	vertical-align: middle;
 	height: 0.8em;
 	margin-right: 0.1em;
