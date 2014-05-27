@@ -4,49 +4,50 @@
 
 	function Graphic(properties) {
 		this.image = new Image();
-
-		var url = checkFlickr(properties.src);
-
-		this.image.src = url;
+		this.image.src = properties.src;
 		this.label = properties.label;
 		this.credit = properties.credit;
 	}
 
-	Graphic.prototype.getImageDimensions = function() {
-		var dimensions = {
-			width: this.image.naturalWidth,
-			height: this.image.naturalHeight,
-			aspect: function() { return (this.width / this.height); }
-		};
-		return dimensions;
-	};
+	function FlickrGraphic(properties) {
+		this.image = new Image();
+		
+		self = this;
+		this.flickrID = this.getFlickrID(properties.src);
+		this.callFlickrAPI(this.flickrID, self);
 
-	function checkFlickr(url) {
-		//Get ID
-		var idx = url.indexOf("flickr.com/photos/");
-		if (idx == -1) return url;
-		var pos = idx + "flickr.com/photos/".length;
-		var photo_info = url.substr(pos)
-		if (photo_info.indexOf('/') == -1) return null;
-		if (photo_info.indexOf('/') == 0) photo_info = photo_info.substr(1);
-		id = photo_info.split("/")[1];
-		img = getFlikrImages(id);
-		return img
+		this.label = properties.label;
+		this.credit = properties.credit;
 	}
 
-	function getFlikrImages(id) {
-		var flickr_best_size = "Large";
-		var url = "//api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=" + flickr_key + "&photo_id=" + id + "&format=json&jsoncallback=?";
-		$.getJSON(url, function(d) {
-			console.log(d);
-			for(var i = 0; i < d.sizes.size.length; i++) {
-				if (d.sizes.size[i].label == flickr_best_size) {
-					flickr_url = d.sizes.size[i].source;
+	FlickrGraphic.prototype = {
+		getFlickrID: function(url) {
+			var idx = url.indexOf("flickr.com/photos/");
+			var pos = idx + "flickr.com/photos/".length;
+			var photo_info = url.substr(pos)
+			if (photo_info.indexOf('/') == -1) return null;
+			if (photo_info.indexOf('/') == 0) photo_info = photo_info.substr(1);
+			id = photo_info.split("/")[1];
+			return id;
+		},
+
+		callFlickrAPI: function(id, self) {
+			var flickr_best_size = "Large";
+			// var url = "//api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=" + flickr_key + "&photo_id=" + id + "&format=json&jsoncallback=?";
+			var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=6de5251eb45db0fe719bbb2d8bf133d9&photo_id=14220736823&format=json&nojsoncallback=1&auth_token=72157644462885218-c4758bc9e4cc0ccf&api_sig=e97d1ccff0bbadbc918cbb9b2b96ae43'
+			$.getJSON(url, function(d) {
+				for(var i = 0; i < d.sizes.size.length; i++) {
+					if (d.sizes.size[i].label == flickr_best_size) {
+						flickr_url = d.sizes.size[i].source;
+					}
 				}
-			}
-			console.log(flickr_url)
-			return flickr_url;
-		});
+				self.setFlickrImage(flickr_url);
+			});
+		},
+
+		setFlickrImage: function(src) {
+			this.image.src = src;
+		}
 	}
 
 
@@ -55,6 +56,24 @@
 		function setImage(element, url) {
 			var property = "url(" + url + ")";
 			element.style.backgroundImage = property;
+		}
+
+		getImageDimensions = function(img) {
+			var dimensions = {
+				width: img.naturalWidth,
+				height: img.naturalHeight,
+				aspect: function() { return (this.width / this.height); }
+			};
+			return dimensions;
+		};
+
+		function checkFlickr(url) {
+			var idx = url.indexOf("flickr.com/photos/");
+			if (idx == -1) {
+				return false;
+			} else {
+				return true;
+			}
 		}
 
 		function ImageSlider(id, images, options) {
@@ -73,9 +92,21 @@
 				}
 			}
 
+
 			if (images.length == 2) {
-				this.imgBefore = new Graphic(images[0]);
-				this.imgAfter = new Graphic(images[1]);
+
+				if(checkFlickr(images[0].src)) {
+					this.imgBefore = new FlickrGraphic(images[0]);
+				} else {
+					this.imgBefore = new Graphic(images[0]);
+				}
+
+				if(checkFlickr(images[1].src)) {
+					this.imgAfter = new FlickrGraphic(images[1]);
+				} else {
+					this.imgAfter = new Graphic(images[1]);
+				}
+
 			} else {
 				console.warn("The images paramater takes two Image objects.");
 			}
@@ -163,8 +194,8 @@
 			},
 
 			checkImages: function() {
-				if (this.imgBefore.getImageDimensions().aspect() == 
-					this.imgAfter.getImageDimensions().aspect()) {
+				if (getImageDimensions(this.imgBefore.image).aspect() == 
+					getImageDimensions(this.imgAfter.image).aspect()) {
 					return true;
 				} else {
 					return false;
@@ -173,7 +204,7 @@
 
 			setWrapperDimensions: function() {
 
-				ratio = this.imgBefore.getImageDimensions().aspect();
+				ratio = getImageDimensions(this.imgBefore.image).aspect();
 
 				width = (parseInt(getComputedStyle(this.wrapper)['width']));
 				height = (parseInt(getComputedStyle(this.wrapper)['height']));
