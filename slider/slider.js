@@ -34,7 +34,9 @@
 		callFlickrAPI: function(id, self) {
 			var flickr_best_size = "Large";
 			// var url = "//api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=" + flickr_key + "&photo_id=" + id + "&format=json&jsoncallback=?";
-			var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=6de5251eb45db0fe719bbb2d8bf133d9&photo_id=14220736823&format=json&nojsoncallback=1&auth_token=72157644462885218-c4758bc9e4cc0ccf&api_sig=e97d1ccff0bbadbc918cbb9b2b96ae43'
+			var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=' + flickr_key + 
+					'&photo_id=' + id + '&format=json&nojsoncallback=1'
+			console.log(url);
 			$.getJSON(url, function(d) {
 				for(var i = 0; i < d.sizes.size.length; i++) {
 					if (d.sizes.size[i].label == flickr_best_size) {
