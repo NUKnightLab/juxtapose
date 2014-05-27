@@ -141,10 +141,10 @@ a.klba-knightlab {
 	bottom: 0;
 	right: 0;
 	z-index: 10;
-	padding: 0em 0.25em 0.1em 0.25em;
+	padding: 0em 0.35em 0.1em 0.35em;
 	background-color: rgba(225,225,225,0.8);
 	text-decoration: none;
-	/*height: 0.8em;*/
+	height: 1.2em;
 }
 
 a.klba-knightlab img {
@@ -153,6 +153,7 @@ a.klba-knightlab img {
 	vertical-align: middle;
 	height: 0.8em;
 	margin-right: 0.1em;
+	padding-bottom: 0.6em;
 }
 
 a.klba-knightlab p {
@@ -164,6 +165,7 @@ a.klba-knightlab p {
 	font-size: 0.8em;
 	height: 100%;
 	line-height: 0.8em;
+	padding-bottom: 0.2em;
 }
 
 
