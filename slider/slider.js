@@ -1,13 +1,7 @@
 (function (document, window) {
 
-	// borrowing underscore.js bind function
-    function bind(func, context) {
-        var slice = Array.prototype.slice;
-        var args = slice.call(arguments, 2);
-        return function() {
-			return func.apply(context, args.concat(slice.call(arguments)));
-        };
-    };
+
+
 
 	var flickr_key = "d90fc2d1f4acc584e08b8eaea5bf4d6c";
 
@@ -80,7 +74,7 @@
 			element.style.backgroundImage = property;
 		}
 
-		function getImageDimensions(img) {
+		getImageDimensions = function(img) {
 			var dimensions = {
 				width: img.naturalWidth,
 				height: img.naturalHeight,
@@ -100,7 +94,7 @@
 
 		function ImageSlider(selector, images, options) {
 
-			this.selector = selector;
+			// this.selector = selector;
 
 			var i;
 			this.options = {
@@ -250,10 +244,8 @@
 
 				if (this.load1 && this.load2) {
 
-					console.log(this.selector);
 					this.wrapper = document.querySelectorAll(this.selector);
 					this.wrapper = this.wrapper[0];
-
 					window.stash = this.wrapper;
 
 					if (this.wrapper.classList.indexOf('klba-wrapper') < 0) {
@@ -261,9 +253,9 @@
 					}
 
 					this.wrapper.style.width = this.imgBefore.image.naturalWidth
-					
+				
+					this.setWrapperDimensions();
 					self = this;
-					self.setWrapperDimensions();
 					window.onresize = function(event) {
 						self.setWrapperDimensions()
 					};
@@ -381,12 +373,15 @@
 
 	//Enable HTML Implementation
 	function scanPage() {
-		var sliders = []
-		var wrapper_array = document.querySelectorAll('.klba-wrapper');
+		// var sliders = []
+		// var wrapper_array = document.querySelectorAll('.klba-wrapper');
+		// for (var i = 0; i < wrapper_array.length; i++) {
 
-		for (var i = 0; i < wrapper_array.length; i++) {
+		//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map#Example.3A_using.C2.A0map.C2.A0generically_querySelectorAll
+		[].map.call(document.querySelectorAll('.klba-wrapper'), function(obj, i) {
+			
+			var w = obj;
 
-			var w = wrapper_array[i];
 			var images = w.querySelectorAll('img');
 			var options = {
 				animate: w.getAttribute('data-animate'),
@@ -400,7 +395,6 @@
 			selector = '.' + specfificClass;
 
 			w.innerHTML = '';
-
 			slider = new imageSlider(
 				selector, 
 				[
@@ -417,7 +411,7 @@
 				],
 				options
 			);
-		};
+		});
 	}
 
 	scanPage();
