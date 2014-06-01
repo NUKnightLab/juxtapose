@@ -1,11 +1,11 @@
 (function (document, window) {
 
 	// borrowing underscore.js bind function
-    var bind = function(func, context) {
+    function bind(func, context) {
         var slice = Array.prototype.slice;
         var args = slice.call(arguments, 2);
         return function() {
-          return func.apply(context, args.concat(slice.call(arguments)));
+			return func.apply(context, args.concat(slice.call(arguments)));
         };
     };
 
@@ -80,7 +80,7 @@
 			element.style.backgroundImage = property;
 		}
 
-		getImageDimensions = function(img) {
+		function getImageDimensions(img) {
 			var dimensions = {
 				width: img.naturalWidth,
 				height: img.naturalHeight,
@@ -387,7 +387,6 @@
 		for (var i = 0; i < wrapper_array.length; i++) {
 
 			var w = wrapper_array[i];
-
 			var images = w.querySelectorAll('img');
 			var options = {
 				animate: w.getAttribute('data-animate'),
