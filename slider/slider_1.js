@@ -1,5 +1,7 @@
 (function (document, window) {
 
+	var flickr_key = "d90fc2d1f4acc584e08b8eaea5bf4d6c";
+
 	function Graphic(properties) {
 		this.image = new Image();
 		this.image.src = properties.src;
@@ -7,23 +9,89 @@
 		this.credit = properties.credit;
 	}
 
-	Graphic.prototype.getImageDimensions = function() {
-		var dimensions = {
-			width: this.image.naturalWidth,
-			height: this.image.naturalHeight,
-			aspect: function() { return (this.width / this.height); }
-		};
-		return dimensions;
-	};
+	function FlickrGraphic(properties) {
+		self = this;
+		this.image = new Image();
 
-	var imageSlider = function(id, images, options) {
+		this.flickrID = this.getFlickrID(properties.src);
+		this.callFlickrAPI(this.flickrID, self);
+
+		this.label = properties.label;
+		this.credit = properties.credit;
+	}
+
+	FlickrGraphic.prototype = {
+		getFlickrID: function(url) {
+			var idx = url.indexOf("flickr.com/photos/");
+			var pos = idx + "flickr.com/photos/".length;
+			var photo_info = url.substr(pos)
+			if (photo_info.indexOf('/') == -1) return null;
+			if (photo_info.indexOf('/') == 0) photo_info = photo_info.substr(1);
+			id = photo_info.split("/")[1];
+			return id;
+		},
+
+		callFlickrAPI: function(id, self) {
+			var flickr_best_size = "Large";
+			var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes' +
+					'&api_key=' + flickr_key + 
+					'&photo_id=' + id + '&format=json&nojsoncallback=1';
+
+			request = new XMLHttpRequest();
+			request.open('GET', url, true);
+			request.onload = function() {
+				if (request.status >= 200 && request.status < 400){
+					data = JSON.parse(request.responseText);
+					for(var i = 0; i < data.sizes.size.length; i++) {
+						if (data.sizes.size[i].label == flickr_best_size) {
+							flickr_url = data.sizes.size[i].source;
+						}
+					}
+					self.setFlickrImage(flickr_url);
+				} else {
+					console.error("There was an error getting the picture from Flickr")
+				}
+			};
+			request.onerror = function() {
+				console.error("There was an error getting the picture from Flickr")
+			};
+			request.send();
+		},
+
+		setFlickrImage: function(src) {
+			this.image.src = src;
+		}
+	}
+
+
+	var imageSlider = function(selector, images, options) {
 
 		function setImage(element, url) {
 			var property = "url(" + url + ")";
 			element.style.backgroundImage = property;
 		}
 
-		function ImageSlider(id, images, options) {
+		getImageDimensions = function(img) {
+			var dimensions = {
+				width: img.naturalWidth,
+				height: img.naturalHeight,
+				aspect: function() { return (this.width / this.height); }
+			};
+			return dimensions;
+		};
+
+		function checkFlickr(url) {
+			var idx = url.indexOf("flickr.com/photos/");
+			if (idx == -1) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		function ImageSlider(selector, images, options) {
+
+			this.selector = selector;
 
 			var i;
 			this.options = {
@@ -40,8 +108,19 @@
 			}
 
 			if (images.length == 2) {
-				this.imgBefore = new Graphic(images[0]);
-				this.imgAfter = new Graphic(images[1]);
+
+				if(checkFlickr(images[0].src)) {
+					this.imgBefore = new FlickrGraphic(images[0]);
+				} else {
+					this.imgBefore = new Graphic(images[0]);
+				}
+
+				if(checkFlickr(images[1].src)) {
+					this.imgAfter = new FlickrGraphic(images[1]);
+				} else {
+					this.imgAfter = new Graphic(images[1]);
+				}
+
 			} else {
 				console.warn("The images paramater takes two Image objects.");
 			}
@@ -129,8 +208,8 @@
 			},
 
 			checkImages: function() {
-				if (this.imgBefore.getImageDimensions().aspect() == 
-					this.imgAfter.getImageDimensions().aspect()) {
+				if (getImageDimensions(this.imgBefore.image).aspect() == 
+					getImageDimensions(this.imgAfter.image).aspect()) {
 					return true;
 				} else {
 					return false;
@@ -139,7 +218,7 @@
 
 			setWrapperDimensions: function() {
 
-				ratio = this.imgBefore.getImageDimensions().aspect();
+				ratio = getImageDimensions(this.imgBefore.image).aspect();
 
 				width = (parseInt(getComputedStyle(this.wrapper)['width']));
 				height = (parseInt(getComputedStyle(this.wrapper)['height']));
@@ -159,29 +238,28 @@
 			},
 
 			_onLoaded: function() {
-				if (this.load1 && this.load2) {
-					//Create the HTML structure for the slider
-					this.wrapper = document.getElementById(id);
 
-					if (this.wrapper.classList) {
+				if (this.load1 && this.load2) {
+
+					this.wrapper = document.querySelectorAll(this.selector);
+
+					window.stash = this.wrapper;
+
+					if (this.wrapper.classList.indexOf('klba-wrapper') < 0) {
 						this.wrapper.classList.add("klba-wrapper");
-					} else {
-						this.wrapper.className += ' ' + "klba-wrapper";
 					}
 
-					self = this;
-
 					this.wrapper.style.width = this.imgBefore.image.naturalWidth
-					self.setWrapperDimensions();
+				
+					this.setWrapperDimensions();
+					self = this;
 					window.onresize = function(event) {
 						self.setWrapperDimensions()
 					};
 
-
 					this.slider = document.createElement("div");
 					this.slider.className = 'klba-slider';
 					this.wrapper.appendChild(this.slider);
-
 
 					this.handle = document.createElement("div");
 					this.handle.className = 'klba-handle';
@@ -191,9 +269,20 @@
 					this.leftImage = document.createElement("div");
 					this.leftImage.className = 'klba-image left'
 
+					this.labCredit = document.createElement("a");
+					this.labCredit.setAttribute('href', 'htt://tbd.knightlab.com');
+					this.labCredit.className = 'klba-knightlab';
+					this.labImage = new Image();
+					this.labImage.src = 'http://blueline.knightlab.com/assets/logos/favicon.ico';
+					this.labCredit.appendChild(this.labImage);
+					this.labName = document.createElement('p');
+					this.labName.textContent = 'TBD';
+					this.labCredit.appendChild(this.labName)
+
 					this.slider.appendChild(this.handle);
 					this.slider.appendChild(this.leftImage);
 					this.slider.appendChild(this.rightImage);
+					this.slider.appendChild(this.labCredit);
 
 					leftArrow = document.createElement("div");
 					rightArrow = document.createElement("div");
@@ -274,11 +363,11 @@
 				});
 			}
 		}
-		return new ImageSlider(id, images, options);
+		return new ImageSlider(selector, images, options);
 	};
 		
 	window.imageSlider = imageSlider;
-
+		
 	var wrapper = document.getElementById('klba-wrapper');
 	var images = wrapper.querySelectorAll('img');
 		

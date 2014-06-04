@@ -1,7 +1,5 @@
 (function (document, window) {
-
-
-
+	window.sliders = [];
 
 	var flickr_key = "d90fc2d1f4acc584e08b8eaea5bf4d6c";
 
@@ -40,6 +38,7 @@
 					'&api_key=' + flickr_key + 
 					'&photo_id=' + id + '&format=json&nojsoncallback=1';
 
+			// Vanilla Javascript
 			request = new XMLHttpRequest();
 			request.open('GET', url, true);
 			request.onload = function() {
@@ -59,6 +58,17 @@
 				console.error("There was an error getting the picture from Flickr")
 			};
 			request.send();
+
+			// // jQuery
+			// $.getJSON(url, function(data) {
+			// 	for(var i = 0; i < data.sizes.size.length; i++) {
+			// 		if (data.sizes.size[i].label == flickr_best_size) {
+			// 			flickr_url = data.sizes.size[i].source;
+			// 		}
+			// 	}
+			// 	self.setFlickrImage(flickr_url);
+			// });
+
 		},
 
 		setFlickrImage: function(src) {
@@ -66,318 +76,311 @@
 		}
 	}
 
+	function setImage(element, url) {
+		var property = "url(" + url + ")";
+		element.style.backgroundImage = property;
+	}
 
-	var imageSlider = function(selector, images, options) {
+	function getImageDimensions(img) {
+		var dimensions = {
+			width: img.naturalWidth,
+			height: img.naturalHeight,
+			aspect: function() { return (this.width / this.height); }
+		};
+		return dimensions;
+	};
 
-		function setImage(element, url) {
-			var property = "url(" + url + ")";
-			element.style.backgroundImage = property;
+	function checkFlickr(url) {
+		var idx = url.indexOf("flickr.com/photos/");
+		if (idx == -1) {
+			return false;
+		} else {
+			return true;
 		}
+	}
 
-		getImageDimensions = function(img) {
-			var dimensions = {
-				width: img.naturalWidth,
-				height: img.naturalHeight,
-				aspect: function() { return (this.width / this.height); }
-			};
-			return dimensions;
+	function ImageSlider(selector, images, options) {
+		window.sliders.push(this);
+		this.selector = selector;
+
+		var i;
+		this.options = {
+			animate: true,
+			showLabels: true,
+			showCredits: true,
+			startingPosition: "50%"
 		};
 
-		function checkFlickr(url) {
-			var idx = url.indexOf("flickr.com/photos/");
-			if (idx == -1) {
-				return false;
-			} else {
-				return true;
+		for (i in options) {
+			if(options[i]) {
+				this.options[i] = options[i];
 			}
 		}
 
-		function ImageSlider(selector, images, options) {
+		if (images.length == 2) {
 
-			// this.selector = selector;
+			if(checkFlickr(images[0].src)) {
+				this.imgBefore = new FlickrGraphic(images[0]);
+			} else {
+				this.imgBefore = new Graphic(images[0]);
+			}
 
-			var i;
-			this.options = {
-				animate: true,
-				showLabels: true,
-				showCredits: true,
-				startingPosition: "50%"
+			if(checkFlickr(images[1].src)) {
+				this.imgAfter = new FlickrGraphic(images[1]);
+			} else {
+				this.imgAfter = new Graphic(images[1]);
+			}
+
+		} else {
+			console.warn("The images paramater takes two Image objects.");
+		}
+
+		if (!this.imgBefore.label || !this.imgAfter.label) {
+			this.options.showLabels = false;
+		}
+		if (!this.imgBefore.credit || !this.imgAfter.credit) {
+			this.options.showCredits = false;
+		}
+
+			this.load1 = false;
+			this.load2 = false;
+			
+			var self = this;
+
+			this.imgBefore.image.onload = function() {
+				self.load1 = true;
+				self._onLoaded();
+			}
+
+			this.imgAfter.image.onload = function() {
+				self.load2 = true;
+				self._onLoaded();
+		}
+	}		
+
+	ImageSlider.prototype = {
+
+		updateSlider: function(e, dragging) {
+
+			var sliderRect = this.slider.getBoundingClientRect()
+			var offset = {
+			  top: sliderRect.top + document.body.scrollTop,
+			  left: sliderRect.left + document.body.scrollLeft
 			};
 
-			for (i in options) {
-				if(options[i]) {
-					this.options[i] = options[i];
+			var width = this.slider.offsetWidth;
+
+			var relativeX = e.pageX - offset.left;
+
+			var leftPercent = (relativeX / width) * 100 + "%";
+			var rightPercent = 100 - ((relativeX / width) * 100) + "%";
+			
+			var a = (relativeX / width);
+			if (a > 0 && a < 1) {
+
+				this.handle.classList.remove("transition");
+				this.rightImage.classList.remove("transition");
+				this.leftImage.classList.remove("transition");
+
+				if(this.options.animate && !dragging) {
+					this.handle.classList.add("transition");
+					this.leftImage.classList.add("transition");
+					this.rightImage.classList.add("transition");
 				}
+
+				this.handle.style.left = leftPercent;
+				this.leftImage.style.width = leftPercent;
+				this.rightImage.style.width = rightPercent;
 			}
+		},
 
-			if (images.length == 2) {
+		displayLabels: function() {
+			leftDate = document.createElement("div");
+			leftDate.className = 'klba-label';
+			leftDate.textContent = this.imgBefore.label;
+			rightDate = document.createElement("div");
+			rightDate.className = 'klba-label';
+			rightDate.textContent = this.imgAfter.label;
 
-				if(checkFlickr(images[0].src)) {
-					this.imgBefore = new FlickrGraphic(images[0]);
-				} else {
-					this.imgBefore = new Graphic(images[0]);
-				}
+			this.leftImage.appendChild(leftDate);
+			this.rightImage.appendChild(rightDate);
+		},
 
-				if(checkFlickr(images[1].src)) {
-					this.imgAfter = new FlickrGraphic(images[1]);
-				} else {
-					this.imgAfter = new Graphic(images[1]);
-				}
+		displayCredits: function() {
+			credit = document.createElement("div");
+			credit.className = "klba-credit";
 
+			text = 	"<em>Before </em>" + this.imgBefore.credit + 
+					" <em>After </em>" + this.imgAfter.credit;
+			credit.innerHTML = text;
+
+			this.wrapper.appendChild(credit);
+		},
+
+		checkImages: function() {
+			if (getImageDimensions(this.imgBefore.image).aspect() == 
+				getImageDimensions(this.imgAfter.image).aspect()) {
+				return true;
 			} else {
-				console.warn("The images paramater takes two Image objects.");
+				return false;
 			}
+		},
 
-			if (!this.imgBefore.label || !this.imgAfter.label) {
-				this.options.showLabels = false;
+		setWrapperDimensions: function() {
+
+			ratio = getImageDimensions(this.imgBefore.image).aspect();
+
+			width = (parseInt(getComputedStyle(this.wrapper)['width']));
+			height = (parseInt(getComputedStyle(this.wrapper)['height']));
+
+			if (width) {
+				height = width * (1 / ratio);
+				this.wrapper.style.height = height + "px";
+			} else if (height) {
+				width = height * ratio;
+				this.wrapper.style.width = width + "px";
+			} else {
+				// w = 600;
+				// h = width * (1 / ratio);
+				// this.slider.style.width = maxwidth + "px";
+				// this.slider.style.height = maxheight + "px";
 			}
-			if (!this.imgBefore.credit || !this.imgAfter.credit) {
-				this.options.showCredits = false;
-			}
+		},
 
-  			this.load1 = false;
-  			this.load2 = false;
-  			
-  			self = this;
-  			this.imgBefore.image.onload = function() {
-  				self.load1 = true;
-  				self._onLoaded();
- 			}
-  
-  			this.imgAfter.image.onload = function() {
-  				self.load2 = true;
-  				self._onLoaded();
-			}
+		_onLoaded: function() {
 
-		}		
+			if (this.load1 && this.load2) {
 
-		ImageSlider.prototype = {
+				this.wrapper = document.querySelector(this.selector);
 
-			updateSlider: function(e, dragging) {
+				// this.wrapper = this.wrapper[0];
 
-				var sliderRect = this.slider.getBoundingClientRect()
-				var offset = {
-				  top: sliderRect.top + document.body.scrollTop,
-				  left: sliderRect.left + document.body.scrollLeft
+				// if (this.wrapper.classList.indexOf('klba-wrapper') < 0) {
+				// 	this.wrapper.classList.add("klba-wrapper");
+				// }
+
+				this.wrapper.style.width = this.imgBefore.image.naturalWidth
+			
+				this.setWrapperDimensions();
+				var self = this;
+				window.onresize = function(event) {
+					self.setWrapperDimensions()
 				};
 
-				var width = this.slider.offsetWidth;
+				this.slider = document.createElement("div");
+				this.slider.className = 'klba-slider';
+				this.wrapper.appendChild(this.slider);
 
-				var relativeX = e.pageX - offset.left;
+				this.handle = document.createElement("div");
+				this.handle.className = 'klba-handle';
 
-				var leftPercent = (relativeX / width) * 100 + "%";
-				var rightPercent = 100 - ((relativeX / width) * 100) + "%";
-				
-				var a = (relativeX / width);
-				if (a > 0 && a < 1) {
+				this.rightImage = document.createElement("div");
+				this.rightImage.className = 'klba-image right';
+				this.leftImage = document.createElement("div");
+				this.leftImage.className = 'klba-image left'
 
-					this.handle.classList.remove("transition");
-					this.rightImage.classList.remove("transition");
-					this.leftImage.classList.remove("transition");
+				this.labCredit = document.createElement("a");
+				this.labCredit.setAttribute('href', 'htt://juxtapose.knightlab.com');
+				this.labCredit.className = 'klba-knightlab';
+				this.labImage = new Image();
+				this.labImage.src = 'http://blueline.knightlab.com/assets/logos/favicon.ico';
+				this.labCredit.appendChild(this.labImage);
+				this.labName = document.createElement('p');
+				this.labName.textContent = 'JuxtaposeJS';
+				this.labCredit.appendChild(this.labName)
 
-					if(this.options.animate && !dragging) {
-						this.handle.classList.add("transition");
-						this.leftImage.classList.add("transition");
-						this.rightImage.classList.add("transition");
-					}
+				this.slider.appendChild(this.handle);
+				this.slider.appendChild(this.leftImage);
+				this.slider.appendChild(this.rightImage);
+				this.slider.appendChild(this.labCredit);
 
-					this.handle.style.left = leftPercent;
-					this.leftImage.style.width = leftPercent;
-					this.rightImage.style.width = rightPercent;
-				}
-			},
+				leftArrow = document.createElement("div");
+				rightArrow = document.createElement("div");
+				control = document.createElement("div");
+				controller = document.createElement("div");
 
-			displayLabels: function() {
-				leftDate = document.createElement("div");
-				leftDate.className = 'klba-label';
-				leftDate.textContent = this.imgBefore.label;
-				rightDate = document.createElement("div");
-				rightDate.className = 'klba-label';
-				rightDate.textContent = this.imgAfter.label;
+				leftArrow.className = 'klba-arrow left';
+				rightArrow.className = 'klba-arrow right';
+				control.className = 'klba-control';
+				controller.className = 'klba-controller';
 
-				this.leftImage.appendChild(leftDate);
-				this.rightImage.appendChild(rightDate);
-			},
+				this.handle.appendChild(leftArrow);
+				this.handle.appendChild(control);
+				this.handle.appendChild(rightArrow);
+				control.appendChild(controller);
 
-			displayCredits: function() {
-				credit = document.createElement("div");
-				credit.className = "klba-credit";
+				this.dragging = false;
 
-				text = 	"<em>Before </em>" + this.imgBefore.credit + 
-						" <em>After </em>" + this.imgAfter.credit;
-				credit.innerHTML = text;
-
-				this.wrapper.appendChild(credit);
-			},
-
-			checkImages: function() {
-				if (getImageDimensions(this.imgBefore.image).aspect() == 
-					getImageDimensions(this.imgAfter.image).aspect()) {
-					return true;
-				} else {
-					return false;
-				}
-			},
-
-			setWrapperDimensions: function() {
-
-				ratio = getImageDimensions(this.imgBefore.image).aspect();
-
-				width = (parseInt(getComputedStyle(this.wrapper)['width']));
-				height = (parseInt(getComputedStyle(this.wrapper)['height']));
-
-				if (width) {
-					height = width * (1 / ratio);
-					this.wrapper.style.height = height + "px";
-				} else if (height) {
-					width = height * ratio;
-					this.wrapper.style.width = width + "px";
-				} else {
-					// w = 600;
-					// h = width * (1 / ratio);
-					// this.slider.style.width = maxwidth + "px";
-					// this.slider.style.height = maxheight + "px";
-				}
-			},
-
-			_onLoaded: function() {
-
-				if (this.load1 && this.load2) {
-
-					this.wrapper = document.querySelectorAll(this.selector);
-					this.wrapper = this.wrapper[0];
-					window.stash = this.wrapper;
-
-					if (this.wrapper.classList.indexOf('klba-wrapper') < 0) {
-						this.wrapper.classList.add("klba-wrapper");
-					}
-
-					this.wrapper.style.width = this.imgBefore.image.naturalWidth
-				
-					this.setWrapperDimensions();
-					self = this;
-					window.onresize = function(event) {
-						self.setWrapperDimensions()
-					};
-
-					this.slider = document.createElement("div");
-					this.slider.className = 'klba-slider';
-					this.wrapper.appendChild(this.slider);
-
-					this.handle = document.createElement("div");
-					this.handle.className = 'klba-handle';
-
-					this.rightImage = document.createElement("div");
-					this.rightImage.className = 'klba-image right';
-					this.leftImage = document.createElement("div");
-					this.leftImage.className = 'klba-image left'
-
-					this.labCredit = document.createElement("a");
-					this.labCredit.setAttribute('href', 'htt://tbd.knightlab.com');
-					this.labCredit.className = 'klba-knightlab';
-					this.labImage = new Image();
-					this.labImage.src = 'http://blueline.knightlab.com/assets/logos/favicon.ico';
-					this.labCredit.appendChild(this.labImage);
-					this.labName = document.createElement('p');
-					this.labName.textContent = 'TBD';
-					this.labCredit.appendChild(this.labName)
-
-					this.slider.appendChild(this.handle);
-					this.slider.appendChild(this.leftImage);
-					this.slider.appendChild(this.rightImage);
-					this.slider.appendChild(this.labCredit);
-
-					leftArrow = document.createElement("div");
-					rightArrow = document.createElement("div");
-					control = document.createElement("div");
-					controller = document.createElement("div");
-
-					leftArrow.className = 'klba-arrow left';
-					rightArrow.className = 'klba-arrow right';
-					control.className = 'klba-control';
-					controller.className = 'klba-controller';
-
-					this.handle.appendChild(leftArrow);
-					this.handle.appendChild(control);
-					this.handle.appendChild(rightArrow);
-					control.appendChild(controller);
-
-					this.dragging = false;
-
-					//Add Interactivity
-					this._init(this);
-				}
-			},
-
-			_init: function() {
-
-				if (this.checkImages() == false) {
-					console.warn("Check that the two images have the same aspect ratio for the slider to work correctly.");
-				}
-
-				var rightStart = 100 - parseInt(this.options.startingPosition) + "%";
-
-
-				this.leftImage.style.width = this.options.startingPosition;
-				this.rightImage.style.width = rightStart;
-				this.handle.style.left = this.options.startingPosition;
-
-				setImage(this.leftImage, this.imgBefore.image.src);
-				setImage(this.rightImage, this.imgAfter.image.src);
-
-				if (this.options.showLabels) {
-					this.displayLabels();
-				}
-
-				if (this.options.showCredits) {
-					this.displayCredits();
-				}
-
-
-				var self = this;
-
-				this.slider.addEventListener("mousedown", function(d) {
-					d.preventDefault();
-					self.updateSlider(d, false);
-					dragging = true;
-
-					this.addEventListener("mousemove", function(event) {
-						if (dragging) {
-							self.updateSlider(event, true);
-						}
-					});
-
-					document.addEventListener('mouseup', function() {
-						dragging = false;
-					});
-
-					this.addEventListener('mouseleave', function() {
-						dragging = false;
-					});
-				});
-
-				this.slider.addEventListener("touchstart", function(d) {
-					d.preventDefault();
-					self.updateSlider(d, false)
-
-					this.addEventListener("touchmove", function(event) {
-						self.updateSlider(event, true);
-					});
-				});
+				//Add Interactivity
+				this._init(this);
 			}
+		},
+
+		_init: function() {
+
+			if (this.checkImages() == false) {
+				console.warn("Check that the two images have the same aspect ratio for the slider to work correctly.");
+			}
+
+			var rightStart = 100 - parseInt(this.options.startingPosition) + "%";
+
+
+			this.leftImage.style.width = this.options.startingPosition;
+			this.rightImage.style.width = rightStart;
+			this.handle.style.left = this.options.startingPosition;
+
+			setImage(this.leftImage, this.imgBefore.image.src);
+			setImage(this.rightImage, this.imgAfter.image.src);
+
+			if (this.options.showLabels) {
+				this.displayLabels();
+			}
+
+			if (this.options.showCredits) {
+				this.displayCredits();
+			}
+
+
+			var self = this;
+
+			this.slider.addEventListener("mousedown", function(d) {
+				d.preventDefault();
+				self.updateSlider(d, false);
+				dragging = true;
+
+				this.addEventListener("mousemove", function(event) {
+					if (dragging) {
+						self.updateSlider(event, true);
+					}
+				});
+
+				document.addEventListener('mouseup', function() {
+					dragging = false;
+				});
+
+				this.addEventListener('mouseleave', function() {
+					dragging = false;
+				});
+			});
+
+			this.slider.addEventListener("touchstart", function(d) {
+				d.preventDefault();
+				self.updateSlider(d, false)
+
+				this.addEventListener("touchmove", function(event) {
+					self.updateSlider(event, true);
+				});
+			});
 		}
-		return new ImageSlider(selector, images, options);
-	};
-		
-	window.imageSlider = imageSlider;
+	}
+
+	// window.imageSlider = imageSlider;
 
 	//Enable HTML Implementation
 	function scanPage() {
-		// var sliders = []
-		// var wrapper_array = document.querySelectorAll('.klba-wrapper');
-		// for (var i = 0; i < wrapper_array.length; i++) {
+		var sliderArray = [];
 
-		//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map#Example.3A_using.C2.A0map.C2.A0generically_querySelectorAll
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map#Example.3A_using.C2.A0map.C2.A0generically_querySelectorAll
 		[].map.call(document.querySelectorAll('.klba-wrapper'), function(obj, i) {
 			
 			var w = obj;
@@ -395,8 +398,8 @@
 			selector = '.' + specfificClass;
 
 			w.innerHTML = '';
-			slider = new imageSlider(
-				selector, 
+			slider = new ImageSlider(
+				selector,
 				[
 					{
 						src: images[0].src,
