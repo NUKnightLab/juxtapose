@@ -1,5 +1,4 @@
 (function (document, window) {
-	window.sliders = [];
 
 	var flickr_key = "d90fc2d1f4acc584e08b8eaea5bf4d6c";
 
@@ -11,7 +10,8 @@
 	}
 
 	function FlickrGraphic(properties) {
-		self = this;
+
+		var self = this;
 		this.image = new Image();
 
 		this.flickrID = this.getFlickrID(properties.src);
@@ -33,13 +33,12 @@
 		},
 
 		callFlickrAPI: function(id, self) {
-			var flickr_best_size = "Large";
+			var flickr_best_size = "Small";
 			var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes' +
 					'&api_key=' + flickr_key + 
 					'&photo_id=' + id + '&format=json&nojsoncallback=1';
 
-			// Vanilla Javascript
-			request = new XMLHttpRequest();
+			var request = new XMLHttpRequest();
 			request.open('GET', url, true);
 			request.onload = function() {
 				if (request.status >= 200 && request.status < 400){
@@ -58,17 +57,6 @@
 				console.error("There was an error getting the picture from Flickr")
 			};
 			request.send();
-
-			// // jQuery
-			// $.getJSON(url, function(data) {
-			// 	for(var i = 0; i < data.sizes.size.length; i++) {
-			// 		if (data.sizes.size[i].label == flickr_best_size) {
-			// 			flickr_url = data.sizes.size[i].source;
-			// 		}
-			// 	}
-			// 	self.setFlickrImage(flickr_url);
-			// });
-
 		},
 
 		setFlickrImage: function(src) {
@@ -100,7 +88,7 @@
 	}
 
 	function ImageSlider(selector, images, options) {
-		window.sliders.push(this);
+
 		this.selector = selector;
 
 		var i;
@@ -280,13 +268,13 @@
 				this.leftImage.className = 'klba-image left'
 
 				this.labCredit = document.createElement("a");
-				this.labCredit.setAttribute('href', 'htt://juxtapose.knightlab.com');
+				this.labCredit.setAttribute('href', 'http://juxtapose.knightlab.com');
 				this.labCredit.className = 'klba-knightlab';
 				this.labImage = new Image();
 				this.labImage.src = 'http://blueline.knightlab.com/assets/logos/favicon.ico';
 				this.labCredit.appendChild(this.labImage);
 				this.labName = document.createElement('p');
-				this.labName.textContent = 'JuxtaposeJS';
+				this.labName.textContent = 'Juxtapose';
 				this.labCredit.appendChild(this.labName)
 
 				this.slider.appendChild(this.handle);
@@ -378,8 +366,6 @@
 
 	//Enable HTML Implementation
 	function scanPage() {
-		var sliderArray = [];
-
 		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map#Example.3A_using.C2.A0map.C2.A0generically_querySelectorAll
 		[].map.call(document.querySelectorAll('.klba-wrapper'), function(obj, i) {
 			

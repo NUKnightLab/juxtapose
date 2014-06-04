@@ -28,11 +28,11 @@ Specifying a starting position with `data-startingposition` lets you focus the u
 
 
 ####Javascript Implementation
-The `imageSlider` class takes three arguments. First, is the string of the ID of the element you want to turn into a slider. Second is an array of two objects. Each object *must* have `src` defined and can optionally define a `label` and a `credit`. The third argument lets you set additional options for the image slider.
+The `ImageSlider` class takes three arguments. First, is the string of the ID of the element you want to turn into a slider. Second is an array of two objects. Each object *must* have `src` defined and can optionally define a `label` and a `credit`. The third argument lets you set additional options for the image slider.
 
     <div id="klba-slider"></div>
     <script>
-    slider = new imageSlider('klba-slider', 
+    slider = new ImageSlider('klba-slider', 
         [
             {
                 src: 'http://firstimage.jpg',
