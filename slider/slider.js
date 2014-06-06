@@ -33,7 +33,7 @@
 		},
 
 		callFlickrAPI: function(id, self) {
-			var flickr_best_size = "Small";
+			var flickr_best_size = "Large";
 			var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes' +
 					'&api_key=' + flickr_key + 
 					'&photo_id=' + id + '&format=json&nojsoncallback=1';
@@ -274,7 +274,7 @@
 				this.labImage.src = 'http://blueline.knightlab.com/assets/logos/favicon.ico';
 				this.labCredit.appendChild(this.labImage);
 				this.labName = document.createElement('p');
-				this.labName.textContent = 'Juxtapose';
+				this.labName.textContent = 'JuxtaposeJS';
 				this.labCredit.appendChild(this.labName)
 
 				this.slider.appendChild(this.handle);
@@ -282,20 +282,20 @@
 				this.slider.appendChild(this.rightImage);
 				this.slider.appendChild(this.labCredit);
 
-				leftArrow = document.createElement("div");
-				rightArrow = document.createElement("div");
-				control = document.createElement("div");
-				controller = document.createElement("div");
+				this.leftArrow = document.createElement("div");
+				this.rightArrow = document.createElement("div");
+				this.control = document.createElement("div");
+				this.controller = document.createElement("div");
 
-				leftArrow.className = 'klba-arrow left';
-				rightArrow.className = 'klba-arrow right';
-				control.className = 'klba-control';
-				controller.className = 'klba-controller';
+				this.leftArrow.className = 'klba-arrow left';
+				this.rightArrow.className = 'klba-arrow right';
+				this.control.className = 'klba-control';
+				this.controller.className = 'klba-controller';
 
-				this.handle.appendChild(leftArrow);
-				this.handle.appendChild(control);
-				this.handle.appendChild(rightArrow);
-				control.appendChild(controller);
+				this.handle.appendChild(this.leftArrow);
+				this.handle.appendChild(this.control);
+				this.handle.appendChild(this.rightArrow);
+				this.control.appendChild(this.controller);
 
 				this.dragging = false;
 
@@ -307,7 +307,7 @@
 		_init: function() {
 
 			if (this.checkImages() == false) {
-				console.warn("Check that the two images have the same aspect ratio for the slider to work correctly.");
+				console.warn(this, "Check that the two images have the same aspect ratio for the slider to work correctly.");
 			}
 
 			var rightStart = 100 - parseInt(this.options.startingPosition) + "%";
