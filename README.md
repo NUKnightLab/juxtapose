@@ -1,14 +1,13 @@
-BeforeAfterImageSlider
-======================
+#JuxtaposeJS
 
-This is a simple open source tool for creating before/after image sliders. Just provide two image URLs and this will do the rest of the work for you. 
+JuxtaposeJS is a simple open source tool for creating before/after image sliders. Just provide two image URLs and this will do the rest of the work for you. 
 
 ###Instructions
 
 ####HTML Implementation
 The easist way to implement the image slider is to add this code to your markup:
 
-    <div id="klba-wrapper">
+    <div class="juxtapose">
         <img src="http://firstimage.jpg" />
         <img src="http://secondimage.jpg" />
     </div>

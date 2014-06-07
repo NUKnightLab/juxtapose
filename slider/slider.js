@@ -366,7 +366,7 @@
 	//Enable HTML Implementation
 	function scanPage() {
 		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map#Example.3A_using.C2.A0map.C2.A0generically_querySelectorAll
-		[].map.call(document.querySelectorAll('.klba-wrapper'), function(obj, i) {
+		[].map.call(document.querySelectorAll('.juxtapose'), function(obj, i) {
 			
 			var w = obj;
 
@@ -378,7 +378,7 @@
 				startingPosition: w.getAttribute('data-startingposition')
 			};
 
-			specfificClass = 'klba-wrapper-' + i;
+			specfificClass = 'juxtapose-' + i;
 			w.classList.add(specfificClass);		
 			selector = '.' + specfificClass;
 
