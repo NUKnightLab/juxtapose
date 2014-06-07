@@ -250,10 +250,6 @@
 				this.wrapper.style.width = this.imgBefore.image.naturalWidth
 			
 				this.setWrapperDimensions();
-				var self = this;
-				window.onresize = function(event) {
-					self.setWrapperDimensions()
-				};
 
 				this.slider = document.createElement("div");
 				this.slider.className = 'klba-slider';
@@ -330,6 +326,9 @@
 
 
 			var self = this;
+			window.onresize = function(event) {
+				self.setWrapperDimensions()
+			};
 
 			this.slider.addEventListener("mousedown", function(d) {
 				d.preventDefault();
