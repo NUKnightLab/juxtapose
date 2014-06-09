@@ -397,6 +397,3 @@
 	scanPage();
 
 }(document, window));
-
-
-
