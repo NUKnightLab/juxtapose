@@ -87,7 +87,7 @@
 		}
 	}
 
-	function ImageSlider(selector, images, options) {
+	function JXSlider(selector, images, options) {
 
 		this.selector = selector;
 
@@ -146,7 +146,7 @@
 		}
 	}		
 
-	ImageSlider.prototype = {
+	JXSlider.prototype = {
 
 		updateSlider: function(e, dragging) {
 
@@ -184,10 +184,10 @@
 
 		displayLabels: function() {
 			leftDate = document.createElement("div");
-			leftDate.className = 'klba-label';
+			leftDate.className = 'jx-label';
 			leftDate.textContent = this.imgBefore.label;
 			rightDate = document.createElement("div");
-			rightDate.className = 'klba-label';
+			rightDate.className = 'jx-label';
 			rightDate.textContent = this.imgAfter.label;
 
 			this.leftImage.appendChild(leftDate);
@@ -196,7 +196,7 @@
 
 		displayCredits: function() {
 			credit = document.createElement("div");
-			credit.className = "klba-credit";
+			credit.className = "jx-credit";
 
 			text = 	"<em>Before </em>" + this.imgBefore.credit + 
 					" <em>After </em>" + this.imgAfter.credit;
@@ -221,6 +221,8 @@
 			width = (parseInt(getComputedStyle(this.wrapper)['width']));
 			height = (parseInt(getComputedStyle(this.wrapper)['height']));
 
+			console.log(this.selector, width, height);
+
 			if (width) {
 				height = width * (1 / ratio);
 				this.wrapper.style.height = height + "px";
@@ -241,31 +243,25 @@
 
 				this.wrapper = document.querySelector(this.selector);
 
-				// this.wrapper = this.wrapper[0];
-
-				// if (this.wrapper.classList.indexOf('klba-wrapper') < 0) {
-				// 	this.wrapper.classList.add("klba-wrapper");
-				// }
-
 				this.wrapper.style.width = this.imgBefore.image.naturalWidth
 			
 				this.setWrapperDimensions();
 
 				this.slider = document.createElement("div");
-				this.slider.className = 'klba-slider';
+				this.slider.className = 'jx-slider';
 				this.wrapper.appendChild(this.slider);
 
 				this.handle = document.createElement("div");
-				this.handle.className = 'klba-handle';
+				this.handle.className = 'jx-handle';
 
 				this.rightImage = document.createElement("div");
-				this.rightImage.className = 'klba-image right';
+				this.rightImage.className = 'jx-image right';
 				this.leftImage = document.createElement("div");
-				this.leftImage.className = 'klba-image left'
+				this.leftImage.className = 'jx-image left'
 
 				this.labCredit = document.createElement("a");
 				this.labCredit.setAttribute('href', 'http://juxtapose.knightlab.com');
-				this.labCredit.className = 'klba-knightlab';
+				this.labCredit.className = 'jx-knightlab';
 				this.labImage = new Image();
 				this.labImage.src = 'http://blueline.knightlab.com/assets/logos/favicon.ico';
 				this.labCredit.appendChild(this.labImage);
@@ -283,10 +279,10 @@
 				this.control = document.createElement("div");
 				this.controller = document.createElement("div");
 
-				this.leftArrow.className = 'klba-arrow left';
-				this.rightArrow.className = 'klba-arrow right';
-				this.control.className = 'klba-control';
-				this.controller.className = 'klba-controller';
+				this.leftArrow.className = 'jx-arrow left';
+				this.rightArrow.className = 'jx-arrow right';
+				this.control.className = 'jx-control';
+				this.controller.className = 'jx-controller';
 
 				this.handle.appendChild(this.leftArrow);
 				this.handle.appendChild(this.control);
@@ -296,7 +292,7 @@
 				this.dragging = false;
 
 				//Add Interactivity
-				this._init(this);
+				this._init();
 			}
 		},
 
@@ -316,19 +312,18 @@
 			setImage(this.leftImage, this.imgBefore.image.src);
 			setImage(this.rightImage, this.imgAfter.image.src);
 
-			if (this.options.showLabels) {
+			if (this.options.showLabels == true) {
 				this.displayLabels();
 			}
-
-			if (this.options.showCredits) {
+			
+			if (this.options.showCredits == true) {
 				this.displayCredits();
 			}
 
-
 			var self = this;
-			window.onresize = function(event) {
-				self.setWrapperDimensions()
-			};
+			window.addEventListener("resize", function() {
+				self.setWrapperDimensions();
+			});
 
 			this.slider.addEventListener("mousedown", function(d) {
 				d.preventDefault();
@@ -361,11 +356,8 @@
 		}
 	}
 
-	// window.imageSlider = imageSlider;
-
 	//Enable HTML Implementation
 	function scanPage() {
-		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map#Example.3A_using.C2.A0map.C2.A0generically_querySelectorAll
 		[].map.call(document.querySelectorAll('.juxtapose'), function(obj, i) {
 			
 			var w = obj;
@@ -383,7 +375,7 @@
 			selector = '.' + specfificClass;
 
 			w.innerHTML = '';
-			slider = new ImageSlider(
+			slider = new JXSlider(
 				selector,
 				[
 					{

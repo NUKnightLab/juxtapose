@@ -1,16 +1,16 @@
 @import url(http://fonts.googleapis.com/css?family=News+Cycle);
 
-div.klba-wrapper {
+div.juxtapose {
 	max-width: 600px;
 	clear: both;
 	font-family: 'News Cycle', Times, sans-serif;
 }
 
-img.klba-image {
+img.jx-image {
 	width: 100%;
 }
 
-div.klba-slider {
+div.jx-slider {
 	width: 100%;
 	height: 100%;
 	position: relative;
@@ -18,7 +18,7 @@ div.klba-slider {
 	cursor: pointer;	
 }
 
-div.klba-handle {
+div.jx-handle {
 	position: absolute;
 	height: 100%;
 	width: 40px;
@@ -27,7 +27,7 @@ div.klba-handle {
 	margin-left: -20px;
 }
 
-div.klba-control {
+div.jx-control {
 	height: 100%;
 	margin-right: auto;
 	margin-left: auto;
@@ -35,7 +35,7 @@ div.klba-control {
 	background-color: white;
 }
 
-div.klba-controller {
+div.jx-controller {
 	position: absolute;
 	margin: auto;
 	top: 0;
@@ -46,7 +46,7 @@ div.klba-controller {
 	background-color: white;
 }
 
-div.klba-arrow {
+div.jx-arrow {
 	position: absolute;
 	margin: auto;
 	top: 0;
@@ -56,30 +56,30 @@ div.klba-arrow {
 	transition: all .2s ease;
 }
 
-div.klba-arrow.left {
+div.jx-arrow.left {
 	left: 2px;
 	border-style: solid;
 	border-width: 8px 8px 8px 0;
 	border-color: transparent white transparent transparent;
 }
 
-div.klba-arrow.right {
+div.jx-arrow.right {
 	right: 2px;
 	border-style: solid;
 	border-width: 8px 0px 8px 8px;
 	border-color: transparent transparent transparent white;
 }
 
-div.klba-handle:hover div.klba-arrow.left {
+div.jx-handle:hover div.jx-arrow.left {
 	left: -1px;
 }
 
-div.klba-handle:hover div.klba-arrow.right {
+div.jx-handle:hover div.jx-arrow.right {
 	right: -1px;
 }
 
 
-div.klba-image {
+div.jx-image {
 	height: 100%;
 	display: inline-block;
 	top: 0;
@@ -87,17 +87,17 @@ div.klba-image {
 	background-size: cover;
 }
 
-div.klba-image.left {
+div.jx-image.left {
 	left: 0;
 	background-position: left;
 }
 
-div.klba-image.right {
+div.jx-image.right {
 	right: 0;
 	background-position: right;
 }
 
-div.klba-image div.klba-label {
+div.jx-image div.jx-label {
 	padding-left: 1em;
 	padding-right: 1em;
 	padding-top: .3em;
@@ -114,20 +114,20 @@ div.klba-image div.klba-label {
 	vertical-align: middle;
 }
 
-div.klba-image.left div.klba-label {
+div.jx-image.left div.jx-label {
 	float: left;
 	left: 0;
 }
 
-div.klba-image.right div.klba-label {
+div.jx-image.right div.jx-label {
 	float: right;
 	right: 0;
 }
 
-div.klba-credit {
+div.jx-credit {
 }
 
-div.klba-credit em {
+div.jx-credit em {
 	font-weight: bold;
 	font-style: normal;
 }
@@ -136,16 +136,16 @@ div.klba-credit em {
 /* Animation
  */
 
-div.klba-image.transition {
+div.jx-image.transition {
 	transition: width .5s ease;
 }
 
-div.klba-handle.transition {
+div.jx-handle.transition {
 	transition: left .5s ease;
 }
 
 /* Knight Lab Credit */
-a.klba-knightlab {
+a.jx-knightlab {
 	position: absolute;
 	bottom: 0;
 	right: 0;
@@ -156,7 +156,7 @@ a.klba-knightlab {
 	height: 1.2em;
 }
 
-a.klba-knightlab img {
+a.jx-knightlab img {
 	display: inline-block;
 	vertical-align: middle;
 	height: 0.8em;
@@ -164,7 +164,7 @@ a.klba-knightlab img {
 	padding-bottom: 0.6em;
 }
 
-a.klba-knightlab p {
+a.jx-knightlab p {
 	margin: 0;
 	display: inline-block;
 	color: black;
