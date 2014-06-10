@@ -137,7 +137,33 @@ $('#audition_area').on('click', 'textarea.code', function() {
     $(this).select();
 });
 
-function makePreviewOne() {
-    
-}
+
+
+// My Stuff
+
+$("form#stepOne").submit(function() {
+    event.preventDefault();
+
+    $this = $(this);
+
+    var formData = {};
+    $.each($this.serializeArray(), function() {
+        formData[this.name] = this.value;
+    })
+
+    previewStepOne = new JXSlider('.stepOnePreview', [
+            {
+                src: formData.beforeImgSrc,
+                label: formData.beforeImgLabel
+            },
+            {
+                src: formData.afterImgSrc,
+                label: formData.afterImgLabel
+            }
+        ], {});
+
+
+});
+
+
 
