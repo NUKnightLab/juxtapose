@@ -29,16 +29,28 @@
 					<strong>Whoops!</strong> It looks like you are missing a link to one of the images.
 				</div>
  -->			</form>
-				<div id="stepOnePreview" style="width: 100%;"></div>
+ 				<div class="preview">
+					<div id="stepOnePreview"></div>
+				</div>
 	</div>
 
-  <div class="row-fluid step">
-    <h2 class="span1">2</h2>
-    <div class="span11">
-      <h4>Specify other options <span class="default">(or just use the defaults)</span></h4>
-      <p>You can manually specify the starting position of your JuxtaposeJS slider to better highlight the change between the two pictures.</p>
-    </div>
-  </div> <!-- end row -->
+	<div class="row-fluid step">
+		<h2 class="span1">2</h2>
+		<div class="span11">
+			<h4>Specify other options <span class="default">(or just use the defaults)</span></h4>
+			<form id="stepTwo">
+				<label type="checkbox" ><input name="showLabels" type="checkbox" value="true" checked /><span>Show Labels</span></label>
+				<label type="checkbox" ><input name="showCredits" type="checkbox" value="true" checked /><span>Show Credits</span></label>
+				<div class="startingPosition">
+					<h6>Set the handle's starting position:</h6>
+					<p>You can manually specify the starting position of your JuxtaposeJS slider to better highlight the change between the two pictures.</p>
+					<input type="number" class="form-control" name="startingPosition" placeholder="50%" value="50%">
+				</div>
+				<button type="submit" class="btn btn-primary" style="margin-top: 11px;">Update Preview</button>	
+			</form>
+		</div>
+  </div>
+
   <div class="row-fluid step">
     <h2 class="span1">3</h2>
     <div class="span11">

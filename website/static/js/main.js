@@ -3,6 +3,8 @@
 // });
 
 
+var stepOnePreview;
+
 $("form#stepOne").submit(function() {
     event.preventDefault();
 
@@ -25,6 +27,17 @@ $("form#stepOne").submit(function() {
     smoothScroll.animateScroll(null, '#stepOnePreview', {offset: 50});
 
 });
+
+
+$("form#stepTwo").submit(function() {
+     event.preventDefault();
+
+    $this = $(this);
+    data = objectFromForm($this);
+    console.log(data);
+});   
+
+
 
 
 function objectFromForm($form) {

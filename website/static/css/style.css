@@ -164,6 +164,7 @@ textarea {
     margin: 0;
   }
 }
+
 input::-webkit-input-placeholder {
   font-size: 14px;
 }
@@ -174,16 +175,6 @@ input:-ms-input-placeholder {
   font-size: 14px;
 }
 
-#player {
-  display: none;
-}
-
-#creation_box{
-  display: none;
-}
-
-#creation_box h3 {
-}
 #examples figure {
   margin: 0px 0px 35px;
 }
@@ -192,24 +183,21 @@ input:-ms-input-placeholder {
   width: 80%;
   font-size: 14px;
 }
-#audition_area  {
-   display: none;
-}
-#audition_area .soundcite {
-    margin-right: 3px;
-    margin-bottom: 10px;
-}
-.clip {
-    background-color: #FAFAFA;
-    border-left: 4px solid #F3F3F3;
-    font-size: 1.1em;
-    line-height: 1.5em;
-    margin: 0 0 22px;
-    overflow: auto;
-    padding: 1em 1em 0;
-}
-
 .example.block a {
   cursor: pointer;
 }
 
+
+/* My Stuff */
+
+.preview {
+  margin-bottom: 3em;
+}
+
+label[type='checkbox'] span {
+  margin-left: 10px;
+}
+
+label[type='checkbox'] input {
+  vertical-align: middle;
+}

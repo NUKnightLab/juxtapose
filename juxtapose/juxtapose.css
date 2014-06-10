@@ -70,11 +70,11 @@ div.jx-arrow.right {
 	border-color: transparent transparent transparent white;
 }
 
-div.jx-handle:hover div.jx-arrow.left {
+div.jx-handle:hover div.jx-arrow.left, div.jx-handle:active div.jx-arrow.left {
 	left: -1px;
 }
 
-div.jx-handle:hover div.jx-arrow.right {
+div.jx-handle:hover div.jx-arrow.right, div.jx-handle:active div.jx-arrow.right {
 	right: -1px;
 }
 
@@ -174,4 +174,20 @@ a.jx-knightlab p {
 	height: 100%;
 	line-height: 0.8em;
 	padding-bottom: 0.2em;
+}
+
+@media (max-width: 400px) {
+	a.jx-knightlab {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		z-index: 10;
+		padding: 0em 0.2em 0.1em 0.2em;
+		background-color: rgba(0,0,0,0.7);
+		text-decoration: none;
+	}
+
+	a.jx-knightlab p {
+		display: none;
+	}	
 }
