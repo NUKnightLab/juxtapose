@@ -5,8 +5,8 @@
 	function Graphic(properties) {
 		this.image = new Image();
 		this.image.src = properties.src;
-		this.label = properties.label;
-		this.credit = properties.credit;
+		this.label = properties.label || false;
+		this.credit = properties.credit || false;
 	}
 
 	function FlickrGraphic(properties) {
@@ -17,8 +17,8 @@
 		this.flickrID = this.getFlickrID(properties.src);
 		this.callFlickrAPI(this.flickrID, self);
 
-		this.label = properties.label;
-		this.credit = properties.credit;
+		this.label = properties.label || false;
+		this.credit = properties.credit || false;
 	}
 
 	FlickrGraphic.prototype = {
@@ -127,23 +127,24 @@
 			this.options.showLabels = false;
 		}
 		if (!this.imgBefore.credit || !this.imgAfter.credit) {
+			alert();
 			this.options.showCredits = false;
 		}
 
-			this.load1 = false;
-			this.load2 = false;
-			
-			var self = this;
+		this.load1 = false;
+		this.load2 = false;
+		
+		var self = this;
 
-			this.imgBefore.image.onload = function() {
-				self.load1 = true;
-				self._onLoaded();
-			}
-
-			this.imgAfter.image.onload = function() {
-				self.load2 = true;
-				self._onLoaded();
+		this.imgBefore.image.onload = function() {
+			self.load1 = true;
+			self._onLoaded();
 		}
+
+		this.imgAfter.image.onload = function() {
+			self.load2 = true;
+			self._onLoaded();
+	}
 	}		
 
 	JXSlider.prototype = {

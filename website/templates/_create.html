@@ -11,27 +11,26 @@
 			<p>To use TBD you need to provide two images showing the same place at two different times. The two images should ideally be taken from the same perspective and distance. This early version of TBD does not provide any way to help position your images. Once you have your two images picked, you need provide the direct link to each of the images. If your newsroom does not have a way to get a direct link to images, you can host your images on Flickr as well.</p>
 			<p>Input links to your two images and (optionally) input labels for each image. Then check below to see a preview of how your slider will look.</p>
 			<form id="stepOne">
-				<div class="imgBefore">
-				    <input type="text" name="beforeImgSrc" class="urlBox span9" placeholder="https://firstimage.jpg">
-				    <input type="text" name="beforeImgLabel" class="urlBox span2" placeholder="Label">
+				<div class="imgBefore row-fluid">
+					<h6>Before</h6>
+				    <input type="url" name="beforeImgSrc" class="urlBox span11" placeholder="https://firstimage.jpg" value="http://online.wsj.com/media/LIONDOOR_2A.jpg">
+				    <input type="text" name="beforeImgLabel" class="span3" placeholder="Label (optional)">
+				    <input type="text" name="beforeImgCredit" class="span8" placeholder="Credit (optional)">
 				</div>
-				<div class="imgAfter">
-					<input type="text" name="afterImgSrc" class="urlBox span9" placeholder="https://secondimage.jpg">
-					<input type="text" name="afterImgLabel" class="urlBox span2" placeholder="Label">        
+				<div class="imgAfter row-fluid">
+					<h6>After</h6>
+					<input type="url" name="afterImgSrc" class="urlBox span11" placeholder="https://secondimage.jpg" value="http://online.wsj.com/media/LIONDOORA.jpg">
+					<input type="text" name="afterImgLabel" class="span3" placeholder="Label (optional)">   
+				    <input type="text" name="afterImgCredit" class="span8" placeholder="Credit (optional)">		     
 				</div>
-				<button type="submit" class="btn btn-primary">Generate Preview</button>
-				<div class="alert alert-warning alert-dismissable">
+				<button type="submit" class="btn btn-primary" style="margin-top: 11px;">Generate Preview</button>	
+<!-- 				<div class="alert alert-warning alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					<strong>Whoops!</strong> It looks like you are missing a link to one of the images
+					<strong>Whoops!</strong> It looks like you are missing a link to one of the images.
 				</div>
-			</form>
-		</div>
-		<div class="preview">
-			<div class="stepOnePreview">
-				
-			</div>
-		</div>
-  </div> <!-- end row -->
+ -->			</form>
+				<div id="stepOnePreview" style="width: 100%;"></div>
+	</div>
 
   <div class="row-fluid step">
     <h2 class="span1">2</h2>
