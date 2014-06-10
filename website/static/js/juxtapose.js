@@ -143,7 +143,7 @@
 		this.imgAfter.image.onload = function() {
 			self.load2 = true;
 			self._onLoaded();
-		}
+	}
 	}		
 
 	JXSlider.prototype = {

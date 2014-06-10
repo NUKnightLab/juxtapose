@@ -127,7 +127,6 @@
 			this.options.showLabels = false;
 		}
 		if (!this.imgBefore.credit || !this.imgAfter.credit) {
-			alert();
 			this.options.showCredits = false;
 		}
 
@@ -149,7 +148,9 @@
 
 	JXSlider.prototype = {
 
-		updateSlider: function(e, dragging) {
+		updateSlider: function(input, dragging, animate) {
+			var leftPercent, rightPercent;
+			var num = -1;
 
 			var sliderRect = this.slider.getBoundingClientRect()
 			var offset = {
@@ -159,19 +160,29 @@
 
 			var width = this.slider.offsetWidth;
 
-			var relativeX = e.pageX - offset.left;
+			if (input instanceof MouseEvent || input instanceof TouchEvent) {
+				var relativeX = input.pageX - offset.left;
+				leftPercent = (relativeX / width) * 100 + "%";
+				rightPercent = 100 - ((relativeX / width) * 100) + "%";
+			} else if (typeof(input) === ("string" || "number")) {
+				if (typeof(input) === "string") {
+					num = parseInt(input);	
+				} else {
+					num = input;
+				}
+				leftPercent = num + "%";
+				rightPercent = (100 - num) + "%";
+			}
 
-			var leftPercent = (relativeX / width) * 100 + "%";
-			var rightPercent = 100 - ((relativeX / width) * 100) + "%";
-			
-			var a = (relativeX / width);
-			if (a > 0 && a < 1) {
+			var eventCheck = (relativeX / width);
+			var numCheck = parseInt(num);
 
+			if ((eventCheck > 0 && eventCheck < 1) || (numCheck >= 0 && numCheck <= 100)) {
 				this.handle.classList.remove("transition");
 				this.rightImage.classList.remove("transition");
 				this.leftImage.classList.remove("transition");
 
-				if(this.options.animate && !dragging) {
+				if((this.options.animate && !dragging) || animate) {
 					this.handle.classList.add("transition");
 					this.leftImage.classList.add("transition");
 					this.rightImage.classList.add("transition");
@@ -180,6 +191,7 @@
 				this.handle.style.left = leftPercent;
 				this.leftImage.style.width = leftPercent;
 				this.rightImage.style.width = rightPercent;
+				this.handlePosition = leftPercent;
 			}
 		},
 
@@ -303,7 +315,7 @@
 			}
 
 			var rightStart = 100 - parseInt(this.options.startingPosition) + "%";
-
+			this.handlePosition = rightStart;
 
 			this.leftImage.style.width = this.options.startingPosition;
 			this.rightImage.style.width = rightStart;
@@ -360,6 +372,8 @@
 
 	//Enable HTML Implementation
 	function scanPage() {
+		sliders = [];
+
 		[].map.call(document.querySelectorAll('.juxtapose'), function(obj, i) {
 			
 			var w = obj;
@@ -393,7 +407,10 @@
 				],
 				options
 			);
+			sliders.push(slider);
 		});
+
+		window.activeJX = sliders;
 	}
 
 	scanPage();
