@@ -31,7 +31,7 @@ div.jx-control {
 	height: 100%;
 	margin-right: auto;
 	margin-left: auto;
-	width: 2px;
+	width: 3px;
 	background-color: white;
 }
 
@@ -41,7 +41,7 @@ div.jx-controller {
 	top: 0;
 	bottom: 0;
 	height: 60px;
-	width: 8px;
+	width: 9px;
 	margin-left: -3px;
 	background-color: white;
 }
