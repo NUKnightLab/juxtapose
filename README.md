@@ -60,7 +60,7 @@ You can customize how JuxtaposeJS looks by modifying its CSS. For instructions, 
 
 The JXSlider class contains a few methods you can use to modify your sliders. 
 
-If you instantiated your sliders with the HTML method but still want to access one of your sliders programmatically, JuxtaposeJS creates an array of the JXSliders on your page that you can access with `window.juxtpose`. 
+If you instantiated your sliders with the HTML method but still want to access one of your sliders programmatically, JuxtaposeJS creates an array of the JXSliders on your page that you can access with `window.juxtapose`. 
 
 JXSlider.**updateSlider**(*percentage*, *animate*)
 
