@@ -314,12 +314,7 @@
 				console.warn(this, "Check that the two images have the same aspect ratio for the slider to work correctly.");
 			}
 
-			var rightStart = 100 - parseInt(this.options.startingPosition) + "%";
-			this.handlePosition = rightStart;
-
-			this.leftImage.style.width = this.options.startingPosition;
-			this.rightImage.style.width = rightStart;
-			this.handle.style.left = this.options.startingPosition;
+			this.updateSlider(this.options.startingPosition, false);
 
 			setImage(this.leftImage, this.imgBefore.image.src);
 			setImage(this.rightImage, this.imgAfter.image.src);
