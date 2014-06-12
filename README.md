@@ -27,11 +27,11 @@ Specifying a starting position with `data-startingposition` lets you focus the u
 
 
 ####Javascript Implementation
-The `ImageSlider` class takes three arguments. First, is the string of the ID of the element you want to turn into a slider. Second is an array of two objects. Each object *must* have `src` defined and can optionally define a `label` and a `credit`. The third argument lets you set additional options for the image slider.
+The `JXSlider` class takes three arguments. First, is the string of the ID of the element you want to turn into a slider. Second is an array of two objects. Each object *must* have `src` defined and can optionally define a `label` and a `credit`. The third argument lets you set additional options for the image slider.
 
-    <div id="klba-slider"></div>
+    <div id="foo"></div>
     <script>
-    slider = new ImageSlider('klba-slider', 
+    slider = new JXSlider('#foo', 
         [
             {
                 src: 'http://firstimage.jpg',
@@ -51,4 +51,18 @@ The `ImageSlider` class takes three arguments. First, is the string of the ID of
             startingPosition: "50%"
         });
     </script>
+
+###Modifications
+####CSS
+You can customize how JuxtaposeJS looks by modifying its CSS. For instructions, [click here](https://github.com/duner/juxtapose/wiki/Styling-the-Slider).
+
+####JavaScript
+
+The JXSlider class contains a few methods you can use to modify your sliders. 
+
+If you instantiated your sliders with the HTML method but still want to access one of your sliders programmatically, JuxtaposeJS creates an array of the JXSliders on your page that you can access with `window.juxtpose`. 
+
+JXSlider.**updateSlider**(*percentage*, *animate*)
+
+*Percentage* inidcates where you want to set the handle relative to the left side of the slider. If you set *animate* to `true`, the handle will animate to the new location; if animate is set to `false`, the handle will not.
 

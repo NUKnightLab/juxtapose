@@ -148,7 +148,7 @@
 
 	JXSlider.prototype = {
 
-		updateSlider: function(input, dragging, animate) {
+		updateSlider: function(input, animate) {
 			var leftPercent, rightPercent;
 			var num = -1;
 
@@ -182,7 +182,7 @@
 				this.rightImage.classList.remove("transition");
 				this.leftImage.classList.remove("transition");
 
-				if((this.options.animate && !dragging) || animate) {
+				if((this.options.animate && animate)) {
 					this.handle.classList.add("transition");
 					this.leftImage.classList.add("transition");
 					this.rightImage.classList.add("transition");
@@ -301,7 +301,7 @@
 				this.handle.appendChild(this.rightArrow);
 				this.control.appendChild(this.controller);
 
-				this.dragging = false;
+				//this.animate = false;
 
 				//Add Interactivity
 				this._init();
@@ -339,30 +339,30 @@
 
 			this.slider.addEventListener("mousedown", function(d) {
 				d.preventDefault();
-				self.updateSlider(d, false);
-				dragging = true;
+				self.updateSlider(d, true);
+				animate = true;
 
 				this.addEventListener("mousemove", function(event) {
-					if (dragging) {
-						self.updateSlider(event, true);
+					if (animate) {
+						self.updateSlider(event, false);
 					}
 				});
 
 				document.addEventListener('mouseup', function() {
-					dragging = false;
+					animate = false;
 				});
 
 				this.addEventListener('mouseleave', function() {
-					dragging = false;
+					animate = false;
 				});
 			});
 
 			this.slider.addEventListener("touchstart", function(d) {
 				d.preventDefault();
-				self.updateSlider(d, false)
+				self.updateSlider(d, true)
 
 				this.addEventListener("touchmove", function(event) {
-					self.updateSlider(event, true);
+					self.updateSlider(event, false);
 				});
 			});
 		}
@@ -410,7 +410,7 @@
 			sliders.push(slider);
 		});
 
-		window.activeJX = sliders;
+		window.juxtapose = sliders;
 	}
 
 	scanPage();
