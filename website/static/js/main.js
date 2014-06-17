@@ -4,38 +4,78 @@
 
 
 var stepOnePreview;
+var stepTwoPreview;
+var stepOneData;
+var stepTwoData;
 
 $("form#stepOne").submit(function() {
     event.preventDefault();
 
     $this = $(this);
-    data = objectFromForm($this);
+    stepOneData = objectFromForm($this);
 
     if (typeof(stepOnePreview) !== 'undefined') {
         $('#stepOnePreview').empty();
     }
     stepOnePreview = new JXSlider('#stepOnePreview', [
             {
-                src: data.beforeImgSrc,
-                label: data.beforeImgLabel
+                src: stepOneData.beforeImgSrc,
+                label: stepOneData.beforeImgLabel
             },
             {
-                src: data.afterImgSrc,
-                label: data.afterImgLabel
+                src: stepOneData.afterImgSrc,
+                label: stepOneData.afterImgLabel
             }
         ], {});
+
     smoothScroll.animateScroll(null, '#stepOnePreview', {offset: 50});
 
 });
 
 
 $("form#stepTwo").submit(function() {
-     event.preventDefault();
-
+    event.preventDefault();
     $this = $(this);
-    data = objectFromForm($this);
-    console.log(data);
-});   
+
+    console.log(stepOneData);
+
+    stepTwoData = objectFromForm($this);
+
+    if (typeof(stepTwoPreview) !== 'undefined') {
+        $('#stepTwoPreview').empty();
+    }
+
+    if (stepTwoData.startingPosition <= 0 && stepTwoData.startingPosition >= 100) {
+        console.warn("must be between 0 and 100")
+    }
+
+    stepTwoPreview = new JXSlider('#stepTwoPreview', [
+            {
+                src: stepOneData.beforeImgSrc,
+                label: stepOneData.beforeImgLabel
+            },
+            {
+                src: stepOneData.afterImgSrc,
+                label: stepOneData.afterImgLabel
+            }
+        ], {
+           animate: stepTwoData.animate,
+           showCredits: stepTwoData.showCredits,
+           showLabels: stepTwoData.showLabels,
+           startingPosition: stepTwoData.startingPosition
+        });
+    
+    smoothScroll.animateScroll(null, '#stepTwoPreview', {offset: 50});
+
+}); 
+
+$('#useCurrentPosition').click(function() {
+    console.log(stepTwoPreview.handlePosition);
+    event.preventDefault();
+    $this = $(this);
+    $("form#stepTwo div.startingPosition input").val(stepTwoPreview.handlePosition)
+    stepTwoPreview.setStartingPosition(stepTwoPreview.handlePosition);
+})
 
 
 

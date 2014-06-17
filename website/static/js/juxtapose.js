@@ -148,7 +148,7 @@
 
 	JXSlider.prototype = {
 
-		updateSlider: function(input, dragging, animate) {
+		updateSlider: function(input, animate) {
 			var leftPercent, rightPercent;
 			var num = -1;
 
@@ -182,7 +182,7 @@
 				this.rightImage.classList.remove("transition");
 				this.leftImage.classList.remove("transition");
 
-				if((this.options.animate && !dragging) || animate) {
+				if((this.options.animate && animate)) {
 					this.handle.classList.add("transition");
 					this.leftImage.classList.add("transition");
 					this.rightImage.classList.add("transition");
@@ -216,6 +216,10 @@
 			credit.innerHTML = text;
 
 			this.wrapper.appendChild(credit);
+		},
+
+		setStartingPosition: function(s) {
+			this.options.startingPosition = s;
 		},
 
 		checkImages: function() {
@@ -301,9 +305,6 @@
 				this.handle.appendChild(this.rightArrow);
 				this.control.appendChild(this.controller);
 
-				this.dragging = false;
-
-				//Add Interactivity
 				this._init();
 			}
 		},
@@ -314,12 +315,7 @@
 				console.warn(this, "Check that the two images have the same aspect ratio for the slider to work correctly.");
 			}
 
-			var rightStart = 100 - parseInt(this.options.startingPosition) + "%";
-			this.handlePosition = rightStart;
-
-			this.leftImage.style.width = this.options.startingPosition;
-			this.rightImage.style.width = rightStart;
-			this.handle.style.left = this.options.startingPosition;
+			this.updateSlider(this.options.startingPosition, false);
 
 			setImage(this.leftImage, this.imgBefore.image.src);
 			setImage(this.rightImage, this.imgAfter.image.src);
@@ -339,30 +335,30 @@
 
 			this.slider.addEventListener("mousedown", function(d) {
 				d.preventDefault();
-				self.updateSlider(d, false);
-				dragging = true;
+				self.updateSlider(d, true);
+				animate = true;
 
 				this.addEventListener("mousemove", function(event) {
-					if (dragging) {
-						self.updateSlider(event, true);
+					if (animate) {
+						self.updateSlider(event, false);
 					}
 				});
 
 				document.addEventListener('mouseup', function() {
-					dragging = false;
+					animate = false;
 				});
 
 				this.addEventListener('mouseleave', function() {
-					dragging = false;
+					animate = false;
 				});
 			});
 
 			this.slider.addEventListener("touchstart", function(d) {
 				d.preventDefault();
-				self.updateSlider(d, false)
+				self.updateSlider(d, true)
 
 				this.addEventListener("touchmove", function(event) {
-					self.updateSlider(event, true);
+					self.updateSlider(event, false);
 				});
 			});
 		}
@@ -410,7 +406,7 @@
 			sliders.push(slider);
 		});
 
-		window.activeJX = sliders;
+		window.juxtapose = sliders;
 	}
 
 	scanPage();

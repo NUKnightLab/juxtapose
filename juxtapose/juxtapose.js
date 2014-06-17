@@ -218,6 +218,10 @@
 			this.wrapper.appendChild(credit);
 		},
 
+		setStartingPosition: function(s) {
+			this.options.startingPosition = s;
+		},
+
 		checkImages: function() {
 			if (getImageDimensions(this.imgBefore.image).aspect() == 
 				getImageDimensions(this.imgAfter.image).aspect()) {
@@ -301,9 +305,6 @@
 				this.handle.appendChild(this.rightArrow);
 				this.control.appendChild(this.controller);
 
-				//this.animate = false;
-
-				//Add Interactivity
 				this._init();
 			}
 		},

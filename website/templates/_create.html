@@ -41,13 +41,18 @@
 			<form id="stepTwo">
 				<label type="checkbox" ><input name="showLabels" type="checkbox" value="true" checked /><span>Show Labels</span></label>
 				<label type="checkbox" ><input name="showCredits" type="checkbox" value="true" checked /><span>Show Credits</span></label>
+				<label type="checkbox" ><input name="showLabels" type="checkbox" value="true" checked /><span>Animate</span></label>
 				<div class="startingPosition">
 					<h6>Set the handle's starting position:</h6>
 					<p>You can manually specify the starting position of your JuxtaposeJS slider to better highlight the change between the two pictures.</p>
-					<input type="number" class="form-control" name="startingPosition" placeholder="50%" value="50%">
+					<input type="number" class="form-control" name="startingPosition" placeholder="50%" value="50%"> 
+						<button type="submit" id="useCurrentPosition" class="btn" style="margin-top: 11px;">Use Current Position</button>
 				</div>
 				<button type="submit" class="btn btn-primary" style="margin-top: 11px;">Update Preview</button>	
 			</form>
+		 	<div class="preview">
+				<div id="stepTwoPreview"></div>
+			</div>
 		</div>
   </div>
 
