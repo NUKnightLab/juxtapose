@@ -30,6 +30,7 @@ $("form#stepOne").submit(function() {
 
     smoothScroll.animateScroll(null, '#stepOnePreview', {offset: 50});
 
+    updateEmbedCode();
 });
 
 
@@ -67,6 +68,7 @@ $("form#stepTwo").submit(function() {
     
     smoothScroll.animateScroll(null, '#stepTwoPreview', {offset: 50});
 
+    updateEmbedCode();
 }); 
 
 $('#useCurrentPosition').click(function() {
@@ -76,6 +78,19 @@ $('#useCurrentPosition').click(function() {
     $("form#stepTwo div.startingPosition input").val(stepTwoPreview.handlePosition)
     stepTwoPreview.setStartingPosition(stepTwoPreview.handlePosition);
 })
+
+function updateEmbedCode() {
+    code =  '<js>' +
+            '<css>' +
+            '<div class="juxtapose" data-startingposition="' + stepTwoData.startingPosition + '">' +
+                '<img src="' + stepOneData.beforeImgSrc + '">' +
+                '<img src="' + stepOneData.afterImgSrc + '">' +
+            '</div>'
+
+    $('ol#stepThree textarea').text(code);
+}
+
+
 
 
 
