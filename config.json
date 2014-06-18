@@ -9,7 +9,7 @@
 // the project directory.
 //
 {
-    "name": "JuxtaposeJS",
+    "name": "juxtapose", 
     "author": "Alex Duner and Northwestern University Knight Lab",
     //
     // build

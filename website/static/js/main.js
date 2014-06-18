@@ -17,7 +17,7 @@ $("form#stepOne").submit(function() {
     if (typeof(stepOnePreview) !== 'undefined') {
         $('#stepOnePreview').empty();
     }
-    stepOnePreview = new JXSlider('#stepOnePreview', [
+    stepOnePreview = new juxtapose.JXSlider('#stepOnePreview', [
             {
                 src: stepOneData.beforeImgSrc,
                 label: stepOneData.beforeImgLabel
@@ -50,7 +50,7 @@ $("form#stepTwo").submit(function() {
         console.warn("must be between 0 and 100")
     }
 
-    stepTwoPreview = new JXSlider('#stepTwoPreview', [
+    stepTwoPreview = new juxtapose.JXSlider('#stepTwoPreview', [
             {
                 src: stepOneData.beforeImgSrc,
                 label: stepOneData.beforeImgLabel
