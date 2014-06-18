@@ -1,4 +1,5 @@
 (function (document, window) {
+	var juxtapose = { sliders: [] };
 
 	var flickr_key = "d90fc2d1f4acc584e08b8eaea5bf4d6c";
 
@@ -364,8 +365,6 @@
 		}
 	}
 
-	window.JXSlider = JXSlider;
-
 	//Enable HTML Implementation
 	function scanPage() {
 		sliders = [];
@@ -387,7 +386,7 @@
 			selector = '.' + specificClass;
 
 			w.innerHTML = '';
-			slider = new JXSlider(
+			slider = new juxtapose.JXSlider(
 				selector,
 				[
 					{
@@ -403,11 +402,12 @@
 				],
 				options
 			);
-			sliders.push(slider);
+			juxtapose.sliders.push(slider);
 		});
-
-		window.juxtapose = sliders;
 	}
+	
+	juxtapose.JXSlider = JXSlider;
+	window.juxtapose = juxtapose;
 
 	scanPage();
 
