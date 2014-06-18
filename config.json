@@ -1,5 +1,5 @@
 //
-// soundcite configuration 
+// juxtapose configuration 
 // 
 // All file/directory paths are relative to the project directory.
 //
@@ -9,8 +9,8 @@
 // the project directory.
 //
 {
-    "name": "soundcite",
-    "author": "Tyler J. Fisher and Northwestern University Knight Lab",
+    "name": "JuxtaposeJS",
+    "author": "Alex Duner and Northwestern University Knight Lab",
     //
     // build
     // These commands will be run the exact order in which they appear.
@@ -25,7 +25,7 @@
         //
         "copy": [
             {   
-                "src": "soundcite",
+                "src": "juxtapose",
                 "dst": "build"
             }
         ],
@@ -61,8 +61,8 @@
         //
         "minify": [
             {
-                "src": "build/js/soundcite.js",
-                "dst": "build/js/soundcite.min.js"
+                "src": "build/js/juxtapose.js",
+                "dst": "build/js/juxtapose.min.js"
             }
          ],
         //
@@ -100,6 +100,7 @@
     // - run usemin on all html in build/website
     // - sync build/website with bucket
     "deploy": {
-        "prd": {"bucket": "soundcite.knightlab.com"}
-    }
+        "stg": {"bucket": "juxtapose.knilab.com", "usemin_context": {"cdn": "dev"}},
+        "prd": {"bucket": "juxtapose.knightlab.com", "usemin_context": {"cdn": "latest"}}
+   }
 }

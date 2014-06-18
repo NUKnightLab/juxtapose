@@ -26,16 +26,16 @@
     git clone git@github.com:NUKnightLab/cdn.knightlab.com.git
   
     # Clone the timeline repository
-    git clone git@github.com:NUKnightLab/soundcite.git
+    git clone git@github.com:NUKnightLab/juxtapose.git
   
-    # Change into the soundcite repository
-    cd soundcite
+    # Change into the juxtapose repository
+    cd juxtapose
   
     # Create a virtual environment
-    mkvirtualenv soundcite
+    mkvirtualenv juxtapose
   
     # Activate the virtual environment
-    workon soundcite
+    workon juxtapose
   
     # Install python requirements
     pip install -r requirements.txt
@@ -46,7 +46,7 @@
 
 ## Overview
 
-Files in the inner `soundcite` directory are resources for deployment to the CDN.
+Files in the inner `juxtapose` directory are resources for deployment to the CDN.
 
 Files in the `website` directory are specific to the website.
 
@@ -64,7 +64,7 @@ You must push and deploy all CDN changes separately from that repository.
 
 ## Deploying to S3 (timeline.knightlab.com)
 
-To deploy to S3, type `fab deploy`. 
+To deploy to S3, type `fab stg deploy` or `fab prd deploy` depending on whether you want to deploy it to the production or testing server. 
 
 
   

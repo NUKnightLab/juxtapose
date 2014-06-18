@@ -54,7 +54,7 @@ The `JXSlider` class takes three arguments. First, is the string of the ID of th
 
 ###Modifications
 ####CSS
-You can customize how JuxtaposeJS looks by modifying its CSS. For instructions, [click here](https://github.com/duner/juxtapose/wiki/Styling-the-Slider).
+You can customize how JuxtaposeJS looks by modifying its CSS. For instructions, [click here](https://github.com/NUKnightLab/juxtapose/wiki/Styling-the-Slider).
 
 ####JavaScript
 
