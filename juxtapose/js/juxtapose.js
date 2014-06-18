@@ -382,9 +382,9 @@
 				startingPosition: w.getAttribute('data-startingposition')
 			};
 
-			specfificClass = 'juxtapose-' + i;
-			w.classList.add(specfificClass);		
-			selector = '.' + specfificClass;
+			specificClass = 'juxtapose-' + i;
+			w.classList.add(specificClass);		
+			selector = '.' + specificClass;
 
 			w.innerHTML = '';
 			slider = new JXSlider(
