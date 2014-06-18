@@ -21,7 +21,7 @@ If each image has an `data-label` attribute defined, the slider will display a l
 
 The main wrapper can also take some additional attributes as well to specify a few options:
 
-    <div id="klba-wrapper" data-startingposition="35%" data-showlabels="false" data-showcredits="false" data-animate="false">
+    <div id="juxtapose-wrapper" class="juxtapose" data-startingposition="35%" data-showlabels="false" data-showcredits="false" data-animate="false">
 
 Specifying a starting position with `data-startingposition` lets you focus the users attention on the part of the image where the change is most noticiable. To toggle the visibility of the labels and the credits respectivly, set `data-showlabels` and `data-showcredits` to false. And to disable the animation, set `data-animate` to false.
 
