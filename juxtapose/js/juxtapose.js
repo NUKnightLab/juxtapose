@@ -1,4 +1,5 @@
 (function (document, window) {
+
 	var juxtapose = { sliders: [] };
 
 	var flickr_key = "d90fc2d1f4acc584e08b8eaea5bf4d6c";
@@ -147,6 +148,11 @@
 	}
 	}		
 
+	function isMoveEvent(evt) {
+		return (evt instanceof MouseEvent || 
+					(typeof(TouchEvent) != 'undefined' && evt instanceof TouchEvent)
+				)
+	}
 	JXSlider.prototype = {
 
 		updateSlider: function(input, animate) {
@@ -161,7 +167,7 @@
 
 			var width = this.slider.offsetWidth;
 
-			if (input instanceof MouseEvent || input instanceof TouchEvent) {
+			if (isMoveEvent(input)) {
 				var relativeX = input.pageX - offset.left;
 				leftPercent = (relativeX / width) * 100 + "%";
 				rightPercent = 100 - ((relativeX / width) * 100) + "%";
