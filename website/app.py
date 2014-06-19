@@ -41,7 +41,7 @@ settings = sys.modules[settings_module]
 app = Flask(__name__)
 
 build_dir = os.path.join(settings.PROJECT_ROOT, 'build')
-source_dir = os.path.join(settings.PROJECT_ROOT, 'soundcite')
+source_dir = os.path.join(settings.PROJECT_ROOT, 'juxtapose')
 
 @app.context_processor
 def inject_static_url():
@@ -63,7 +63,7 @@ def catch_build(path):
     """
     return send_from_directory(build_dir, path)    
 
-@app.route('/soundcite/<path:path>')
+@app.route('/juxtapose/<path:path>')
 @app.route('/source/<path:path>')
 def catch_source(path):
     """
