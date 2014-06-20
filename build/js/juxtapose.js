@@ -1,7 +1,8 @@
-/* juxtapose - v0.0.1 - 2014-06-18
+/* juxtapose - v0.0.2 - 2014-06-20
  * Copyright (c) 2014 Alex Duner and Northwestern University Knight Lab 
  */
 (function (document, window) {
+
 	var juxtapose = { sliders: [] };
 
 	var flickr_key = "d90fc2d1f4acc584e08b8eaea5bf4d6c";
@@ -13,6 +14,19 @@
 		this.credit = properties.credit || false;
 	}
 
+	var FLICKR_SIZE_PREFERENCES = ['Large', 'Large Square', 'Medium', 'Medium Square']
+	function bestFlickrUrl(ary) {
+		var dict = {}
+		for (var i = 0; i < ary.length; i++) {
+			dict[ary[i].label] = ary[i].source;
+		}
+		for (var i = 0; i < FLICKR_SIZE_PREFERENCES.length; i++) {
+			if (FLICKR_SIZE_PREFERENCES[i] in dict) {
+				return dict[FLICKR_SIZE_PREFERENCES[i]];
+			}
+		}
+		return ary[0].source;
+	}
 	function FlickrGraphic(properties) {
 
 		var self = this;
@@ -47,11 +61,7 @@
 			request.onload = function() {
 				if (request.status >= 200 && request.status < 400){
 					data = JSON.parse(request.responseText);
-					for(var i = 0; i < data.sizes.size.length; i++) {
-						if (data.sizes.size[i].label == flickr_best_size) {
-							flickr_url = data.sizes.size[i].source;
-						}
-					}
+					var flickr_url = bestFlickrUrl(data.sizes.size);
 					self.setFlickrImage(flickr_url);
 				} else {
 					console.error("There was an error getting the picture from Flickr")
@@ -91,6 +101,13 @@
 		}
 	}
 
+	var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true };
+	function interpret_boolean(x) {
+		if (typeof(x) != 'string') {
+			return Boolean(x);
+		}
+		return !(x === 'false' || x === '');
+	}
 	function JXSlider(selector, images, options) {
 
 		this.selector = selector;
@@ -103,9 +120,13 @@
 			startingPosition: "50%"
 		};
 
-		for (i in options) {
-			if(options[i]) {
-				this.options[i] = options[i];
+		for (i in this.options) {
+			if(i in options) {
+				if (i in BOOLEAN_OPTIONS) {
+					this.options[i] = interpret_boolean(options[i]);
+				} else {
+					this.options[i] = options[i];
+				}
 			}
 		}
 
@@ -124,7 +145,7 @@
 			}
 
 		} else {
-			console.warn("The images paramater takes two Image objects.");
+			console.warn("The images parameter takes two Image objects.");
 		}
 
 		if (!this.imgBefore.label || !this.imgAfter.label) {
@@ -150,6 +171,11 @@
 	}
 	}		
 
+	function isMoveEvent(evt) {
+		return (evt instanceof MouseEvent || 
+					(typeof(TouchEvent) != 'undefined' && evt instanceof TouchEvent)
+				)
+	}
 	JXSlider.prototype = {
 
 		updateSlider: function(input, animate) {
@@ -164,11 +190,11 @@
 
 			var width = this.slider.offsetWidth;
 
-			if (input instanceof MouseEvent || input instanceof TouchEvent) {
+			if (isMoveEvent(input)) {
 				var relativeX = input.pageX - offset.left;
 				leftPercent = (relativeX / width) * 100 + "%";
 				rightPercent = 100 - ((relativeX / width) * 100) + "%";
-			} else if (typeof(input) === ("string" || "number")) {
+			} else if (typeof(input) === "string" || typeof(input) === "number") {
 				if (typeof(input) === "string") {
 					num = parseInt(input);	
 				} else {
@@ -195,10 +221,12 @@
 				this.handle.style.left = leftPercent;
 				this.leftImage.style.width = leftPercent;
 				this.rightImage.style.width = rightPercent;
-				this.handlePosition = leftPercent;
+				this.sliderPosition = leftPercent;
 			}
 		},
-
+		getPosition: function() {
+			return this.sliderPosition;
+		},
 		displayLabels: function() {
 			leftDate = document.createElement("div");
 			leftDate.className = 'jx-label';
@@ -283,7 +311,7 @@
 				this.labCredit.setAttribute('href', 'http://juxtapose.knightlab.com');
 				this.labCredit.className = 'jx-knightlab';
 				this.labImage = new Image();
-				this.labImage.src = 'http://blueline.knightlab.com/assets/logos/favicon.ico';
+				this.labImage.src = 'http://blueline.knightlab.com/assets/logos/favicon.png';
 				this.labCredit.appendChild(this.labImage);
 				this.labName = document.createElement('p');
 				this.labName.textContent = 'JuxtaposeJS';
@@ -368,50 +396,61 @@
 		}
 	}
 
+	/*
+		Given an element that is configured with the proper data elements, make a slider out of it.
+		Normally this will just be used by scanPage.
+	*/
+	juxtapose.makeSlider = function ($elem,idx) {
+		if (typeof idx == 'undefined') {
+			idx = juxtapose.sliders.length; // not super threadsafe...
+		}
+
+		var w = $elem;
+
+		var images = w.querySelectorAll('img');
+		var options = {
+			animate: w.getAttribute('data-animate'),
+			showLabels: w.getAttribute('data-showlabels'),
+			showCredits: w.getAttribute('data-showcredits'),
+			startingPosition: w.getAttribute('data-startingposition')
+		};
+
+		specificClass = 'juxtapose-' + idx;
+		w.classList.add(specificClass);		
+		selector = '.' + specificClass;
+
+		w.innerHTML = '';
+		slider = new juxtapose.JXSlider(
+			selector,
+			[
+				{
+					src: images[0].src,
+					label: images[0].getAttribute('data-label'),
+					credit: images[0].getAttribute('data-credit')
+				},
+				{
+					src: images[1].src,
+					label: images[1].getAttribute('data-label'),
+					credit: images[1].getAttribute('data-credit')
+				}
+			],
+			options
+		);
+		juxtapose.sliders.push(slider);
+
+	}
 	//Enable HTML Implementation
-	function scanPage() {
+	juxtapose.scanPage = function() {
 		sliders = [];
 
 		[].map.call(document.querySelectorAll('.juxtapose'), function(obj, i) {
-			
-			var w = obj;
-
-			var images = w.querySelectorAll('img');
-			var options = {
-				animate: w.getAttribute('data-animate'),
-				showLabels: w.getAttribute('data-showlabels'),
-				showCredits: w.getAttribute('data-showcredits'),
-				startingPosition: w.getAttribute('data-startingposition')
-			};
-
-			specificClass = 'juxtapose-' + i;
-			w.classList.add(specificClass);		
-			selector = '.' + specificClass;
-
-			w.innerHTML = '';
-			slider = new juxtapose.JXSlider(
-				selector,
-				[
-					{
-						src: images[0].src,
-						label: images[0].getAttribute('data-label'),
-						credit: images[0].getAttribute('data-credit')
-					},
-					{
-						src: images[1].src,
-						label: images[1].getAttribute('data-label'),
-						credit: images[1].getAttribute('data-credit')
-					}
-				],
-				options
-			);
-			juxtapose.sliders.push(slider);
+			juxtapose.makeSlider(obj, i);
 		});
 	}
 	
 	juxtapose.JXSlider = JXSlider;
 	window.juxtapose = juxtapose;
 
-	scanPage();
+	juxtapose.scanPage();
 
 }(document, window));
