@@ -133,7 +133,7 @@
 			}
 
 		} else {
-			console.warn("The images paramater takes two Image objects.");
+			console.warn("The images parameter takes two Image objects.");
 		}
 
 		if (!this.imgBefore.label || !this.imgAfter.label) {
