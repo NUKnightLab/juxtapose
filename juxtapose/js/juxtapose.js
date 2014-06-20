@@ -371,50 +371,61 @@
 		}
 	}
 
+	/*
+		Given an element that is configured with the proper data elements, make a slider out of it.
+		Normally this will just be used by scanPage.
+	*/
+	juxtapose.makeSlider = function ($elem,idx) {
+		if (typeof idx == 'undefined') {
+			idx = juxtapose.sliders.length; // not super threadsafe...
+		}
+
+		var w = $elem;
+
+		var images = w.querySelectorAll('img');
+		var options = {
+			animate: w.getAttribute('data-animate'),
+			showLabels: w.getAttribute('data-showlabels'),
+			showCredits: w.getAttribute('data-showcredits'),
+			startingPosition: w.getAttribute('data-startingposition')
+		};
+
+		specificClass = 'juxtapose-' + idx;
+		w.classList.add(specificClass);		
+		selector = '.' + specificClass;
+
+		w.innerHTML = '';
+		slider = new juxtapose.JXSlider(
+			selector,
+			[
+				{
+					src: images[0].src,
+					label: images[0].getAttribute('data-label'),
+					credit: images[0].getAttribute('data-credit')
+				},
+				{
+					src: images[1].src,
+					label: images[1].getAttribute('data-label'),
+					credit: images[1].getAttribute('data-credit')
+				}
+			],
+			options
+		);
+		juxtapose.sliders.push(slider);
+
+	}
 	//Enable HTML Implementation
-	function scanPage() {
+	juxtapose.scanPage = function() {
 		sliders = [];
 
 		[].map.call(document.querySelectorAll('.juxtapose'), function(obj, i) {
-			
-			var w = obj;
-
-			var images = w.querySelectorAll('img');
-			var options = {
-				animate: w.getAttribute('data-animate'),
-				showLabels: w.getAttribute('data-showlabels'),
-				showCredits: w.getAttribute('data-showcredits'),
-				startingPosition: w.getAttribute('data-startingposition')
-			};
-
-			specificClass = 'juxtapose-' + i;
-			w.classList.add(specificClass);		
-			selector = '.' + specificClass;
-
-			w.innerHTML = '';
-			slider = new juxtapose.JXSlider(
-				selector,
-				[
-					{
-						src: images[0].src,
-						label: images[0].getAttribute('data-label'),
-						credit: images[0].getAttribute('data-credit')
-					},
-					{
-						src: images[1].src,
-						label: images[1].getAttribute('data-label'),
-						credit: images[1].getAttribute('data-credit')
-					}
-				],
-				options
-			);
-			juxtapose.sliders.push(slider);
+			juxtapose.makeSlider(obj, i);
 		});
 	}
 	
 	juxtapose.JXSlider = JXSlider;
 	window.juxtapose = juxtapose;
 
-	scanPage();
+	juxtapose.scanPage();
 
 }(document, window));
