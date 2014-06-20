@@ -8,10 +8,10 @@ JuxtaposeJS is a simple open source tool for creating before/after image sliders
 The easist way to implement the image slider is to add this code to your markup:
 
     <div class="juxtapose">
-        <img src="http://firstimage.jpg" />
-        <img src="http://secondimage.jpg" />
+        <img src="http://example.com/firstimage.jpg" />
+        <img src="http://example.com/secondimage.jpg" />
     </div>
-    <script src="path/to/slider.js"></script>
+    <script src="http://cdn.knightlab.com/lib/juxtapose/latest/js/juxtapose.min.js"></script>
 
 Each image can also take some additional attributes.
 
