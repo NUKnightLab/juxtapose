@@ -1,2 +1,3 @@
 *.pyc
 build/website
+.DS_Store
