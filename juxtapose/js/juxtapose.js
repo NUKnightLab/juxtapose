@@ -89,6 +89,13 @@
 		}
 	}
 
+	var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true };
+	function interpret_boolean(x) {
+		if (typeof(x) != 'string') {
+			return Boolean(x);
+		}
+		return !(x === 'false' || x === '');
+	}
 	function JXSlider(selector, images, options) {
 
 		this.selector = selector;
@@ -101,9 +108,13 @@
 			startingPosition: "50%"
 		};
 
-		for (i in options) {
-			if(options[i]) {
-				this.options[i] = options[i];
+		for (i in this.options) {
+			if(i in options) {
+				if (i in BOOLEAN_OPTIONS) {
+					this.options[i] = interpret_boolean(options[i]);
+				} else {
+					this.options[i] = options[i];
+				}
 			}
 		}
 
