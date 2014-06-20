@@ -209,10 +209,12 @@
 				this.handle.style.left = leftPercent;
 				this.leftImage.style.width = leftPercent;
 				this.rightImage.style.width = rightPercent;
-				this.handlePosition = leftPercent;
+				this.sliderPosition = leftPercent;
 			}
 		},
-
+		getPosition: function() {
+			return this.sliderPosition;
+		},
 		displayLabels: function() {
 			leftDate = document.createElement("div");
 			leftDate.className = 'jx-label';
@@ -297,7 +299,7 @@
 				this.labCredit.setAttribute('href', 'http://juxtapose.knightlab.com');
 				this.labCredit.className = 'jx-knightlab';
 				this.labImage = new Image();
-				this.labImage.src = 'http://blueline.knightlab.com/assets/logos/favicon.ico';
+				this.labImage.src = 'http://blueline.knightlab.com/assets/logos/favicon.png';
 				this.labCredit.appendChild(this.labImage);
 				this.labName = document.createElement('p');
 				this.labName.textContent = 'JuxtaposeJS';
