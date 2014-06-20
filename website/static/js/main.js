@@ -8,103 +8,124 @@ var stepTwoPreview;
 var stepOneData;
 var stepTwoData;
 
-$("form#stepOne").submit(function() {
-    event.preventDefault();
+function imageDataFromForm() {
+    return [
+        { 
+            src: $("#before-src").val(),
+            label: $("#before-label").val(),
+            credit: $("#before-credit").val()
+        },
+        { 
+            src: $("#after-src").val(),
+            label: $("#after-label").val(),
+            credit: $("#after-credit").val()
+        }
+    ];
+}
 
-    $this = $(this);
-    stepOneData = objectFromForm($this);
-
-    if (typeof(stepOnePreview) !== 'undefined') {
-        $('#stepOnePreview').empty();
+function optionsFromForm() {
+    var pos = $("#starting-position").val();
+    if (pos === '') {
+        pos = '50';
     }
-    stepOnePreview = new juxtapose.JXSlider('#stepOnePreview', [
-            {
-                src: stepOneData.beforeImgSrc,
-                label: stepOneData.beforeImgLabel
-            },
-            {
-                src: stepOneData.afterImgSrc,
-                label: stepOneData.afterImgLabel
-            }
-        ], {});
+    try {
+        var test = parseInt(pos);
+    } catch(e) {
+        console.log('invalid position');
+        pos = '50';
+    }
+    return {
+        animate: $("#animate").prop('checked'),
+        showLabels: $("#show-labels").prop('checked'),
+        showCredits: $("#show-credits").prop('checked'),
+        startingPosition: pos
+    }
+}
 
-    smoothScroll.animateScroll(null, '#stepOnePreview', {offset: 50});
-
+function createSliderFromForm() {
+    $("#create-slider-preview").html('');
+    window.slider_preview = new juxtapose.JXSlider("#create-slider-preview", imageDataFromForm(), optionsFromForm());
     updateEmbedCode();
+}
+$("#update-preview").click(createSliderFromForm);
+
+function imageTagForObject(o) {
+    return '<img src="' + o.src 
+    + '" data-label="'
+    + o.label
+    + '" data-credit="'
+    + o.credit
+    + '">';
+}
+
+function updateEmbedCode() {
+    var imgs = imageDataFromForm();
+    var opts = optionsFromForm();
+    /*
+            animate: w.getAttribute('data-animate'),
+            showLabels: w.getAttribute('data-showlabels'),
+            showCredits: w.getAttribute('data-showcredits'),
+            startingPosition: w.getAttribute('data-startingposition')
+
+    */
+    code =  '<div class="juxtapose" data-startingposition="' 
+                + opts.startingPosition 
+                + '" data-showlabels="'
+                + opts.showLabels
+                + '" data-showcredits="'
+                + opts.showCredits
+                +'" data-animate="'
+                + opts.animate
+                +'">\n' 
+                + imageTagForObject(imgs[0])
+                + '\n' 
+                + imageTagForObject(imgs[1])
+                +'\n' 
+            + '</div>'
+
+    $('#embed-code').text(code);
+}
+
+$('a.help').popover({
+    trigger: 'manual'
+}).click(function(event) {
+    if(!$(this).next().hasClass('popover')) {
+        $('a.help').not(this).popover('hide');
+    }     
+    $(this).popover('toggle');
+    event.stopPropagation();
+});
+
+$(document).click(function(e) {
+    $('a.help').popover('hide');
 });
 
 
-$("form#stepTwo").submit(function() {
-    event.preventDefault();
-    $this = $(this);
-
-    console.log(stepOneData);
-
-    stepTwoData = objectFromForm($this);
-
-    if (typeof(stepTwoPreview) !== 'undefined') {
-        $('#stepTwoPreview').empty();
-    }
-
-    if (stepTwoData.startingPosition <= 0 && stepTwoData.startingPosition >= 100) {
-        console.warn("must be between 0 and 100")
-    }
-
-    stepTwoPreview = new juxtapose.JXSlider('#stepTwoPreview', [
-            {
-                src: stepOneData.beforeImgSrc,
-                label: stepOneData.beforeImgLabel
-            },
-            {
-                src: stepOneData.afterImgSrc,
-                label: stepOneData.afterImgLabel
-            }
-        ], {
-           animate: stepTwoData.animate,
-           showCredits: stepTwoData.showCredits,
-           showLabels: stepTwoData.showLabels,
-           startingPosition: stepTwoData.startingPosition
-        });
-    
-    smoothScroll.animateScroll(null, '#stepTwoPreview', {offset: 50});
-
-    updateEmbedCode();
-}); 
-
-$('#useCurrentPosition').click(function() {
-    console.log(stepTwoPreview.handlePosition);
-    event.preventDefault();
-    $this = $(this);
-    $("form#stepTwo div.startingPosition input").val(stepTwoPreview.handlePosition)
-    stepTwoPreview.setStartingPosition(stepTwoPreview.handlePosition);
+$("#authoring-form input.auto-update").change(function(evt) {
+    createSliderFromForm();
 })
 
-function updateEmbedCode() {
-    code =  '<js>' +
-            '<css>' +
-            '<div class="juxtapose" data-startingposition="' + stepTwoData.startingPosition + '">' +
-                '<img src="' + stepOneData.beforeImgSrc + '">' +
-                '<img src="' + stepOneData.afterImgSrc + '">' +
-            '</div>'
+$("#authoring-form input#starting-position").change(function(evt) {
+    try {
+        var value = parseInt($(evt.target).val());
+        if (value < 0 || value > 100) {
+            evt.preventDefault();
+        } else {
+            slider_preview.updateSlider(value,false);
+        }
+    } catch(e) {
+        evt.preventDefault();
+    }
 
-    $('ol#stepThree textarea').text(code);
-}
+    console.log(value);
+    console.log(typeof(value));
+})
 
+$("#use-current-position").click(function(){
+    var pos = slider_preview.getPosition();
+    pos = pos.replace('%','').split('.')[0];
+    $("#starting-position").val(pos);
+    updateEmbedCode();
+});
 
-
-
-
-
-function objectFromForm($form) {
-    var formData = {};
-    $.each($form.serializeArray(), function() {
-        formData[this.name] = this.value;
-    })
-    return formData;
-}
-
-function validateURL(url) {
-
-}
-
-
+createSliderFromForm();

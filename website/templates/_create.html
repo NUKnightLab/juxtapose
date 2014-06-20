@@ -1,90 +1,68 @@
 <section class="container" id="create-new">
 	<div class="row-fluid">
 		<div class="span12">
-			<h2>Create TBD sliders</h2>
+			<h2>Create a Juxtapose slider</h2>
 		</div>
 	</div>
-	<div class="row-fluid step">
-		<h2 class="span1">1</h2>
-		<div class="span11">
-			<h4>Find your images</h4>
-			<p>To use TBD you need to provide two images showing the same place at two different times. The two images should ideally be taken from the same perspective and distance. This early version of TBD does not provide any way to help position your images. Once you have your two images picked, you need provide the direct link to each of the images. If your newsroom does not have a way to get a direct link to images, you can host your images on Flickr as well.</p>
-			<p>Input links to your two images and (optionally) input labels for each image. Then check below to see a preview of how your slider will look.</p>
-			<form id="stepOne">
-				<div class="imgBefore row-fluid">
-					<h6>Before</h6>
-				    <input type="url" name="beforeImgSrc" class="urlBox span11" placeholder="https://firstimage.jpg" value="http://online.wsj.com/media/LIONDOOR_2A.jpg">
-				    <input type="text" name="beforeImgLabel" class="span3" placeholder="Label (optional)">
-				    <input type="text" name="beforeImgCredit" class="span8" placeholder="Credit (optional)">
-				</div>
-				<div class="imgAfter row-fluid">
-					<h6>After</h6>
-					<input type="url" name="afterImgSrc" class="urlBox span11" placeholder="https://secondimage.jpg" value="http://online.wsj.com/media/LIONDOORA.jpg">
-					<input type="text" name="afterImgLabel" class="span3" placeholder="Label (optional)">   
-				    <input type="text" name="afterImgCredit" class="span8" placeholder="Credit (optional)">		     
-				</div>
-				<button type="submit" class="btn btn-primary" style="margin-top: 11px;">Generate Preview</button>	
-<!-- 				<div class="alert alert-warning alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					<strong>Whoops!</strong> It looks like you are missing a link to one of the images.
-				</div>
- -->			</form>
- 				<div class="preview">
-					<div id="stepOnePreview"></div>
-				</div>
-	</div>
-
-	<div class="row-fluid step">
-		<h2 class="span1">2</h2>
-		<div class="span11">
-			<h4>Specify other options <span class="default">(or just use the defaults)</span></h4>
-			<form id="stepTwo">
-				<label type="checkbox" ><input name="showLabels" type="checkbox" value="true" checked /><span>Show Labels</span></label>
-				<label type="checkbox" ><input name="showCredits" type="checkbox" value="true" checked /><span>Show Credits</span></label>
-				<label type="checkbox" ><input name="showLabels" type="checkbox" value="true" checked /><span>Animate</span></label>
-				<div class="startingPosition">
-					<h6>Set the handle's starting position:</h6>
-					<p>You can manually specify the starting position of your JuxtaposeJS slider to better highlight the change between the two pictures.</p>
-					<input type="number" class="form-control" name="startingPosition" placeholder="50%" value="50%"> 
-						<button type="submit" id="useCurrentPosition" class="btn" style="margin-top: 11px;">Use Current Position</button>
-				</div>
-				<button type="submit" class="btn btn-primary" style="margin-top: 11px;">Update Preview</button>	
-			</form>
-		 	<div class="preview">
-				<div id="stepTwoPreview"></div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span6">
+	            <div class="row-fluid step">
+	                <h2 class="span1">1</h2>
+	                <div class="span11">
+	                    <h4>Find your images<a class="help" href="javascript:"
+                        data-placement="left"
+                        data-content="To use JuxtaposeJS you need to provide two images showing the same place at two different times. The two images should ideally be taken from the same perspective and distance. This early version of JuxtaposeJS does not provide any way to help position your images. Once you have your two images picked, you need provide the direct link to each of the images. If your newsroom does not have a way to get a direct link to images, you can host your images on Flickr as well."                    
+                    >&nbsp;<i class="icon-question-sign icon-large"></i></a></h4>
+	                    <p>Input links to your two images and (optionally) input labels for each image. Then check below to see a preview of how your slider will look.</p>
+	                    <form id="authoring-form">
+	                        <div class="imgBefore row-fluid">
+	                            <h6>Before</h6>
+	                            <input type="url" id="before-src" class="urlBox span11 auto-update" placeholder="https://firstimage.jpg" value="http://online.wsj.com/media/LIONDOOR_2A.jpg">
+	                            <input type="text" id="before-label" value="Left" class="span3 auto-update" placeholder="Label (optional)">
+	                            <input type="text" id="before-credit" class="span8 auto-update" placeholder="Credit (optional)">
+	                        </div>
+	                        <div class="imgAfter row-fluid">
+	                            <h6>After</h6>
+	                            <input type="url" id="after-src" class="urlBox span11 auto-update" placeholder="https://secondimage.jpg" value="http://online.wsj.com/media/LIONDOORA.jpg">
+	                            <input type="text" id="after-label" value="Right" class="span3 auto-update" placeholder="Label (optional)">   
+	                            <input type="text" id="after-credit" class="span8 auto-update" placeholder="Credit (optional)">          
+	                        </div>
+	                        <h6>Options</h6>
+	                        <label type="checkbox" ><input id="show-labels" class='auto-update' type="checkbox" value="true" checked /><span>Show Labels</span></label>
+	                        <label type="checkbox" ><input id="show-credits" class='auto-update' type="checkbox" value="true" checked /><span>Show Credits</span></label>
+	                        <label type="checkbox" ><input id="animate" class='auto-update' type="checkbox" value="true" checked /><span>Animate</span></label>
+	                        <div class="startingPosition">
+		                            <h6>Set the handle's starting position:</h6>
+		                            <p>You can manually specify the starting position of your JuxtaposeJS slider to better highlight the change between the two pictures.</p>
+		                            <input type="number" class="span2" id="starting-position" size="3" placeholder="50" value="50" min="0" max="100" step="1">% <a href="javascript:" id="use-current-position">(use current position)</a>
+		                    </div>
+		                    </form>
+	         	            </form>
+	            	</div>
 			</div>
-		</div>
-  </div>
+			</div>
+			<div class="span6">
+				<h4>Preview</h4>
+					<div id="create-slider-preview">
+					</div>
 
-	<div class="row-fluid step">
-		<h2 class="span1">3</h2>
-		<div class="span11">
-		<h4>Embedding</h4>
-		<ol id="stepThree">
-			<li>When you are finished creating clips, take the following embed code and paste it at the top of your page.</li>
-			<textarea id="header" rows="4" readonly="readonly" class="code">&lt;link href='//cdn.knightlab.com/libs/tbd/slider/slider.css' rel='stylesheet' type='text/css'&gt;&lt;script type='text/javascript' src='//cdn.knightlab.com/libs/tbd/slider/slider.js'&gt;&lt;/script&gt;</textarea>
-			<li>Then, for each clip, paste its associated embed code where the text would normally go in the page.</li>
-		</ol>
+				<h4 style="margin-top: 40px">Embed code</h4>
+				<textarea readonly="readonly" id='embed-code' class="code">
+
+				</textarea>
+				In addition to the above code, you must put the below code as close to the bottom of your page as you can. Even if you have multiple Juxtapose sliders on a page, you only have to include the code below once.
+				<textarea readonly="readonly" id='embed-code' class="code" width="100%" rows="6">
+&lt;link rel="stylesheet" href="//cdn.knightlab.com/libs/juxtapose/latest/css/juxtapose.css"&gt;
+&lt;script type="text/javascript" src="//cdn.knightlab.com/libs/juxtapose/latest/js/juxtapose.js"&gt;&lt;/script&gt;
+  				</textarea>
+				
+			</div>
+		</div>		
 	</div>
+
+
 </div>
 
 
 </section> <!-- end section -->
-<script id="clip-base-template" type="text/template">
-<span class="soundcite" data-id="<%= id %>" data-start="<%= start %>" data-end="<%= end %>"><%= text %></span>
-</script>
-<script id="clip-preview-template" type="text/template">
-<div class="clip">
-  <button type='button' class='btn btn-text pull-right icon-trash delete-clip'></button>
-  <p>This is your clip <%= clip_html %> shown inline with text.</p>
-  <h6>Embed code</h6>
-  <textarea readonly="readonly" class="code"><%= clip_html %></textarea>
-</div>
-</script>
-
-<script id="create-error-template" type="text/template">
-<div id="create-error" class="alert alert-error clear">
-  <button data-dismiss="alert" class="close" type="button">x</button>
-  <strong>Oops!</strong> Please correct the errors above and try submitting again.
-</div>
-</script>
