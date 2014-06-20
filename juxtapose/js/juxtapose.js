@@ -11,6 +11,19 @@
 		this.credit = properties.credit || false;
 	}
 
+	var FLICKR_SIZE_PREFERENCES = ['Large', 'Large Square', 'Medium', 'Medium Square']
+	function bestFlickrUrl(ary) {
+		var dict = {}
+		for (var i = 0; i < ary.length; i++) {
+			dict[ary[i].label] = ary[i].source;
+		}
+		for (var i = 0; i < FLICKR_SIZE_PREFERENCES.length; i++) {
+			if (FLICKR_SIZE_PREFERENCES[i] in dict) {
+				return dict[FLICKR_SIZE_PREFERENCES[i]];
+			}
+		}
+		return ary[0].source;
+	}
 	function FlickrGraphic(properties) {
 
 		var self = this;
@@ -45,11 +58,7 @@
 			request.onload = function() {
 				if (request.status >= 200 && request.status < 400){
 					data = JSON.parse(request.responseText);
-					for(var i = 0; i < data.sizes.size.length; i++) {
-						if (data.sizes.size[i].label == flickr_best_size) {
-							flickr_url = data.sizes.size[i].source;
-						}
-					}
+					var flickr_url = bestFlickrUrl(data.sizes.size);
 					self.setFlickrImage(flickr_url);
 				} else {
 					console.error("There was an error getting the picture from Flickr")

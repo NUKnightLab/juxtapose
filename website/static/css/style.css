@@ -8,6 +8,9 @@ footer {
     font-size: 14px;
 }
 
+a.help {
+  color: inherit;
+}
 /* To center the SoundCite logo and tagline */
 #intro {
   text-align: center;

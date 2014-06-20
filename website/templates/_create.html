@@ -7,58 +7,59 @@
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span6">
-	            <div class="row-fluid step">
-	                <h2 class="span1">1</h2>
-	                <div class="span11">
-	                    <h4>Find your images<a class="help" href="javascript:"
-                        data-placement="left"
-                        data-content="To use JuxtaposeJS you need to provide two images showing the same place at two different times. The two images should ideally be taken from the same perspective and distance. This early version of JuxtaposeJS does not provide any way to help position your images. Once you have your two images picked, you need provide the direct link to each of the images. If your newsroom does not have a way to get a direct link to images, you can host your images on Flickr as well."                    
-                    >&nbsp;<i class="icon-question-sign icon-large"></i></a></h4>
-	                    <p>Input links to your two images and (optionally) input labels for each image. Then check below to see a preview of how your slider will look.</p>
 	                    <form id="authoring-form">
 	                        <div class="imgBefore row-fluid">
-	                            <h6>Before</h6>
-	                            <input type="url" id="before-src" class="urlBox span11 auto-update" placeholder="https://firstimage.jpg" value="http://online.wsj.com/media/LIONDOOR_2A.jpg">
+	                            <h6>Left (before) image</h6>
+	                            <input type="url" id="before-src" class="urlBox span11 auto-update" placeholder="https://example.com/firstimage.jpg" value="http://online.wsj.com/media/LIONDOOR_2A.jpg">
 	                            <input type="text" id="before-label" value="Left" class="span3 auto-update" placeholder="Label (optional)">
 	                            <input type="text" id="before-credit" class="span8 auto-update" placeholder="Credit (optional)">
 	                        </div>
 	                        <div class="imgAfter row-fluid">
-	                            <h6>After</h6>
-	                            <input type="url" id="after-src" class="urlBox span11 auto-update" placeholder="https://secondimage.jpg" value="http://online.wsj.com/media/LIONDOORA.jpg">
+	                            <h6>Right (after) image</h6>
+	                            <input type="url" id="after-src" class="urlBox span11 auto-update" placeholder="https://example.com/secondimage.jpg" value="http://online.wsj.com/media/LIONDOORA.jpg">
 	                            <input type="text" id="after-label" value="Right" class="span3 auto-update" placeholder="Label (optional)">   
 	                            <input type="text" id="after-credit" class="span8 auto-update" placeholder="Credit (optional)">          
 	                        </div>
 	                        <h6>Options</h6>
-	                        <label type="checkbox" ><input id="show-labels" class='auto-update' type="checkbox" value="true" checked /><span>Show Labels</span></label>
-	                        <label type="checkbox" ><input id="show-credits" class='auto-update' type="checkbox" value="true" checked /><span>Show Credits</span></label>
-	                        <label type="checkbox" ><input id="animate" class='auto-update' type="checkbox" value="true" checked /><span>Animate</span></label>
-	                        <div class="startingPosition">
-		                            <h6>Set the handle's starting position:</h6>
-		                            <p>You can manually specify the starting position of your JuxtaposeJS slider to better highlight the change between the two pictures.</p>
-		                            <input type="number" class="span2" id="starting-position" size="3" placeholder="50" value="50" min="0" max="100" step="1">% <a href="javascript:" id="use-current-position">(use current position)</a>
-		                    </div>
+	                        <label type="checkbox" ><input id="show-labels" class='auto-update' type="checkbox" value="true" checked />Show Labels<a class="help" href="javascript:" data-placement="right" data-content="If checked, your labels will be displayed. You must have labels for both images, or they won't be shown, even if this is checked.">&nbsp;<i class="icon-question-sign icon-large"></i></a></label>
+	                        <label type="checkbox" ><input id="show-credits" class='auto-update' type="checkbox" value="true" checked />Show Credits<a class="help" href="javascript:" data-placement="right" data-content="If checked, image credits will be displayed below the slider. You must have credits for both images, or they won't be shown, even if this is checked.">&nbsp;<i class="icon-question-sign icon-large"></i></a></label>
+	                        <label type="checkbox" ><input id="animate" class='auto-update' type="checkbox" value="true" checked />Animate<a class="help" href="javascript:" data-placement="right" data-content="If checked, the divider will glide to the point where someone clicks; otherwise, it will jump.">&nbsp;<i class="icon-question-sign icon-large"></i></a></label>
+                            <h6>Slider starting position</h6>
+                            <input type="number" class="span2" id="starting-position" size="3" placeholder="50" value="50" min="0" max="100" step="1">% <a href="javascript:" id="use-current-position">(use current position)</a>
 		                    </form>
-	         	            </form>
-	            	</div>
-			</div>
 			</div>
 			<div class="span6">
 				<h4>Preview</h4>
 					<div id="create-slider-preview">
+					<img src="http://online.wsj.com/media/LIONDOOR_2A.jpg" height="364">
 					</div>
 
 				<h4 style="margin-top: 40px">Embed code</h4>
 				<textarea readonly="readonly" id='embed-code' class="code">
 
 				</textarea>
-				In addition to the above code, you must put the below code as close to the bottom of your page as you can. Even if you have multiple Juxtapose sliders on a page, you only have to include the code below once.
+			</div>
+		</div>		
+		<div class="row-fluid">
+			<div class="span4">
+			<h3>Some tips...</h3>
+			<ul>
+				<li>If you don't have a web server for your images, you can host them on Flickr, Dropbox, or Google Drive.</li>
+				<li>
+					You don't have to start with the slider in the middle. You can set it anywhere if that tells your story better.
+				</li>
+			</ul>
+			</div>
+			<div class="span8">
+				<p>In addition to the above code, you must put the below code as close to the bottom of your page as you can. Even if you have multiple JuxtaposeJS sliders on a page, you only have to include the code below once.</p>
 				<textarea readonly="readonly" id='embed-code' class="code" width="100%" rows="6">
 &lt;link rel="stylesheet" href="//cdn.knightlab.com/libs/juxtapose/latest/css/juxtapose.css"&gt;
 &lt;script type="text/javascript" src="//cdn.knightlab.com/libs/juxtapose/latest/js/juxtapose.js"&gt;&lt;/script&gt;
   				</textarea>
 				
+				
 			</div>
-		</div>		
+			</div>
 	</div>
 
 
