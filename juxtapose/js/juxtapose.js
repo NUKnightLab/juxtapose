@@ -182,7 +182,7 @@
 				var relativeX = input.pageX - offset.left;
 				leftPercent = (relativeX / width) * 100 + "%";
 				rightPercent = 100 - ((relativeX / width) * 100) + "%";
-			} else if (typeof(input) === ("string" || "number")) {
+			} else if (typeof(input) === "string" || typeof(input) === "number") {
 				if (typeof(input) === "string") {
 					num = parseInt(input);	
 				} else {
