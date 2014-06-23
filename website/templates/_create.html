@@ -20,12 +20,25 @@
 	                            <input type="text" id="after-label" value="Right" class="span3 auto-update" placeholder="Label (optional)">   
 	                            <input type="text" id="after-credit" class="span8 auto-update" placeholder="Credit (optional)">          
 	                        </div>
-	                        <h6>Options</h6>
-	                        <label type="checkbox" ><input id="show-labels" class='auto-update' type="checkbox" value="true" checked />Show Labels<a class="help" href="javascript:" data-placement="right" data-content="If checked, your labels will be displayed. You must have labels for both images, or they won't be shown, even if this is checked.">&nbsp;<i class="icon-question-sign icon-large"></i></a></label>
-	                        <label type="checkbox" ><input id="show-credits" class='auto-update' type="checkbox" value="true" checked />Show Credits<a class="help" href="javascript:" data-placement="right" data-content="If checked, image credits will be displayed below the slider. You must have credits for both images, or they won't be shown, even if this is checked.">&nbsp;<i class="icon-question-sign icon-large"></i></a></label>
-	                        <label type="checkbox" ><input id="animate" class='auto-update' type="checkbox" value="true" checked />Animate<a class="help" href="javascript:" data-placement="right" data-content="If checked, the divider will glide to the point where someone clicks; otherwise, it will jump.">&nbsp;<i class="icon-question-sign icon-large"></i></a></label>
-                            <h6>Slider starting position</h6>
-                            <input type="number" class="span2" id="starting-position" size="3" placeholder="50" value="50" min="0" max="100" step="1">% <a href="javascript:" id="use-current-position">(use current position)</a>
+	                        <div class="row-fluid">
+								<div class="span6">
+			                        <h6>Options</h6>
+			                        <label type="checkbox" ><input id="show-labels" class='auto-update' type="checkbox" value="true" checked />Show Labels<a class="help" href="javascript:" data-placement="right" data-content="If checked, your labels will be displayed. You must have labels for both images, or they won't be shown, even if this is checked.">&nbsp;<i class="icon-question-sign icon-large"></i></a></label>
+			                        <label type="checkbox" ><input id="show-credits" class='auto-update' type="checkbox" value="true" checked />Show Credits<a class="help" href="javascript:" data-placement="right" data-content="If checked, image credits will be displayed below the slider. You must have credits for both images, or they won't be shown, even if this is checked.">&nbsp;<i class="icon-question-sign icon-large"></i></a></label>
+			                        <label type="checkbox" ><input id="animate" class='auto-update' type="checkbox" value="true" checked />Animate<a class="help" href="javascript:" data-placement="right" data-content="If checked, the divider will glide to the point where someone clicks; otherwise, it will jump.">&nbsp;<i class="icon-question-sign icon-large"></i></a></label>
+									
+								</div>	                        	
+								<div class="span6">
+		                            <h6>Slider start position</h6>
+		                            <input type="number" class="span3" id="starting-position" size="3" placeholder="50" value="50" min="0" max="100" step="1">% <br><a href="javascript:" id="use-current-position">(use current position)</a>
+								</div>	                        	
+	                        </div>
+                            <div class="row-fluid">
+                            <div class="span4"></div>
+                            <div class="span8">
+                            	<button id="update-preview" class="btn btn-success" type="button">Update preview</button>
+                            </div>
+                            </div>
 		                    </form>
 			</div>
 			<div class="span6">
