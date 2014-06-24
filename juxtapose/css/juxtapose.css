@@ -1,9 +1,7 @@
-@import url(http://fonts.googleapis.com/css?family=News+Cycle);
-
 div.juxtapose {
 	max-width: 600px;
 	clear: both;
-	font-family: 'News Cycle', Times, sans-serif;
+	font-family: sans-serif;
 }
 
 img.jx-image {
@@ -150,7 +148,7 @@ a.jx-knightlab {
 	bottom: 0;
 	right: 0;
 	z-index: 10;
-	padding: 0em 0.35em 0.1em 0.35em;
+	padding: 0.4em 0.35em 0em 0.35em;
 	background-color: rgba(225,225,225,0.8);
 	text-decoration: none;
 	height: 1.2em;
