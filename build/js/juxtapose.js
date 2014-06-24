@@ -1,4 +1,4 @@
-/* juxtapose - v0.0.2 - 2014-06-20
+/* juxtapose - v0.0.3 - 2014-06-24
  * Copyright (c) 2014 Alex Duner and Northwestern University Knight Lab 
  */
 (function (document, window) {
