@@ -10,12 +10,12 @@ var stepTwoData;
 
 function imageDataFromForm() {
     return [
-        { 
+        {
             src: $("#before-src").val(),
             label: $("#before-label").val(),
             credit: $("#before-credit").val()
         },
-        { 
+        {
             src: $("#after-src").val(),
             label: $("#after-label").val(),
             credit: $("#after-credit").val()
@@ -50,7 +50,7 @@ function createSliderFromForm() {
 $("#update-preview").click(createSliderFromForm);
 
 function imageTagForObject(o) {
-    return '<img src="' + o.src 
+    return '<img src="' + o.src
     + '" data-label="'
     + o.label
     + '" data-credit="'
@@ -68,19 +68,19 @@ function updateEmbedCode() {
             startingPosition: w.getAttribute('data-startingposition')
 
     */
-    code =  '<div class="juxtapose" data-startingposition="' 
-                + opts.startingPosition 
+    code =  '<div class="juxtapose" data-startingposition="'
+                + opts.startingPosition
                 + '" data-showlabels="'
                 + opts.showLabels
                 + '" data-showcredits="'
                 + opts.showCredits
                 +'" data-animate="'
                 + opts.animate
-                +'">\n' 
+                +'">\n'
                 + imageTagForObject(imgs[0])
-                + '\n' 
+                + '\n'
                 + imageTagForObject(imgs[1])
-                +'\n' 
+                +'\n'
             + '</div>'
 
     $('#embed-code').text(code);
@@ -91,7 +91,7 @@ $('a.help').popover({
 }).click(function(event) {
     if(!$(this).next().hasClass('popover')) {
         $('a.help').not(this).popover('hide');
-    }     
+    }
     $(this).popover('toggle');
     event.stopPropagation();
 });
