@@ -119,11 +119,11 @@
 
 		for (i in this.options) {
 			if(i in options) {
-				// if (i in BOOLEAN_OPTIONS) {
-					// this.options[i] = interpret_boolean(options[i]);
-				// } else {
+				if (i in BOOLEAN_OPTIONS) {
+					this.options[i] = interpret_boolean(options[i]);
+				} else {
 					this.options[i] = options[i];
-				// }
+				}
 			}
 		}
 
@@ -375,7 +375,7 @@
 				});
 
 				// this.addEventListener('mouseleave', function() {
-				// 	animate = false;
+				// animate = false;
 				// });
 			});
 
