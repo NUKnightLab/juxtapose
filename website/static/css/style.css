@@ -20,6 +20,8 @@ a.help {
 #intro .logo-mark {
 	padding-left: 100px;
 }
+
+#update-preview-wrapper { margin-top: 20px;}
 @media all and (max-width:568px) {
 	#intro .logo-mark {
 		margin-left: -5px;
