@@ -1,4 +1,4 @@
-/* juxtapose - v0.0.3 - 2014-06-24
+/* juxtapose - v0.0.4 - 2014-07-14
  * Copyright (c) 2014 Alex Duner and Northwestern University Knight Lab 
  */
 (function (document, window) {
@@ -14,9 +14,9 @@
 		this.credit = properties.credit || false;
 	}
 
-	var FLICKR_SIZE_PREFERENCES = ['Large', 'Large Square', 'Medium', 'Medium Square']
+	var FLICKR_SIZE_PREFERENCES = ['Large', 'Large Square', 'Medium', 'Medium Square'];
 	function bestFlickrUrl(ary) {
-		var dict = {}
+		var dict = {};
 		for (var i = 0; i < ary.length; i++) {
 			dict[ary[i].label] = ary[i].source;
 		}
@@ -43,9 +43,9 @@
 		getFlickrID: function(url) {
 			var idx = url.indexOf("flickr.com/photos/");
 			var pos = idx + "flickr.com/photos/".length;
-			var photo_info = url.substr(pos)
+			var photo_info = url.substr(pos);
 			if (photo_info.indexOf('/') == -1) return null;
-			if (photo_info.indexOf('/') == 0) photo_info = photo_info.substr(1);
+			if (photo_info.indexOf('/') === 0) photo_info = photo_info.substr(1);
 			id = photo_info.split("/")[1];
 			return id;
 		},
@@ -53,7 +53,7 @@
 		callFlickrAPI: function(id, self) {
 			var flickr_best_size = "Large";
 			var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes' +
-					'&api_key=' + flickr_key + 
+					'&api_key=' + flickr_key +
 					'&photo_id=' + id + '&format=json&nojsoncallback=1';
 
 			var request = new XMLHttpRequest();
@@ -64,11 +64,11 @@
 					var flickr_url = bestFlickrUrl(data.sizes.size);
 					self.setFlickrImage(flickr_url);
 				} else {
-					console.error("There was an error getting the picture from Flickr")
+					console.error("There was an error getting the picture from Flickr");
 				}
 			};
 			request.onerror = function() {
-				console.error("There was an error getting the picture from Flickr")
+				console.error("There was an error getting the picture from Flickr");
 			};
 			request.send();
 		},
@@ -76,7 +76,7 @@
 		setFlickrImage: function(src) {
 			this.image.src = src;
 		}
-	}
+	};
 
 	function setImage(element, url) {
 		var property = "url(" + url + ")";
@@ -90,7 +90,7 @@
 			aspect: function() { return (this.width / this.height); }
 		};
 		return dimensions;
-	};
+	}
 
 	function checkFlickr(url) {
 		var idx = url.indexOf("flickr.com/photos/");
@@ -157,24 +157,24 @@
 
 		this.load1 = false;
 		this.load2 = false;
-		
+
 		var self = this;
 
 		this.imgBefore.image.onload = function() {
 			self.load1 = true;
 			self._onLoaded();
-		}
+		};
 
 		this.imgAfter.image.onload = function() {
 			self.load2 = true;
 			self._onLoaded();
+		};
 	}
-	}		
 
 	function isMoveEvent(evt) {
-		return (evt instanceof MouseEvent || 
+		return (evt instanceof MouseEvent ||
 					(typeof(TouchEvent) != 'undefined' && evt instanceof TouchEvent)
-				)
+				);
 	}
 	JXSlider.prototype = {
 
@@ -182,10 +182,10 @@
 			var leftPercent, rightPercent;
 			var num = -1;
 
-			var sliderRect = this.slider.getBoundingClientRect()
+			var sliderRect = this.slider.getBoundingClientRect();
 			var offset = {
-			  top: sliderRect.top + document.body.scrollTop,
-			  left: sliderRect.left + document.body.scrollLeft
+				top: sliderRect.top + document.body.scrollTop,
+				left: sliderRect.left + document.body.scrollLeft
 			};
 
 			var width = this.slider.offsetWidth;
@@ -196,7 +196,7 @@
 				rightPercent = 100 - ((relativeX / width) * 100) + "%";
 			} else if (typeof(input) === "string" || typeof(input) === "number") {
 				if (typeof(input) === "string") {
-					num = parseInt(input);	
+					num = parseInt(input, 10);
 				} else {
 					num = input;
 				}
@@ -205,7 +205,7 @@
 			}
 
 			var eventCheck = (relativeX / width);
-			var numCheck = parseInt(num);
+			var numCheck = parseInt(num, 10);
 
 			if ((eventCheck > 0 && eventCheck < 1) || (numCheck >= 0 && numCheck <= 100)) {
 				this.handle.classList.remove("transition");
@@ -243,7 +243,7 @@
 			credit = document.createElement("div");
 			credit.className = "jx-credit";
 
-			text = 	"<em>Before </em>" + this.imgBefore.credit + 
+			text =  "<em>Before </em>" + this.imgBefore.credit +
 					" <em>After </em>" + this.imgAfter.credit;
 			credit.innerHTML = text;
 
@@ -255,7 +255,7 @@
 		},
 
 		checkImages: function() {
-			if (getImageDimensions(this.imgBefore.image).aspect() == 
+			if (getImageDimensions(this.imgBefore.image).aspect() ==
 				getImageDimensions(this.imgAfter.image).aspect()) {
 				return true;
 			} else {
@@ -267,8 +267,8 @@
 
 			ratio = getImageDimensions(this.imgBefore.image).aspect();
 
-			width = (parseInt(getComputedStyle(this.wrapper)['width']));
-			height = (parseInt(getComputedStyle(this.wrapper)['height']));
+			width = (parseInt(getComputedStyle(this.wrapper)['width'], 10));
+			height = (parseInt(getComputedStyle(this.wrapper)['height'], 10));
 
 			if (width) {
 				height = width * (1 / ratio);
@@ -277,10 +277,7 @@
 				width = height * ratio;
 				this.wrapper.style.width = width + "px";
 			} else {
-				// w = 600;
-				// h = width * (1 / ratio);
-				// this.slider.style.width = maxwidth + "px";
-				// this.slider.style.height = maxheight + "px";
+				//do something;
 			}
 		},
 
@@ -292,7 +289,7 @@
 
 				this.wrapper.classList.add("juxtapose");
 
-				this.wrapper.style.width = this.imgBefore.image.naturalWidth
+				this.wrapper.style.width = this.imgBefore.image.naturalWidth;
 				this.setWrapperDimensions();
 
 				this.slider = document.createElement("div");
@@ -305,7 +302,7 @@
 				this.rightImage = document.createElement("div");
 				this.rightImage.className = 'jx-image right';
 				this.leftImage = document.createElement("div");
-				this.leftImage.className = 'jx-image left'
+				this.leftImage.className = 'jx-image left';
 
 				this.labCredit = document.createElement("a");
 				this.labCredit.setAttribute('href', 'http://juxtapose.knightlab.com');
@@ -315,7 +312,7 @@
 				this.labCredit.appendChild(this.labImage);
 				this.labName = document.createElement('p');
 				this.labName.textContent = 'JuxtaposeJS';
-				this.labCredit.appendChild(this.labName)
+				this.labCredit.appendChild(this.labName);
 
 				this.slider.appendChild(this.handle);
 				this.slider.appendChild(this.leftImage);
@@ -343,7 +340,7 @@
 
 		_init: function() {
 
-			if (this.checkImages() == false) {
+			if (this.checkImages() === false) {
 				console.warn(this, "Check that the two images have the same aspect ratio for the slider to work correctly.");
 			}
 
@@ -352,11 +349,11 @@
 			setImage(this.leftImage, this.imgBefore.image.src);
 			setImage(this.rightImage, this.imgAfter.image.src);
 
-			if (this.options.showLabels == true) {
+			if (this.options.showLabels === true) {
 				this.displayLabels();
 			}
-			
-			if (this.options.showCredits == true) {
+
+			if (this.options.showCredits === true) {
 				this.displayCredits();
 			}
 
@@ -380,21 +377,21 @@
 					animate = false;
 				});
 
-				this.addEventListener('mouseleave', function() {
-					animate = false;
-				});
+				// this.addEventListener('mouseleave', function() {
+				// animate = false;
+				// });
 			});
 
 			this.slider.addEventListener("touchstart", function(d) {
 				d.preventDefault();
-				self.updateSlider(d, true)
+				self.updateSlider(d, true);
 
 				this.addEventListener("touchmove", function(event) {
 					self.updateSlider(event, false);
 				});
 			});
 		}
-	}
+	};
 
 	/*
 		Given an element that is configured with the proper data elements, make a slider out of it.
@@ -408,15 +405,24 @@
 		var w = $elem;
 
 		var images = w.querySelectorAll('img');
-		var options = {
-			animate: w.getAttribute('data-animate'),
-			showLabels: w.getAttribute('data-showlabels'),
-			showCredits: w.getAttribute('data-showcredits'),
-			startingPosition: w.getAttribute('data-startingposition')
-		};
+
+		var options = {};
+		// don't set empty string into options, that's a false false.
+		if (w.getAttribute('data-animate')) { 
+			options.animate = w.getAttribute('data-animate'); 
+		}
+		if (w.getAttribute('data-showlabels')) { 
+			options.showLabels = w.getAttribute('data-showlabels'); 
+		}
+		if (w.getAttribute('data-showcredits')) { 
+			options.showCredits = w.getAttribute('data-showcredits'); 
+		}
+		if (w.getAttribute('data-startingposition')) { 
+			options.startingPosition = w.getAttribute('data-startingposition'); 
+		}
 
 		specificClass = 'juxtapose-' + idx;
-		w.classList.add(specificClass);		
+		w.classList.add(specificClass);
 		selector = '.' + specificClass;
 
 		w.innerHTML = '';
@@ -438,7 +444,7 @@
 		);
 		juxtapose.sliders.push(slider);
 
-	}
+	};
 	//Enable HTML Implementation
 	juxtapose.scanPage = function() {
 		sliders = [];
@@ -446,8 +452,8 @@
 		[].map.call(document.querySelectorAll('.juxtapose'), function(obj, i) {
 			juxtapose.makeSlider(obj, i);
 		});
-	}
-	
+	};
+
 	juxtapose.JXSlider = JXSlider;
 	window.juxtapose = juxtapose;
 
