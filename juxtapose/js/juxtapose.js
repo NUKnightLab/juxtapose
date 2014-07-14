@@ -402,12 +402,21 @@
 		var w = $elem;
 
 		var images = w.querySelectorAll('img');
-		var options = {
-			animate: w.getAttribute('data-animate'),
-			showLabels: w.getAttribute('data-showlabels'),
-			showCredits: w.getAttribute('data-showcredits'),
-			startingPosition: w.getAttribute('data-startingposition')
-		};
+
+		var options = {};
+		// don't set empty string into options, that's a false false.
+		if (w.getAttribute('data-animate')) { 
+			options.animate = w.getAttribute('data-animate'); 
+		}
+		if (w.getAttribute('data-showlabels')) { 
+			options.showLabels = w.getAttribute('data-showlabels'); 
+		}
+		if (w.getAttribute('data-showcredits')) { 
+			options.showCredits = w.getAttribute('data-showcredits'); 
+		}
+		if (w.getAttribute('data-startingposition')) { 
+			options.startingPosition = w.getAttribute('data-startingposition'); 
+		}
 
 		specificClass = 'juxtapose-' + idx;
 		w.classList.add(specificClass);
