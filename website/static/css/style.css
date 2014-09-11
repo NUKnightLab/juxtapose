@@ -132,12 +132,13 @@ pre {
 
 textarea {
   width: 95% !important;
-  height: auto !important;
+  height: 200px;
   font-family: Menlo, Monaco, "Courier New", Courier, monospace !important;
   background-color: white !important;
   cursor: auto !important;
   resize: none !important;
   overflow: auto !important;
+  margin-bottom: 40px;
 }
 
 #times {
@@ -232,4 +233,8 @@ span.tip-plus {
 #starting-position {
   width: 50px;
   margin-right: 5px;
+}
+
+.juxtapose {
+  max-wdith: none !important;
 }
