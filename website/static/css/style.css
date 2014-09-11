@@ -206,3 +206,12 @@ label[type='checkbox'] span {
 label[type='checkbox'] input {
   vertical-align: middle;
 }
+
+
+/* authoring tool */
+#authoring-form h6 {
+  text-transform: capitalize;
+  font-weight: bolder;
+  -webkit-font-smoothing: antialiased;
+  font-size: 15px;
+}
