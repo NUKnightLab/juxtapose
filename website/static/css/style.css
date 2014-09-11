@@ -228,3 +228,8 @@ span.tip-plus {
   margin-right: 5px;
   color: #e86b3d;
 }
+
+#starting-position {
+  width: 50px;
+  margin-right: 5px;
+}
