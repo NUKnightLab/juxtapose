@@ -221,6 +221,7 @@ label[type='checkbox'] input {
 
 input {
   font-family: Apres, Helvetica;
+  font-size: 12px;
 }
 
 /* authoring tool */
@@ -234,7 +235,7 @@ input {
 p.tip {
   font-size: 12px;
   font-family: Apres, Helvetica;
-  line-height: 15px;
+  line-height: 16px;
 }
 span.tip-plus {
   margin-right: 5px;
