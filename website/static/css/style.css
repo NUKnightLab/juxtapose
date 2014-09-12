@@ -21,6 +21,10 @@ a.help {
 	padding-left: 100px;
 }
 
+#update-preview {
+  margin-top: 
+}
+
 #update-preview-wrapper { margin-top: 20px;}
 @media all and (max-width:568px) {
 	#intro .logo-mark {
@@ -211,6 +215,13 @@ label[type='checkbox'] input {
   vertical-align: middle;
 }
 
+.checkbox {
+  font-family: Apres, Helvetica;
+}
+
+input {
+  font-family: Apres, Helvetica;
+}
 
 /* authoring tool */
 #authoring-form h6 {
@@ -237,4 +248,9 @@ span.tip-plus {
 
 .juxtapose {
   max-wdith: none !important;
+}
+
+/* preview */
+h6 {
+  text-transform: none;
 }
