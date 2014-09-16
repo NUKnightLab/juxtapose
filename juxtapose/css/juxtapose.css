@@ -148,18 +148,13 @@ a.jx-knightlab {
 	bottom: 0;
 	right: 0;
 	z-index: 10;
-	padding: 0.4em 0.35em 0em 0.35em;
-	background-color: rgba(225,225,225,0.8);
 	text-decoration: none;
-	height: 1.2em;
 }
 
 a.jx-knightlab img {
 	display: inline-block;
-	vertical-align: middle;
-	height: 0.8em;
-	margin-right: 0.1em;
-	padding-bottom: 0.6em;
+	height: 21px;
+	width: 100px;
 }
 
 a.jx-knightlab p {
