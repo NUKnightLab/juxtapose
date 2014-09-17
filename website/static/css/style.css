@@ -267,3 +267,12 @@ span.tip-plus {
 h6 {
   text-transform: none;
 }
+
+ul.social li {
+  position:relative;
+  margin-left: 0;
+}
+
+footer ul.social li .iconemail:after {
+  margin-left: .14em;
+}
