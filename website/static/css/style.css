@@ -1,3 +1,7 @@
+.container {
+  max-width: 900px;
+}
+
 section {
     padding: 20px 0;
 }
@@ -31,6 +35,14 @@ a.help {
 		margin-left: -5px;
 		padding: 0;
 	}
+
+  .intro {
+    display: none;
+  }
+  .btn-success {
+    font-size: 14px;
+    margin-top: 30px;
+  }
 }
 
 /* This media query re-sizes the blueline fixed type sizes. Remove if EMs are implemented */
