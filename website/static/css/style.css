@@ -252,9 +252,10 @@ input {
 /* authoring tool */
 
 p.tip {
-  font-size: 12px;
+  font-size: 14px;
   font-family: Apres, Helvetica;
   line-height: 16px;
+  margin: 8px 0 16px 0;
 }
 span.tip-plus {
   margin-right: 5px;
@@ -274,7 +275,7 @@ div.juxtapose {
 h6, #authoring-form h6 {
   text-transform: none;
   font-family: Apres, Helvetica;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bolder;
   -webkit-font-smoothing: antialiased;
 }
