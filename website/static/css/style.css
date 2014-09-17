@@ -36,12 +36,16 @@ a.help {
 		padding: 0;
 	}
 
-  .intro {
-    display: none;
+  .hero-unit {
+    padding: 60px 30px;
+  }
+
+  h2.intro {
+    font-size: 30px;
   }
   .btn-success {
     font-size: 14px;
-    margin-top: 30px;
+    /*margin-top: 30px;*/
   }
 }
 
