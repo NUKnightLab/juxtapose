@@ -151,10 +151,13 @@ a.jx-knightlab {
 	bottom: 0;
 	right: 0;
 	z-index: 10;
-	padding: 0.4em 0.35em 0em 0.35em;
-	background-color: rgba(225,225,225,0.8);
+	padding: 0.1em 0.35em 0.1em 0.35em;
+	font-size: 11px;
 	text-decoration: none;
 	height: 1.2em;
+	font-weight: 200;
+	background: rgb(224, 224, 224);
+	color:#333;
 }
 
 a.jx-knightlab img {
@@ -162,19 +165,17 @@ a.jx-knightlab img {
 	vertical-align: middle;
 	height: 0.8em;
 	margin-right: 0.1em;
-	padding-bottom: 0.6em;
+	padding-bottom: 0.8em;
 }
 
 a.jx-knightlab p {
 	margin: 0;
 	display: inline-block;
-	color: black;
 	vertical-align: middle;
 	text-decoration: none;
 	font-size: 0.8em;
 	height: 100%;
 	line-height: 0.8em;
-	padding-bottom: 0.2em;
 }
 
 @media (max-width: 400px) {
@@ -184,7 +185,7 @@ a.jx-knightlab p {
 		right: 0;
 		z-index: 10;
 		padding: 0em 0.2em 0.1em 0.2em;
-		background-color: rgba(0,0,0,0.7);
+		background: rgb(224, 224, 224);
 		text-decoration: none;
 	}
 
