@@ -151,6 +151,8 @@ pre {
 }
 
 textarea {
+  font-family: inherit;
+  font-size: 14px;
   width: 95% !important;
   height: 200px;
   font-family: Menlo, Monaco, "Courier New", Courier, monospace !important;
