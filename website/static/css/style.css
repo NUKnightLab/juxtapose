@@ -12,6 +12,11 @@ footer {
     font-size: 14px;
 }
 
+a {
+  font-family: Apres, Helvetica;
+  font-weight: 200;
+}
+
 a.help {
   color: inherit;
 }
@@ -235,20 +240,16 @@ label[type='checkbox'] input {
 
 .checkbox {
   font-family: Apres, Helvetica;
+  font-weight: 200;
 }
 
 input {
   font-family: Apres, Helvetica;
   font-size: 12px;
+  font-weight: 200;
 }
 
 /* authoring tool */
-#authoring-form h6 {
-  text-transform: capitalize;
-  font-weight: bolder;
-  -webkit-font-smoothing: antialiased;
-  font-size: 15px;
-}
 
 p.tip {
   font-size: 12px;
@@ -265,13 +266,17 @@ span.tip-plus {
   margin-right: 5px;
 }
 
-.juxtapose {
+div.juxtapose {
   max-wdith: none !important;
 }
 
 /* preview */
-h6 {
+h6, #authoring-form h6 {
   text-transform: none;
+  font-family: Apres, Helvetica;
+  font-size: 16px;
+  font-weight: bolder;
+  -webkit-font-smoothing: antialiased;
 }
 
 ul.social li {
