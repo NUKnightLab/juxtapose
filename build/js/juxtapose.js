@@ -20,9 +20,9 @@
 		for (var i = 0; i < ary.length; i++) {
 			dict[ary[i].label] = ary[i].source;
 		}
-		for (var i = 0; i < FLICKR_SIZE_PREFERENCES.length; i++) {
+		for (var j = 0; j < FLICKR_SIZE_PREFERENCES.length; j++) {
 			if (FLICKR_SIZE_PREFERENCES[i] in dict) {
-				return dict[FLICKR_SIZE_PREFERENCES[i]];
+				return dict[FLICKR_SIZE_PREFERENCES[j]];
 			}
 		}
 		return ary[0].source;
@@ -308,11 +308,8 @@
 				this.labCredit.setAttribute('href', 'http://juxtapose.knightlab.com');
 				this.labCredit.className = 'jx-knightlab';
 				this.labImage = new Image();
-				this.labImage.src = 'http://blueline.knightlab.com/assets/logos/favicon.png';
+				this.labImage.src = 'http://cdn.knightlab.com/libs/juxtapose/latest/juxtapose-logo.png';
 				this.labCredit.appendChild(this.labImage);
-				this.labName = document.createElement('p');
-				this.labName.textContent = 'JuxtaposeJS';
-				this.labCredit.appendChild(this.labName);
 
 				this.slider.appendChild(this.handle);
 				this.slider.appendChild(this.leftImage);
@@ -377,9 +374,6 @@
 					animate = false;
 				});
 
-				// this.addEventListener('mouseleave', function() {
-				// animate = false;
-				// });
 			});
 
 			this.slider.addEventListener("touchstart", function(d) {
