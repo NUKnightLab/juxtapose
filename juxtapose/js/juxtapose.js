@@ -17,9 +17,9 @@
 		for (var i = 0; i < ary.length; i++) {
 			dict[ary[i].label] = ary[i].source;
 		}
-		for (var i = 0; i < FLICKR_SIZE_PREFERENCES.length; i++) {
+		for (var j = 0; j < FLICKR_SIZE_PREFERENCES.length; j++) {
 			if (FLICKR_SIZE_PREFERENCES[i] in dict) {
-				return dict[FLICKR_SIZE_PREFERENCES[i]];
+				return dict[FLICKR_SIZE_PREFERENCES[j]];
 			}
 		}
 		return ary[0].source;
@@ -374,9 +374,6 @@
 					animate = false;
 				});
 
-				// this.addEventListener('mouseleave', function() {
-				// animate = false;
-				// });
 			});
 
 			this.slider.addEventListener("touchstart", function(d) {
