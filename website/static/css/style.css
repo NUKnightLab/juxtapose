@@ -21,6 +21,10 @@ a.help {
 	padding-left: 100px;
 }
 
+#update-preview {
+  margin-top: 
+}
+
 #update-preview-wrapper { margin-top: 20px;}
 @media all and (max-width:568px) {
 	#intro .logo-mark {
@@ -132,12 +136,13 @@ pre {
 
 textarea {
   width: 95% !important;
-  height: auto !important;
+  height: 200px;
   font-family: Menlo, Monaco, "Courier New", Courier, monospace !important;
   background-color: white !important;
   cursor: auto !important;
   resize: none !important;
   overflow: auto !important;
+  margin-bottom: 40px;
 }
 
 #times {
@@ -171,12 +176,15 @@ textarea {
 }
 
 input::-webkit-input-placeholder {
+  font-family: Apres, Helvetica;
   font-size: 14px;
 }
 input:-moz-placeholder {
+  font-family: Apres, Helvetica
   font-size: 14px;
 }
 input:-ms-input-placeholder {
+  font-family: Apres, Helvetica
   font-size: 14px;
 }
 
@@ -205,4 +213,45 @@ label[type='checkbox'] span {
 
 label[type='checkbox'] input {
   vertical-align: middle;
+}
+
+.checkbox {
+  font-family: Apres, Helvetica;
+}
+
+input {
+  font-family: Apres, Helvetica;
+  font-size: 12px;
+}
+
+/* authoring tool */
+#authoring-form h6 {
+  text-transform: capitalize;
+  font-weight: bolder;
+  -webkit-font-smoothing: antialiased;
+  font-size: 15px;
+}
+
+p.tip {
+  font-size: 12px;
+  font-family: Apres, Helvetica;
+  line-height: 16px;
+}
+span.tip-plus {
+  margin-right: 5px;
+  color: #e86b3d;
+}
+
+#starting-position {
+  width: 50px;
+  margin-right: 5px;
+}
+
+.juxtapose {
+  max-wdith: none !important;
+}
+
+/* preview */
+h6 {
+  text-transform: none;
 }
