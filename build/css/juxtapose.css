@@ -1,4 +1,4 @@
-/* juxtapose - v0.0.10 - 2014-09-22
+/* juxtapose - v0.0.11 - 2014-09-22
  * Copyright (c) 2014 Alex Duner and Northwestern University Knight Lab 
  */
 div.juxtapose {
@@ -149,6 +149,7 @@ a.jx-knightlab {
 	bottom: 0;
 	right: 0;
 	z-index: 10;
+	width: 75px;
 	text-decoration: none;
 }
 
@@ -157,9 +158,9 @@ a.jx-knightlab img {
 	height: 25px;
 	width: 100%;
 	height: 100%;
-	}
+}
 
-a.jx-knightlab p {
+/*a.jx-knightlab p {
 	margin: 0;
 	display: inline-block;
 	color: black;
@@ -169,8 +170,8 @@ a.jx-knightlab p {
 	height: 100%;
 	line-height: 0.8em;
 	padding-bottom: 0.2em;
-	width: 75px;
-}
+}*/
+
 
 @media (max-width: 400px) {
 	a.jx-knightlab {
