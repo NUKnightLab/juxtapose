@@ -24,6 +24,7 @@
 		}
 		return ary[0].source;
 	}
+
 	function FlickrGraphic(properties) {
 
 		var self = this;
@@ -305,6 +306,7 @@
 				this.labCredit.setAttribute('href', 'http://juxtapose.knightlab.com');
 				this.labCredit.className = 'jx-knightlab';
 				this.labImage = new Image();
+				this.labImage.className = 'jx-knightlab-image';
 				this.labImage.src = 'http://cdn.knightlab.com/libs/juxtapose/latest/juxtapose-logo.png';
 				this.labCredit.appendChild(this.labImage);
 
