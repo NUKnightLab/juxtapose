@@ -1,4 +1,4 @@
-/* juxtapose - v0.0.12 - 2014-09-22
+/* juxtapose - v0.0.13 - 2014-09-22
  * Copyright (c) 2014 Alex Duner and Northwestern University Knight Lab 
  */
 (function (document, window) {
@@ -308,10 +308,17 @@
 				this.labCredit = document.createElement("a");
 				this.labCredit.setAttribute('href', 'http://juxtapose.knightlab.com');
 				this.labCredit.className = 'jx-knightlab';
-				this.labImage = new Image();
-				this.labImage.className = 'jx-knightlab-image';
-				this.labImage.src = 'http://cdn.knightlab.com/libs/juxtapose/latest/juxtapose-logo.png';
-				this.labCredit.appendChild(this.labImage);
+				this.labLogo = document.createElement("div");
+				this.labLogo.className = 'knightlab-logo';
+				this.labCredit.appendChild(this.labLogo);
+				this.projectName = document.createElement("span");
+				this.projectName.className = 'juxtapose-name'
+				this.projectName.textContent = "JuxtaposeJS";
+				this.labCredit.appendChild(this.projectName);
+				// this.labImage = new Image();
+				// this.labImage.className = 'jx-knightlab-image';
+				// this.labImage.src = 'http://cdn.knightlab.com/libs/juxtapose/latest/juxtapose-logo.png';
+				// this.labCredit.appendChild(this.labImage);
 
 				this.slider.appendChild(this.handle);
 				this.slider.appendChild(this.leftImage);
