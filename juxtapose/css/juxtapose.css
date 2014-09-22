@@ -120,6 +120,7 @@ div.jx-image.right div.jx-label {
 }
 
 div.jx-credit {
+	font-size: 0.75em;
 }
 
 div.jx-credit em {
@@ -173,7 +174,7 @@ a.jx-knightlab p {
 		right: 0;
 		z-index: 10;
 		padding: 0em 0.2em 0.1em 0.2em;
-		background-color: rgba(0,0,0,0.7);
+		/*background-color: rgba(0,0,0,0.7);*/
 		text-decoration: none;
 	}
 
