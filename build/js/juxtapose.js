@@ -1,4 +1,4 @@
-/* juxtapose - v0.0.14 - 2014-09-23
+/* juxtapose - v0.0.15 - 2014-09-23
  * Copyright (c) 2014 Alex Duner and Northwestern University Knight Lab 
  */
 (function (document, window) {
@@ -247,7 +247,7 @@
 			credit = document.createElement("div");
 			credit.className = "jx-credit";
 
-			text =  "<em>Before </em>" + this.imgBefore.credit +
+			text =  "<em>Photo Credits: Before </em>" + this.imgBefore.credit +
 					" <em>After </em>" + this.imgAfter.credit;
 			credit.innerHTML = text;
 
