@@ -3,6 +3,7 @@
 	var juxtapose = { sliders: [] };
 
 	var flickr_key = "d90fc2d1f4acc584e08b8eaea5bf4d6c";
+	var FLICKR_SIZE_PREFERENCES = ['Large', 'Medium'];
 
 	function Graphic(properties) {
 		this.image = new Image();
@@ -11,22 +12,8 @@
 		this.credit = properties.credit || false;
 	}
 
-	var FLICKR_SIZE_PREFERENCES = ['Large', 'Large Square', 'Medium', 'Medium Square'];
-	function bestFlickrUrl(ary) {
-		var dict = {};
-		for (var i = 0; i < ary.length; i++) {
-			dict[ary[i].label] = ary[i].source;
-		}
-		for (var j = 0; j < FLICKR_SIZE_PREFERENCES.length; j++) {
-			if (FLICKR_SIZE_PREFERENCES[i] in dict) {
-				return dict[FLICKR_SIZE_PREFERENCES[j]];
-			}
-		}
-		return ary[0].source;
-	}
 
 	function FlickrGraphic(properties) {
-
 		var self = this;
 		this.image = new Image();
 
@@ -59,7 +46,8 @@
 			request.onload = function() {
 				if (request.status >= 200 && request.status < 400){
 					data = JSON.parse(request.responseText);
-					var flickr_url = bestFlickrUrl(data.sizes.size);
+					console.log(data);
+					var flickr_url = self.bestFlickrUrl(data.sizes.size);
 					self.setFlickrImage(flickr_url);
 				} else {
 					console.error("There was an error getting the picture from Flickr");
@@ -73,6 +61,21 @@
 
 		setFlickrImage: function(src) {
 			this.image.src = src;
+		},
+
+		bestFlickrUrl: function(ary) {
+			var dict = {};
+			for (var i = 0; i < ary.length; i++) {
+				dict[ary[i].label] = ary[i].source;
+			}
+			console.log(dict);
+			for (var j = 0; j < FLICKR_SIZE_PREFERENCES.length; j++) {
+				if (FLICKR_SIZE_PREFERENCES[j] in dict) {
+					console.log("hello");
+					return dict[FLICKR_SIZE_PREFERENCES[j]];
+				}
+			}
+			return ary[0].source;
 		}
 	};
 
