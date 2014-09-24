@@ -244,7 +244,7 @@
 			credit = document.createElement("div");
 			credit.className = "jx-credit";
 
-			text =  "<em>Before </em>" + this.imgBefore.credit +
+			text =  "<em>Photo Credits: Before </em>" + this.imgBefore.credit +
 					" <em>After </em>" + this.imgAfter.credit;
 			credit.innerHTML = text;
 

@@ -120,6 +120,7 @@ div.jx-image.right div.jx-label {
 }
 
 div.jx-credit {
+	line-height: 1.1;
 	font-size: 0.75em;
 }
 
