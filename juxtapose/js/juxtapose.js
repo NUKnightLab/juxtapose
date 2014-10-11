@@ -231,8 +231,10 @@
 		displayLabels: function() {
 			leftDate = document.createElement("div");
 			leftDate.className = 'jx-label';
+			leftDate.setAttribute('tabindex',0); //put the controller in the natural tab order of the document
 			leftDate.textContent = this.imgBefore.label;
 			rightDate = document.createElement("div");
+			rightDate.setAttribute('tabindex',0); //put the controller in the natural tab order of the document
 			rightDate.className = 'jx-label';
 			rightDate.textContent = this.imgAfter.label;
 
@@ -334,6 +336,13 @@
 				this.rightArrow.className = 'jx-arrow right';
 				this.control.className = 'jx-control';
 				this.controller.className = 'jx-controller';
+				
+				//keyboard tabindex and roles to the slider
+				this.controller.setAttribute('tabindex',0); //put the controller in the natural tab order of the document
+				this.controller.setAttribute('role','slider');
+				this.controller.setAttribute('aria-valuenow',50);
+				this.controller.setAttribute('aria-valuemin',0);
+				this.controller.setAttribute('aria-valuemax',100);
 
 				this.handle.appendChild(this.leftArrow);
 				this.handle.appendChild(this.control);
@@ -392,6 +401,47 @@
 				this.addEventListener("touchmove", function(event) {
 					self.updateSlider(event, false);
 				});
+			});
+			
+				/* keyboard accessibility */ 
+			
+			this.handle.addEventListener("keypress", function (event) {
+    			 var key = event.which || event.keyCode;
+				 var ariaValue = parseFloat(this.style.left);
+				 
+				    //move jx-controller left
+				    if (key == 37) { 
+				    	ariaValue = ariaValue - 1;
+						var leftStart = parseFloat(this.style.left) - 1;
+						self.updateSlider(leftStart, false);
+						self.controller.setAttribute('aria-valuenow',ariaValue);
+				    }
+				    
+				    //move jx-controller right
+				    if (key == 39) { 
+				    	ariaValue = ariaValue + 1;
+						var rightStart = parseFloat(this.style.left) + 1;
+						self.updateSlider(rightStart, false);
+						self.controller.setAttribute('aria-valuenow',ariaValue);
+				    }
+			});
+			
+			//toggle right-hand image visibility
+			this.leftImage.addEventListener("keydown", function (event) {
+    			 var key = event.which || event.keyCode;
+    			 var ariaValue = parseFloat(this.style.left);
+				    if (key == 13 || 32) { 
+				   		self.updateSlider("10%", true);
+				   		self.controller('aria-valuenow',ariaValue);
+				    }
+			});
+			
+			//toggle left-hand image visibility
+			this.rightImage.addEventListener("keydown", function (event) {
+    			 var key = event.which || event.keyCode;
+				    if (key == 13 || 32) { 
+						self.updateSlider("90%", true);
+				    }
 			});
 		}
 	};
