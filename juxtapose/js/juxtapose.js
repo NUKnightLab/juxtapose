@@ -429,18 +429,18 @@
 			//toggle right-hand image visibility
 			this.leftImage.addEventListener("keydown", function (event) {
     			 var key = event.which || event.keyCode;
-    			 var ariaValue = parseFloat(this.style.left);
-				    if (key == 13 || 32) { 
+				    if ((key == 13) || (key ==32)) { 
 				   		self.updateSlider("10%", true);
-				   		self.controller('aria-valuenow',ariaValue);
+				   	    self.controller.setAttribute('aria-valuenow',10);
 				    }
 			});
 			
 			//toggle left-hand image visibility
 			this.rightImage.addEventListener("keydown", function (event) {
     			 var key = event.which || event.keyCode;
-				    if (key == 13 || 32) { 
+				    if ((key == 13) || (key ==32)) { 
 						self.updateSlider("90%", true);
+						self.controller.setAttribute('aria-valuenow',90);
 				    }
 			});
 		}
