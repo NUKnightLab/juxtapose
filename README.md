@@ -1,6 +1,9 @@
 #JuxtaposeJS keyboard accessibility fork
 
-JuxtaposeJS is a simple open source tool for creating before/after image sliders. I have created a fork to add keyboard accessibility to the sliders: 
+JuxtaposeJS is a simple open source tool for creating before/after image sliders. Check out the project's <a href="https://github.com/NUKnightLab/juxtapose">main repository</a> for more information on
+this tool.  I am working on a fork to add keyboard accessibility to the sliders. 
+
+##Main changes
 
 It applies the role of <code>slider</code> to <code>div.jx-controller</code>, gives tabindices to the components of the slider that should receive keyboard focus,
 and applies the following WAI-ARIA roles to the slider: 
@@ -13,6 +16,12 @@ and applies the following WAI-ARIA roles to the slider:
 
 In juxtapose.css, this fork adds :focus styling for components of the slider to ensure the focus states have adequate colour contrast. 
 In example.html alt text is added to each image
+
+##Testing 
+So far I have tested this on a Mac but I will follow with a PC. 
+
+To see an example open /juxtapose/example.html. 
+To navigate with the keyboard use the tab key to move forward, and shift-tab to move backward. To activate a part of the slider (the left, right or handle), press enter or the space bar. 
 
 ##To-do
 <ul>

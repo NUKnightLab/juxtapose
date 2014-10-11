@@ -270,8 +270,8 @@
 
 			ratio = getImageDimensions(this.imgBefore.image).aspect();
 
-			width = (parseInt(getComputedStyle(this.wrapper)['width'], 10));
-			height = (parseInt(getComputedStyle(this.wrapper)['height'], 10));
+			width = (parseInt(getComputedStyle(this.wrapper).width, 10));
+			height = (parseInt(getComputedStyle(this.wrapper).height, 10));
 
 			if (width) {
 				height = width * (1 / ratio);
@@ -314,7 +314,7 @@
 				this.labLogo.className = 'knightlab-logo';
 				this.labCredit.appendChild(this.labLogo);
 				this.projectName = document.createElement("span");
-				this.projectName.className = 'juxtapose-name'
+				this.projectName.className = 'juxtapose-name';
 				this.projectName.textContent = "JuxtaposeJS";
 				this.labCredit.appendChild(this.projectName);
 				// this.labImage = new Image();
