@@ -1,4 +1,4 @@
-/* juxtapose - v1.0.1 - 2014-10-13
+/* juxtapose - v1.0.2 - 2014-10-13
  * Copyright (c) 2014 Alex Duner and Northwestern University Knight Lab 
  */
 (function (document, window) {
@@ -177,6 +177,7 @@
 					(typeof(TouchEvent) != 'undefined' && evt instanceof TouchEvent)
 				);
 	}
+
 	JXSlider.prototype = {
 
 		updateSlider: function(input, animate) {
@@ -192,7 +193,8 @@
 			var width = this.slider.offsetWidth;
 
 			if (isMoveEvent(input)) {
-				var relativeX = input.pageX - offset.left;
+				var pageX = input.pageX || input.touches[0].pageX;
+				var relativeX = pageX - offset.left;
 				leftPercent = (relativeX / width) * 100 + "%";
 				rightPercent = 100 - ((relativeX / width) * 100) + "%";
 			} else if (typeof(input) === "string" || typeof(input) === "number") {
@@ -399,8 +401,10 @@
 				self.updateSlider(d, true);
 
 				this.addEventListener("touchmove", function(event) {
+					event.preventDefault();
 					self.updateSlider(event, false);
 				});
+
 			});
 			
 			/* keyboard accessibility */ 
