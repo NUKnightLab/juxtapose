@@ -1,4 +1,4 @@
-/* juxtapose - v1.0.0 - 2014-09-24
+/* juxtapose - v1.0.1 - 2014-10-13
  * Copyright (c) 2014 Alex Duner and Northwestern University Knight Lab 
  */
 div.juxtapose {
@@ -154,9 +154,6 @@ a.jx-knightlab {
 	text-decoration: none;
 	background-color: rgba(0,0,0,0.25);
 	line-height: 0;
-	border-style: solid;
-	border-color: #FFF;
-	border-width: 0.5px;
 }
 
 a.jx-knightlab div.knightlab-logo {
@@ -208,3 +205,17 @@ a.jx-knightlab span.juxtapose-name {
 		display: none;
 	}	
 }
+
+/* keyboard accessibility */
+div.jx-controller:focus,
+div.jx-image.left div.jx-label:focus,
+div.jx-image.right div.jx-label:focus,
+a.jx-knightlab:focus {
+	background: #eae34a;
+	color: #000;
+}
+a.jx-knightlab:focus span.juxtapose-name{
+	color: #000;
+	border: solid 1px #000; /* why is this causing strikethrough thorough the text? */
+}
+
