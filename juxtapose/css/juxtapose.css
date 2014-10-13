@@ -205,3 +205,17 @@ a.jx-knightlab span.juxtapose-name {
 		display: none;
 	}	
 }
+
+/* keyboard accessibility */
+div.jx-controller:focus,
+div.jx-image.left div.jx-label:focus,
+div.jx-image.right div.jx-label:focus,
+a.jx-knightlab:focus {
+	background: #eae34a;
+	color: #000;
+}
+a.jx-knightlab:focus span.juxtapose-name{
+	color: #000;
+	border: solid 1px #000; /* why is this causing strikethrough thorough the text? */
+}
+
