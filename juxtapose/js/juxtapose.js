@@ -46,7 +46,6 @@
 			request.onload = function() {
 				if (request.status >= 200 && request.status < 400){
 					data = JSON.parse(request.responseText);
-					console.log(data);
 					var flickr_url = self.bestFlickrUrl(data.sizes.size);
 					self.setFlickrImage(flickr_url);
 				} else {
@@ -68,10 +67,8 @@
 			for (var i = 0; i < ary.length; i++) {
 				dict[ary[i].label] = ary[i].source;
 			}
-			console.log(dict);
 			for (var j = 0; j < FLICKR_SIZE_PREFERENCES.length; j++) {
 				if (FLICKR_SIZE_PREFERENCES[j] in dict) {
-					console.log("hello");
 					return dict[FLICKR_SIZE_PREFERENCES[j]];
 				}
 			}
@@ -338,11 +335,11 @@
 				this.controller.className = 'jx-controller';
 				
 				//keyboard tabindex and roles to the slider
-				this.controller.setAttribute('tabindex',0); //put the controller in the natural tab order of the document
-				this.controller.setAttribute('role','slider');
-				this.controller.setAttribute('aria-valuenow',50);
-				this.controller.setAttribute('aria-valuemin',0);
-				this.controller.setAttribute('aria-valuemax',100);
+				this.controller.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
+				this.controller.setAttribute('role', 'slider');
+				this.controller.setAttribute('aria-valuenow', 50);
+				this.controller.setAttribute('aria-valuemin', 0);
+				this.controller.setAttribute('aria-valuemax', 100);
 
 				this.handle.appendChild(this.leftArrow);
 				this.handle.appendChild(this.control);
@@ -403,18 +400,18 @@
 				});
 			});
 			
-				/* keyboard accessibility */ 
-			
-			this.handle.addEventListener("keypress", function (event) {
+			/* keyboard accessibility */ 
+		
+			this.handle.addEventListener("keydown", function (event) {
     			 var key = event.which || event.keyCode;
 				 var ariaValue = parseFloat(this.style.left);
-				 
+
 				    //move jx-controller left
 				    if (key == 37) { 
 				    	ariaValue = ariaValue - 1;
 						var leftStart = parseFloat(this.style.left) - 1;
 						self.updateSlider(leftStart, false);
-						self.controller.setAttribute('aria-valuenow',ariaValue);
+						self.controller.setAttribute('aria-valuenow', ariaValue);
 				    }
 				    
 				    //move jx-controller right
@@ -422,7 +419,7 @@
 				    	ariaValue = ariaValue + 1;
 						var rightStart = parseFloat(this.style.left) + 1;
 						self.updateSlider(rightStart, false);
-						self.controller.setAttribute('aria-valuenow',ariaValue);
+						self.controller.setAttribute('aria-valuenow', ariaValue);
 				    }
 			});
 			
@@ -430,8 +427,8 @@
 			this.leftImage.addEventListener("keydown", function (event) {
     			 var key = event.which || event.keyCode;
 				    if ((key == 13) || (key ==32)) { 
-				   		self.updateSlider("10%", true);
-				   	    self.controller.setAttribute('aria-valuenow',10);
+				   		self.updateSlider("90%", true);
+				   	    self.controller.setAttribute('aria-valuenow', 90);
 				    }
 			});
 			
@@ -439,8 +436,8 @@
 			this.rightImage.addEventListener("keydown", function (event) {
     			 var key = event.which || event.keyCode;
 				    if ((key == 13) || (key ==32)) { 
-						self.updateSlider("90%", true);
-						self.controller.setAttribute('aria-valuenow',90);
+						self.updateSlider("10%", true);
+						self.controller.setAttribute('aria-valuenow', 10);
 				    }
 			});
 		}
@@ -498,6 +495,7 @@
 		juxtapose.sliders.push(slider);
 
 	};
+
 	//Enable HTML Implementation
 	juxtapose.scanPage = function() {
 		sliders = [];
