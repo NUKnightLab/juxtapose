@@ -199,6 +199,6 @@ a.jx-knightlab:focus {
 }
 a.jx-knightlab:focus span.juxtapose-name{
 	color: #000;
-	border: solid 1px #000; /* why is this causing strikethrough thorough the text? */
+	border: none;
 }
 
