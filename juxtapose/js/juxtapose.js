@@ -12,7 +12,6 @@
 		this.credit = properties.credit || false;
 	}
 
-
 	function FlickrGraphic(properties) {
 		var self = this;
 		this.image = new Image();
