@@ -147,10 +147,10 @@ a.jx-knightlab {
 	bottom: 0;
 	right: 0;
 	z-index: 10;
-	padding: 0.25em 0.25em;
+	padding: 0em 0.25em;
 	text-decoration: none;
 	background-color: rgba(0,0,0,0.25);
-	line-height: 0;
+	/*line-height: 0;*/
 }
 
 a.jx-knightlab div.knightlab-logo {
