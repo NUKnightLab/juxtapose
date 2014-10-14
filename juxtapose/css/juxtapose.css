@@ -146,9 +146,9 @@ a.jx-knightlab {
 	background-color: rgba(0,0,0,.25);
 	bottom: 0;
 	display: table;
-	height: 1em;
-	line-height: 1em;
-	padding: 0em 0.25em 0 0.3em;
+	height: 14px;
+	line-height: 14px;
+	padding: 1px 4px 1px 5px;
 	position: absolute;
 	right: 0;
 	text-decoration: none;
@@ -164,8 +164,16 @@ a.jx-knightlab div.knightlab-logo {
 	transform: rotate(45deg);
 	-ms-transform: rotate(45deg);
 	-webkit-transform: rotate(45deg);
-	top: -1px;
+	top: -1.25px;
 	position: relative;
+	cursor: pointer;
+}
+
+a.jx-knightlab:hover {
+	background-color: rgba(0,0,0,.35);
+}
+a.jx-knightlab:hover div.knightlab-logo {
+	background-color: #ce4d28;
 }
 
 a.jx-knightlab span.juxtapose-name {
