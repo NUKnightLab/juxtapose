@@ -501,11 +501,10 @@
 
 	//Enable HTML Implementation
 	juxtapose.scanPage = function() {
-		sliders = [];
-
-		[].map.call(document.querySelectorAll('.juxtapose'), function(obj, i) {
-			juxtapose.makeSlider(obj, i);
-		});
+    var els = document.querySelectorAll('.juxtapose');
+    for (var i=0; i<els.length; i++) {
+      juxtapose.makeSlider(els[i],i);
+      }
 	};
 
 	juxtapose.JXSlider = JXSlider;
