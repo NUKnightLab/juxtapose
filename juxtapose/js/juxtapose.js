@@ -191,20 +191,30 @@
 			if (isMoveEvent(input)) {
 				var pageX = input.pageX || input.touches[0].pageX;
 				var relativeX = pageX - offset.left;
-				leftPercent = (relativeX / width) * 100 + "%";
-				rightPercent = 100 - ((relativeX / width) * 100) + "%";
+				leftPercent = (relativeX / width) * 100;
+				rightPercent = 100 - ((relativeX / width) * 100);
 			} else if (typeof(input) === "string" || typeof(input) === "number") {
 				if (typeof(input) === "string") {
 					num = parseInt(input, 10);
 				} else {
 					num = input;
 				}
-				leftPercent = num + "%";
-				rightPercent = (100 - num) + "%";
+				leftPercent = num;
+				rightPercent = (100 - num);
 			}
 
 			var eventCheck = (relativeX / width);
 			var numCheck = parseInt(num, 10);
+
+			leftPercent = Math.round(leftPercent);
+			rightPercent = Math.round(rightPercent);
+
+			if (leftPercent + rightPercent != 100) {
+				rightPercent = rightPercent - 1;
+			}
+
+			leftPercent = leftPercent + "%";
+			rightPercent = rightPercent + "%";
 
 			if ((eventCheck > 0 && eventCheck < 1) || (numCheck >= 0 && numCheck <= 100)) {
 				this.handle.classList.remove("transition");
@@ -315,10 +325,6 @@
 				this.projectName.className = 'juxtapose-name';
 				this.projectName.textContent = "JuxtaposeJS";
 				this.labCredit.appendChild(this.projectName);
-				// this.labImage = new Image();
-				// this.labImage.className = 'jx-knightlab-image';
-				// this.labImage.src = 'http://cdn.knightlab.com/libs/juxtapose/latest/juxtapose-logo.png';
-				// this.labCredit.appendChild(this.labImage);
 
 				this.slider.appendChild(this.handle);
 				this.slider.appendChild(this.leftImage);
