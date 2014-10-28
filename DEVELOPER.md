@@ -19,7 +19,7 @@
     # Change into the parent directory containing your repositories
     cd path_to_repos_root
   
-    # Clone the secrets repository (if necessary)
+    # Clone the secrets repository (if need deployment credentials; it's a private Knight Lab repo)
     git clone git@github.com:NUKnightLab/secrets.git
   
     # Clone the cdn repository (if necessary)
