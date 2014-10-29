@@ -83,6 +83,8 @@ div.jx-image {
 	top: 0;
 	overflow: hidden;
 	background-size: cover;
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: scale(1);
 }
 
 div.jx-image.left {
