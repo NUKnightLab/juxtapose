@@ -80,14 +80,22 @@
 		element.style.backgroundImage = property;
 	}
 
+	function getNaturalDimensions(DOMelement) {
+	// http://www.jacklmoore.com/notes/naturalwidth-and-naturalheight-in-ie/
+		var img = new Image();
+		img.src = DOMelement.src;
+		return {width: img.width, height: img.height};
+	}
+
 	function getImageDimensions(img) {
 		var dimensions = {
-			width: img.naturalWidth,
-			height: img.naturalHeight,
+			width: img.naturalWidth || getNaturalDimensions(img).width,
+			height: img.naturalHeight || getNaturalDimensions(img).height,
 			aspect: function() { return (this.width / this.height); }
 		};
 		return dimensions;
 	}
+
 
 	function checkFlickr(url) {
 		var idx = url.indexOf("flickr.com/photos/");
@@ -168,9 +176,9 @@
 		};
 	}
 
-	function isMoveEvent(evt) {
-		return (evt instanceof MouseEvent ||
-					(typeof(TouchEvent) != 'undefined' && evt instanceof TouchEvent)
+	function isMoveEvent(evt) {		
+		return (evt instanceof window.MouseEvent ||
+					(typeof(window.TouchEvent) != 'undefined' && evt instanceof window.TouchEvent)
 				);
 	}
 
@@ -275,20 +283,17 @@
 		},
 
 		setWrapperDimensions: function() {
-
 			ratio = getImageDimensions(this.imgBefore.image).aspect();
 
-			width = (parseInt(getComputedStyle(this.wrapper).width, 10));
-			height = (parseInt(getComputedStyle(this.wrapper).height, 10));
-
+			width = parseInt(getComputedStyle(this.wrapper).width, 10);
+			height = parseInt(getComputedStyle(this.wrapper).height, 10);
+			
 			if (width) {
 				height = width * (1 / ratio);
 				this.wrapper.style.height = height + "px";
 			} else if (height) {
 				width = height * ratio;
 				this.wrapper.style.width = width + "px";
-			} else {
-				//do something;
 			}
 		},
 
@@ -298,9 +303,13 @@
 
 				this.wrapper = document.querySelector(this.selector);
 
-				this.wrapper.classList.add("juxtapose");
+				if (this.wrapper.classList) {
+					this.wrapper.classList.add("juxtapose");
+				} else {
+					this.wrapper.className += " juxtapose"; 
+				}
 
-				this.wrapper.style.width = this.imgBefore.image.naturalWidth;
+				this.wrapper.style.width = this.imgBefore.image.naturalWidth || getNaturalDimensions(this.imgBefore.image).width;
 				this.setWrapperDimensions();
 
 				this.slider = document.createElement("div");
@@ -381,29 +390,33 @@
 				self.setWrapperDimensions();
 			});
 
-			this.slider.addEventListener("mousedown", function(d) {
-				d.preventDefault();
-				self.updateSlider(d, true);
+			this.slider.addEventListener("mousedown", function(e) {
+				e = e || window.event;
+				e.preventDefault();
+				self.updateSlider(e, true);
 				animate = true;
 
-				this.addEventListener("mousemove", function(event) {
+				this.addEventListener("mousemove", function(e) {
+					e = e || window.event;
 					if (animate) {
-						self.updateSlider(event, false);
+						self.updateSlider(e, false);
 					}
 				});
 
-				document.addEventListener('mouseup', function() {
+				document.addEventListener('mouseup', function(e) {
 					animate = false;
 				});
 
 			});
 
-			this.slider.addEventListener("touchstart", function(d) {
-				d.preventDefault();
-				self.updateSlider(d, true);
+			this.slider.addEventListener("touchstart", function(e) {
+				e = e || window.event;
+				e.preventDefault();
+				self.updateSlider(e, true);
 
-				this.addEventListener("touchmove", function(event) {
-					event.preventDefault();
+				this.addEventListener("touchmove", function(e) {
+					e = e || window.event;
+					e.preventDefault();
 					self.updateSlider(event, false);
 				});
 
@@ -481,7 +494,11 @@
 		}
 
 		specificClass = 'juxtapose-' + idx;
-		w.classList.add(specificClass);
+		if (w.classList) {
+			w.classList.add(specificClass);
+		} else {
+			w.className += " " + specificClass;
+		}
 		selector = '.' + specificClass;
 
 		w.innerHTML = '';
@@ -507,11 +524,18 @@
 
 	//Enable HTML Implementation
 	juxtapose.scanPage = function() {
-		sliders = [];
+		sliders = document.querySelectorAll('.juxtapose');
 
-		[].map.call(document.querySelectorAll('.juxtapose'), function(obj, i) {
-			juxtapose.makeSlider(obj, i);
-		});
+		for (var i = 0; i < sliders.length; i++) {
+			juxtapose.makeSlider(sliders[i], i);
+		};
+
+		// sliders = [];
+
+		// [].map.call(document.querySelectorAll('.juxtapose'), function(obj, i) {
+		// 	console.log(obj, i)
+		// 	juxtapose.makeSlider(obj, i);
+		// });
 	};
 
 	juxtapose.JXSlider = JXSlider;
