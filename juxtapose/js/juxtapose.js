@@ -81,7 +81,10 @@
 	}
 
 	function getNaturalDimensions(DOMelement) {
-	// http://www.jacklmoore.com/notes/naturalwidth-and-naturalheight-in-ie/
+		if (DOMelement.naturalWidth && DOMelement.naturalHeight) {
+			return {width: DOMelement.naturalWidth, height: DOMelement.naturalHeight}
+		}
+		// http://www.jacklmoore.com/notes/naturalwidth-and-naturalheight-in-ie/
 		var img = new Image();
 		img.src = DOMelement.src;
 		return {width: img.width, height: img.height};
@@ -89,8 +92,8 @@
 
 	function getImageDimensions(img) {
 		var dimensions = {
-			width: img.naturalWidth || getNaturalDimensions(img).width,
-			height: img.naturalHeight || getNaturalDimensions(img).height,
+			width: getNaturalDimensions(img).width,
+			height: getNaturalDimensions(img).height,
 			aspect: function() { return (this.width / this.height); }
 		};
 		return dimensions;
@@ -309,7 +312,7 @@
 					this.wrapper.className += " juxtapose"; 
 				}
 
-				this.wrapper.style.width = this.imgBefore.image.naturalWidth || getNaturalDimensions(this.imgBefore.image).width;
+				this.wrapper.style.width = getNaturalDimensions(this.imgBefore.image).width;
 				this.setWrapperDimensions();
 
 				this.slider = document.createElement("div");
