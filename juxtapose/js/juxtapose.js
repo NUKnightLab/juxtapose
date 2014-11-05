@@ -99,6 +99,27 @@
 		return dimensions;
 	}
 
+	function addClass(element, c) {
+		if (element.classList) {
+			element.classList.add(c);
+		} else {
+			element.className += " " + c; 
+		}
+	}
+
+	function getComputedWidthAndHeight(element) {
+		if (window.getComputedStyle) {
+			return {
+				width: parseInt(getComputedStyle(element).width, 10),
+				height: parseInt(getComputedStyle(element).height, 10)
+			};
+		} else {
+			return {
+				width: element.currentStyle.width || 0,
+				height: element.currentStyle.height || 0
+			};
+		}
+	}
 
 	function checkFlickr(url) {
 		var idx = url.indexOf("flickr.com/photos/");
@@ -233,9 +254,9 @@
 				this.leftImage.classList.remove("transition");
 
 				if((this.options.animate && animate)) {
-					this.handle.classList.add("transition");
-					this.leftImage.classList.add("transition");
-					this.rightImage.classList.add("transition");
+					addClass(this.handle, 'transition');
+					addClass(this.leftImage, 'transition');
+					addClass(this.rightImage, 'transition');
 				}
 
 				this.handle.style.left = leftPercent;
@@ -288,11 +309,11 @@
 		setWrapperDimensions: function() {
 			ratio = getImageDimensions(this.imgBefore.image).aspect();
 
-			width = parseInt(getComputedStyle(this.wrapper).width, 10);
-			height = parseInt(getComputedStyle(this.wrapper).height, 10);
+			width = getComputedWidthAndHeight(this.wrapper).width;
+			height = getComputedWidthAndHeight(this.wrapper).height;
 			
 			if (width) {
-				height = width * (1 / ratio);
+				height = width / ratio;
 				this.wrapper.style.height = height + "px";
 			} else if (height) {
 				width = height * ratio;
@@ -305,12 +326,7 @@
 			if (this.load1 && this.load2) {
 
 				this.wrapper = document.querySelector(this.selector);
-
-				if (this.wrapper.classList) {
-					this.wrapper.classList.add("juxtapose");
-				} else {
-					this.wrapper.className += " juxtapose"; 
-				}
+				addClass(this.wrapper, 'juxtapose');
 
 				this.wrapper.style.width = getNaturalDimensions(this.imgBefore.image).width;
 				this.setWrapperDimensions();
@@ -497,11 +513,8 @@
 		}
 
 		specificClass = 'juxtapose-' + idx;
-		if (w.classList) {
-			w.classList.add(specificClass);
-		} else {
-			w.className += " " + specificClass;
-		}
+		addClass(w, specificClass);
+
 		selector = '.' + specificClass;
 
 		w.innerHTML = '';
@@ -532,13 +545,6 @@
 		for (var i = 0; i < sliders.length; i++) {
 			juxtapose.makeSlider(sliders[i], i);
 		};
-
-		// sliders = [];
-
-		// [].map.call(document.querySelectorAll('.juxtapose'), function(obj, i) {
-		// 	console.log(obj, i)
-		// 	juxtapose.makeSlider(obj, i);
-		// });
 	};
 
 	juxtapose.JXSlider = JXSlider;
