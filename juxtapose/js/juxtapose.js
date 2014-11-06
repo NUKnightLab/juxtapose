@@ -165,8 +165,8 @@
 		var pageX;
 		if (e.pageX) {
 			pageX = e.pageX;
-		} else if (input.touches[0].pageX) {
-			pageX = input.touches[0].pageX;
+		} else if (e.touches) {
+			pageX = e.touches[0].pageX;
 		} else {
 			pageX = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
 		}
@@ -192,7 +192,7 @@
 				left: sliderRect.left + document.body.scrollLeft
 			};
 			var width = slider.offsetWidth;
-			var pageX = getPageX(e);
+			var pageX = getPageX(input);
 			var relativeX = pageX - offset.left;
 			leftPercent = (relativeX / width) * 100;
 		}
@@ -405,12 +405,11 @@
 				this.control.className = 'jx-control';
 				this.controller.className = 'jx-controller';
 				
-				//keyboard tabindex and roles to the slider
-				this.controller.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
-				this.controller.setAttribute('role', 'slider');
-				this.controller.setAttribute('aria-valuenow', 50);
-				this.controller.setAttribute('aria-valuemin', 0);
-				this.controller.setAttribute('aria-valuemax', 100);
+				// this.controller.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
+				// this.controller.setAttribute('role', 'slider');
+				// this.controller.setAttribute('aria-valuenow', 50);
+				// this.controller.setAttribute('aria-valuemin', 0);
+				// this.controller.setAttribute('aria-valuemax', 100);
 
 				this.handle.appendChild(this.leftArrow);
 				this.handle.appendChild(this.control);
