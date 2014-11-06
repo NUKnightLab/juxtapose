@@ -115,8 +115,8 @@
 			};
 		} else {
 			return {
-				width: element.currentStyle.width || 0,
-				height: element.currentStyle.height || 0
+				width: parseInt(element.currentStyle.width, 10) || 0,
+				height: parseInt(element.currentStyle.height, 10) || 0
 			};
 		}
 	}
@@ -312,6 +312,8 @@
 			width = getComputedWidthAndHeight(this.wrapper).width;
 			height = getComputedWidthAndHeight(this.wrapper).height;
 			
+			console.log(width, '  ', height);
+
 			if (width) {
 				height = width / ratio;
 				this.wrapper.style.height = height + "px";
