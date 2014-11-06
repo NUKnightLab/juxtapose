@@ -138,6 +138,15 @@
 		}
 	}
 
+	function removeClass(element, c) {
+		element.className = element.className.replace(/(\S+)\s*/g, function (w, match) {
+			if (match === c) {
+				return '';
+			}
+			return w;
+		}).replace(/^\s+/, '');
+	}
+
 	function getComputedWidthAndHeight(element) {
 		if (window.getComputedStyle) {
 			return {
@@ -150,6 +159,18 @@
 				height: parseInt(element.currentStyle.height, 10) || 0
 			};
 		}
+	}
+
+	function getPageX(e) {
+		var pageX;
+		if (e.pageX) {
+			pageX = e.pageX;
+		} else if (input.touches[0].pageX) {
+			pageX = input.touches[0].pageX;
+		} else {
+			pageX = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+		}
+		return pageX;
 	}
 
 	function checkFlickr(url) {
@@ -171,7 +192,7 @@
 				left: sliderRect.left + document.body.scrollLeft
 			};
 			var width = slider.offsetWidth;
-			var pageX = input.pageX || input.touches[0].pageX;
+			var pageX = getPageX(e);
 			var relativeX = pageX - offset.left;
 			leftPercent = (relativeX / width) * 100;
 		}
@@ -262,9 +283,9 @@
 			rightPercent = Math.round(100 - leftPercentNum) + "%";
 
 			if (leftPercentNum > 0 && leftPercentNum < 100) {
-				this.handle.classList.remove("transition");
-				this.rightImage.classList.remove("transition");
-				this.leftImage.classList.remove("transition");
+				removeClass(this.handle, 'transition');
+				removeClass(this.rightImage, 'transition');
+				removeClass(this.leftImage, 'transition');
 
 				if (this.options.animate && animate) {
 					addClass(this.handle, 'transition');
@@ -421,6 +442,7 @@
 
 			var self = this;
 			window.addEventListener("resize", function() {
+				e = e || window.event;
 				self.setWrapperDimensions();
 			});
 
@@ -438,6 +460,7 @@
 				});
 
 				document.addEventListener('mouseup', function(e) {
+					e = e || window.event;
 					animate = false;
 				});
 
@@ -458,25 +481,26 @@
 			
 			/* keyboard accessibility */ 
 		
-			this.handle.addEventListener("keydown", function (event) {
-    			 var key = event.which || event.keyCode;
-				 var ariaValue = parseFloat(this.style.left);
+			this.handle.addEventListener("keydown", function (e) {
+				e = e || window.event;
+				var key = event.which || event.keyCode;
+				var ariaValue = parseFloat(this.style.left);
 
-				    //move jx-controller left
-				    if (key == 37) { 
-				    	ariaValue = ariaValue - 1;
-						var leftStart = parseFloat(this.style.left) - 1;
-						self.updateSlider(leftStart, false);
-						self.controller.setAttribute('aria-valuenow', ariaValue);
-				    }
-				    
-				    //move jx-controller right
-				    if (key == 39) { 
-				    	ariaValue = ariaValue + 1;
-						var rightStart = parseFloat(this.style.left) + 1;
-						self.updateSlider(rightStart, false);
-						self.controller.setAttribute('aria-valuenow', ariaValue);
-				    }
+			    //move jx-controller left
+			    if (key == 37) { 
+			    	ariaValue = ariaValue - 1;
+					var leftStart = parseFloat(this.style.left) - 1;
+					self.updateSlider(leftStart, false);
+					self.controller.setAttribute('aria-valuenow', ariaValue);
+			    }
+			    
+			    //move jx-controller right
+			    if (key == 39) { 
+			    	ariaValue = ariaValue + 1;
+					var rightStart = parseFloat(this.style.left) + 1;
+					self.updateSlider(rightStart, false);
+					self.controller.setAttribute('aria-valuenow', ariaValue);
+			    }
 			});
 			
 			//toggle right-hand image visibility
@@ -503,12 +527,12 @@
 		Given an element that is configured with the proper data elements, make a slider out of it.
 		Normally this will just be used by scanPage.
 	*/
-	juxtapose.makeSlider = function ($elem,idx) {
+	juxtapose.makeSlider = function (element, idx) {
 		if (typeof idx == 'undefined') {
 			idx = juxtapose.sliders.length; // not super threadsafe...
 		}
 
-		var w = $elem;
+		var w = element;
 
 		var images = w.querySelectorAll('img');
 
