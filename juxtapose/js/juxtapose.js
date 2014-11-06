@@ -130,6 +130,24 @@
 		}
 	}
 
+	function getLeftPercent(slider, input) {
+		if (typeof(input) === "string" || typeof(input) === "number") {
+			leftPercent = parseInt(input, 10);
+		} else {
+			var sliderRect = slider.getBoundingClientRect();
+			var offset = {
+				top: sliderRect.top + document.body.scrollTop,
+				left: sliderRect.left + document.body.scrollLeft
+			};
+			var width = slider.offsetWidth;
+			var pageX = input.pageX || input.touches[0].pageX;
+			var relativeX = pageX - offset.left;
+			leftPercent = (relativeX / width) * 100;
+		}
+		return leftPercent;
+	}
+
+
 	var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true };
 	function interpret_boolean(x) {
 		if (typeof(x) != 'string') {
@@ -137,6 +155,7 @@
 		}
 		return !(x === 'false' || x === '');
 	}
+
 	function JXSlider(selector, images, options) {
 
 		this.selector = selector;
@@ -200,60 +219,23 @@
 		};
 	}
 
-	function isMoveEvent(evt) {		
-		return (evt instanceof window.MouseEvent ||
-					(typeof(window.TouchEvent) != 'undefined' && evt instanceof window.TouchEvent)
-				);
-	}
-
 	JXSlider.prototype = {
 
 		updateSlider: function(input, animate) {
 			var leftPercent, rightPercent;
-			var num = -1;
 
-			var sliderRect = this.slider.getBoundingClientRect();
-			var offset = {
-				top: sliderRect.top + document.body.scrollTop,
-				left: sliderRect.left + document.body.scrollLeft
-			};
+			leftPercent = getLeftPercent(this.slider, input);
 
-			var width = this.slider.offsetWidth;
+			leftPercent = Math.round(leftPercent) + "%";
+			leftPercentNum = parseInt(leftPercent);
+			rightPercent = Math.round(100 - leftPercentNum) + "%";
 
-			if (isMoveEvent(input)) {
-				var pageX = input.pageX || input.touches[0].pageX;
-				var relativeX = pageX - offset.left;
-				leftPercent = (relativeX / width) * 100;
-				rightPercent = 100 - ((relativeX / width) * 100);
-			} else if (typeof(input) === "string" || typeof(input) === "number") {
-				if (typeof(input) === "string") {
-					num = parseInt(input, 10);
-				} else {
-					num = input;
-				}
-				leftPercent = num;
-				rightPercent = (100 - num);
-			}
-
-			var eventCheck = (relativeX / width);
-			var numCheck = parseInt(num, 10);
-
-			leftPercent = Math.round(leftPercent);
-			rightPercent = Math.round(rightPercent);
-
-			if (leftPercent + rightPercent != 100) {
-				rightPercent = rightPercent - 1;
-			}
-
-			leftPercent = leftPercent + "%";
-			rightPercent = rightPercent + "%";
-
-			if ((eventCheck > 0 && eventCheck < 1) || (numCheck >= 0 && numCheck <= 100)) {
+			if (leftPercentNum > 0 && leftPercentNum < 100) {
 				this.handle.classList.remove("transition");
 				this.rightImage.classList.remove("transition");
 				this.leftImage.classList.remove("transition");
 
-				if((this.options.animate && animate)) {
+				if (this.options.animate && animate) {
 					addClass(this.handle, 'transition');
 					addClass(this.leftImage, 'transition');
 					addClass(this.rightImage, 'transition');
@@ -265,9 +247,11 @@
 				this.sliderPosition = leftPercent;
 			}
 		},
+
 		getPosition: function() {
 			return this.sliderPosition;
 		},
+
 		displayLabels: function() {
 			leftDate = document.createElement("div");
 			leftDate.className = 'jx-label';
@@ -312,8 +296,6 @@
 			width = getComputedWidthAndHeight(this.wrapper).width;
 			height = getComputedWidthAndHeight(this.wrapper).height;
 			
-			console.log(width, '  ', height);
-
 			if (width) {
 				height = width / ratio;
 				this.wrapper.style.height = height + "px";
