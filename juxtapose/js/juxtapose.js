@@ -147,6 +147,14 @@
 		}).replace(/^\s+/, '');
 	}
 
+	function setText(element, text) {
+		if (element.textContent) {
+			element.textContent = text;
+		} else {
+			element.innerText = text;
+		}
+	}
+
 	function getComputedWidthAndHeight(element) {
 		if (window.getComputedStyle) {
 			return {
@@ -308,11 +316,11 @@
 			leftDate = document.createElement("div");
 			leftDate.className = 'jx-label';
 			leftDate.setAttribute('tabindex',0); //put the controller in the natural tab order of the document
-			leftDate.textContent = this.imgBefore.label;
+			setText(leftDate, this.imgBefore.label);
 			rightDate = document.createElement("div");
 			rightDate.setAttribute('tabindex',0); //put the controller in the natural tab order of the document
 			rightDate.className = 'jx-label';
-			rightDate.textContent = this.imgAfter.label;
+			setText(rightDate, this.imgAfter.label);
 
 			this.leftImage.appendChild(leftDate);
 			this.rightImage.appendChild(rightDate);
@@ -350,11 +358,12 @@
 			
 			if (width) {
 				height = width / ratio;
-				this.wrapper.style.height = height + "px";
+				this.wrapper.style.height = Math.round(height) + "px";
 			} else if (height) {
 				width = height * ratio;
-				this.wrapper.style.width = width + "px";
+				this.wrapper.style.width = Math.round(width) + "px";
 			}
+			// console.log(this.wrapper.style.width, ' ', this.wrapper.style.height);
 		},
 
 		_onLoaded: function() {
@@ -387,7 +396,7 @@
 				this.labCredit.appendChild(this.labLogo);
 				this.projectName = document.createElement("span");
 				this.projectName.className = 'juxtapose-name';
-				this.projectName.textContent = "JuxtaposeJS";
+				setText(this.projectName, 'JuxtaposeJS');
 				this.labCredit.appendChild(this.projectName);
 
 				this.slider.appendChild(this.handle);
@@ -441,7 +450,6 @@
 
 			var self = this;
 			window.addEventListener("resize", function() {
-				e = e || window.event;
 				self.setWrapperDimensions();
 			});
 
@@ -453,9 +461,7 @@
 
 				this.addEventListener("mousemove", function(e) {
 					e = e || window.event;
-					if (animate) {
-						self.updateSlider(e, false);
-					}
+					if (animate) { self.updateSlider(e, false); }
 				});
 
 				document.addEventListener('mouseup', function(e) {
@@ -535,6 +541,8 @@
 
 		var images = w.querySelectorAll('img');
 
+		console.log(images);
+
 		var options = {};
 		// don't set empty string into options, that's a false false.
 		if (w.getAttribute('data-animate')) { 
@@ -550,8 +558,10 @@
 			options.startingPosition = w.getAttribute('data-startingposition'); 
 		}
 
+		console.log(options.showLabels);
+
 		specificClass = 'juxtapose-' + idx;
-		addClass(w, specificClass);
+		addClass(element, specificClass);
 
 		selector = '.' + specificClass;
 
