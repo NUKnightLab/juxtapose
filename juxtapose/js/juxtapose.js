@@ -427,11 +427,13 @@
 
 				this.addEventListener("mousemove", function(e) {
 					e = e || window.event;
+					e.preventDefault();
 					if (animate) { self.updateSlider(e, false); }
 				});
 
 				document.addEventListener('mouseup', function(e) {
 					e = e || window.event;
+					e.preventDefault();
 					animate = false;
 				});
 
