@@ -36,16 +36,31 @@
 	var flickr_key = "d90fc2d1f4acc584e08b8eaea5bf4d6c";
 	var FLICKR_SIZE_PREFERENCES = ['Large', 'Medium'];
 
-	function Graphic(properties) {
+	function Graphic(properties, slider) {
+		var self = this;
 		this.image = new Image();
+		this.loaded = false;
+
+		this.image.onload = function() {
+			self.loaded = true;
+			slider._onLoaded();
+		}
+
+		this.image.src = null;
 		this.image.src = properties.src;
 		this.label = properties.label || false;
 		this.credit = properties.credit || false;
 	}
 
-	function FlickrGraphic(properties) {
+	function FlickrGraphic(properties, slider) {
 		var self = this;
 		this.image = new Image();
+
+		this.loaded = false;
+		this.image.onload = function() {
+			self.loaded = true;
+			slider._onLoaded();
+		}
 
 		this.flickrID = this.getFlickrID(properties.src);
 		this.callFlickrAPI(this.flickrID, self);
@@ -89,6 +104,7 @@
 		},
 
 		setFlickrImage: function(src) {
+			this.image.src = null;
 			this.image.src = src;
 		},
 
@@ -241,15 +257,15 @@
 		if (images.length == 2) {
 
 			if(checkFlickr(images[0].src)) {
-				this.imgBefore = new FlickrGraphic(images[0]);
+				this.imgBefore = new FlickrGraphic(images[0], this);
 			} else {
-				this.imgBefore = new Graphic(images[0]);
+				this.imgBefore = new Graphic(images[0], this);
 			}
 
 			if(checkFlickr(images[1].src)) {
-				this.imgAfter = new FlickrGraphic(images[1]);
+				this.imgAfter = new FlickrGraphic(images[1], this);
 			} else {
-				this.imgAfter = new Graphic(images[1]);
+				this.imgAfter = new Graphic(images[1], this);
 			}
 
 		} else {
@@ -262,21 +278,6 @@
 		if (!this.imgBefore.credit || !this.imgAfter.credit) {
 			this.options.showCredits = false;
 		}
-
-		this.load1 = false;
-		this.load2 = false;
-
-		var self = this;
-
-		this.imgBefore.image.onload = function() {
-			self.load1 = true;
-			self._onLoaded();
-		};
-
-		this.imgAfter.image.onload = function() {
-			self.load2 = true;
-			self._onLoaded();
-		};
 	}
 
 	JXSlider.prototype = {
@@ -368,7 +369,7 @@
 
 		_onLoaded: function() {
 
-			if (this.load1 && this.load2) {
+			if (this.imgBefore.loaded && this.imgAfter.loaded) {
 
 				this.wrapper = document.querySelector(this.selector);
 				addClass(this.wrapper, 'juxtapose');
