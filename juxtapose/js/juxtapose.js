@@ -39,14 +39,13 @@
 	function Graphic(properties, slider) {
 		var self = this;
 		this.image = new Image();
+		
 		this.loaded = false;
-
 		this.image.onload = function() {
 			self.loaded = true;
 			slider._onLoaded();
-		}
+		};
 
-		this.image.src = null;
 		this.image.src = properties.src;
 		this.label = properties.label || false;
 		this.credit = properties.credit || false;
@@ -60,7 +59,7 @@
 		this.image.onload = function() {
 			self.loaded = true;
 			slider._onLoaded();
-		}
+		};
 
 		this.flickrID = this.getFlickrID(properties.src);
 		this.callFlickrAPI(this.flickrID, self);
@@ -104,7 +103,6 @@
 		},
 
 		setFlickrImage: function(src) {
-			this.image.src = null;
 			this.image.src = src;
 		},
 
@@ -122,14 +120,9 @@
 		}
 	};
 
-	function setImage(element, url) {
-		var property = "url(" + url + ")";
-		element.style.backgroundImage = property;
-	}
-
 	function getNaturalDimensions(DOMelement) {
 		if (DOMelement.naturalWidth && DOMelement.naturalHeight) {
-			return {width: DOMelement.naturalWidth, height: DOMelement.naturalHeight}
+			return {width: DOMelement.naturalWidth, height: DOMelement.naturalHeight};
 		}
 		// http://www.jacklmoore.com/notes/naturalwidth-and-naturalheight-in-ie/
 		var img = new Image();
@@ -178,9 +171,11 @@
 				height: parseInt(getComputedStyle(element).height, 10)
 			};
 		} else {
+			w = element.getBoundingClientRect().right - element.getBoundingClientRect().left;
+			h = element.getBoundingClientRect().bottom - element.getBoundingClientRect().top;
 			return {
-				width: parseInt(element.currentStyle.width, 10) || 0,
-				height: parseInt(element.currentStyle.height, 10) || 0
+				width: parseInt(w, 10) || 0,
+				height: parseInt(h, 10) || 0
 			};
 		}
 	}
@@ -316,10 +311,10 @@
 		displayLabels: function() {
 			leftDate = document.createElement("div");
 			leftDate.className = 'jx-label';
-			leftDate.setAttribute('tabindex',0); //put the controller in the natural tab order of the document
+			leftDate.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
 			setText(leftDate, this.imgBefore.label);
 			rightDate = document.createElement("div");
-			rightDate.setAttribute('tabindex',0); //put the controller in the natural tab order of the document
+			rightDate.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
 			rightDate.className = 'jx-label';
 			setText(rightDate, this.imgAfter.label);
 
@@ -359,17 +354,17 @@
 			
 			if (width) {
 				height = width / ratio;
-				this.wrapper.style.height = Math.round(height) + "px";
+				this.wrapper.style.height = parseInt(height) + "px";
 			} else if (height) {
 				width = height * ratio;
-				this.wrapper.style.width = Math.round(width) + "px";
+				this.wrapper.style.width = parseInt(width) + "px";
 			}
-			// console.log(this.wrapper.style.width, ' ', this.wrapper.style.height);
 		},
 
 		_onLoaded: function() {
 
-			if (this.imgBefore.loaded && this.imgAfter.loaded) {
+			if (this.imgBefore && this.imgBefore.loaded === true &&
+				this.imgAfter && this.imgAfter.loaded === true) {
 
 				this.wrapper = document.querySelector(this.selector);
 				addClass(this.wrapper, 'juxtapose');
@@ -386,8 +381,11 @@
 
 				this.rightImage = document.createElement("div");
 				this.rightImage.className = 'jx-image right';
+				this.rightImage.appendChild(this.imgAfter.image);
+
 				this.leftImage = document.createElement("div");
 				this.leftImage.className = 'jx-image left';
+				this.leftImage.appendChild(this.imgBefore.image);
 
 				this.labCredit = document.createElement("a");
 				this.labCredit.setAttribute('href', 'http://juxtapose.knightlab.com');
@@ -437,9 +435,6 @@
 			}
 
 			this.updateSlider(this.options.startingPosition, false);
-
-			setImage(this.leftImage, this.imgBefore.image.src);
-			setImage(this.rightImage, this.imgAfter.image.src);
 
 			if (this.options.showLabels === true) {
 				this.displayLabels();
@@ -594,7 +589,7 @@
 
 		for (var i = 0; i < sliders.length; i++) {
 			juxtapose.makeSlider(sliders[i], i);
-		};
+		}
 	};
 
 	juxtapose.JXSlider = JXSlider;
