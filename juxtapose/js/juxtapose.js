@@ -542,8 +542,6 @@
 
 		var images = w.querySelectorAll('img');
 
-		console.log(images);
-
 		var options = {};
 		// don't set empty string into options, that's a false false.
 		if (w.getAttribute('data-animate')) { 
@@ -559,14 +557,17 @@
 			options.startingPosition = w.getAttribute('data-startingposition'); 
 		}
 
-		console.log(options.showLabels);
-
 		specificClass = 'juxtapose-' + idx;
 		addClass(element, specificClass);
 
 		selector = '.' + specificClass;
 
-		w.innerHTML = '';
+		if (w.innerHTML) {
+			w.innerHTML = '';
+		} else {
+			w.innerText = '';
+		}
+
 		slider = new juxtapose.JXSlider(
 			selector,
 			[
