@@ -1,3 +1,4 @@
+
 (function (document, window) {
 
 	var juxtapose = { sliders: [] };
@@ -5,16 +6,30 @@
 	var flickr_key = "d90fc2d1f4acc584e08b8eaea5bf4d6c";
 	var FLICKR_SIZE_PREFERENCES = ['Large', 'Medium'];
 
-	function Graphic(properties) {
+	function Graphic(properties, slider) {
+		var self = this;
 		this.image = new Image();
+		
+		this.loaded = false;
+		this.image.onload = function() {
+			self.loaded = true;
+			slider._onLoaded();
+		};
+
 		this.image.src = properties.src;
 		this.label = properties.label || false;
 		this.credit = properties.credit || false;
 	}
 
-	function FlickrGraphic(properties) {
+	function FlickrGraphic(properties, slider) {
 		var self = this;
 		this.image = new Image();
+
+		this.loaded = false;
+		this.image.onload = function() {
+			self.loaded = true;
+			slider._onLoaded();
+		};
 
 		this.flickrID = this.getFlickrID(properties.src);
 		this.callFlickrAPI(this.flickrID, self);
@@ -75,18 +90,76 @@
 		}
 	};
 
-	function setImage(element, url) {
-		var property = "url(" + url + ")";
-		element.style.backgroundImage = property;
+	function getNaturalDimensions(DOMelement) {
+		if (DOMelement.naturalWidth && DOMelement.naturalHeight) {
+			return {width: DOMelement.naturalWidth, height: DOMelement.naturalHeight};
+		}
+		// http://www.jacklmoore.com/notes/naturalwidth-and-naturalheight-in-ie/
+		var img = new Image();
+		img.src = DOMelement.src;
+		return {width: img.width, height: img.height};
 	}
 
 	function getImageDimensions(img) {
 		var dimensions = {
-			width: img.naturalWidth,
-			height: img.naturalHeight,
+			width: getNaturalDimensions(img).width,
+			height: getNaturalDimensions(img).height,
 			aspect: function() { return (this.width / this.height); }
 		};
 		return dimensions;
+	}
+
+	function addClass(element, c) {
+		if (element.classList) {
+			element.classList.add(c);
+		} else {
+			element.className += " " + c; 
+		}
+	}
+
+	function removeClass(element, c) {
+		element.className = element.className.replace(/(\S+)\s*/g, function (w, match) {
+			if (match === c) {
+				return '';
+			}
+			return w;
+		}).replace(/^\s+/, '');
+	}
+
+	function setText(element, text) {
+		if (element.textContent) {
+			element.textContent = text;
+		} else {
+			element.innerText = text;
+		}
+	}
+
+	function getComputedWidthAndHeight(element) {
+		if (window.getComputedStyle) {
+			return {
+				width: parseInt(getComputedStyle(element).width, 10),
+				height: parseInt(getComputedStyle(element).height, 10)
+			};
+		} else {
+			w = element.getBoundingClientRect().right - element.getBoundingClientRect().left;
+			h = element.getBoundingClientRect().bottom - element.getBoundingClientRect().top;
+			return {
+				width: parseInt(w, 10) || 0,
+				height: parseInt(h, 10) || 0
+			};
+		}
+	}
+
+	function getPageX(e) {
+		var pageX;
+		if (e.pageX) {
+			pageX = e.pageX;
+		} else if (e.touches) {
+			pageX = e.touches[0].pageX;
+		} else {
+			pageX = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+		}
+		return pageX;
 	}
 
 	function checkFlickr(url) {
@@ -98,6 +171,24 @@
 		}
 	}
 
+	function getLeftPercent(slider, input) {
+		if (typeof(input) === "string" || typeof(input) === "number") {
+			leftPercent = parseInt(input, 10);
+		} else {
+			var sliderRect = slider.getBoundingClientRect();
+			var offset = {
+				top: sliderRect.top + document.body.scrollTop,
+				left: sliderRect.left + document.body.scrollLeft
+			};
+			var width = slider.offsetWidth;
+			var pageX = getPageX(input);
+			var relativeX = pageX - offset.left;
+			leftPercent = (relativeX / width) * 100;
+		}
+		return leftPercent;
+	}
+
+
 	var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true };
 	function interpret_boolean(x) {
 		if (typeof(x) != 'string') {
@@ -105,6 +196,7 @@
 		}
 		return !(x === 'false' || x === '');
 	}
+
 	function JXSlider(selector, images, options) {
 
 		this.selector = selector;
@@ -130,15 +222,15 @@
 		if (images.length == 2) {
 
 			if(checkFlickr(images[0].src)) {
-				this.imgBefore = new FlickrGraphic(images[0]);
+				this.imgBefore = new FlickrGraphic(images[0], this);
 			} else {
-				this.imgBefore = new Graphic(images[0]);
+				this.imgBefore = new Graphic(images[0], this);
 			}
 
 			if(checkFlickr(images[1].src)) {
-				this.imgAfter = new FlickrGraphic(images[1]);
+				this.imgAfter = new FlickrGraphic(images[1], this);
 			} else {
-				this.imgAfter = new Graphic(images[1]);
+				this.imgAfter = new Graphic(images[1], this);
 			}
 
 		} else {
@@ -151,80 +243,28 @@
 		if (!this.imgBefore.credit || !this.imgAfter.credit) {
 			this.options.showCredits = false;
 		}
-
-		this.load1 = false;
-		this.load2 = false;
-
-		var self = this;
-
-		this.imgBefore.image.onload = function() {
-			self.load1 = true;
-			self._onLoaded();
-		};
-
-		this.imgAfter.image.onload = function() {
-			self.load2 = true;
-			self._onLoaded();
-		};
-	}
-
-	function isMoveEvent(evt) {
-		return (evt instanceof MouseEvent ||
-					(typeof(TouchEvent) != 'undefined' && evt instanceof TouchEvent)
-				);
 	}
 
 	JXSlider.prototype = {
 
 		updateSlider: function(input, animate) {
 			var leftPercent, rightPercent;
-			var num = -1;
 
-			var sliderRect = this.slider.getBoundingClientRect();
-			var offset = {
-				top: sliderRect.top + document.body.scrollTop,
-				left: sliderRect.left + document.body.scrollLeft
-			};
+			leftPercent = getLeftPercent(this.slider, input);
 
-			var width = this.slider.offsetWidth;
+			leftPercent = Math.round(leftPercent) + "%";
+			leftPercentNum = parseInt(leftPercent);
+			rightPercent = Math.round(100 - leftPercentNum) + "%";
 
-			if (isMoveEvent(input)) {
-				var pageX = input.pageX || input.touches[0].pageX;
-				var relativeX = pageX - offset.left;
-				leftPercent = (relativeX / width) * 100;
-				rightPercent = 100 - ((relativeX / width) * 100);
-			} else if (typeof(input) === "string" || typeof(input) === "number") {
-				if (typeof(input) === "string") {
-					num = parseInt(input, 10);
-				} else {
-					num = input;
-				}
-				leftPercent = num;
-				rightPercent = (100 - num);
-			}
+			if (leftPercentNum > 0 && leftPercentNum < 100) {
+				removeClass(this.handle, 'transition');
+				removeClass(this.rightImage, 'transition');
+				removeClass(this.leftImage, 'transition');
 
-			var eventCheck = (relativeX / width);
-			var numCheck = parseInt(num, 10);
-
-			leftPercent = Math.round(leftPercent);
-			rightPercent = Math.round(rightPercent);
-
-			if (leftPercent + rightPercent != 100) {
-				rightPercent = rightPercent - 1;
-			}
-
-			leftPercent = leftPercent + "%";
-			rightPercent = rightPercent + "%";
-
-			if ((eventCheck > 0 && eventCheck < 1) || (numCheck >= 0 && numCheck <= 100)) {
-				this.handle.classList.remove("transition");
-				this.rightImage.classList.remove("transition");
-				this.leftImage.classList.remove("transition");
-
-				if((this.options.animate && animate)) {
-					this.handle.classList.add("transition");
-					this.leftImage.classList.add("transition");
-					this.rightImage.classList.add("transition");
+				if (this.options.animate && animate) {
+					addClass(this.handle, 'transition');
+					addClass(this.leftImage, 'transition');
+					addClass(this.rightImage, 'transition');
 				}
 
 				this.handle.style.left = leftPercent;
@@ -233,18 +273,20 @@
 				this.sliderPosition = leftPercent;
 			}
 		},
+
 		getPosition: function() {
 			return this.sliderPosition;
 		},
+
 		displayLabels: function() {
 			leftDate = document.createElement("div");
 			leftDate.className = 'jx-label';
-			leftDate.setAttribute('tabindex',0); //put the controller in the natural tab order of the document
-			leftDate.textContent = this.imgBefore.label;
+			leftDate.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
+			setText(leftDate, this.imgBefore.label);
 			rightDate = document.createElement("div");
-			rightDate.setAttribute('tabindex',0); //put the controller in the natural tab order of the document
+			rightDate.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
 			rightDate.className = 'jx-label';
-			rightDate.textContent = this.imgAfter.label;
+			setText(rightDate, this.imgAfter.label);
 
 			this.leftImage.appendChild(leftDate);
 			this.rightImage.appendChild(rightDate);
@@ -275,32 +317,29 @@
 		},
 
 		setWrapperDimensions: function() {
-
 			ratio = getImageDimensions(this.imgBefore.image).aspect();
 
-			width = (parseInt(getComputedStyle(this.wrapper).width, 10));
-			height = (parseInt(getComputedStyle(this.wrapper).height, 10));
-
+			width = getComputedWidthAndHeight(this.wrapper).width;
+			height = getComputedWidthAndHeight(this.wrapper).height;
+			
 			if (width) {
-				height = width * (1 / ratio);
-				this.wrapper.style.height = height + "px";
+				height = width / ratio;
+				this.wrapper.style.height = parseInt(height) + "px";
 			} else if (height) {
 				width = height * ratio;
-				this.wrapper.style.width = width + "px";
-			} else {
-				//do something;
+				this.wrapper.style.width = parseInt(width) + "px";
 			}
 		},
 
 		_onLoaded: function() {
 
-			if (this.load1 && this.load2) {
+			if (this.imgBefore && this.imgBefore.loaded === true &&
+				this.imgAfter && this.imgAfter.loaded === true) {
 
 				this.wrapper = document.querySelector(this.selector);
+				addClass(this.wrapper, 'juxtapose');
 
-				this.wrapper.classList.add("juxtapose");
-
-				this.wrapper.style.width = this.imgBefore.image.naturalWidth;
+				this.wrapper.style.width = getNaturalDimensions(this.imgBefore.image).width;
 				this.setWrapperDimensions();
 
 				this.slider = document.createElement("div");
@@ -312,8 +351,11 @@
 
 				this.rightImage = document.createElement("div");
 				this.rightImage.className = 'jx-image right';
+				this.rightImage.appendChild(this.imgAfter.image);
+
 				this.leftImage = document.createElement("div");
 				this.leftImage.className = 'jx-image left';
+				this.leftImage.appendChild(this.imgBefore.image);
 
 				this.labCredit = document.createElement("a");
 				this.labCredit.setAttribute('href', 'http://juxtapose.knightlab.com');
@@ -323,7 +365,7 @@
 				this.labCredit.appendChild(this.labLogo);
 				this.projectName = document.createElement("span");
 				this.projectName.className = 'juxtapose-name';
-				this.projectName.textContent = "JuxtaposeJS";
+				setText(this.projectName, 'JuxtaposeJS');
 				this.labCredit.appendChild(this.projectName);
 
 				this.slider.appendChild(this.handle);
@@ -341,7 +383,6 @@
 				this.control.className = 'jx-control';
 				this.controller.className = 'jx-controller';
 				
-				//keyboard tabindex and roles to the slider
 				this.controller.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
 				this.controller.setAttribute('role', 'slider');
 				this.controller.setAttribute('aria-valuenow', 50);
@@ -365,9 +406,6 @@
 
 			this.updateSlider(this.options.startingPosition, false);
 
-			setImage(this.leftImage, this.imgBefore.image.src);
-			setImage(this.rightImage, this.imgAfter.image.src);
-
 			if (this.options.showLabels === true) {
 				this.displayLabels();
 			}
@@ -381,29 +419,34 @@
 				self.setWrapperDimensions();
 			});
 
-			this.slider.addEventListener("mousedown", function(d) {
-				d.preventDefault();
-				self.updateSlider(d, true);
+			this.slider.addEventListener("mousedown", function(e) {
+				e = e || window.event;
+				e.preventDefault();
+				self.updateSlider(e, true);
 				animate = true;
 
-				this.addEventListener("mousemove", function(event) {
-					if (animate) {
-						self.updateSlider(event, false);
-					}
+				this.addEventListener("mousemove", function(e) {
+					e = e || window.event;
+					e.preventDefault();
+					if (animate) { self.updateSlider(e, false); }
 				});
 
-				document.addEventListener('mouseup', function() {
+				document.addEventListener('mouseup', function(e) {
+					e = e || window.event;
+					e.preventDefault();
 					animate = false;
 				});
 
 			});
 
-			this.slider.addEventListener("touchstart", function(d) {
-				d.preventDefault();
-				self.updateSlider(d, true);
+			this.slider.addEventListener("touchstart", function(e) {
+				e = e || window.event;
+				e.preventDefault();
+				self.updateSlider(e, true);
 
-				this.addEventListener("touchmove", function(event) {
-					event.preventDefault();
+				this.addEventListener("touchmove", function(e) {
+					e = e || window.event;
+					e.preventDefault();
 					self.updateSlider(event, false);
 				});
 
@@ -411,25 +454,26 @@
 			
 			/* keyboard accessibility */ 
 		
-			this.handle.addEventListener("keydown", function (event) {
-    			 var key = event.which || event.keyCode;
-				 var ariaValue = parseFloat(this.style.left);
+			this.handle.addEventListener("keydown", function (e) {
+				e = e || window.event;
+				var key = event.which || event.keyCode;
+				var ariaValue = parseFloat(this.style.left);
 
-				    //move jx-controller left
-				    if (key == 37) { 
-				    	ariaValue = ariaValue - 1;
-						var leftStart = parseFloat(this.style.left) - 1;
-						self.updateSlider(leftStart, false);
-						self.controller.setAttribute('aria-valuenow', ariaValue);
-				    }
-				    
-				    //move jx-controller right
-				    if (key == 39) { 
-				    	ariaValue = ariaValue + 1;
-						var rightStart = parseFloat(this.style.left) + 1;
-						self.updateSlider(rightStart, false);
-						self.controller.setAttribute('aria-valuenow', ariaValue);
-				    }
+			    //move jx-controller left
+			    if (key == 37) { 
+			    	ariaValue = ariaValue - 1;
+					var leftStart = parseFloat(this.style.left) - 1;
+					self.updateSlider(leftStart, false);
+					self.controller.setAttribute('aria-valuenow', ariaValue);
+			    }
+			    
+			    //move jx-controller right
+			    if (key == 39) { 
+			    	ariaValue = ariaValue + 1;
+					var rightStart = parseFloat(this.style.left) + 1;
+					self.updateSlider(rightStart, false);
+					self.controller.setAttribute('aria-valuenow', ariaValue);
+			    }
 			});
 			
 			//toggle right-hand image visibility
@@ -456,12 +500,12 @@
 		Given an element that is configured with the proper data elements, make a slider out of it.
 		Normally this will just be used by scanPage.
 	*/
-	juxtapose.makeSlider = function ($elem,idx) {
+	juxtapose.makeSlider = function (element, idx) {
 		if (typeof idx == 'undefined') {
 			idx = juxtapose.sliders.length; // not super threadsafe...
 		}
 
-		var w = $elem;
+		var w = element;
 
 		var images = w.querySelectorAll('img');
 
@@ -481,10 +525,16 @@
 		}
 
 		specificClass = 'juxtapose-' + idx;
-		w.classList.add(specificClass);
+		addClass(element, specificClass);
+
 		selector = '.' + specificClass;
 
-		w.innerHTML = '';
+		if (w.innerHTML) {
+			w.innerHTML = '';
+		} else {
+			w.innerText = '';
+		}
+
 		slider = new juxtapose.JXSlider(
 			selector,
 			[
@@ -507,11 +557,11 @@
 
 	//Enable HTML Implementation
 	juxtapose.scanPage = function() {
-		sliders = [];
+		sliders = document.querySelectorAll('.juxtapose');
 
-		[].map.call(document.querySelectorAll('.juxtapose'), function(obj, i) {
-			juxtapose.makeSlider(obj, i);
-		});
+		for (var i = 0; i < sliders.length; i++) {
+			juxtapose.makeSlider(sliders[i], i);
+		}
 	};
 
 	juxtapose.JXSlider = JXSlider;
@@ -520,3 +570,34 @@
 	juxtapose.scanPage();
 
 }(document, window));
+
+
+// addEventListener polyfill 1.0 / Eirik Backer / MIT Licence
+(function(win, doc){
+	if(win.addEventListener)return;		//No need to polyfill
+
+	function docHijack(p){var old = doc[p];doc[p] = function(v){return addListen(old(v))}}
+	function addEvent(on, fn, self){
+		return (self = this).attachEvent('on' + on, function(e){
+			var e = e || win.event;
+			e.preventDefault  = e.preventDefault  || function(){e.returnValue = false}
+			e.stopPropagation = e.stopPropagation || function(){e.cancelBubble = true}
+			fn.call(self, e);
+		});
+	}
+	function addListen(obj, i){
+		if(i = obj.length)while(i--)obj[i].addEventListener = addEvent;
+		else obj.addEventListener = addEvent;
+		return obj;
+	}
+
+	addListen([doc, win]);
+	if('Element' in win)win.Element.prototype.addEventListener = addEvent;			//IE8
+	else{																			//IE < 8
+		doc.attachEvent('onreadystatechange', function(){addListen(doc.all)});		//Make sure we also init at domReady
+		docHijack('getElementsByTagName');
+		docHijack('getElementById');
+		docHijack('createElement');
+		addListen(doc.all);	
+	}
+})(window, document);
