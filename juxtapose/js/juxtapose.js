@@ -560,7 +560,7 @@
 	    var elements = document.querySelectorAll('.juxtapose');
     	
     	for (var i = 0; i < elements.length; i++) {
-			juxtapose.makeSlider(els[i], i);
+			juxtapose.makeSlider(elements[i], i);
 		}
 	};
 
