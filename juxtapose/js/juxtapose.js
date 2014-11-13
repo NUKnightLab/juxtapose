@@ -206,7 +206,8 @@
 			animate: true,
 			showLabels: true,
 			showCredits: true,
-			startingPosition: "50%"
+			startingPosition: "50%",
+			orientation: 'horizontal'
 		};
 
 		for (i in this.options) {
@@ -522,6 +523,9 @@
 		}
 		if (w.getAttribute('data-startingposition')) { 
 			options.startingPosition = w.getAttribute('data-startingposition'); 
+		}
+		if (w.getAttribute('data-orientation')) { 
+			options.orientation = w.getAttribute('data-orientation'); 
 		}
 
 		specificClass = 'juxtapose-' + idx;
