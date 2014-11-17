@@ -162,6 +162,18 @@
 		return pageX;
 	}
 
+	function getPageY(e) {
+		var pageY;
+		if (e.pageY) {
+			pageY = e.pageY;
+		} else if (e.touches) {
+			pageT = e.touches[0].pageY;
+		} else {
+			pageY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+		}
+		return pageY;
+	}
+
 	function checkFlickr(url) {
 		var idx = url.indexOf("flickr.com/photos/");
 		if (idx == -1) {
@@ -186,6 +198,23 @@
 			leftPercent = (relativeX / width) * 100;
 		}
 		return leftPercent;
+	}
+
+	function getTopPercent(slider, input) {
+		if (typeof(input) === "string" || typeof(input) === "number") {
+			topPercent = parseInt(input, 10);
+		} else {
+			var sliderRect = slider.getBoundingClientRect();
+			var offset = {
+				top: sliderRect.top + document.body.scrollTop,
+				left: sliderRect.left + document.body.scrollLeft
+			};
+			var width = slider.offsetHeight;
+			var pageY = getPageY(input);
+			var relativeY = pageY - offset.top;
+			topPercent = (relativeY / width) * 100;
+		}
+		return topPercent;
 	}
 
 
@@ -251,7 +280,13 @@
 		updateSlider: function(input, animate) {
 			var leftPercent, rightPercent;
 
-			leftPercent = getLeftPercent(this.slider, input);
+			if (this.options.orientation === "vertical") {
+				leftPercent = getTopPercent(this.slider, input);
+			} else {
+				leftPercent = getLeftPercent(this.slider, input);
+			}
+
+			console.log(leftPercent);
 
 			leftPercent = Math.round(leftPercent) + "%";
 			leftPercentNum = parseInt(leftPercent);
@@ -346,6 +381,10 @@
 				this.slider = document.createElement("div");
 				this.slider.className = 'jx-slider';
 				this.wrapper.appendChild(this.slider);
+
+				if (this.options.orientation != "horizontal") {
+					addClass(this.slider, this.options.orientation);
+				}
 
 				this.handle = document.createElement("div");
 				this.handle.className = 'jx-handle';
