@@ -286,8 +286,6 @@
 				leftPercent = getLeftPercent(this.slider, input);
 			}
 
-			console.log(leftPercent);
-
 			leftPercent = Math.round(leftPercent) + "%";
 			leftPercentNum = parseInt(leftPercent);
 			rightPercent = Math.round(100 - leftPercentNum) + "%";
@@ -303,9 +301,15 @@
 					addClass(this.rightImage, 'transition');
 				}
 
-				this.handle.style.left = leftPercent;
-				this.leftImage.style.width = leftPercent;
-				this.rightImage.style.width = rightPercent;
+				if (this.options.orientation === "vertical") {
+					this.handle.style.top = leftPercent;
+					this.leftImage.style.height = leftPercent;
+					this.rightImage.style.height = rightPercent;
+				} else {
+					this.handle.style.left = leftPercent;
+					this.leftImage.style.width = leftPercent;
+					this.rightImage.style.width = rightPercent;
+				}
 				this.sliderPosition = leftPercent;
 			}
 		},
@@ -619,12 +623,12 @@
 (function(win, doc){
 	if(win.addEventListener)return;		//No need to polyfill
 
-	function docHijack(p){var old = doc[p];doc[p] = function(v){return addListen(old(v))}}
+	function docHijack(p){var old = doc[p];doc[p] = function(v){return addListen(old(v));};}
 	function addEvent(on, fn, self){
 		return (self = this).attachEvent('on' + on, function(e){
 			var e = e || win.event;
-			e.preventDefault  = e.preventDefault  || function(){e.returnValue = false}
-			e.stopPropagation = e.stopPropagation || function(){e.cancelBubble = true}
+			e.preventDefault  = e.preventDefault  || function(){e.returnValue = false;};
+			e.stopPropagation = e.stopPropagation || function(){e.cancelBubble = true;};
 			fn.call(self, e);
 		});
 	}
@@ -637,7 +641,7 @@
 	addListen([doc, win]);
 	if('Element' in win)win.Element.prototype.addEventListener = addEvent;			//IE8
 	else{																			//IE < 8
-		doc.attachEvent('onreadystatechange', function(){addListen(doc.all)});		//Make sure we also init at domReady
+		doc.attachEvent('onreadystatechange', function(){addListen(doc.all);});		//Make sure we also init at domReady
 		docHijack('getElementsByTagName');
 		docHijack('getElementById');
 		docHijack('createElement');
