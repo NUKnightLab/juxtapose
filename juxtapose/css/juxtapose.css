@@ -26,6 +26,7 @@ div.jx-handle {
 	width: 100%;
 	cursor: row-resize;
 	margin-top: -20px;
+	margin-left: 0;
 }
 
 div.jx-control {
@@ -33,6 +34,14 @@ div.jx-control {
 	margin-right: auto;
 	margin-left: auto;
 	width: 3px;
+	background-color: white;
+}
+
+.vertical div.jx-control {
+	height: 0px;
+	margin-top: auto;
+	margin-bottom: auto;
+	width: 100px;
 	background-color: white;
 }
 
@@ -49,8 +58,9 @@ div.jx-controller {
 
 div.vertical div.jx-controller {
 	height: 9px;
-	width: 60px;
-	margin-top: -3px;
+	width: 100px;
+	top: 3px;
+	margin-left: 0;
 }
 
 div.jx-arrow {
@@ -63,6 +73,17 @@ div.jx-arrow {
 	transition: all .2s ease;
 }
 
+.vertical div.jx-arrow {
+	position: absolute;
+	margin: auto;
+	left: 0;
+	right: 0; 
+	width: 0;
+	height: 0;
+	transition: all .2s ease;
+}
+
+
 div.jx-arrow.left {
 	left: 2px;
 	border-style: solid;
@@ -73,8 +94,24 @@ div.jx-arrow.left {
 div.jx-arrow.right {
 	right: 2px;
 	border-style: solid;
-	border-width: 8px 0px 8px 8px;
+	border-width: 8px 0 8px 8px;
 	border-color: transparent transparent transparent #FFF;
+}
+
+.vertical div.jx-arrow.left {
+	left: 0px;
+	bottom: 25px;
+	border-style: solid;
+	border-width: 0px 8px 8px 8px;
+	border-color: transparent transparent #FFF transparent;
+}
+
+.vertical div.jx-arrow.right {
+	right: 0px;
+	top: 32px;
+	border-style: solid;
+	border-width: 8px 8px 0 8px;
+	border-color: #FFF transparent transparent transparent;
 }
 
 div.jx-handle:hover div.jx-arrow.left,
@@ -86,6 +123,21 @@ div.jx-handle:hover div.jx-arrow.right,
 div.jx-handle:active div.jx-arrow.right {
 	right: -1px;
 }
+
+.vertical div.jx-handle:hover div.jx-arrow.left,
+.vertical div.jx-handle:active div.jx-arrow.left {
+	left: 0px;
+	top: -5px;
+}
+
+.vertical div.jx-handle:hover div.jx-arrow.right, 
+.vertical div.jx-handle:active div.jx-arrow.right {
+	right: 0px;
+	bottom: -5px;
+}
+
+
+
 
 div.jx-image {
 	position: relative;
