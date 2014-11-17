@@ -128,7 +128,6 @@
 
 	function setText(element, text) {
 		if (document.body.textContent) {
-			console.log(element);
 			element.textContent = text;
 		} else {
 			element.innerText = text;
