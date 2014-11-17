@@ -20,6 +20,14 @@ div.jx-handle {
 	margin-left: -20px;
 }
 
+
+.vertical div.jx-handle {
+	height: 40px;
+	width: 100%;
+	cursor: row-resize;
+	margin-top: -20px;
+}
+
 div.jx-control {
 	height: 100%;
 	margin-right: auto;
@@ -37,6 +45,12 @@ div.jx-controller {
 	width: 9px;
 	margin-left: -3px;
 	background-color: white;
+}
+
+div.vertical div.jx-controller {
+	height: 9px;
+	width: 60px;
+	margin-top: -3px;
 }
 
 div.jx-arrow {
@@ -83,11 +97,20 @@ div.jx-image {
 	-webkit-transform: scale(1);
 }
 
+.vertical div.jx-image {
+	width: 100%;
+	left: 0;
+}
+
 div.jx-image img {
-	width: auto;
 	height: 100%;
 	z-index: 5;
 	position: absolute;
+}
+
+.vertical div.jx-image img {
+	height: initial;
+	width: 100%;
 }
 
 div.jx-image.left {
@@ -106,7 +129,28 @@ div.jx-image.right {
 
 div.jx-image.right img {
 	right: 0;
+	bottom: 0;
 }
+
+
+.veritcal div.jx-image.left {
+	top: 0;
+	background-position: top;
+}
+
+.veritcal div.jx-image.left img {
+	top: 0;
+}
+
+.veritcal div.jx-image.right {
+	bottom: 0;
+	background-position: bottom;
+}
+
+.veritcal div.jx-image.right img {
+	bottom: 0;
+}
+
 
 div.jx-image div.jx-label {
 	font-size: 1em;
@@ -133,6 +177,13 @@ div.jx-image.right div.jx-label {
 	right: 0;
 }
 
+.vertical div.jx-image.right div.jx-label {
+	float: left;
+	left: 0;
+	bottom: 0;
+	top: initial;
+}
+
 div.jx-credit {
 	line-height: 1.1;
 	font-size: 0.75em;
@@ -152,6 +203,14 @@ div.jx-image.transition {
 
 div.jx-handle.transition {
 	transition: left .5s ease;
+}
+
+.vertical div.jx-image.transition {
+	transition: height .5s ease;
+}
+
+.vertical div.jx-handle.transition {
+	transition: top .5s ease;
 }
 
 /* Knight Lab Credit */
