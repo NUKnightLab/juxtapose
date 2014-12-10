@@ -50,7 +50,6 @@
 		},
 
 		callFlickrAPI: function(id, self) {
-			var flickr_best_size = "Large";
 			var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes' +
 					'&api_key=' + flickr_key +
 					'&photo_id=' + id + '&format=json&nojsoncallback=1';
@@ -576,12 +575,12 @@
 (function(win, doc){
 	if(win.addEventListener)return;		//No need to polyfill
 
-	function docHijack(p){var old = doc[p];doc[p] = function(v){return addListen(old(v))}}
+	function docHijack(p){var old = doc[p];doc[p] = function(v){return addListen(old(v));};}
 	function addEvent(on, fn, self){
 		return (self = this).attachEvent('on' + on, function(e){
 			var e = e || win.event;
-			e.preventDefault  = e.preventDefault  || function(){e.returnValue = false}
-			e.stopPropagation = e.stopPropagation || function(){e.cancelBubble = true}
+			e.preventDefault  = e.preventDefault  || function(){e.returnValue = false;};
+			e.stopPropagation = e.stopPropagation || function(){e.cancelBubble = true;};
 			fn.call(self, e);
 		});
 	}
@@ -594,7 +593,7 @@
 	addListen([doc, win]);
 	if('Element' in win)win.Element.prototype.addEventListener = addEvent;			//IE8
 	else{																			//IE < 8
-		doc.attachEvent('onreadystatechange', function(){addListen(doc.all)});		//Make sure we also init at domReady
+		doc.attachEvent('onreadystatechange', function(){addListen(doc.all);});		//Make sure we also init at domReady
 		docHijack('getElementsByTagName');
 		docHijack('getElementById');
 		docHijack('createElement');
