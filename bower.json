@@ -6,7 +6,7 @@
     "knightlab@northwestern.edu"
   ],
   "description": "JuxtaposeJS is a JavaScript library for making before/after image sliders",
-  "main": "build",
+  "main": "/build",
   "keywords": [
     "juxtapose",
     "compare",
@@ -24,3 +24,5 @@
     "tests"
   ]
 }
+
+
