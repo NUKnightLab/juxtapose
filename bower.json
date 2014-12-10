@@ -1,21 +1,18 @@
 {
   "name": "juxtapose",
-  "version": "1.0.7",
-  "homepage": "https://github.com/NUKnightLab/juxtapose",
+  "version": "1.0.9",
+  "description": "JuxtaposeJS is a JavaScript library for making before/after image sliders",
+  "homepage": "http://juxtapose.knightlab.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NUKnightLab/juxtapose"
+  },
   "authors": [
     "knightlab@northwestern.edu"
   ],
-  "description": "JuxtaposeJS is a JavaScript library for making before/after image sliders",
-  "main": ["build/css", "build/js"],
-  "keywords": [
-    "juxtapose",
-    "compare",
-    "images",
-    "slider",
-    "before",
-    "after"
-  ],
-  "license": "Mozilla Public License",
+  "main": ["build/css/juxtapose.css", "build/js/juxtapose.js"],
+  "keywords": ["juxtapose", "compare", "images", "slider", "before", "after"], 
+  "license": "MPL-2.0",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -28,7 +25,10 @@
     "requirements.txt",
     "fabfile.py",
     "example.html",
-    "DEVELOPER.md"
+    "DEVELOPER.md",
+    "config.json",
+    "LICENSE",
+    "AUTHORS",
   ]
 }
 
