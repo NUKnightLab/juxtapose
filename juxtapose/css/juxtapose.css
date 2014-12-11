@@ -38,11 +38,12 @@ div.jx-control {
 }
 
 .vertical div.jx-control {
-	height: 0px;
-	margin-top: auto;
-	margin-bottom: auto;
-	width: 100px;
+	height: 3px;
+	width: 100%;
 	background-color: white;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 div.jx-controller {
@@ -59,8 +60,10 @@ div.jx-controller {
 .vertical div.jx-controller {
 	height: 9px;
 	width: 100px;
-	top: 3px;
-	margin-left: 0;
+	margin-left: auto;
+	margin-right: auto;
+	top: -3px;
+	position: relative;
 }
 
 div.jx-arrow {
@@ -75,7 +78,7 @@ div.jx-arrow {
 
 .vertical div.jx-arrow {
 	position: absolute;
-	margin: auto;
+	margin: 0 auto;
 	left: 0;
 	right: 0; 
 	width: 0;
@@ -100,7 +103,7 @@ div.jx-arrow.right {
 
 .vertical div.jx-arrow.left {
 	left: 0px;
-	bottom: 25px;
+	top: 2px;
 	border-style: solid;
 	border-width: 0px 8px 8px 8px;
 	border-color: transparent transparent #FFF transparent;
@@ -108,7 +111,8 @@ div.jx-arrow.right {
 
 .vertical div.jx-arrow.right {
 	right: 0px;
-	top: 32px;
+	top: initial;
+	bottom: 2px;
 	border-style: solid;
 	border-width: 8px 8px 0 8px;
 	border-color: #FFF transparent transparent transparent;
@@ -127,20 +131,20 @@ div.jx-handle:active div.jx-arrow.right {
 .vertical div.jx-handle:hover div.jx-arrow.left,
 .vertical div.jx-handle:active div.jx-arrow.left {
 	left: 0px;
-	top: -5px;
+	top: 0px;
 }
 
 .vertical div.jx-handle:hover div.jx-arrow.right, 
 .vertical div.jx-handle:active div.jx-arrow.right {
 	right: 0px;
-	bottom: -5px;
+	bottom: 0px;
 }
 
 
 
 
 div.jx-image {
-	position: relative;
+	position: absolute;
 	height: 100%;
 	display: inline-block;
 	top: 0;
@@ -152,6 +156,7 @@ div.jx-image {
 .vertical div.jx-image {
 	width: 100%;
 	left: 0;
+	top: initial;
 }
 
 div.jx-image img {
@@ -194,7 +199,7 @@ div.jx-image.right img {
 	top: 0;
 }
 
-.veritcal div.jx-image.right {
+.vertical div.jx-image.right {
 	bottom: 0;
 	background-position: bottom;
 }
@@ -232,18 +237,12 @@ div.jx-image.right div.jx-label {
 .vertical div.jx-image div.jx-label {
 	display: table;
 	position: absolute;
-	padding: 0;
 }
 
 .vertical div.jx-image.right div.jx-label {
 	left: 0;
 	bottom: 0;
 	top: initial;
-}
-
-.vertical div.jx-image div.jx-label span {
-	display: table-cell;
-	padding: .25em .75em;
 }
 
 div.jx-credit {
