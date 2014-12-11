@@ -319,17 +319,24 @@
 		},
 
 		displayLabels: function() {
-			leftDate = document.createElement("div");
-			leftDate.className = 'jx-label';
-			leftDate.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
-			setText(leftDate, this.imgBefore.label);
-			rightDate = document.createElement("div");
-			rightDate.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
-			rightDate.className = 'jx-label';
-			setText(rightDate, this.imgAfter.label);
 
-			this.leftImage.appendChild(leftDate);
-			this.rightImage.appendChild(rightDate);
+			makeLabels(this.leftImage, this.imgBefore.label);
+			makeLabels(this.rightImage, this.imgAfter.label);
+
+			function makeLabels(element, labelText) {
+				console.log(element, labelText);
+
+				label = document.createElement("div");
+				label.className = 'jx-label';
+				label.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
+
+				content = document.createElement("span");
+				setText(content, labelText);
+
+				label.appendChild(content);
+				element.appendChild(label);
+			}
+
 		},
 
 		displayCredits: function() {
