@@ -330,10 +330,7 @@
 				label.className = 'jx-label';
 				label.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
 
-				content = document.createElement("span");
-				setText(content, labelText);
-
-				label.appendChild(content);
+				setText(label, labelText);
 				element.appendChild(label);
 			}
 
