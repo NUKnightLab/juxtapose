@@ -49,27 +49,27 @@ div.jx-arrow {
 	transition: all .2s ease;
 }
 
-div.jx-arrow.left {
+div.jx-arrow.jx-left {
 	left: 2px;
 	border-style: solid;
 	border-width: 8px 8px 8px 0;
 	border-color: transparent #FFF transparent transparent;
 }
 
-div.jx-arrow.right {
+div.jx-arrow.jx-right {
 	right: 2px;
 	border-style: solid;
 	border-width: 8px 0px 8px 8px;
 	border-color: transparent transparent transparent #FFF;
 }
 
-div.jx-handle:hover div.jx-arrow.left,
-div.jx-handle:active div.jx-arrow.left {
+div.jx-handle:hover div.jx-arrow.jx-left,
+div.jx-handle:active div.jx-arrow.jx-left {
 	left: -1px;
 }
 
-div.jx-handle:hover div.jx-arrow.right, 
-div.jx-handle:active div.jx-arrow.right {
+div.jx-handle:hover div.jx-arrow.jx-right, 
+div.jx-handle:active div.jx-arrow.jx-right {
 	right: -1px;
 }
 
@@ -90,21 +90,21 @@ div.jx-image img {
 	position: absolute;
 }
 
-div.jx-image.left {
+div.jx-image.jx-left {
 	left: 0;
 	background-position: left;
 }
 
-div.jx-image.left img {
+div.jx-image.jx-left img {
 	left: 0;
 }
 
-div.jx-image.right {
+div.jx-image.jx-right {
 	right: 0;
 	background-position: right;
 }
 
-div.jx-image.right img {
+div.jx-image.jx-right img {
 	right: 0;
 }
 
@@ -206,8 +206,8 @@ a.jx-knightlab span.juxtapose-name {
 
 /* keyboard accessibility */
 div.jx-controller:focus,
-div.jx-image.left div.jx-label:focus,
-div.jx-image.right div.jx-label:focus,
+div.jx-image.jx-left div.jx-label:focus,
+div.jx-image.jx-right div.jx-label:focus,
 a.jx-knightlab:focus {
 	background: #eae34a;
 	color: #000;
