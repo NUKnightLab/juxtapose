@@ -34,12 +34,14 @@ function optionsFromForm() {
         console.log('invalid position');
         pos = '50';
     }
-    return {
+    var options = {
         animate: $("#animate").prop('checked'),
         showLabels: $("#show-labels").prop('checked'),
         showCredits: $("#show-credits").prop('checked'),
-        startingPosition: pos
-    }
+        mode: ($("#vertical").prop('checked')) ? 'vertical' : 'horizontal',
+        startingPosition: pos,
+    };
+    return options;
 }
 
 function createSliderFromForm() {
@@ -76,6 +78,8 @@ function updateEmbedCode() {
                 + opts.showCredits
                 +'" data-animate="'
                 + opts.animate
+                +'" data-mode="'
+                + opts.mode
                 +'">\n'
                 + imageTagForObject(imgs[0])
                 + '\n'
