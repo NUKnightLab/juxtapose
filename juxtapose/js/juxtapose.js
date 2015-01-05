@@ -50,7 +50,6 @@
 		},
 
 		callFlickrAPI: function(id, self) {
-			var flickr_best_size = "Large";
 			var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes' +
 					'&api_key=' + flickr_key +
 					'&photo_id=' + id + '&format=json&nojsoncallback=1';
@@ -127,7 +126,7 @@
 	}
 
 	function setText(element, text) {
-		if (element.textContent) {
+		if (document.body.textContent) {
 			element.textContent = text;
 		} else {
 			element.innerText = text;
@@ -398,11 +397,11 @@
 				this.handle.className = 'jx-handle';
 
 				this.rightImage = document.createElement("div");
-				this.rightImage.className = 'jx-image right';
+				this.rightImage.className = 'jx-image jx-right';
 				this.rightImage.appendChild(this.imgAfter.image);
 
 				this.leftImage = document.createElement("div");
-				this.leftImage.className = 'jx-image left';
+				this.leftImage.className = 'jx-image jx-left';
 				this.leftImage.appendChild(this.imgBefore.image);
 
 				this.labCredit = document.createElement("a");
@@ -426,8 +425,8 @@
 				this.control = document.createElement("div");
 				this.controller = document.createElement("div");
 
-				this.leftArrow.className = 'jx-arrow left';
-				this.rightArrow.className = 'jx-arrow right';
+				this.leftArrow.className = 'jx-arrow jx-left';
+				this.rightArrow.className = 'jx-arrow jx-right';
 				this.control.className = 'jx-control';
 				this.controller.className = 'jx-controller';
 				
