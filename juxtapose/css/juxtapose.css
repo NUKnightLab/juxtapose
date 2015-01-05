@@ -20,12 +20,30 @@ div.jx-handle {
 	margin-left: -20px;
 }
 
+
+.vertical div.jx-handle {
+	height: 40px;
+	width: 100%;
+	cursor: row-resize;
+	margin-top: -20px;
+	margin-left: 0;
+}
+
 div.jx-control {
 	height: 100%;
 	margin-right: auto;
 	margin-left: auto;
 	width: 3px;
 	background-color: white;
+}
+
+.vertical div.jx-control {
+	height: 3px;
+	width: 100%;
+	background-color: white;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 div.jx-controller {
@@ -39,6 +57,15 @@ div.jx-controller {
 	background-color: white;
 }
 
+.vertical div.jx-controller {
+	height: 9px;
+	width: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	top: -3px;
+	position: relative;
+}
+
 div.jx-arrow {
 	position: absolute;
 	margin: auto;
@@ -48,6 +75,17 @@ div.jx-arrow {
 	height: 0;
 	transition: all .2s ease;
 }
+
+.vertical div.jx-arrow {
+	position: absolute;
+	margin: 0 auto;
+	left: 0;
+	right: 0; 
+	width: 0;
+	height: 0;
+	transition: all .2s ease;
+}
+
 
 div.jx-arrow.jx-left {
 	left: 2px;
@@ -59,8 +97,25 @@ div.jx-arrow.jx-left {
 div.jx-arrow.jx-right {
 	right: 2px;
 	border-style: solid;
-	border-width: 8px 0px 8px 8px;
+	border-width: 8px 0 8px 8px;
 	border-color: transparent transparent transparent #FFF;
+}
+
+.vertical div.jx-arrow.jx-left {
+	left: 0px;
+	top: 2px;
+	border-style: solid;
+	border-width: 0px 8px 8px 8px;
+	border-color: transparent transparent #FFF transparent;
+}
+
+.vertical div.jx-arrow.jx-right {
+	right: 0px;
+	top: initial;
+	bottom: 2px;
+	border-style: solid;
+	border-width: 8px 8px 0 8px;
+	border-color: #FFF transparent transparent transparent;
 }
 
 div.jx-handle:hover div.jx-arrow.jx-left,
@@ -73,8 +128,21 @@ div.jx-handle:active div.jx-arrow.jx-right {
 	right: -1px;
 }
 
+.vertical div.jx-handle:hover div.jx-arrow.jx-left,
+.vertical div.jx-handle:active div.jx-arrow.jx-left {
+	left: 0px;
+	top: 0px;
+}
+
+.vertical div.jx-handle:hover div.jx-arrow.jx-right, 
+.vertical div.jx-handle:active div.jx-arrow.jx-right {
+	right: 0px;
+	bottom: 0px;
+}
+
+
 div.jx-image {
-	position: relative;
+	position: absolute;
 	height: 100%;
 	display: inline-block;
 	top: 0;
@@ -83,11 +151,21 @@ div.jx-image {
 	-webkit-transform: scale(1);
 }
 
+.vertical div.jx-image {
+	width: 100%;
+	left: 0;
+	top: initial;
+}
+
 div.jx-image img {
-	width: auto;
 	height: 100%;
 	z-index: 5;
 	position: absolute;
+}
+
+.vertical div.jx-image img {
+	height: initial;
+	width: 100%;
 }
 
 div.jx-image.jx-left {
@@ -106,7 +184,28 @@ div.jx-image.jx-right {
 
 div.jx-image.jx-right img {
 	right: 0;
+	bottom: 0;
 }
+
+
+.veritcal div.jx-image.jx-left {
+	top: 0;
+	background-position: top;
+}
+
+.veritcal div.jx-image.jx-left img {
+	top: 0;
+}
+
+.vertical div.jx-image.jx-right {
+	bottom: 0;
+	background-position: bottom;
+}
+
+.veritcal div.jx-image.jx-right img {
+	bottom: 0;
+}
+
 
 div.jx-image div.jx-label {
 	font-size: 1em;
@@ -123,14 +222,25 @@ div.jx-image div.jx-label {
 	vertical-align: middle;
 }
 
-div.jx-image.left div.jx-label {
+div.jx-image.jx-left div.jx-label {
 	float: left;
 	left: 0;
 }
 
-div.jx-image.right div.jx-label {
+div.jx-image.jx-right div.jx-label {
 	float: right;
 	right: 0;
+}
+
+.vertical div.jx-image div.jx-label {
+	display: table;
+	position: absolute;
+}
+
+.vertical div.jx-image.jx-right div.jx-label {
+	left: 0;
+	bottom: 0;
+	top: initial;
 }
 
 div.jx-credit {
@@ -152,6 +262,14 @@ div.jx-image.transition {
 
 div.jx-handle.transition {
 	transition: left .5s ease;
+}
+
+.vertical div.jx-image.transition {
+	transition: height .5s ease;
+}
+
+.vertical div.jx-handle.transition {
+	transition: top .5s ease;
 }
 
 /* Knight Lab Credit */

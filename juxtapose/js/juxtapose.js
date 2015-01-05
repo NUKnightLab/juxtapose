@@ -161,6 +161,18 @@
 		return pageX;
 	}
 
+	function getPageY(e) {
+		var pageY;
+		if (e.pageY) {
+			pageY = e.pageY;
+		} else if (e.touches) {
+			pageT = e.touches[0].pageY;
+		} else {
+			pageY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+		}
+		return pageY;
+	}
+
 	function checkFlickr(url) {
 		var idx = url.indexOf("flickr.com/photos/");
 		if (idx == -1) {
@@ -187,6 +199,23 @@
 		return leftPercent;
 	}
 
+	function getTopPercent(slider, input) {
+		if (typeof(input) === "string" || typeof(input) === "number") {
+			topPercent = parseInt(input, 10);
+		} else {
+			var sliderRect = slider.getBoundingClientRect();
+			var offset = {
+				top: sliderRect.top + document.body.scrollTop,
+				left: sliderRect.left + document.body.scrollLeft
+			};
+			var width = slider.offsetHeight;
+			var pageY = getPageY(input);
+			var relativeY = pageY - offset.top;
+			topPercent = (relativeY / width) * 100;
+		}
+		return topPercent;
+	}
+
 
 	var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true };
 	function interpret_boolean(x) {
@@ -205,7 +234,8 @@
 			animate: true,
 			showLabels: true,
 			showCredits: true,
-			startingPosition: "50%"
+			startingPosition: "50%",
+			orientation: 'horizontal'
 		};
 
 		for (i in this.options) {
@@ -249,7 +279,11 @@
 		updateSlider: function(input, animate) {
 			var leftPercent, rightPercent;
 
-			leftPercent = getLeftPercent(this.slider, input);
+			if (this.options.orientation === "vertical") {
+				leftPercent = getTopPercent(this.slider, input);
+			} else {
+				leftPercent = getLeftPercent(this.slider, input);
+			}
 
 			leftPercent = Math.round(leftPercent) + "%";
 			leftPercentNum = parseInt(leftPercent);
@@ -266,9 +300,15 @@
 					addClass(this.rightImage, 'transition');
 				}
 
-				this.handle.style.left = leftPercent;
-				this.leftImage.style.width = leftPercent;
-				this.rightImage.style.width = rightPercent;
+				if (this.options.orientation === "vertical") {
+					this.handle.style.top = leftPercent;
+					this.leftImage.style.height = leftPercent;
+					this.rightImage.style.height = rightPercent;
+				} else {
+					this.handle.style.left = leftPercent;
+					this.leftImage.style.width = leftPercent;
+					this.rightImage.style.width = rightPercent;
+				}
 				this.sliderPosition = leftPercent;
 			}
 		},
@@ -278,17 +318,21 @@
 		},
 
 		displayLabels: function() {
-			leftDate = document.createElement("div");
-			leftDate.className = 'jx-label';
-			leftDate.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
-			setText(leftDate, this.imgBefore.label);
-			rightDate = document.createElement("div");
-			rightDate.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
-			rightDate.className = 'jx-label';
-			setText(rightDate, this.imgAfter.label);
 
-			this.leftImage.appendChild(leftDate);
-			this.rightImage.appendChild(rightDate);
+			makeLabels(this.leftImage, this.imgBefore.label);
+			makeLabels(this.rightImage, this.imgAfter.label);
+
+			function makeLabels(element, labelText) {
+				console.log(element, labelText);
+
+				label = document.createElement("div");
+				label.className = 'jx-label';
+				label.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
+
+				setText(label, labelText);
+				element.appendChild(label);
+			}
+
 		},
 
 		displayCredits: function() {
@@ -344,6 +388,10 @@
 				this.slider = document.createElement("div");
 				this.slider.className = 'jx-slider';
 				this.wrapper.appendChild(this.slider);
+
+				if (this.options.orientation != "horizontal") {
+					addClass(this.slider, this.options.orientation);
+				}
 
 				this.handle = document.createElement("div");
 				this.handle.className = 'jx-handle';
@@ -521,6 +569,9 @@
 		}
 		if (w.getAttribute('data-startingposition')) { 
 			options.startingPosition = w.getAttribute('data-startingposition'); 
+		}
+		if (w.getAttribute('data-orientation')) { 
+			options.orientation = w.getAttribute('data-orientation'); 
 		}
 
 		specificClass = 'juxtapose-' + idx;
