@@ -161,6 +161,8 @@ div.jx-image img {
 	height: 100%;
 	z-index: 5;
 	position: absolute;
+	max-height: initial;
+	max-width: initial;
 }
 
 .vertical div.jx-image img {

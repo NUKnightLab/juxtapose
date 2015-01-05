@@ -235,7 +235,7 @@
 			showLabels: true,
 			showCredits: true,
 			startingPosition: "50%",
-			orientation: 'horizontal'
+			mode: 'horizontal'
 		};
 
 		for (i in this.options) {
@@ -279,7 +279,7 @@
 		updateSlider: function(input, animate) {
 			var leftPercent, rightPercent;
 
-			if (this.options.orientation === "vertical") {
+			if (this.options.mode === "vertical") {
 				leftPercent = getTopPercent(this.slider, input);
 			} else {
 				leftPercent = getLeftPercent(this.slider, input);
@@ -300,7 +300,7 @@
 					addClass(this.rightImage, 'transition');
 				}
 
-				if (this.options.orientation === "vertical") {
+				if (this.options.mode === "vertical") {
 					this.handle.style.top = leftPercent;
 					this.leftImage.style.height = leftPercent;
 					this.rightImage.style.height = rightPercent;
@@ -389,8 +389,8 @@
 				this.slider.className = 'jx-slider';
 				this.wrapper.appendChild(this.slider);
 
-				if (this.options.orientation != "horizontal") {
-					addClass(this.slider, this.options.orientation);
+				if (this.options.mode != "horizontal") {
+					addClass(this.slider, this.options.mode);
 				}
 
 				this.handle = document.createElement("div");
@@ -399,6 +399,7 @@
 				this.rightImage = document.createElement("div");
 				this.rightImage.className = 'jx-image jx-right';
 				this.rightImage.appendChild(this.imgAfter.image);
+
 
 				this.leftImage = document.createElement("div");
 				this.leftImage.className = 'jx-image jx-left';
@@ -570,8 +571,8 @@
 		if (w.getAttribute('data-startingposition')) { 
 			options.startingPosition = w.getAttribute('data-startingposition'); 
 		}
-		if (w.getAttribute('data-orientation')) { 
-			options.orientation = w.getAttribute('data-orientation'); 
+		if (w.getAttribute('data-mode')) { 
+			options.mode = w.getAttribute('data-mode'); 
 		}
 
 		specificClass = 'juxtapose-' + idx;
