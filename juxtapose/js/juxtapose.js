@@ -266,10 +266,9 @@
 			console.warn("The images parameter takes two Image objects.");
 		}
 
-		if (!this.imgBefore.label || !this.imgAfter.label) {
-			this.options.showLabels = false;
-		}
-		if (!this.imgBefore.credit || !this.imgAfter.credit) {
+		if (this.imgBefore.credit || this.imgAfter.credit) {
+			this.options.showCredits = true;
+		} else {
 			this.options.showCredits = false;
 		}
 	}
@@ -317,30 +316,25 @@
 			return this.sliderPosition;
 		},
 
-		displayLabels: function() {
+		displayLabel: function(element, labelText) {
+			label = document.createElement("div");
+			label.className = 'jx-label';
+			label.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
 
-			makeLabels(this.leftImage, this.imgBefore.label);
-			makeLabels(this.rightImage, this.imgAfter.label);
-
-			function makeLabels(element, labelText) {
-				console.log(element, labelText);
-
-				label = document.createElement("div");
-				label.className = 'jx-label';
-				label.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
-
-				setText(label, labelText);
-				element.appendChild(label);
-			}
-
+			setText(label, labelText);
+			element.appendChild(label);
 		},
+
+
 
 		displayCredits: function() {
 			credit = document.createElement("div");
 			credit.className = "jx-credit";
 
-			text =  "<em>Photo Credits: Before </em>" + this.imgBefore.credit +
-					" <em>After </em>" + this.imgAfter.credit;
+			text = "<em>Photo Credits:</em>";
+			if (this.imgBefore.credit) { text += " <em>Before</em> " + this.imgBefore.credit; };
+			if (this.imgAfter.credit) { text += " <em>After</em> " + this.imgAfter.credit; }
+
 			credit.innerHTML = text;
 
 			this.wrapper.appendChild(credit);
@@ -455,7 +449,8 @@
 			this.updateSlider(this.options.startingPosition, false);
 
 			if (this.options.showLabels === true) {
-				this.displayLabels();
+				if (this.imgBefore.label) { this.displayLabel(this.leftImage, this.imgBefore.label); }
+				if (this.imgAfter.label) { this.displayLabel(this.rightImage, this.imgAfter.label); }
 			}
 
 			if (this.options.showCredits === true) {
