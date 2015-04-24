@@ -1,9 +1,8 @@
 '''
 Main entrypoint file.  To run:
-
   $ python serve.py
-
 '''
+
 from flask import Flask
 from flask import request
 from flask import render_template
@@ -21,23 +20,20 @@ site_dir = os.path.dirname(os.path.abspath(__file__))
 if site_dir not in sys.path:
     sys.path.append(site_dir)
       
-# Set default FLASK_SETTINGS_MODULE for debug mode
-if not os.environ.get('FLASK_SETTINGS_MODULE', ''):
-    os.environ['FLASK_SETTINGS_MODULE'] = 'core.settings.loc'
+# Import settings module
+if __name__ == "__main__":
+    if not os.environ.get('FLASK_SETTINGS_MODULE', ''):
+        os.environ['FLASK_SETTINGS_MODULE'] = 'core.settings.loc'
 
-# Import settings module for the inject_static_url context processor.
 settings_module = os.environ.get('FLASK_SETTINGS_MODULE')
 
 try:
     importlib.import_module(settings_module)
 except ImportError, e:
-    raise ImportError(
-        "Could not import settings '%s' (Is it on sys.path?): %s" \
-        % (settings_module, e))
-
-settings = sys.modules[settings_module]
+    raise ImportError("Could not import settings '%s' (Is it on sys.path?): %s" % (settings_module, e))
 
 
+# Create app
 app = Flask(__name__)
 
 build_dir = os.path.join(settings.PROJECT_ROOT, 'build')
@@ -46,14 +42,21 @@ source_dir = os.path.join(settings.PROJECT_ROOT, 'juxtapose')
 @app.context_processor
 def inject_static_url():
     """
-    Inject the variables 'static_url' and 'STATIC_URL' into the templates to
-    avoid hard-coded paths to static files. Grab it from the environment 
-    variable STATIC_URL, or use the default. Never has a trailing slash.
+    Inject urls into the templates. 
+    Template variable will always have a trailing slash.
     """
     static_url = settings.STATIC_URL or app.static_url_path
     if static_url.endswith('/'):
         static_url = static_url.rstrip('/')
-    return dict(static_url=static_url, STATIC_URL=static_url)
+
+    storage_url += settings.AWS_STORAGE_BUCKET_KEY
+    if not storage_url.endswith('/'):
+        storage_url += '/'
+
+    return dict(
+        STATIC_URL=static_url, static_url=static_url,
+        STORAGE_URL=storage_url, storage_url=storage_url, 
+    )
 
 
 @app.route('/build/<path:path>')

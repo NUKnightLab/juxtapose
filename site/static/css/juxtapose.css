@@ -1,0 +1,192 @@
+@import url(http://fonts.googleapis.com/css?family=News+Cycle);
+
+div.juxtapose {
+	clear: both;
+	font-family: 'News Cycle', Times, sans-serif;
+}
+
+img.jx-image {
+	width: 100%;
+}
+
+div.jx-slider {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;	
+}
+
+div.jx-handle {
+	position: absolute;
+	height: 100%;
+	width: 40px;
+	cursor: col-resize;
+	z-index: 10;
+	margin-left: -20px;
+}
+
+div.jx-control {
+	height: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	width: 3px;
+	background-color: white;
+}
+
+div.jx-controller {
+	position: absolute;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	height: 60px;
+	width: 9px;
+	margin-left: -3px;
+	background-color: white;
+}
+
+div.jx-arrow {
+	position: absolute;
+	margin: auto;
+	top: 0;
+	bottom: 0; 
+	width: 0;
+	height: 0;
+	transition: all .2s ease;
+}
+
+div.jx-arrow.left {
+	left: 2px;
+	border-style: solid;
+	border-width: 8px 8px 8px 0;
+	border-color: transparent white transparent transparent;
+}
+
+div.jx-arrow.right {
+	right: 2px;
+	border-style: solid;
+	border-width: 8px 0px 8px 8px;
+	border-color: transparent transparent transparent white;
+}
+
+div.jx-handle:hover div.jx-arrow.left, div.jx-handle:active div.jx-arrow.left {
+	left: -1px;
+}
+
+div.jx-handle:hover div.jx-arrow.right, div.jx-handle:active div.jx-arrow.right {
+	right: -1px;
+}
+
+
+div.jx-image {
+	height: 100%;
+	display: inline-block;
+	top: 0;
+	overflow: hidden;
+	background-size: cover;
+}
+
+div.jx-image.left {
+	left: 0;
+	background-position: left;
+}
+
+div.jx-image.right {
+	right: 0;
+	background-position: right;
+}
+
+div.jx-image div.jx-label {
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-top: .3em;
+	padding-bottom: .5em;
+	position: relative;
+	display: inline-block;
+	top: 0;
+	background-color: rgba(0,0,0,.8);
+	color: white;
+	z-index: 0;
+	white-space: nowrap;
+	font-size: 16px;
+	line-height: 18px;
+	vertical-align: middle;
+}
+
+div.jx-image.left div.jx-label {
+	float: left;
+	left: 0;
+}
+
+div.jx-image.right div.jx-label {
+	float: right;
+	right: 0;
+}
+
+div.jx-credit {
+}
+
+div.jx-credit em {
+	font-weight: bold;
+	font-style: normal;
+}
+
+
+/* Animation
+ */
+
+div.jx-image.transition {
+	transition: width .5s ease;
+}
+
+div.jx-handle.transition {
+	transition: left .5s ease;
+}
+
+/* Knight Lab Credit */
+a.jx-knightlab {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index: 10;
+	padding: 0em 0.35em 0.1em 0.35em;
+	background-color: rgba(225,225,225,0.8);
+	text-decoration: none;
+	height: 1.2em;
+}
+
+a.jx-knightlab img {
+	display: inline-block;
+	vertical-align: middle;
+	height: 0.8em;
+	margin-right: 0.1em;
+	padding-bottom: 0.6em;
+}
+
+a.jx-knightlab p {
+	margin: 0;
+	display: inline-block;
+	color: black;
+	vertical-align: middle;
+	text-decoration: none;
+	font-size: 0.8em;
+	height: 100%;
+	line-height: 0.8em;
+	padding-bottom: 0.2em;
+}
+
+@media (max-width: 400px) {
+	a.jx-knightlab {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		z-index: 10;
+		padding: 0em 0.2em 0.1em 0.2em;
+		background-color: rgba(0,0,0,0.7);
+		text-decoration: none;
+	}
+
+	a.jx-knightlab p {
+		display: none;
+	}	
+}

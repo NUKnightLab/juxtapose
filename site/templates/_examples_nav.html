@@ -1,0 +1,8 @@
+<div class="row-fluid">
+  <ul class="span12 breadcrumb">
+    <li style="margin-right:15px;"><a href="index.html#examples">Examples</a><span class="divider">:</span></li>
+    <li {% if active == 'music' %}class="active"{% endif %}>{% if active != 'music' %}<a href="examples-music.html">{% endif %}Music{% if active != 'music' %}</a>{% endif %} <span class="divider">|</span></li>
+    <li {% if active == 'speech' %}class="active"{% endif %}>{% if active != 'speech' %}<a href="examples-spokenword.html">{% endif %}Speech{% if active != 'speech' %}</a>{% endif %} <span class="divider">|</span></li>
+    <li {% if active == 'naturalsound' %}class="active"{% endif %}>{% if active != 'naturalsound' %}<a href="examples-naturalsound.html">{% endif %}Natural Sound{% if active != 'naturalsound' %}</a>{% endif %}</li>
+  </ul>
+</div>
