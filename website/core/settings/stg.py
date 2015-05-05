@@ -26,4 +26,4 @@ AWS_STORAGE_BUCKET_NAME = 'uploads.knilab.com'
 AWS_STORAGE_BUCKET_URL = '//s3.amazonaws.com/uploads.knilab.com/'
 
 # Application key name within storage bucket
-AWS_STORAGE_BUCKET_KEY = 'storymapjs'
+AWS_STORAGE_BUCKET_KEY = 'juxtapose'

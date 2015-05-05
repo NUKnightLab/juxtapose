@@ -6,7 +6,7 @@ import os
 from .base import *
 
 # Import secrets
-secrets_path = os.path.normpath(os.path.join(JUXTAPOSE_ROOT, '../secrets/storymapjs/prd'))
+secrets_path = os.path.normpath(os.path.join(JUXTAPOSE_ROOT, '../secrets/juxtapose/prd'))
 sys.path.append(secrets_path)
 
 from secrets import *
@@ -25,4 +25,4 @@ AWS_STORAGE_BUCKET_NAME = 'uploads.knightlab.com'
 AWS_STORAGE_BUCKET_URL = '//s3.amazonaws.com/uploads.knightlab.com/'
 
 # Application key name within storage bucket
-AWS_STORAGE_BUCKET_KEY = 'storymapjs'
+AWS_STORAGE_BUCKET_KEY = 'juxtapose'
