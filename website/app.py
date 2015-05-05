@@ -118,10 +118,11 @@ def _write_embed(embed_key_name, json_key_name, meta):
 
 
 @app.route('/juxtapose/create/', methods=['POST'])
-def juxtapose_create(user):
+def juxtapose_create():
     """Create a juxtapose"""
     try:
-        pass
+        data = request.json
+
     except Exception, e:
         traceback.print_exc()
         return jsonify({'error': str(e)})

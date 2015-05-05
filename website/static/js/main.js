@@ -122,6 +122,35 @@ $("#use-current-position").click(function(){
 createSliderFromForm();
 
 
+
 function getJSONToPublish() {
+    data = {
+        'images': imageDataFromForm(),
+        'options': optionsFromForm(),
+    }
+    return data;
+}
+
+function callCreateAPI(data) {
+
+    $.ajax({
+      type: "POST",
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      dataType: 'json',
+      url: "/juxtapose/create/",
+      complete: function(data) { console.log(data) },
+      success: function(data) { console.log(data); },
+      error: function(data) { console.log(data); }
+    });
 
 }
+
+function publishSlider() {
+    data = getJSONToPublish()
+    callCreateAPI(data);
+}
+$("#publish-slider").click(publishSlider);
+
+
+
