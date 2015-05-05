@@ -3,3 +3,4 @@ build/website
 .DS_Store
 
 website/static/.DS_Store
+secrets

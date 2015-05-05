@@ -4,11 +4,9 @@ import os
 import sys
 import importlib
 import uuid
-import requests
-import slugify
 import json
 import traceback
-import datetime
+import boto
 
 # Import settings module
 if __name__ == "__main__":
@@ -72,17 +70,9 @@ def catch_build(path):
 
 
 # Juxtapose API
-def _format_err(err_type, err_msg):
-    return "%s: %s" % (err_type, err_msg)
-
-
 def _get_uid():
     """Generate a unique identifer for slider"""
-    return uuid.uuid1()
-
-
-def _utc_now():
-    return datetime.datetime.utcnow().isoformat()+'Z'
+    return uuid.uuid1().urn.split(':')[2]
 
 
 @app.route('/juxtapose/create/', methods=['POST'])
@@ -91,8 +81,15 @@ def upload_juxtapose_json():
     try:
         data = request.json
         uid = _get_uid()
-        print uid
-
+        s3 = boto.connect_s3(
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
+        bucket = s3.get_bucket('jx-test-data')
+        from boto.s3.key import Key
+        k = Key(bucket)
+        k.key = uid + '.json'
+        k.set_contents_from_string(json.dumps(data))
+        return jsonify({'uid': uid})
     except Exception, e:
         traceback.print_exc()
         return jsonify({'error': str(e)})
