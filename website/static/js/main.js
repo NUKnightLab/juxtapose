@@ -1,13 +1,3 @@
-// smoothScroll.init({
-//     offset: 50
-// });
-
-
-var stepOnePreview;
-var stepTwoPreview;
-var stepOneData;
-var stepTwoData;
-
 function imageDataFromForm() {
     return [
         {
@@ -120,9 +110,6 @@ $("#authoring-form input#starting-position").change(function(evt) {
     } catch(e) {
         evt.preventDefault();
     }
-
-    console.log(value);
-    console.log(typeof(value));
 })
 
 $("#use-current-position").click(function(){
@@ -133,3 +120,8 @@ $("#use-current-position").click(function(){
 });
 
 createSliderFromForm();
+
+
+function getJSONToPublish() {
+
+}
