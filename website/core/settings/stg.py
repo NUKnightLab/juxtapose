@@ -1,12 +1,12 @@
 """
-Local settings and globals.
+Staging settings and globals.
 """
 import sys
 import os
 from .base import *
 
 # Import secrets
-secrets_path = os.path.normpath(os.path.join(JUXTAPOSE_ROOT, '../secrets/storymapjs/loc'))
+secrets_path = os.path.normpath(os.path.join(JUXTAPOSE_ROOT, '../secrets/storymapjs/stg'))
 sys.path.append(secrets_path)
 
 from secrets import *
@@ -14,21 +14,12 @@ from secrets import *
 # Set Flask configuration
 os.environ['FLASK_CONFIG_MODULE'] = os.path.join(secrets_path, 'flask_config.py')
     
-STATIC_URL = '/static/'
+STATIC_URL = 'http://media.knilab.com/juxtapose/'
 
-CDN_URL = 'https://s3.amazonaws.com/cdn.knightlab.com/libs/storymapjs/dev/'
-#CDN_URL = '/compiled/'
+CDN_URL = '//s3.amazonaws.com/cdn.knightlab.com/libs/juxtapose/dev/'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'mongo',
-        'NAME': 'storymapjs',
-        'HOST': '127.0.0.1',
-        'PORT': 27017,
-    }
-}
 
-# User storage bucket name on S3
+# name of user storage bucket on S3
 AWS_STORAGE_BUCKET_NAME = 'uploads.knilab.com'
 
 # User storage bucket url on S3
