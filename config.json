@@ -100,7 +100,15 @@
     // - run usemin on all html in build/website
     // - sync build/website with bucket
     "deploy": {
-        "stg": {"bucket": "juxtapose.knilab.com", "usemin_context": {"cdn": "dev"}},
-        "prd": {"bucket": "juxtapose.knightlab.com", "usemin_context": {"cdn": "latest"}}
+        "stg": {
+            "bucket": "juxtapose.knilab.com", 
+            "usemin_context": {"cdn": "dev"},
+            "deploy_context": {"url_prefix": "https://juxtapose.knilab.com"}
+        },
+        "prd": {
+            "bucket": "juxtapose.knightlab.com", 
+            "usemin_context": {"cdn": "latest"},
+            "deploy_context": {"url_prefix": "https://juxtapose.knightlab.com"}
+        }
    }
 }
