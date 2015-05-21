@@ -122,6 +122,9 @@ $("#use-current-position").click(function(){
 createSliderFromForm();
 
 
+function createIFrameCode(data) {
+    var uid = data.uid;
+}
 
 function getJSONToPublish() {
     data = {
@@ -140,7 +143,7 @@ function callCreateAPI(data) {
       dataType: 'json',
       url: "/juxtapose/create/",
       complete: function(data) { console.log(data) },
-      success: function(data) { console.log(data); },
+      success: function(data) { createIFrameCode(data); },
       error: function(data) { console.log(data); }
     });
 

@@ -8,6 +8,7 @@ import json
 import traceback
 import boto
 
+
 # Import settings module
 if __name__ == "__main__":
     if not os.environ.get('FLASK_SETTINGS_MODULE', ''):
@@ -77,17 +78,16 @@ def _get_uid():
 
 @app.route('/juxtapose/create/', methods=['POST'])
 def upload_juxtapose_json():
-    """Create a juxtapose"""
+    """Post JSON to S3 Bucket"""
     try:
         data = request.json
         uid = _get_uid()
         s3 = boto.connect_s3(
             aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
             aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
-        bucket = s3.get_bucket('jx-test-data')
-        from boto.s3.key import Key
-        k = Key(bucket)
-        k.key = uid + '.json'
+        bucket = s3.get_bucket(settings.AWS_STORAGE_BUCKET_NAME)
+        k = boto.s3.key.Key(bucket)
+        k.key = 'juxtapose/' + uid + '.json'
         k.set_contents_from_string(json.dumps(data))
         return jsonify({'uid': uid})
     except Exception, e:
