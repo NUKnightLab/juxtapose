@@ -1,4 +1,4 @@
-/* juxtapose - v1.1.0 - 2015-01-05
+/* juxtapose - v1.2.0 - 2015-05-21
  * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab 
  */
 
@@ -169,7 +169,7 @@
 		if (e.pageY) {
 			pageY = e.pageY;
 		} else if (e.touches) {
-			pageT = e.touches[0].pageY;
+			pageY = e.touches[0].pageY;
 		} else {
 			pageY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
 		}
@@ -215,6 +215,12 @@
 			var pageY = getPageY(input);
 			var relativeY = pageY - offset.top;
 			topPercent = (relativeY / width) * 100;
+
+			console.log("sliderRect", sliderRect);
+			console.log("pageY", pageY)
+			console.log("relativeY", relativeY)
+;			console.log("topPercent", topPercent);
+
 		}
 		return topPercent;
 	}
