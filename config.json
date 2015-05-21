@@ -90,7 +90,7 @@
     "stage": [
         {
             "src": "build",
-            "regex": "(juxtapose-logo.png)|(css|js)/.*"
+            "regex": "(juxtapose-logo.png)|(css|embed|js)/.*"
         }
     ],
     //
