@@ -27,6 +27,8 @@ app.config.from_envvar('FLASK_CONFIG_MODULE')
 
 settings = sys.modules[settings_module]
 
+build_dir = os.path.join(settings.JUXTAPOSE_ROOT, 'build')
+source_dir = os.path.join(settings.JUXTAPOSE_ROOT, 'juxtapose')
 
 @app.context_processor
 def inject_urls():
@@ -55,19 +57,26 @@ def inject_urls():
         CDN_URL=cdn_url, cdn_url=cdn_url)
 
 
-# Views
-@app.route("/")
-def index():
-    return render_template('index.html')
+
+@app.route('/')
+@app.route('/<path:path>')
+def catch_all(path='index.html', context=None):
+    """Catch-all function which serves every URL."""
+    context = context or {}
+    if not os.path.splitext(path)[1]:
+        path = os.path.join(path, 'index.html')
+    return render_template(path, **context)
 
 
-@app.route('/build/<path:path>')
-def catch_build(path):
+@app.route('/juxtapose/<path:path>')
+@app.route('/source/<path:path>')
+@app.route('/images/<path:path>')
+def catch_source(path):
     """
-    Serve /build/... urls from the build directory
+    Serve /source/... urls from the source directory
     """
-    build_dir = os.path.join(settings.JUXTAPOSE_ROOT, 'build')
-    return send_from_directory(build_dir, path)
+    return send_from_directory(source_dir, path)
+
 
 
 # Juxtapose API
@@ -94,7 +103,29 @@ def upload_juxtapose_json():
         traceback.print_exc()
         return jsonify({'error': str(e)})
 
+    
+        
+if __name__ == "__main__":
+    import getopt
+    
+    ssl_context = None
+    port = 5000
+    
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "sp:", ["port="])
+        for opt, arg in opts:
+            if opt == '-s':
+                ssl_context = (
+                    os.path.join(site_dir, 'website.crt'), 
+                    os.path.join(site_dir, 'website.key'))
 
-# Flask Server
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+            elif opt in ('-p', '--port'):
+                port = int(arg)
+            else:
+                print 'Usage: app.py [-s]'
+                sys.exit(1)   
+    except getopt.GetoptError:
+        print 'Usage: app.py [-s] [-p port]'
+        sys.exit(1)
+       
+    app.run(host='0.0.0.0', port=5000, debug=True, ssl_context=ssl_context)
