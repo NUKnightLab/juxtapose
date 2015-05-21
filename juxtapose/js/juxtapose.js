@@ -166,7 +166,7 @@
 		if (e.pageY) {
 			pageY = e.pageY;
 		} else if (e.touches) {
-			pageT = e.touches[0].pageY;
+			pageY = e.touches[0].pageY;
 		} else {
 			pageY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
 		}
@@ -212,6 +212,12 @@
 			var pageY = getPageY(input);
 			var relativeY = pageY - offset.top;
 			topPercent = (relativeY / width) * 100;
+
+			console.log("sliderRect", sliderRect);
+			console.log("pageY", pageY)
+			console.log("relativeY", relativeY)
+;			console.log("topPercent", topPercent);
+
 		}
 		return topPercent;
 	}

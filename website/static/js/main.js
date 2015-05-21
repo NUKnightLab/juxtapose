@@ -1,13 +1,3 @@
-// smoothScroll.init({
-//     offset: 50
-// });
-
-
-var stepOnePreview;
-var stepTwoPreview;
-var stepOneData;
-var stepTwoData;
-
 function imageDataFromForm() {
     return [
         {
@@ -120,9 +110,6 @@ $("#authoring-form input#starting-position").change(function(evt) {
     } catch(e) {
         evt.preventDefault();
     }
-
-    console.log(value);
-    console.log(typeof(value));
 })
 
 $("#use-current-position").click(function(){
@@ -133,3 +120,40 @@ $("#use-current-position").click(function(){
 });
 
 createSliderFromForm();
+
+
+function createIFrameCode(data) {
+    var uid = data.uid;
+}
+
+function getJSONToPublish() {
+    data = {
+        'images': imageDataFromForm(),
+        'options': optionsFromForm(),
+    }
+    return data;
+}
+
+function callCreateAPI(data) {
+
+    $.ajax({
+      type: "POST",
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      dataType: 'json',
+      url: "/juxtapose/create/",
+      complete: function(data) { console.log(data) },
+      success: function(data) { createIFrameCode(data); },
+      error: function(data) { console.log(data); }
+    });
+
+}
+
+function publishSlider() {
+    data = getJSONToPublish()
+    callCreateAPI(data);
+}
+$("#publish-slider").click(publishSlider);
+
+
+

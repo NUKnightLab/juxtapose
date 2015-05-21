@@ -1,0 +1,20 @@
+{   
+    "images": [
+        {
+            "src": "http://placebear.com/g/500/300",
+            "label": "2009",
+            "credit": "Image Credit"
+        },
+        {
+            "src": "http://placebear.com/500/300",
+            "label": "2014",
+            "credit": "Image Credit"
+        }
+    ], 
+    "options": {
+        "animate": true,
+        "showLabels": true,
+        "showCredits": false,
+        "startingPosition": "50%"
+    }
+}
