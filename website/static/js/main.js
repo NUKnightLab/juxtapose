@@ -60,24 +60,24 @@ function updateEmbedCode() {
             startingPosition: w.getAttribute('data-startingposition')
 
     */
-    code =  '<div class="juxtapose" data-startingposition="'
-                + opts.startingPosition
-                + '" data-showlabels="'
-                + opts.showLabels
-                + '" data-showcredits="'
-                + opts.showCredits
-                +'" data-animate="'
-                + opts.animate
-                +'" data-mode="'
-                + opts.mode
-                +'">\n'
-                + imageTagForObject(imgs[0])
-                + '\n'
-                + imageTagForObject(imgs[1])
-                +'\n'
-            + '</div>'
+    // code =  '<div class="juxtapose" data-startingposition="'
+    //             + opts.startingPosition
+    //             + '" data-showlabels="'
+    //             + opts.showLabels
+    //             + '" data-showcredits="'
+    //             + opts.showCredits
+    //             +'" data-animate="'
+    //             + opts.animate
+    //             +'" data-mode="'
+    //             + opts.mode
+    //             +'">\n'
+    //             + imageTagForObject(imgs[0])
+    //             + '\n'
+    //             + imageTagForObject(imgs[1])
+    //             +'\n'
+    //         + '</div>'
 
-    $('#embed-code').text(code);
+    // $('#embed-code').text(code);
 }
 
 $('a.help').popover({
@@ -122,8 +122,13 @@ $("#use-current-position").click(function(){
 createSliderFromForm();
 
 
+var iFrameURL = 'http://cdn.knightlab.com/libs/juxtapose/dev/embed/index.html';
 function createIFrameCode(data) {
     var uid = data.uid;
+    var url = iFrameURL + '?uid=' + uid;
+    code =  '<iframe class="juxtapose" src="' + url + '"></iframe>';
+    $('#embed-code').text(code);
+
 }
 
 function getJSONToPublish() {

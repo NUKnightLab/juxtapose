@@ -39,7 +39,7 @@
 
 		function createJuxtapose(json) {
 			console.log(json);
-			slider = new juxtapose.JXSlider('#juxtapose-embed',json.images,json.options);
+			slider = new juxtapose.JXSlider('#juxtapose-embed', json.images, json.options);
 			console.log(slider);
 		}
 
@@ -48,8 +48,7 @@
 			uid = uid.substr(0, uid.length - 1);
 		}
 
-		var url = 'https://s3.amazonaws.com/jx-test-data/' + uid + '.json';
-		console.log(uid, url);
+		var url = 'https://s3.amazonaws.com/uploads.knilab.com/juxtapose/' + uid + '.json';
 
 		if (url) {
 			var xhr = new XMLHttpRequest();
