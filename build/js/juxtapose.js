@@ -1,5 +1,4 @@
-
-/* juxtapose - v1.2.0 - 2015-05-21
+/* juxtapose - v2015-05-22-19-48-15 - 2015-05-22
  * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab 
  */
 
@@ -335,14 +334,12 @@
 			element.appendChild(label);
 		},
 
-
-
 		displayCredits: function() {
 			credit = document.createElement("div");
 			credit.className = "jx-credit";
 
 			text = "<em>Photo Credits:</em>";
-			if (this.imgBefore.credit) { text += " <em>Before</em> " + this.imgBefore.credit; };
+			if (this.imgBefore.credit) { text += " <em>Before</em> " + this.imgBefore.credit; }
 			if (this.imgAfter.credit) { text += " <em>After</em> " + this.imgAfter.credit; }
 
 			credit.innerHTML = text;
@@ -634,7 +631,7 @@
 
 	function docHijack(p){var old = doc[p];doc[p] = function(v){return addListen(old(v));};}
 	function addEvent(on, fn, self){
-		return (self = this).attachEvent('on' + on, function(e){
+		return (self = this).attachEvent('on' + on, function(e) {
 			var e = e || win.event;
 			e.preventDefault  = e.preventDefault  || function(){e.returnValue = false;};
 			e.stopPropagation = e.stopPropagation || function(){e.cancelBubble = true;};
