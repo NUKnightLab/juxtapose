@@ -11,4 +11,4 @@ sys.stdout = sys.stderr
 
 os.environ.setdefault('FLASK_SETTINGS_MODULE', 'core.settings.prd')
 
-from api import app as application
+from app import app as application
