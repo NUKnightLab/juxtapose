@@ -1,12 +1,12 @@
 """
-WSGI config for storymap project
+WSGI config for juxtapose project
 """
 import os
 import sys
 import site
 
-site.addsitedir('/home/apps/env/StoryMapJS/lib/python2.7/site-packages')
-sys.path.append('/home/apps/sites/StoryMapJS')
+site.addsitedir('/home/apps/env/juxtapose/lib/python2.7/site-packages')
+sys.path.append('/home/apps/sites/juxtapose/website')
 sys.stdout = sys.stderr
 
 os.environ.setdefault('FLASK_SETTINGS_MODULE', 'core.settings.stg')
