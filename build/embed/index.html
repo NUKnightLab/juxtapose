@@ -44,11 +44,15 @@
 		}
 
 		var uid = getURLParamater('uid');
-		if (uid[uid.length - 1] == '/') {
+        if uid.indexOf('http') === 0 {
+          var url = uid;
+        } else {
+		  if (uid[uid.length - 1] == '/') {
 			uid = uid.substr(0, uid.length - 1);
+		  }
+		  var url = 'https://s3.amazonaws.com/uploads.knightlab.com/juxtapose/' + uid + '.json';
 		}
 
-		var url = 'https://s3.amazonaws.com/jx-test-data/' + uid + '.json';
 		console.log(uid, url);
 
 		if (url) {
