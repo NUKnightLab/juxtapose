@@ -44,7 +44,7 @@
 		}
 
 		var uid = getURLParamater('uid');
-        if uid.indexOf('http') === 0 {
+        if (uid.indexOf('http') === 0) {
           var url = uid;
         } else {
 		  if (uid[uid.length - 1] == '/') {
