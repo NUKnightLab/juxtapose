@@ -99,7 +99,7 @@ def upload_juxtapose_json():
         k.key = 'juxtapose/' + uid + '.json'
         k.set_contents_from_string(json.dumps(data), policy='public-read')
         if request.host == 'juxtapose.knilab.com':
-            uid = 'https://uploads.knilab.com/juxtapose/%s' % uid
+            uid = 'https://s3.amazonaws.com/uploads.knilab.com/%s' % k.key
         return jsonify({'uid': uid})
     except Exception, e:
         traceback.print_exc()
