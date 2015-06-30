@@ -98,6 +98,7 @@ def upload_juxtapose_json():
         k = boto.s3.key.Key(bucket)
         k.key = 'juxtapose/' + uid + '.json'
         k.set_contents_from_string(json.dumps(data))
+        k.make_public()
         return jsonify({'uid': uid})
     except Exception, e:
         traceback.print_exc()
