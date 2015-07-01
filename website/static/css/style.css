@@ -260,6 +260,7 @@ h6 {
 }
 
 #publish-note {
+  display: none;
   font-size: smaller;
   font-style: italic;
   margin-top: -30px;

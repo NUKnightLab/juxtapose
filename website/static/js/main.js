@@ -155,6 +155,7 @@ function callCreateAPI(data) {
 }
 
 function publishSlider() {
+    $("#publish-note").show();
     data = getJSONToPublish()
     callCreateAPI(data);
 }
