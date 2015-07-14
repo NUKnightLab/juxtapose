@@ -18,12 +18,18 @@
 			max-width: initial;
 		}
 	</style>
-	<link rel="stylesheet" href="//s3.amazonaws.com/cdn.knightlab.com/libs/juxtapose/latest/css/juxtapose.css">
+
+	<!-- build:css //s3.amazonaws.com/cdn.knightlab.com/libs/juxtapose/latest/css/juxtapose.css -->
+	<link rel="stylesheet" href="../css/juxtapose.css">
+	<!-- endbuild -->
+
 </head>
 <body>
 	<div id="juxtapose-embed"></div>
 
-	<script type="text/javascript" src="//s3.amazonaws.com/cdn.knightlab.com/libs/juxtapose/latest/js/juxtapose.js"></script>
+	<!-- build:js //s3.amazonaws.com/cdn.knightlab.com/libs/juxtapose/latest/js/juxtapose.js -->
+	<script type="text/javascript" src="../js/juxtapose.js"></script>
+	<!-- endbuild -->
 	<script type="text/javascript">
 		
 
@@ -38,6 +44,11 @@
 		}
 
 		function createJuxtapose(json) {
+			if (json.options) {
+				json.options.maximize = true;
+			} else {
+				json.options = { maximize: true };
+			}
 			slider = new juxtapose.JXSlider('#juxtapose-embed',json.images,json.options);
 		}
 

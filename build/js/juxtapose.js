@@ -1,4 +1,4 @@
-/* juxtapose - v2015-06-30-17-00-11 - 2015-06-30
+/* juxtapose - v2015-07-14-20-46-12 - 2015-07-14
  * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab 
  */
 
@@ -152,6 +152,15 @@
 		}
 	}
 
+	function viewport() {
+		var e = window, a = 'inner';
+		if ( !( 'innerWidth' in window ) ) {
+			a = 'client';
+			e = document.documentElement || document.body;
+		}
+		return { width : e[ a+'Width' ] , height : e[ a+'Height' ] }
+	}
+
 	function getPageX(e) {
 		var pageX;
 		if (e.pageX) {
@@ -225,8 +234,8 @@
 		return topPercent;
 	}
 
-
-	var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true };
+	// values of BOOLEAN_OPTIONS are ignored. just used for 'in' test on keys
+	var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true, maximize: true };
 	function interpret_boolean(x) {
 		if (typeof(x) != 'string') {
 			return Boolean(x);
@@ -239,10 +248,11 @@
 		this.selector = selector;
 
 		var i;
-		this.options = {
+		this.options = { // new options must have default values set here.
 			animate: true,
 			showLabels: true,
 			showCredits: true,
+			maximize: false,
 			startingPosition: "50%",
 			mode: 'horizontal'
 		};
@@ -361,20 +371,26 @@
 		},
 
 		setWrapperDimensions: function() {
-			ratio = getImageDimensions(this.imgBefore.image).aspect();
+			var width, height;
+			if (this.options.maximize) {
+				var dims = viewport();
+				width = dims.width;
+				height = dims.height;
+			} else {
+				ratio = getImageDimensions(this.imgBefore.image).aspect();
 
-			width = getComputedWidthAndHeight(this.wrapper).width;
-			height = getComputedWidthAndHeight(this.wrapper).height;
-			
-			if (width) {
-				height = width / ratio;
-				this.wrapper.style.height = parseInt(height) + "px";
-			} else if (height) {
-				width = height * ratio;
-				this.wrapper.style.width = parseInt(width) + "px";
+				width = getComputedWidthAndHeight(this.wrapper).width;
+				height = getComputedWidthAndHeight(this.wrapper).height;
+
+				if (width) {
+					height = width / ratio;
+				} else if (height) {
+					width = height * ratio;
+				}
 			}
+			this.wrapper.style.height = parseInt(height) + "px";
+			this.wrapper.style.width = parseInt(width) + "px";
 		},
-
 		_onLoaded: function() {
 
 			if (this.imgBefore && this.imgBefore.loaded === true &&

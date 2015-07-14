@@ -18,16 +18,22 @@
 			max-width: initial;
 		}
 	</style>
-	<link rel="stylesheet" href="//s3.amazonaws.com/cdn.knightlab.com/libs/juxtapose/latest/css/juxtapose.css">
+
+	<!-- build:css //s3.amazonaws.com/cdn.knightlab.com/libs/juxtapose/latest/css/juxtapose.css -->
+	<link rel="stylesheet" href="../css/juxtapose.css">
+	<!-- endbuild -->
+
 </head>
 <body>
 	<div id="juxtapose-embed"></div>
 
-	<script type="text/javascript" src="//s3.amazonaws.com/cdn.knightlab.com/libs/juxtapose/latest/js/juxtapose.js"></script>
+	<!-- build:js //s3.amazonaws.com/cdn.knightlab.com/libs/juxtapose/latest/js/juxtapose.js -->
+	<script type="text/javascript" src="../js/juxtapose.js"></script>
+	<!-- endbuild -->
 	<script type="text/javascript">
 		
 
-		function getURLParamater(variable) {
+		function getURLParameter(variable) {
 			var query = window.location.search.substring(1);
 			var vars = query.split("&");
 			for (var i = 0; i < vars.length; i++) {
@@ -38,12 +44,15 @@
 		}
 
 		function createJuxtapose(json) {
-			console.log(json);
+			if (json.options) {
+				json.options.maximize = true;
+			} else {
+				json.options = { maximize: true };
+			}
 			slider = new juxtapose.JXSlider('#juxtapose-embed',json.images,json.options);
-			console.log(slider);
 		}
 
-		var uid = getURLParamater('uid');
+		var uid = getURLParameter('uid');
         if (uid.indexOf('http') === 0) {
           var url = uid;
         } else {
@@ -52,8 +61,6 @@
 		  }
 		  var url = 'https://s3.amazonaws.com/uploads.knightlab.com/juxtapose/' + uid + '.json';
 		}
-
-		console.log(uid, url);
 
 		if (url) {
 			var xhr = new XMLHttpRequest();
