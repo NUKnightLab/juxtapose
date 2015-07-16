@@ -122,7 +122,7 @@ $("#use-current-position").click(function(){
 createSliderFromForm();
 
 
-var iFrameURL = 'http://cdn.knightlab.com/libs/juxtapose/latest/embed/index.html';
+var iFrameURL = 'https://cdn.knightlab.com/libs/juxtapose/latest/embed/index.html';
 function createIFrameCode(data) {
     var uid = data.uid;
     var url = iFrameURL + '?uid=' + uid;
