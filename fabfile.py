@@ -26,3 +26,8 @@ add_paths(project_path, repos_path)
 # Import from fablib
 #
 from fablib import *
+from fabric.decorators import task
+
+@task
+def deploy(*args):
+    utils.warn("This project uses salt for deployment. Push to the correct git branch.")
