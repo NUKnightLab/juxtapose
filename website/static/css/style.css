@@ -65,11 +65,18 @@ em.example {
 	text-align: center;
 }
 #examples img {
-  border-radius: 100%;
-  width: 100%;
+  /*border-radius: 100%;*/
+  /*width: 100%;*/
   height: auto;
 	max-width: 200px;
 }
+#examples .thumbnail { margin-bottom: 5px; }
+#examples h3 {
+  font-size: 16px;
+  line-height: 1.3em;
+  color: #1dacd6;
+}
+#examples h3:hover { color: #147693; }
 
 /*steps from timeline.knightlab.com*/
 
