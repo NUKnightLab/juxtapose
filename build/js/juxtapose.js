@@ -254,7 +254,8 @@
 			showCredits: true,
 			maximize: false,
 			startingPosition: "50%",
-			mode: 'horizontal'
+			mode: 'horizontal',
+      callback: null // pass a callback function if you like
 		};
 
 		for (i in this.options) {
@@ -502,6 +503,10 @@
 					e.preventDefault();
 					animate = false;
 				});
+
+        if (this.options.callback && typeof(this.options.callback) == 'function') {
+          this.options.callback(this);
+        }
 
 			});
 

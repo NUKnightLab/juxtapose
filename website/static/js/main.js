@@ -34,11 +34,21 @@ function optionsFromForm() {
     return options;
 }
 
+// Set the iframe height/width equal to that of the image with the smaller respective dimension
+function setDims(dim, images){
+  return images[0][dim] > images[1][dim] ? images[1][dim] : images[0][dim];
+}
+
 function createSliderFromForm() {
     $("#create-slider-preview").html('');
-    window.slider_preview = new juxtapose.JXSlider("#create-slider-preview", imageDataFromForm(), optionsFromForm());
+    var opts = optionsFromForm();
+    opts.callback = function(jx) {
+      jx.optimizeWrapper();
+    }
+    window.slider_preview = new juxtapose.JXSlider("#create-slider-preview", imageDataFromForm(), opts);
     updateEmbedCode();
 }
+
 $("#update-preview").click(createSliderFromForm);
 
 function imageTagForObject(o) {
@@ -121,19 +131,13 @@ $("#use-current-position").click(function(){
 
 createSliderFromForm();
 
-
 var iFrameURL = 'https://cdn.knightlab.com/libs/juxtapose/latest/embed/index.html';
 
 function createIFrameCode(data) {
-    // Set the iframe height/width equal to that of the image with the smaller respective dimension
-    function setDims(dim, images){
-      return images[0][dim] > images[1][dim] ? images[1][dim] : images[0][dim];
-    }
-
     var uid = data.uid;
     var url = iFrameURL + '?uid=' + uid;
     var images = [slider_preview.imgBefore.image, slider_preview.imgAfter.image];
-    code =  '<iframe class="juxtapose" width="' + setDims("naturalWidth", images) + '" height="' + setDims("naturalHeight", images) + '" src="' + url + '"></iframe>';
+    code = '<iframe class="juxtapose" width="' + setDims("naturalWidth", images) + '" height="' + setDims("naturalHeight", images) + '" src="' + url + '"></iframe>';
     $('#embed-code').text(code);
 
 }
