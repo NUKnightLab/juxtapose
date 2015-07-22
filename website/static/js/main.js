@@ -123,10 +123,17 @@ createSliderFromForm();
 
 
 var iFrameURL = 'https://cdn.knightlab.com/libs/juxtapose/latest/embed/index.html';
+
 function createIFrameCode(data) {
+    // Set the iframe height/width equal to that of the image with the smaller respective dimension
+    function setDims(dim, images){
+      return images[0][dim] > images[1][dim] ? images[1][dim] : images[0][dim];
+    }
+
     var uid = data.uid;
     var url = iFrameURL + '?uid=' + uid;
-    code =  '<iframe class="juxtapose" src="' + url + '"></iframe>';
+    var images = [slider_preview.imgBefore.image, slider_preview.imgAfter.image];
+    code =  '<iframe class="juxtapose" width="' + setDims("naturalWidth", images) + '" height="' + setDims("naturalHeight", images) + '" src="' + url + '"></iframe>';
     $('#embed-code').text(code);
 
 }
