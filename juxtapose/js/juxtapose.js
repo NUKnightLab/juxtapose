@@ -430,6 +430,7 @@
 
         this.labCredit = document.createElement("a");
         this.labCredit.setAttribute('href', 'http://juxtapose.knightlab.com');
+        this.labCredit.setAttribute('target', '_blank');
         this.labCredit.className = 'jx-knightlab';
         this.labLogo = document.createElement("div");
         this.labLogo.className = 'knightlab-logo';
