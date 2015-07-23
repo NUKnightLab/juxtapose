@@ -262,6 +262,7 @@ span.tip-plus {
 h6 {
   text-transform: none;
 }
+#slider-size-warning { display: none; }
 #embed-code {
   height: 100px;
 }

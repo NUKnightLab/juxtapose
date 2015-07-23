@@ -396,8 +396,10 @@
     },
 
     optimizeWrapper: function(maxPreviewWidth){
+      document.getElementById('slider-size-warning').style.display = 'none';
       if ((this.imgBefore.image.naturalWidth >= maxPreviewWidth) && (this.imgAfter.image.naturalWidth >= maxPreviewWidth)) {
         this.wrapper.style.width = maxPreviewWidth + "px";
+        document.getElementById('slider-size-warning').style.display = 'block';
       } else if (this.imgAfter.image.naturalWidth < maxPreviewWidth) {
         this.wrapper.style.width = this.imgAfter.image.naturalWidth + "px";
       } else {
