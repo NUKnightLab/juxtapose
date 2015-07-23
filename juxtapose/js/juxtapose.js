@@ -4,7 +4,11 @@
 
 (function (document, window) {
 
-  var juxtapose = { sliders: [] };
+  var juxtapose = {
+    sliders: [],
+    OPTIMIZATION_ACCEPTED: 1,
+    OPTIMIZATION_WAS_CONSTRAINED: 2
+  };
 
   var flickr_key = "d90fc2d1f4acc584e08b8eaea5bf4d6c";
   var FLICKR_SIZE_PREFERENCES = ['Large', 'Medium'];
@@ -12,7 +16,7 @@
   function Graphic(properties, slider) {
     var self = this;
     this.image = new Image();
-    
+
     this.loaded = false;
     this.image.onload = function() {
       self.loaded = true;
@@ -395,17 +399,18 @@
       this.wrapper.style.width = parseInt(dims.width) + "px";
     },
 
-    optimizeWrapper: function(maxPreviewWidth){
-      document.getElementById('slider-size-warning').style.display = 'none';
-      if ((this.imgBefore.image.naturalWidth >= maxPreviewWidth) && (this.imgAfter.image.naturalWidth >= maxPreviewWidth)) {
-        this.wrapper.style.width = maxPreviewWidth + "px";
-        document.getElementById('slider-size-warning').style.display = 'block';
-      } else if (this.imgAfter.image.naturalWidth < maxPreviewWidth) {
+    optimizeWrapper: function(maxWidth){
+      var result = juxtapose.OPTIMIZATION_ACCEPTED;
+      if ((this.imgBefore.image.naturalWidth >= maxWidth) && (this.imgAfter.image.naturalWidth >= maxWidth)) {
+        this.wrapper.style.width = maxWidth + "px";
+        result = juxtapose.OPTIMIZATION_WAS_CONSTRAINED;
+      } else if (this.imgAfter.image.naturalWidth < maxWidth) {
         this.wrapper.style.width = this.imgAfter.image.naturalWidth + "px";
       } else {
         this.wrapper.style.width = this.imgBefore.image.naturalWidth + "px";
       }
       this.setWrapperDimensions();
+      return result;
     },
     _onLoaded: function() {
 

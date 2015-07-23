@@ -41,9 +41,13 @@ function setDims(dim, images){
 
 function createSliderFromForm() {
     $("#create-slider-preview").html('');
+    document.getElementById('slider-size-warning').style.display = 'none';
     var opts = optionsFromForm();
     opts.callback = function(jx) {
-      jx.optimizeWrapper($('.row-fluid').width());
+      var result = jx.optimizeWrapper($('.row-fluid').width());
+      if (result == juxtapose.OPTIMIZATION_WAS_CONSTRAINED){
+        document.getElementById('slider-size-warning').style.display = 'block';
+      }
     }
     window.slider_preview = new juxtapose.JXSlider("#create-slider-preview", imageDataFromForm(), opts);
     updateEmbedCode();
