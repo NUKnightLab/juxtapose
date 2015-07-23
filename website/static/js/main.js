@@ -137,7 +137,9 @@ function createIFrameCode(data) {
     var uid = data.uid;
     var url = iFrameURL + '?uid=' + uid;
     var images = [slider_preview.imgBefore.image, slider_preview.imgAfter.image];
-    code = '<iframe class="juxtapose" width="' + setDims("naturalWidth", images) + '" height="' + setDims("naturalHeight", images) + '" src="' + url + '"></iframe>';
+    var width = setDims("naturalWidth", images);
+    var height = slider_preview.calculateDims(width, null).height;
+    code = '<iframe class="juxtapose" width="' + width + '" height="' + height + '" src="' + url + '"></iframe>';
     $('#embed-code').text(code);
 
 }

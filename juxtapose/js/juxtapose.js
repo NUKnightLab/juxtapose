@@ -370,34 +370,38 @@
         return false;
       }
     },
+    calculateDims: function(width, height){
+      var ratio = getImageDimensions(this.imgBefore.image).aspect();
 
+      if (width) {
+        height = width / ratio;
+      } else if (height) {
+        width = height * ratio;
+      }
+      return {
+        width: width,
+        height: height
+      }
+    },
     setWrapperDimensions: function() {
-      var width, height;
       if (this.options.maximize) {
         var dims = viewport();
-        width = dims.width;
-        height = dims.height;
       } else {
-        ratio = getImageDimensions(this.imgBefore.image).aspect();
-
-        width = getComputedWidthAndHeight(this.wrapper).width;
-        height = getComputedWidthAndHeight(this.wrapper).height;
-
-        if (width) {
-          height = width / ratio;
-        } else if (height) {
-          width = height * ratio;
-        }
+        var wrapperWidth = getComputedWidthAndHeight(this.wrapper).width;
+        var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
+        var dims = this.calculateDims(wrapperWidth, wrapperHeight);
       }
-      this.wrapper.style.height = parseInt(height) + "px";
-      this.wrapper.style.width = parseInt(width) + "px";
+      this.wrapper.style.height = parseInt(dims.height) + "px";
+      this.wrapper.style.width = parseInt(dims.width) + "px";
     },
 
     optimizeWrapper: function(maxPreviewWidth){
-      if (this.imgBefore.image.width + "px" >= maxPreviewWidth) {
+      if ((this.imgBefore.image.naturalWidth >= maxPreviewWidth) && (this.imgAfter.image.naturalWidth >= maxPreviewWidth)) {
         this.wrapper.style.width = maxPreviewWidth + "px";
+      } else if (this.imgAfter.image.naturalWidth < maxPreviewWidth) {
+        this.wrapper.style.width = this.imgAfter.image.naturalWidth + "px";
       } else {
-        this.wrapper.style.width = this.imgBefore.image.width + "px";
+        this.wrapper.style.width = this.imgBefore.image.naturalWidth + "px";
       }
       this.setWrapperDimensions();
     },
