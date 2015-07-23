@@ -393,8 +393,12 @@
       this.wrapper.style.width = parseInt(width) + "px";
     },
 
-    optimizeWrapper: function(){
-      this.wrapper.style.width = this.imgBefore.image.width + "px";
+    optimizeWrapper: function(maxPreviewWidth){
+      if (this.imgBefore.image.width + "px" >= maxPreviewWidth) {
+        this.wrapper.style.width = maxPreviewWidth + "px";
+      } else {
+        this.wrapper.style.width = this.imgBefore.image.width + "px";
+      }
       this.setWrapperDimensions();
     },
     _onLoaded: function() {

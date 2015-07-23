@@ -43,7 +43,7 @@ function createSliderFromForm() {
     $("#create-slider-preview").html('');
     var opts = optionsFromForm();
     opts.callback = function(jx) {
-      jx.optimizeWrapper();
+      jx.optimizeWrapper($('.row-fluid').width());
     }
     window.slider_preview = new juxtapose.JXSlider("#create-slider-preview", imageDataFromForm(), opts);
     updateEmbedCode();
