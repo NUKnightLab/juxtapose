@@ -164,17 +164,26 @@ function callCreateAPI(data) {
       contentType: 'application/json',
       dataType: 'json',
       url: "/juxtapose/create/",
-      complete: function(data) { console.log(data) },
-      success: function(data) { createIFrameCode(data); },
-      error: function(data) { console.log(data); }
+      complete: function(data) { $("#publish-slider").removeClass('disabled'); },
+      success: function(data) { 
+        createIFrameCode(data); 
+      },
+      error: function(xhr, status, errorMsg) { 
+        $("#publish-error").html("<strong>Error:</strong> " + errorMsg).show();
+        console.log(xhr);
+      }
     });
 
 }
 
 function publishSlider() {
-    $("#publish-note").show();
-    data = getJSONToPublish()
-    callCreateAPI(data);
+    if (!$("#publish-slider").hasClass('disabled')) {
+        $("#publish-error").html("").hide();        
+        $("#publish-slider").addClass('disabled');
+        $("#publish-note").show();
+        data = getJSONToPublish()
+        callCreateAPI(data);
+    }
 }
 $("#publish-slider").click(publishSlider);
 
