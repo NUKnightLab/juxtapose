@@ -16,7 +16,7 @@ div.jx-handle {
 	height: 100%;
 	width: 40px;
 	cursor: col-resize;
-	z-index: 10;
+	z-index: 15;
 	margin-left: -20px;
 }
 
