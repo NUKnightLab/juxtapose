@@ -160,6 +160,9 @@ div.jx-image img {
 	height: 100%;
 	z-index: 5;
 	position: absolute;
+
+	max-height: none;
+	max-width: none;
 	max-height: initial;
 	max-width: initial;
 }
