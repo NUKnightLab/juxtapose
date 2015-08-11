@@ -308,9 +308,9 @@
         leftPercent = getLeftPercent(this.slider, input);
       }
 
-      leftPercent = Math.round(leftPercent) + "%";
-      leftPercentNum = parseInt(leftPercent);
-      rightPercent = Math.round(100 - leftPercentNum) + "%";
+      leftPercent = leftPercent.toFixed(2) + "%";
+      leftPercentNum = parseFloat(leftPercent);
+      rightPercent = (100 - leftPercentNum) + "%";
 
       if (leftPercentNum > 0 && leftPercentNum < 100) {
         removeClass(this.handle, 'transition');
