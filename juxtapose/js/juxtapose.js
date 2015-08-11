@@ -583,6 +583,8 @@
             }
       });
 
+      juxtapose.sliders.push(this);
+
       if (this.options.callback && typeof(this.options.callback) == 'function') {
         this.options.callback(this);
       }
