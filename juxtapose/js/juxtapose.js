@@ -409,13 +409,13 @@
 
     optimizeWrapper: function(maxWidth){
       var result = juxtapose.OPTIMIZATION_ACCEPTED;
-      if ((this.imgBefore.image.naturalWidth >= maxWidth) && (this.imgAfter.image.naturalWidth >= maxWidth)) {
+      if ((this.imgBefore.getImageDimensions().width >= maxWidth) && (this.imgAfter.getImageDimensions().width >= maxWidth)) {
         this.wrapper.style.width = maxWidth + "px";
         result = juxtapose.OPTIMIZATION_WAS_CONSTRAINED;
-      } else if (this.imgAfter.image.naturalWidth < maxWidth) {
-        this.wrapper.style.width = this.imgAfter.image.naturalWidth + "px";
+      } else if (this.imgAfter.getImageDimensions().width < maxWidth) {
+        this.wrapper.style.width = this.imgAfter.getImageDimensions().width + "px";
       } else {
-        this.wrapper.style.width = this.imgBefore.image.naturalWidth + "px";
+        this.wrapper.style.width = this.imgBefore.getImageDimensions().width + "px";
       }
       this.setWrapperDimensions();
       return result;
