@@ -1,5 +1,5 @@
 /* juxtapose - v1.1.2 - 2015-07-16
- * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab 
+ * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab
  */
 
 (function (document, window) {
@@ -28,6 +28,15 @@
     this.credit = properties.credit || false;
   }
 
+  Graphic.prototype = {
+      getImageDimensions: function() {
+      return getImageDimensions(this.image);
+      },
+      aspectRatio: function() {
+          return this.getImageDimensions().aspect();
+      },
+  }
+
   function FlickrGraphic(properties, slider) {
     var self = this;
     this.image = new Image();
@@ -45,8 +54,8 @@
     this.credit = properties.credit || false;
   }
 
-  FlickrGraphic.prototype = {
-    getFlickrID: function(url) {
+  FlickrGraphic.prototype = Graphic.prototype;
+  FlickrGraphic.prototype.getFlickrID= function(url) {
       var idx = url.indexOf("flickr.com/photos/");
       var pos = idx + "flickr.com/photos/".length;
       var photo_info = url.substr(pos);
@@ -54,9 +63,9 @@
       if (photo_info.indexOf('/') === 0) photo_info = photo_info.substr(1);
       id = photo_info.split("/")[1];
       return id;
-    },
+    };
 
-    callFlickrAPI: function(id, self) {
+    FlickrGraphic.prototype.callFlickrAPI = function(id, self) {
       var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes' +
           '&api_key=' + flickr_key +
           '&photo_id=' + id + '&format=json&nojsoncallback=1';
@@ -76,13 +85,13 @@
         console.error("There was an error getting the picture from Flickr");
       };
       request.send();
-    },
+  };
 
-    setFlickrImage: function(src) {
+    FlickrGraphic.prototype.setFlickrImage = function(src) {
       this.image.src = src;
-    },
+    };
 
-    bestFlickrUrl: function(ary) {
+    FlickrGraphic.prototype.bestFlickrUrl = function(ary) {
       var dict = {};
       for (var i = 0; i < ary.length; i++) {
         dict[ary[i].label] = ary[i].source;
@@ -93,8 +102,16 @@
         }
       }
       return ary[0].source;
-    }
-  };
+    };
+
+  function getImageDimensions(img) {
+    var dimensions = {
+      width: getNaturalDimensions(img).width,
+      height: getNaturalDimensions(img).height,
+      aspect: function() { return (this.width / this.height); }
+    };
+    return dimensions;
+  }
 
   function getNaturalDimensions(DOMelement) {
     if (DOMelement.naturalWidth && DOMelement.naturalHeight) {
@@ -104,15 +121,6 @@
     var img = new Image();
     img.src = DOMelement.src;
     return {width: img.width, height: img.height};
-  }
-
-  function getImageDimensions(img) {
-    var dimensions = {
-      width: getNaturalDimensions(img).width,
-      height: getNaturalDimensions(img).height,
-      aspect: function() { return (this.width / this.height); }
-    };
-    return dimensions;
   }
 
   function addClass(element, c) {
@@ -367,15 +375,15 @@
     },
 
     checkImages: function() {
-      if (getImageDimensions(this.imgBefore.image).aspect() ==
-        getImageDimensions(this.imgAfter.image).aspect()) {
+      if (this.imgBefore.aspectRatio() ==
+        this.imgAfter.aspectRatio()) {
         return true;
       } else {
         return false;
       }
     },
     calculateDims: function(width, height){
-      var ratio = getImageDimensions(this.imgBefore.image).aspect();
+      var ratio = this.imgBefore.aspectRatio();
 
       if (width) {
         height = width / ratio;
@@ -607,20 +615,20 @@
 
     var options = {};
     // don't set empty string into options, that's a false false.
-    if (w.getAttribute('data-animate')) { 
-      options.animate = w.getAttribute('data-animate'); 
+    if (w.getAttribute('data-animate')) {
+      options.animate = w.getAttribute('data-animate');
     }
-    if (w.getAttribute('data-showlabels')) { 
-      options.showLabels = w.getAttribute('data-showlabels'); 
+    if (w.getAttribute('data-showlabels')) {
+      options.showLabels = w.getAttribute('data-showlabels');
     }
-    if (w.getAttribute('data-showcredits')) { 
-      options.showCredits = w.getAttribute('data-showcredits'); 
+    if (w.getAttribute('data-showcredits')) {
+      options.showCredits = w.getAttribute('data-showcredits');
     }
-    if (w.getAttribute('data-startingposition')) { 
-      options.startingPosition = w.getAttribute('data-startingposition'); 
+    if (w.getAttribute('data-startingposition')) {
+      options.startingPosition = w.getAttribute('data-startingposition');
     }
-    if (w.getAttribute('data-mode')) { 
-      options.mode = w.getAttribute('data-mode'); 
+    if (w.getAttribute('data-mode')) {
+      options.mode = w.getAttribute('data-mode');
     }
 
     specificClass = 'juxtapose-' + idx;
@@ -657,7 +665,7 @@
   //Enable HTML Implementation
   juxtapose.scanPage = function() {
       var elements = document.querySelectorAll('.juxtapose');
-      
+
       for (var i = 0; i < elements.length; i++) {
       juxtapose.makeSlider(elements[i], i);
     }
@@ -697,7 +705,6 @@
     docHijack('getElementsByTagName');
     docHijack('getElementById');
     docHijack('createElement');
-    addListen(doc.all); 
+    addListen(doc.all);
   }
 })(window, document);
-
