@@ -239,7 +239,7 @@
   }
 
   // values of BOOLEAN_OPTIONS are ignored. just used for 'in' test on keys
-  var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true, maximize: true };
+  var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true, maximize: false };
   function interpret_boolean(x) {
     if (typeof(x) != 'string') {
       return Boolean(x);
@@ -256,7 +256,7 @@
       animate: true,
       showLabels: true,
       showCredits: true,
-      maximize: false,
+      //maximize: false,
       startingPosition: "50%",
       mode: 'horizontal',
       callback: null // pass a callback function if you like
@@ -376,7 +376,6 @@
     },
     calculateDims: function(width, height){
       var ratio = getImageDimensions(this.imgBefore.image).aspect();
-
       if (width) {
         height = width / ratio;
       } else if (height) {
@@ -384,16 +383,21 @@
       }
       return {
         width: width,
-        height: height
+        height: height,
+        ratio: ratio
       }
     },
     setWrapperDimensions: function() {
-      if (this.options.maximize) {
-        var dims = viewport();
-      } else {
-        var wrapperWidth = getComputedWidthAndHeight(this.wrapper).width;
-        var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
-        var dims = this.calculateDims(wrapperWidth, wrapperHeight);
+      var wrapperWidth = getComputedWidthAndHeight(this.wrapper).width;
+      var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
+      var dims = this.calculateDims(wrapperWidth, wrapperHeight);
+      //Check the slider dimensions against the iframe dimensions
+      //If the aspect ratio is greater than 1, imgs are wider than tall, so pad top
+      if (dims.ratio >= 1 && dims.height < window.innerHeight){
+        this.wrapper.style.paddingTop = parseInt((window.innerHeight - dims.height) / 2) + "px";
+      } else if (dims.ratio < 1 && dims.height > window.innerHeight){
+        dims = this.calculateDims(0, window.innerHeight);
+        this.wrapper.style.paddingLeft = parseInt((window.innerWidth - dims.width) / 2) + "px";
       }
       this.wrapper.style.height = parseInt(dims.height) + "px";
       this.wrapper.style.width = parseInt(dims.width) + "px";
@@ -607,20 +611,20 @@
 
     var options = {};
     // don't set empty string into options, that's a false false.
-    if (w.getAttribute('data-animate')) { 
-      options.animate = w.getAttribute('data-animate'); 
+    if (w.getAttribute('data-animate')) {
+      options.animate = w.getAttribute('data-animate');
     }
-    if (w.getAttribute('data-showlabels')) { 
-      options.showLabels = w.getAttribute('data-showlabels'); 
+    if (w.getAttribute('data-showlabels')) {
+      options.showLabels = w.getAttribute('data-showlabels');
     }
-    if (w.getAttribute('data-showcredits')) { 
-      options.showCredits = w.getAttribute('data-showcredits'); 
+    if (w.getAttribute('data-showcredits')) {
+      options.showCredits = w.getAttribute('data-showcredits');
     }
-    if (w.getAttribute('data-startingposition')) { 
-      options.startingPosition = w.getAttribute('data-startingposition'); 
+    if (w.getAttribute('data-startingposition')) {
+      options.startingPosition = w.getAttribute('data-startingposition');
     }
-    if (w.getAttribute('data-mode')) { 
-      options.mode = w.getAttribute('data-mode'); 
+    if (w.getAttribute('data-mode')) {
+      options.mode = w.getAttribute('data-mode');
     }
 
     specificClass = 'juxtapose-' + idx;
@@ -657,7 +661,6 @@
   //Enable HTML Implementation
   juxtapose.scanPage = function() {
       var elements = document.querySelectorAll('.juxtapose');
-      
       for (var i = 0; i < elements.length; i++) {
       juxtapose.makeSlider(elements[i], i);
     }

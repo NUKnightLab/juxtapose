@@ -1,4 +1,4 @@
-/* juxtapose - v1.1.3 - 2015-07-27
+/* juxtapose - v2015-09-03-16-11-35 - 2015-09-03
  * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab 
  */
 /* juxtapose - v1.1.2 - 2015-07-16
@@ -242,7 +242,7 @@
   }
 
   // values of BOOLEAN_OPTIONS are ignored. just used for 'in' test on keys
-  var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true, maximize: true };
+  var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true, maximize: false };
   function interpret_boolean(x) {
     if (typeof(x) != 'string') {
       return Boolean(x);
@@ -311,9 +311,9 @@
         leftPercent = getLeftPercent(this.slider, input);
       }
 
-      leftPercent = Math.round(leftPercent) + "%";
-      leftPercentNum = parseInt(leftPercent);
-      rightPercent = Math.round(100 - leftPercentNum) + "%";
+      leftPercent = leftPercent.toFixed(2) + "%";
+      leftPercentNum = parseFloat(leftPercent);
+      rightPercent = (100 - leftPercentNum) + "%";
 
       if (leftPercentNum > 0 && leftPercentNum < 100) {
         removeClass(this.handle, 'transition');
@@ -532,11 +532,13 @@
       this.slider.addEventListener("touchstart", function(e) {
         e = e || window.event;
         e.preventDefault();
+        e.stopPropagation();
         self.updateSlider(e, true);
 
         this.addEventListener("touchmove", function(e) {
           e = e || window.event;
           e.preventDefault();
+          e.stopPropagation();
           self.updateSlider(event, false);
         });
 
@@ -584,6 +586,8 @@
             }
       });
 
+      juxtapose.sliders.push(this);
+
       if (this.options.callback && typeof(this.options.callback) == 'function') {
         this.options.callback(this);
       }
@@ -606,20 +610,20 @@
 
     var options = {};
     // don't set empty string into options, that's a false false.
-    if (w.getAttribute('data-animate')) { 
-      options.animate = w.getAttribute('data-animate'); 
+    if (w.getAttribute('data-animate')) {
+      options.animate = w.getAttribute('data-animate');
     }
-    if (w.getAttribute('data-showlabels')) { 
-      options.showLabels = w.getAttribute('data-showlabels'); 
+    if (w.getAttribute('data-showlabels')) {
+      options.showLabels = w.getAttribute('data-showlabels');
     }
-    if (w.getAttribute('data-showcredits')) { 
-      options.showCredits = w.getAttribute('data-showcredits'); 
+    if (w.getAttribute('data-showcredits')) {
+      options.showCredits = w.getAttribute('data-showcredits');
     }
-    if (w.getAttribute('data-startingposition')) { 
-      options.startingPosition = w.getAttribute('data-startingposition'); 
+    if (w.getAttribute('data-startingposition')) {
+      options.startingPosition = w.getAttribute('data-startingposition');
     }
-    if (w.getAttribute('data-mode')) { 
-      options.mode = w.getAttribute('data-mode'); 
+    if (w.getAttribute('data-mode')) {
+      options.mode = w.getAttribute('data-mode');
     }
 
     specificClass = 'juxtapose-' + idx;
@@ -656,7 +660,6 @@
   //Enable HTML Implementation
   juxtapose.scanPage = function() {
       var elements = document.querySelectorAll('.juxtapose');
-      
       for (var i = 0; i < elements.length; i++) {
       juxtapose.makeSlider(elements[i], i);
     }
