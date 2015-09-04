@@ -1,4 +1,4 @@
-/* juxtapose - v2015-09-03-16-11-35 - 2015-09-03
+/* juxtapose - v2015-09-04-16-08-29 - 2015-09-04
  * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab 
  */
 /* juxtapose - v1.1.2 - 2015-07-16
@@ -259,7 +259,7 @@
       animate: true,
       showLabels: true,
       showCredits: true,
-      maximize: false,
+      //maximize: false,
       startingPosition: "50%",
       mode: 'horizontal',
       callback: null // pass a callback function if you like
@@ -379,7 +379,6 @@
     },
     calculateDims: function(width, height){
       var ratio = getImageDimensions(this.imgBefore.image).aspect();
-
       if (width) {
         height = width / ratio;
       } else if (height) {
@@ -387,16 +386,21 @@
       }
       return {
         width: width,
-        height: height
+        height: height,
+        ratio: ratio
       }
     },
     setWrapperDimensions: function() {
-      if (this.options.maximize) {
-        var dims = viewport();
-      } else {
-        var wrapperWidth = getComputedWidthAndHeight(this.wrapper).width;
-        var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
-        var dims = this.calculateDims(wrapperWidth, wrapperHeight);
+      var wrapperWidth = getComputedWidthAndHeight(this.wrapper).width;
+      var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
+      var dims = this.calculateDims(wrapperWidth, wrapperHeight);
+      //Check the slider dimensions against the iframe dimensions
+      //If the aspect ratio is greater than 1, imgs are wider than tall, so pad top
+      if (dims.ratio >= 1 && dims.height < window.innerHeight){
+        this.wrapper.style.paddingTop = parseInt((window.innerHeight - dims.height) / 2) + "px";
+      } else if (dims.ratio < 1 && dims.height > window.innerHeight){
+        dims = this.calculateDims(0, window.innerHeight);
+        this.wrapper.style.paddingLeft = parseInt((window.innerWidth - dims.width) / 2) + "px";
       }
       this.wrapper.style.height = parseInt(dims.height) + "px";
       this.wrapper.style.width = parseInt(dims.width) + "px";
