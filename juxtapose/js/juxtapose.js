@@ -387,10 +387,7 @@
         ratio: ratio
       }
     },
-    setWrapperDimensions: function() {
-      var wrapperWidth = getComputedWidthAndHeight(this.wrapper).width;
-      var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
-      var dims = this.calculateDims(wrapperWidth, wrapperHeight);
+    responsivizeIframe: function(dims){
       //Check the slider dimensions against the iframe (window) dimensions
       if (dims.height < window.innerHeight){
         //If the aspect ratio is greater than 1, imgs are landscape, so letterbox top and bottom
@@ -402,6 +399,16 @@
          * force dimension recalculation based on height instead of width */
         dims = this.calculateDims(0, window.innerHeight);
         this.wrapper.style.paddingLeft = parseInt((window.innerWidth - dims.width) / 2) + "px";
+      }
+      return dims;
+    },
+    setWrapperDimensions: function() {
+      var wrapperWidth = getComputedWidthAndHeight(this.wrapper).width;
+      var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
+      var dims = this.calculateDims(wrapperWidth, wrapperHeight);
+      // if window is in iframe, make sure images don't overflow boundaries
+      if (window.frameElement) {
+        dims = this.responsivizeIframe(dims);
       }
       this.wrapper.style.height = parseInt(dims.height) + "px";
       this.wrapper.style.width = parseInt(dims.width) + "px";
