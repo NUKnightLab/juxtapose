@@ -28,6 +28,7 @@ function optionsFromForm() {
         animate: $("#animate").prop('checked'),
         showLabels: $("#show-labels").prop('checked'),
         showCredits: $("#show-credits").prop('checked'),
+        makeResponsive: $("#make-responsive").prop('checked'),
         mode: ($("#vertical").prop('checked')) ? 'vertical' : 'horizontal',
         startingPosition: pos,
     };
@@ -141,7 +142,8 @@ function createIFrameCode(data) {
     var uid = data.uid;
     var url = iFrameURL + '?uid=' + uid;
     var images = [slider_preview.imgBefore.image, slider_preview.imgAfter.image];
-    var width = setDims("naturalWidth", images);
+    console.log(data);
+    var width = data.makeResponsive ? "100%" : setDims("naturalWidth", images);
     var height = slider_preview.calculateDims(width, null).height;
     code = '<iframe class="juxtapose" width="' + width + '" height="' + height + '" src="' + url + '"></iframe>';
     $('#embed-code').text(code);
