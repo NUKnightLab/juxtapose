@@ -144,7 +144,7 @@ function createIFrameCode(data) {
     var images = [slider_preview.imgBefore.image, slider_preview.imgAfter.image];
     var opts = optionsFromForm();
     var width = opts.makeResponsive ? "100%" : setDims("naturalWidth", images);
-    var height = slider_preview.calculateDims(width, null).height;
+    var height = slider_preview.calculateDims(setDims("naturalWidth", images), null).height;
     code = '<iframe class="juxtapose" width="' + width + '" height="' + height + '" src="' + url + '"></iframe>';
     $('#embed-code').text(code);
 
