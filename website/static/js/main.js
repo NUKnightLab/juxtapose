@@ -143,7 +143,7 @@ function createIFrameCode(data) {
     var url = iFrameURL + '?uid=' + uid;
     var images = [slider_preview.imgBefore.image, slider_preview.imgAfter.image];
     console.log(data);
-    var width = data.makeResponsive ? "100%" : setDims("naturalWidth", images);
+    var width = data.options.makeResponsive ? "100%" : setDims("naturalWidth", images);
     var height = slider_preview.calculateDims(width, null).height;
     code = '<iframe class="juxtapose" width="' + width + '" height="' + height + '" src="' + url + '"></iframe>';
     $('#embed-code').text(code);
@@ -180,10 +180,11 @@ function callCreateAPI(data) {
 
 function publishSlider() {
     if (!$("#publish-slider").hasClass('disabled')) {
-        $("#publish-error").html("").hide();        
+        $("#publish-error").html("").hide();
         $("#publish-slider").addClass('disabled');
         $("#publish-note").show();
-        data = getJSONToPublish()
+        data = getJSONToPublish();
+        console.log(data);
         callCreateAPI(data);
     }
 }
