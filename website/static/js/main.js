@@ -142,8 +142,8 @@ function createIFrameCode(data) {
     var uid = data.uid;
     var url = iFrameURL + '?uid=' + uid;
     var images = [slider_preview.imgBefore.image, slider_preview.imgAfter.image];
-    console.log(data);
-    var width = data.options.makeResponsive ? "100%" : setDims("naturalWidth", images);
+    var opts = optionsFromForm();
+    var width = opts.makeResponsive ? "100%" : setDims("naturalWidth", images);
     var height = slider_preview.calculateDims(width, null).height;
     code = '<iframe class="juxtapose" width="' + width + '" height="' + height + '" src="' + url + '"></iframe>';
     $('#embed-code').text(code);
@@ -184,7 +184,6 @@ function publishSlider() {
         $("#publish-slider").addClass('disabled');
         $("#publish-note").show();
         data = getJSONToPublish();
-        console.log(data);
         callCreateAPI(data);
     }
 }

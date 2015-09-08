@@ -239,7 +239,7 @@
   }
 
   // values of BOOLEAN_OPTIONS are ignored. just used for 'in' test on keys
-  var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true, maximize: false };
+  var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true, 'makeResponsive': true };
   function interpret_boolean(x) {
     if (typeof(x) != 'string') {
       return Boolean(x);
@@ -256,7 +256,7 @@
       animate: true,
       showLabels: true,
       showCredits: true,
-      //maximize: false,
+      makeResponsive: true,
       startingPosition: "50%",
       mode: 'horizontal',
       callback: null // pass a callback function if you like

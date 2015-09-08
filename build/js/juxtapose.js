@@ -1,4 +1,4 @@
-/* juxtapose - v2015-09-08-18-16-20 - 2015-09-08
+/* juxtapose - v2015-09-08-18-42-21 - 2015-09-08
  * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab 
  */
 /* juxtapose - v1.1.2 - 2015-07-16
@@ -242,7 +242,7 @@
   }
 
   // values of BOOLEAN_OPTIONS are ignored. just used for 'in' test on keys
-  var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true, maximize: false };
+  var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true, 'makeResponsive': true };
   function interpret_boolean(x) {
     if (typeof(x) != 'string') {
       return Boolean(x);
@@ -259,7 +259,7 @@
       animate: true,
       showLabels: true,
       showCredits: true,
-      //maximize: false,
+      makeResponsive: true,
       startingPosition: "50%",
       mode: 'horizontal',
       callback: null // pass a callback function if you like
