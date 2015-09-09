@@ -167,10 +167,10 @@ function callCreateAPI(data) {
       dataType: 'json',
       url: "/juxtapose/create/",
       complete: function(data) { $("#publish-slider").removeClass('disabled'); },
-      success: function(data) { 
-        createIFrameCode(data); 
+      success: function(data) {
+        createIFrameCode(data);
       },
-      error: function(xhr, status, errorMsg) { 
+      error: function(xhr, status, errorMsg) {
         $("#publish-error").html("<strong>Error:</strong> " + errorMsg).show();
         console.log(xhr);
       }

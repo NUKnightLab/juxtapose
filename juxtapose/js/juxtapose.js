@@ -400,6 +400,10 @@
         dims = this.calculateDims(0, window.innerHeight);
         this.wrapper.style.paddingLeft = parseInt((window.innerWidth - dims.width) / 2) + "px";
       }
+      if (this.options.showCredits) {
+        // accommodate the credits box within the iframe
+        dims.height -= 13;
+      }
       return dims;
     },
     setWrapperDimensions: function() {

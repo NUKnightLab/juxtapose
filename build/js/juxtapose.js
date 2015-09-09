@@ -1,4 +1,4 @@
-/* juxtapose - v1.1.5 - 2015-09-09
+/* juxtapose - v2015-09-09-17-06-03 - 2015-09-09
  * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab 
  */
 /* juxtapose - v1.1.2 - 2015-07-16
@@ -402,6 +402,10 @@
          * force dimension recalculation based on height instead of width */
         dims = this.calculateDims(0, window.innerHeight);
         this.wrapper.style.paddingLeft = parseInt((window.innerWidth - dims.width) / 2) + "px";
+      }
+      if (this.options.showCredits) {
+        // accommodate the credits box within the iframe
+        dims.height -= 13;
       }
       return dims;
     },
