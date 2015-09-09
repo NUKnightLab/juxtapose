@@ -1,4 +1,4 @@
-/* juxtapose - v1.1.4 - 2015-09-08
+/* juxtapose - v2015-09-09-15-05-53 - 2015-09-09
  * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab 
  */
 /* juxtapose - v1.1.2 - 2015-07-16
@@ -410,7 +410,7 @@
       var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
       var dims = this.calculateDims(wrapperWidth, wrapperHeight);
       // if window is in iframe, make sure images don't overflow boundaries
-      if (window.frameElement) {
+      if (window.location !== window.parent.location) {
         dims = this.responsivizeIframe(dims);
       }
       this.wrapper.style.height = parseInt(dims.height) + "px";

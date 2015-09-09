@@ -407,7 +407,7 @@
       var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
       var dims = this.calculateDims(wrapperWidth, wrapperHeight);
       // if window is in iframe, make sure images don't overflow boundaries
-      if (window.frameElement) {
+      if (window.location !== window.parent.location) {
         dims = this.responsivizeIframe(dims);
       }
       this.wrapper.style.height = parseInt(dims.height) + "px";
