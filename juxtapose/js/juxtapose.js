@@ -1,5 +1,5 @@
 /* juxtapose - v1.1.2 - 2015-07-16
- * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab
+ * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab 
  */
 
 (function (document, window) {
@@ -28,15 +28,6 @@
     this.credit = properties.credit || false;
   }
 
-  Graphic.prototype = {
-      getImageDimensions: function() {
-      return getImageDimensions(this.image);
-      },
-      aspectRatio: function() {
-          return this.getImageDimensions().aspect();
-      },
-  }
-
   function FlickrGraphic(properties, slider) {
     var self = this;
     this.image = new Image();
@@ -54,8 +45,8 @@
     this.credit = properties.credit || false;
   }
 
-  FlickrGraphic.prototype = Graphic.prototype;
-  FlickrGraphic.prototype.getFlickrID= function(url) {
+  FlickrGraphic.prototype = {
+    getFlickrID: function(url) {
       var idx = url.indexOf("flickr.com/photos/");
       var pos = idx + "flickr.com/photos/".length;
       var photo_info = url.substr(pos);
@@ -63,9 +54,9 @@
       if (photo_info.indexOf('/') === 0) photo_info = photo_info.substr(1);
       id = photo_info.split("/")[1];
       return id;
-    };
+    },
 
-    FlickrGraphic.prototype.callFlickrAPI = function(id, self) {
+    callFlickrAPI: function(id, self) {
       var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes' +
           '&api_key=' + flickr_key +
           '&photo_id=' + id + '&format=json&nojsoncallback=1';
@@ -85,13 +76,13 @@
         console.error("There was an error getting the picture from Flickr");
       };
       request.send();
-  };
+    },
 
-    FlickrGraphic.prototype.setFlickrImage = function(src) {
+    setFlickrImage: function(src) {
       this.image.src = src;
-    };
+    },
 
-    FlickrGraphic.prototype.bestFlickrUrl = function(ary) {
+    bestFlickrUrl: function(ary) {
       var dict = {};
       for (var i = 0; i < ary.length; i++) {
         dict[ary[i].label] = ary[i].source;
@@ -102,16 +93,8 @@
         }
       }
       return ary[0].source;
-    };
-
-  function getImageDimensions(img) {
-    var dimensions = {
-      width: getNaturalDimensions(img).width,
-      height: getNaturalDimensions(img).height,
-      aspect: function() { return (this.width / this.height); }
-    };
-    return dimensions;
-  }
+    }
+  };
 
   function getNaturalDimensions(DOMelement) {
     if (DOMelement.naturalWidth && DOMelement.naturalHeight) {
@@ -121,6 +104,15 @@
     var img = new Image();
     img.src = DOMelement.src;
     return {width: img.width, height: img.height};
+  }
+
+  function getImageDimensions(img) {
+    var dimensions = {
+      width: getNaturalDimensions(img).width,
+      height: getNaturalDimensions(img).height,
+      aspect: function() { return (this.width / this.height); }
+    };
+    return dimensions;
   }
 
   function addClass(element, c) {
@@ -247,7 +239,7 @@
   }
 
   // values of BOOLEAN_OPTIONS are ignored. just used for 'in' test on keys
-  var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true, maximize: true };
+  var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true, 'makeResponsive': true };
   function interpret_boolean(x) {
     if (typeof(x) != 'string') {
       return Boolean(x);
@@ -264,7 +256,7 @@
       animate: true,
       showLabels: true,
       showCredits: true,
-      maximize: false,
+      makeResponsive: true,
       startingPosition: "50%",
       mode: 'horizontal',
       callback: null // pass a callback function if you like
@@ -375,16 +367,15 @@
     },
 
     checkImages: function() {
-      if (this.imgBefore.aspectRatio() ==
-        this.imgAfter.aspectRatio()) {
+      if (getImageDimensions(this.imgBefore.image).aspect() ==
+        getImageDimensions(this.imgAfter.image).aspect()) {
         return true;
       } else {
         return false;
       }
     },
     calculateDims: function(width, height){
-      var ratio = this.imgBefore.aspectRatio();
-
+      var ratio = getImageDimensions(this.imgBefore.image).aspect();
       if (width) {
         height = width / ratio;
       } else if (height) {
@@ -392,16 +383,36 @@
       }
       return {
         width: width,
-        height: height
+        height: height,
+        ratio: ratio
       }
     },
+    responsivizeIframe: function(dims){
+      //Check the slider dimensions against the iframe (window) dimensions
+      if (dims.height < window.innerHeight){
+        //If the aspect ratio is greater than 1, imgs are landscape, so letterbox top and bottom
+        if (dims.ratio >= 1){
+          this.wrapper.style.paddingTop = parseInt((window.innerHeight - dims.height) / 2) + "px";
+        }
+      } else if (dims.height > window.innerHeight) {
+        /* If the image is too tall for the window, which happens at 100% width on large screens,
+         * force dimension recalculation based on height instead of width */
+        dims = this.calculateDims(0, window.innerHeight);
+        this.wrapper.style.paddingLeft = parseInt((window.innerWidth - dims.width) / 2) + "px";
+      }
+      if (this.options.showCredits) {
+        // accommodate the credits box within the iframe
+        dims.height -= 13;
+      }
+      return dims;
+    },
     setWrapperDimensions: function() {
-      if (this.options.maximize) {
-        var dims = viewport();
-      } else {
-        var wrapperWidth = getComputedWidthAndHeight(this.wrapper).width;
-        var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
-        var dims = this.calculateDims(wrapperWidth, wrapperHeight);
+      var wrapperWidth = getComputedWidthAndHeight(this.wrapper).width;
+      var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
+      var dims = this.calculateDims(wrapperWidth, wrapperHeight);
+      // if window is in iframe, make sure images don't overflow boundaries
+      if (window.location !== window.parent.location) {
+        dims = this.responsivizeIframe(dims);
       }
       this.wrapper.style.height = parseInt(dims.height) + "px";
       this.wrapper.style.width = parseInt(dims.width) + "px";
@@ -409,13 +420,13 @@
 
     optimizeWrapper: function(maxWidth){
       var result = juxtapose.OPTIMIZATION_ACCEPTED;
-      if ((this.imgBefore.getImageDimensions().width >= maxWidth) && (this.imgAfter.getImageDimensions().width >= maxWidth)) {
+      if ((this.imgBefore.image.naturalWidth >= maxWidth) && (this.imgAfter.image.naturalWidth >= maxWidth)) {
         this.wrapper.style.width = maxWidth + "px";
         result = juxtapose.OPTIMIZATION_WAS_CONSTRAINED;
-      } else if (this.imgAfter.getImageDimensions().width < maxWidth) {
-        this.wrapper.style.width = this.imgAfter.getImageDimensions().width + "px";
+      } else if (this.imgAfter.image.naturalWidth < maxWidth) {
+        this.wrapper.style.width = this.imgAfter.image.naturalWidth + "px";
       } else {
-        this.wrapper.style.width = this.imgBefore.getImageDimensions().width + "px";
+        this.wrapper.style.width = this.imgBefore.image.naturalWidth + "px";
       }
       this.setWrapperDimensions();
       return result;
@@ -665,7 +676,6 @@
   //Enable HTML Implementation
   juxtapose.scanPage = function() {
       var elements = document.querySelectorAll('.juxtapose');
-
       for (var i = 0; i < elements.length; i++) {
       juxtapose.makeSlider(elements[i], i);
     }
@@ -705,6 +715,7 @@
     docHijack('getElementsByTagName');
     docHijack('getElementById');
     docHijack('createElement');
-    addListen(doc.all);
+    addListen(doc.all); 
   }
 })(window, document);
+

@@ -1,4 +1,4 @@
-/* juxtapose - v1.1.3 - 2015-07-27
+/* juxtapose - v1.1.6 - 2015-09-09
  * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab 
  */
 /* juxtapose - v1.1.2 - 2015-07-16
@@ -242,7 +242,7 @@
   }
 
   // values of BOOLEAN_OPTIONS are ignored. just used for 'in' test on keys
-  var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true, maximize: true };
+  var BOOLEAN_OPTIONS =  {'animate': true, 'showLabels': true, 'showCredits': true, 'makeResponsive': true };
   function interpret_boolean(x) {
     if (typeof(x) != 'string') {
       return Boolean(x);
@@ -259,7 +259,7 @@
       animate: true,
       showLabels: true,
       showCredits: true,
-      maximize: false,
+      makeResponsive: true,
       startingPosition: "50%",
       mode: 'horizontal',
       callback: null // pass a callback function if you like
@@ -311,9 +311,9 @@
         leftPercent = getLeftPercent(this.slider, input);
       }
 
-      leftPercent = Math.round(leftPercent) + "%";
-      leftPercentNum = parseInt(leftPercent);
-      rightPercent = Math.round(100 - leftPercentNum) + "%";
+      leftPercent = leftPercent.toFixed(2) + "%";
+      leftPercentNum = parseFloat(leftPercent);
+      rightPercent = (100 - leftPercentNum) + "%";
 
       if (leftPercentNum > 0 && leftPercentNum < 100) {
         removeClass(this.handle, 'transition');
@@ -379,7 +379,6 @@
     },
     calculateDims: function(width, height){
       var ratio = getImageDimensions(this.imgBefore.image).aspect();
-
       if (width) {
         height = width / ratio;
       } else if (height) {
@@ -387,16 +386,36 @@
       }
       return {
         width: width,
-        height: height
+        height: height,
+        ratio: ratio
       }
     },
+    responsivizeIframe: function(dims){
+      //Check the slider dimensions against the iframe (window) dimensions
+      if (dims.height < window.innerHeight){
+        //If the aspect ratio is greater than 1, imgs are landscape, so letterbox top and bottom
+        if (dims.ratio >= 1){
+          this.wrapper.style.paddingTop = parseInt((window.innerHeight - dims.height) / 2) + "px";
+        }
+      } else if (dims.height > window.innerHeight) {
+        /* If the image is too tall for the window, which happens at 100% width on large screens,
+         * force dimension recalculation based on height instead of width */
+        dims = this.calculateDims(0, window.innerHeight);
+        this.wrapper.style.paddingLeft = parseInt((window.innerWidth - dims.width) / 2) + "px";
+      }
+      if (this.options.showCredits) {
+        // accommodate the credits box within the iframe
+        dims.height -= 13;
+      }
+      return dims;
+    },
     setWrapperDimensions: function() {
-      if (this.options.maximize) {
-        var dims = viewport();
-      } else {
-        var wrapperWidth = getComputedWidthAndHeight(this.wrapper).width;
-        var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
-        var dims = this.calculateDims(wrapperWidth, wrapperHeight);
+      var wrapperWidth = getComputedWidthAndHeight(this.wrapper).width;
+      var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
+      var dims = this.calculateDims(wrapperWidth, wrapperHeight);
+      // if window is in iframe, make sure images don't overflow boundaries
+      if (window.location !== window.parent.location) {
+        dims = this.responsivizeIframe(dims);
       }
       this.wrapper.style.height = parseInt(dims.height) + "px";
       this.wrapper.style.width = parseInt(dims.width) + "px";
@@ -532,11 +551,13 @@
       this.slider.addEventListener("touchstart", function(e) {
         e = e || window.event;
         e.preventDefault();
+        e.stopPropagation();
         self.updateSlider(e, true);
 
         this.addEventListener("touchmove", function(e) {
           e = e || window.event;
           e.preventDefault();
+          e.stopPropagation();
           self.updateSlider(event, false);
         });
 
@@ -584,6 +605,8 @@
             }
       });
 
+      juxtapose.sliders.push(this);
+
       if (this.options.callback && typeof(this.options.callback) == 'function') {
         this.options.callback(this);
       }
@@ -606,20 +629,20 @@
 
     var options = {};
     // don't set empty string into options, that's a false false.
-    if (w.getAttribute('data-animate')) { 
-      options.animate = w.getAttribute('data-animate'); 
+    if (w.getAttribute('data-animate')) {
+      options.animate = w.getAttribute('data-animate');
     }
-    if (w.getAttribute('data-showlabels')) { 
-      options.showLabels = w.getAttribute('data-showlabels'); 
+    if (w.getAttribute('data-showlabels')) {
+      options.showLabels = w.getAttribute('data-showlabels');
     }
-    if (w.getAttribute('data-showcredits')) { 
-      options.showCredits = w.getAttribute('data-showcredits'); 
+    if (w.getAttribute('data-showcredits')) {
+      options.showCredits = w.getAttribute('data-showcredits');
     }
-    if (w.getAttribute('data-startingposition')) { 
-      options.startingPosition = w.getAttribute('data-startingposition'); 
+    if (w.getAttribute('data-startingposition')) {
+      options.startingPosition = w.getAttribute('data-startingposition');
     }
-    if (w.getAttribute('data-mode')) { 
-      options.mode = w.getAttribute('data-mode'); 
+    if (w.getAttribute('data-mode')) {
+      options.mode = w.getAttribute('data-mode');
     }
 
     specificClass = 'juxtapose-' + idx;
@@ -656,7 +679,6 @@
   //Enable HTML Implementation
   juxtapose.scanPage = function() {
       var elements = document.querySelectorAll('.juxtapose');
-      
       for (var i = 0; i < elements.length; i++) {
       juxtapose.makeSlider(elements[i], i);
     }

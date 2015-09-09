@@ -28,6 +28,7 @@ function optionsFromForm() {
         animate: $("#animate").prop('checked'),
         showLabels: $("#show-labels").prop('checked'),
         showCredits: $("#show-credits").prop('checked'),
+        makeResponsive: $("#make-responsive").prop('checked'),
         mode: ($("#vertical").prop('checked')) ? 'vertical' : 'horizontal',
         startingPosition: pos,
     };
@@ -141,8 +142,9 @@ function createIFrameCode(data) {
     var uid = data.uid;
     var url = iFrameURL + '?uid=' + uid;
     var images = [slider_preview.imgBefore.image, slider_preview.imgAfter.image];
-    var width = setDims("naturalWidth", images);
-    var height = slider_preview.calculateDims(width, null).height;
+    var opts = optionsFromForm();
+    var width = opts.makeResponsive ? "100%" : setDims("naturalWidth", images);
+    var height = slider_preview.calculateDims(setDims("naturalWidth", images), null).height;
     code = '<iframe class="juxtapose" width="' + width + '" height="' + height + '" src="' + url + '"></iframe>';
     $('#embed-code').text(code);
 
@@ -165,10 +167,10 @@ function callCreateAPI(data) {
       dataType: 'json',
       url: "/juxtapose/create/",
       complete: function(data) { $("#publish-slider").removeClass('disabled'); },
-      success: function(data) { 
-        createIFrameCode(data); 
+      success: function(data) {
+        createIFrameCode(data);
       },
-      error: function(xhr, status, errorMsg) { 
+      error: function(xhr, status, errorMsg) {
         $("#publish-error").html("<strong>Error:</strong> " + errorMsg).show();
         console.log(xhr);
       }
@@ -178,10 +180,10 @@ function callCreateAPI(data) {
 
 function publishSlider() {
     if (!$("#publish-slider").hasClass('disabled')) {
-        $("#publish-error").html("").hide();        
+        $("#publish-error").html("").hide();
         $("#publish-slider").addClass('disabled');
         $("#publish-note").show();
-        data = getJSONToPublish()
+        data = getJSONToPublish();
         callCreateAPI(data);
     }
 }
