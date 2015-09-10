@@ -230,10 +230,9 @@
       topPercent = (relativeY / width) * 100;
 
       console.log("sliderRect", sliderRect);
-      console.log("pageY", pageY)
-      console.log("relativeY", relativeY)
-;     console.log("topPercent", topPercent);
-
+      console.log("pageY", pageY);
+      console.log("relativeY", relativeY);
+      console.log("topPercent", topPercent);
     }
     return topPercent;
   }
@@ -411,9 +410,10 @@
       var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
       var dims = this.calculateDims(wrapperWidth, wrapperHeight);
       // if window is in iframe, make sure images don't overflow boundaries
-      if (window.location !== window.parent.location) {
+      if (window.location !== window.parent.location && !this.options.makeResponsive) {
         dims = this.responsivizeIframe(dims);
       }
+
       this.wrapper.style.height = parseInt(dims.height) + "px";
       this.wrapper.style.width = parseInt(dims.width) + "px";
     },
@@ -640,6 +640,9 @@
     }
     if (w.getAttribute('data-mode')) {
       options.mode = w.getAttribute('data-mode');
+    }
+    if (w.getAttribute('data-makeresponsive')) {
+      options.mode = w.getAttribute('data-makeresponsive');
     }
 
     specificClass = 'juxtapose-' + idx;

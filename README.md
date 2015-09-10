@@ -27,6 +27,7 @@ The main wrapper can also take some additional attributes as well to specify a f
 
 Specifying a starting position with `data-startingposition` lets you focus the users attention on the part of the image where the change is most noticeable. To toggle the visibility of the labels and the credits respectively, set `data-showlabels` and `data-showcredits` to false. And to disable the animation, set `data-animate` to false.
 
+If you are using Juxtapose in an iFrame with something like Pym.js and don't want to use Juxtapose's built in (but faily opinionated), you can set `data-makeresponsive` to false.
 
 ####Javascript Implementation
 The `JXSlider` class takes three arguments. First, is the string of the ID of the element you want to turn into a slider. Second is an array of two objects. Each object *must* have `src` defined and can optionally define a `label` and a `credit`. The third argument lets you set additional options for the image slider.
