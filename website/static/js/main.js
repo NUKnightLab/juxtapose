@@ -145,7 +145,7 @@ function createIFrameCode(data) {
     var opts = optionsFromForm();
     var width = opts.makeResponsive ? "100%" : setDims("naturalWidth", images);
     var height = slider_preview.calculateDims(setDims("naturalWidth", images), null).height;
-    code = '<iframe class="juxtapose" width="' + width + '" height="' + height + '" src="' + url + '"></iframe>';
+    code = '<iframe frameborder="0" class="juxtapose" width="' + width + '" height="' + height + '" src="' + url + '"></iframe>';
     $('#embed-code').text(code);
 
 }

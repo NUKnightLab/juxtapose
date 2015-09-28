@@ -373,6 +373,7 @@
         return false;
       }
     },
+
     calculateDims: function(width, height){
       var ratio = getImageDimensions(this.imgBefore.image).aspect();
       if (width) {
@@ -384,8 +385,9 @@
         width: width,
         height: height,
         ratio: ratio
-      }
+      };
     },
+
     responsivizeIframe: function(dims){
       //Check the slider dimensions against the iframe (window) dimensions
       if (dims.height < window.innerHeight){
@@ -405,6 +407,7 @@
       }
       return dims;
     },
+    
     setWrapperDimensions: function() {
       var wrapperWidth = getComputedWidthAndHeight(this.wrapper).width;
       var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
