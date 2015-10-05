@@ -19,8 +19,8 @@
 
     this.loaded = false;
     this.image.onload = function() {
-      self.loaded = true;
-      slider._onLoaded();
+        self.loaded = true;
+        slider._onLoaded();
     };
 
     this.image.src = properties.src;
@@ -541,7 +541,7 @@
           if (animate) { self.updateSlider(e, false); }
         });
 
-        document.addEventListener('mouseup', function(e) {
+        this.addEventListener('mouseup', function(e) {
           e = e || window.event;
           e.preventDefault();
           animate = false;
@@ -675,7 +675,6 @@
       ],
       options
     );
-    juxtapose.sliders.push(slider);
 
   };
 
