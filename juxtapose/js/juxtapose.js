@@ -541,7 +541,7 @@
           if (animate) { self.updateSlider(e, false); }
         });
 
-        document.addEventListener('mouseup', function(e) {
+        this.addEventListener('mouseup', function(e) {
           e = e || window.event;
           e.preventDefault();
           animate = false;
