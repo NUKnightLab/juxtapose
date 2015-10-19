@@ -682,8 +682,6 @@
       ],
       options
     );
-    juxtapose.sliders.push(slider);
-
   };
 
   //Enable HTML Implementation
