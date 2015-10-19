@@ -4,4 +4,4 @@ build/website
 
 website/static/.DS_Store
 secrets
-.npm-debug.log
+npm-debug.log
