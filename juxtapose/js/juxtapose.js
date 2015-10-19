@@ -529,6 +529,11 @@
         self.setWrapperDimensions();
       });
 
+
+      // Set up Javascript Events
+      // On mousedown, call updateSlider then set animate to false
+      // (if animate is true, adds css transition when updating).
+
       this.slider.addEventListener("mousedown", function(e) {
         e = e || window.event;
         e.preventDefault();
@@ -541,9 +546,11 @@
           if (animate) { self.updateSlider(e, false); }
         });
 
-        document.addEventListener('mouseup', function(e) {
+        this.addEventListener('mouseup', function(e) {
           e = e || window.event;
           e.preventDefault();
+          e.stopPropagation();
+          this.removeEventListener('mouseup', arguments.callee);
           animate = false;
         });
       });
@@ -675,8 +682,6 @@
       ],
       options
     );
-    juxtapose.sliders.push(slider);
-
   };
 
   //Enable HTML Implementation
