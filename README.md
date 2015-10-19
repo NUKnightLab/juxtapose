@@ -5,7 +5,7 @@
 If you want to contribute to Juxtapose, check out the `DEVELOPERS.md` file for installation instructions. Fork the project, create a new branch with your features, and submit a pull request. Thanks for your help!
 
 ####Contents
-* [Installation](#installation) — 
+* [Installation](#installation)
 * [Create a Juxtapose Slider](#create-a-juxtapose-slider)
     * [Create an iFrame](#create-an-iframe)
     * [HTML Implementation](#html-implementation)
