@@ -9,6 +9,12 @@
     "type": "git",
     "url": "https://github.com/NUKnightLab/juxtapose.git"
   },
+  "files": [
+    "build/css/juxtapose.css",
+    "build/js/juxtapose.js",
+    "build/js/juxtapose.min.js",
+    "README.md"
+  ],
   "keywords": [
     "image",
     "ui",
