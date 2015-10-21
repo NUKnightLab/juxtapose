@@ -572,8 +572,7 @@
 
       /* keyboard accessibility */
 
-      this.handle.addEventListener("keydown", function (e) {
-        e = e || window.event;
+      this.handle.addEventListener("keydown", function (event) {
         var key = event.which || event.keyCode;
         var ariaValue = parseFloat(this.style.left);
 
