@@ -1,8 +1,8 @@
-/* juxtapose - v1.1.6 - 2015-09-09
+/* juxtapose - v1.1.7 - 2015-11-07
  * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab 
  */
 /* juxtapose - v1.1.2 - 2015-07-16
- * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab 
+ * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab
  */
 
 (function (document, window) {
@@ -233,10 +233,9 @@
       topPercent = (relativeY / width) * 100;
 
       console.log("sliderRect", sliderRect);
-      console.log("pageY", pageY)
-      console.log("relativeY", relativeY)
-;     console.log("topPercent", topPercent);
-
+      console.log("pageY", pageY);
+      console.log("relativeY", relativeY);
+      console.log("topPercent", topPercent);
     }
     return topPercent;
   }
@@ -377,6 +376,7 @@
         return false;
       }
     },
+
     calculateDims: function(width, height){
       var ratio = getImageDimensions(this.imgBefore.image).aspect();
       if (width) {
@@ -388,8 +388,9 @@
         width: width,
         height: height,
         ratio: ratio
-      }
+      };
     },
+
     responsivizeIframe: function(dims){
       //Check the slider dimensions against the iframe (window) dimensions
       if (dims.height < window.innerHeight){
@@ -409,14 +410,16 @@
       }
       return dims;
     },
+
     setWrapperDimensions: function() {
       var wrapperWidth = getComputedWidthAndHeight(this.wrapper).width;
       var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
       var dims = this.calculateDims(wrapperWidth, wrapperHeight);
       // if window is in iframe, make sure images don't overflow boundaries
-      if (window.location !== window.parent.location) {
+      if (window.location !== window.parent.location && !this.options.makeResponsive) {
         dims = this.responsivizeIframe(dims);
       }
+
       this.wrapper.style.height = parseInt(dims.height) + "px";
       this.wrapper.style.width = parseInt(dims.width) + "px";
     },
@@ -529,6 +532,11 @@
         self.setWrapperDimensions();
       });
 
+
+      // Set up Javascript Events
+      // On mousedown, call updateSlider then set animate to false
+      // (if animate is true, adds css transition when updating).
+
       this.slider.addEventListener("mousedown", function(e) {
         e = e || window.event;
         e.preventDefault();
@@ -541,9 +549,11 @@
           if (animate) { self.updateSlider(e, false); }
         });
 
-        document.addEventListener('mouseup', function(e) {
+        this.addEventListener('mouseup', function(e) {
           e = e || window.event;
           e.preventDefault();
+          e.stopPropagation();
+          this.removeEventListener('mouseup', arguments.callee);
           animate = false;
         });
       });
@@ -567,7 +577,7 @@
 
       this.handle.addEventListener("keydown", function (e) {
         e = e || window.event;
-        var key = event.which || event.keyCode;
+        var key = e.which || e.keyCode;
         var ariaValue = parseFloat(this.style.left);
 
           //move jx-controller left
@@ -644,6 +654,9 @@
     if (w.getAttribute('data-mode')) {
       options.mode = w.getAttribute('data-mode');
     }
+    if (w.getAttribute('data-makeresponsive')) {
+      options.mode = w.getAttribute('data-makeresponsive');
+    }
 
     specificClass = 'juxtapose-' + idx;
     addClass(element, specificClass);
@@ -672,8 +685,6 @@
       ],
       options
     );
-    juxtapose.sliders.push(slider);
-
   };
 
   //Enable HTML Implementation
@@ -718,7 +729,6 @@
     docHijack('getElementsByTagName');
     docHijack('getElementById');
     docHijack('createElement');
-    addListen(doc.all); 
+    addListen(doc.all);
   }
 })(window, document);
-
