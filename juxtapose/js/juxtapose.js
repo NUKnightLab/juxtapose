@@ -1,5 +1,5 @@
 /* juxtapose - v1.1.2 - 2015-07-16
- * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab 
+ * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab
  */
 
 (function (document, window) {
@@ -407,7 +407,7 @@
       }
       return dims;
     },
-    
+
     setWrapperDimensions: function() {
       var wrapperWidth = getComputedWidthAndHeight(this.wrapper).width;
       var wrapperHeight = getComputedWidthAndHeight(this.wrapper).height;
@@ -574,7 +574,7 @@
 
       this.handle.addEventListener("keydown", function (e) {
         e = e || window.event;
-        var key = event.which || event.keyCode;
+        var key = e.which || e.keyCode;
         var ariaValue = parseFloat(this.style.left);
 
           //move jx-controller left
@@ -726,7 +726,6 @@
     docHijack('getElementsByTagName');
     docHijack('getElementById');
     docHijack('createElement');
-    addListen(doc.all); 
+    addListen(doc.all);
   }
 })(window, document);
-
