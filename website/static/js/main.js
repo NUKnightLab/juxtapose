@@ -49,9 +49,8 @@ function createSliderFromForm() {
       if (result == juxtapose.OPTIMIZATION_WAS_CONSTRAINED){
         document.getElementById('slider-size-warning').style.display = 'block';
       }
-    }
+    };
     window.slider_preview = new juxtapose.JXSlider("#create-slider-preview", imageDataFromForm(), opts);
-    updateEmbedCode();
 }
 
 $("#update-preview").click(createSliderFromForm);
@@ -68,31 +67,6 @@ function imageTagForObject(o) {
 function updateEmbedCode() {
     var imgs = imageDataFromForm();
     var opts = optionsFromForm();
-    /*
-            animate: w.getAttribute('data-animate'),
-            showLabels: w.getAttribute('data-showlabels'),
-            showCredits: w.getAttribute('data-showcredits'),
-            startingPosition: w.getAttribute('data-startingposition')
-
-    */
-    // code =  '<div class="juxtapose" data-startingposition="'
-    //             + opts.startingPosition
-    //             + '" data-showlabels="'
-    //             + opts.showLabels
-    //             + '" data-showcredits="'
-    //             + opts.showCredits
-    //             +'" data-animate="'
-    //             + opts.animate
-    //             +'" data-mode="'
-    //             + opts.mode
-    //             +'">\n'
-    //             + imageTagForObject(imgs[0])
-    //             + '\n'
-    //             + imageTagForObject(imgs[1])
-    //             +'\n'
-    //         + '</div>'
-
-    // $('#embed-code').text(code);
 }
 
 $('a.help').popover({
@@ -112,7 +86,7 @@ $(document).click(function(e) {
 
 $("#authoring-form input.auto-update").change(function(evt) {
     createSliderFromForm();
-})
+});
 
 $("#authoring-form input#starting-position").change(function(evt) {
     try {
@@ -125,19 +99,17 @@ $("#authoring-form input#starting-position").change(function(evt) {
     } catch(e) {
         evt.preventDefault();
     }
-})
+});
 
 $("#use-current-position").click(function(){
     var pos = slider_preview.getPosition();
     pos = pos.replace('%','').split('.')[0];
     $("#starting-position").val(pos);
-    updateEmbedCode();
 });
 
 createSliderFromForm();
 
 var iFrameURL = 'https://cdn.knightlab.com/libs/juxtapose/latest/embed/index.html';
-
 function createIFrameCode(data) {
     var uid = data.uid;
     var url = iFrameURL + '?uid=' + uid;
@@ -154,7 +126,7 @@ function getJSONToPublish() {
     data = {
         'images': imageDataFromForm(),
         'options': optionsFromForm(),
-    }
+    };
     return data;
 }
 
@@ -190,4 +162,26 @@ function publishSlider() {
 $("#publish-slider").click(publishSlider);
 
 
+// THIRD PARTY CHOOSERS
+$('.dropbox-picker').click(function(e) {
+    alert("PICKERD");
+    e.preventDefault();
 
+    var image = $(this).data('image');
+    Dropbox.choose({
+        success: function(files) { handleDropboxLink(files, image); },
+        linkType: "preview", 
+        extensions: ['images']
+    });
+});
+
+function handleDropboxLink(files, image) {
+    var file = files[0];
+    var url = file.link.replace("www.dropbox.com", "dl.dropbox.com");
+    if (image == 'before') {
+        $("#before-src").val(url);
+    } else if (image == 'after') {
+        $("#after-src").val(url);
+    }
+    createSliderFromForm();
+}

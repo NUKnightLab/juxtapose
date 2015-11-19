@@ -30,6 +30,7 @@ settings = sys.modules[settings_module]
 build_dir = os.path.join(settings.JUXTAPOSE_ROOT, 'build')
 source_dir = os.path.join(settings.JUXTAPOSE_ROOT, 'juxtapose')
 
+
 @app.context_processor
 def inject_urls():
     """
@@ -43,6 +44,7 @@ def inject_urls():
     storage_url = settings.AWS_STORAGE_BUCKET_URL
     if not storage_url.endswith('/'):
         storage_url += '/'
+
     storage_url += settings.AWS_STORAGE_BUCKET_KEY
     if not storage_url.endswith('/'):
         storage_url += '/'
@@ -51,11 +53,13 @@ def inject_urls():
     if not cdn_url.endswith('/'):
         cdn_url += '/'
 
+    dropbox_app_key = settings.DROPBOX_APP_KEY
+
     return dict(
         STATIC_URL=static_url, static_url=static_url,
         STORAGE_URL=storage_url, storage_url=storage_url,
-        CDN_URL=cdn_url, cdn_url=cdn_url)
-
+        CDN_URL=cdn_url, cdn_url=cdn_url,
+        DROPBOX_APP_KEY=dropbox_app_key, dropbox_app_key=dropbox_app_key)
 
 
 @app.route('/')
@@ -76,7 +80,6 @@ def catch_source(path):
     Serve /source/... urls from the source directory
     """
     return send_from_directory(source_dir, path)
-
 
 
 # Juxtapose API
@@ -105,14 +108,13 @@ def upload_juxtapose_json():
         traceback.print_exc()
         return jsonify({'error': str(e)})
 
-    
-        
+
 if __name__ == "__main__":
     import getopt
-    
+
     ssl_context = None
     port = 5000
-    
+
     try:
         opts, args = getopt.getopt(sys.argv[1:], "sp:", ["port="])
         for opt, arg in opts:
@@ -122,9 +124,9 @@ if __name__ == "__main__":
                 port = int(arg)
             else:
                 print 'Usage: app.py [-s]'
-                sys.exit(1)   
+                sys.exit(1)
     except getopt.GetoptError:
         print 'Usage: app.py [-s] [-p port]'
         sys.exit(1)
-       
+
     app.run(host='0.0.0.0', port=5000, debug=True, ssl_context=ssl_context)
