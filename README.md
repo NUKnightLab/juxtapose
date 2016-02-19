@@ -28,6 +28,8 @@ npm install --save juxtaposejs
 bower install --save juxtapose
 ```
 
+There is also a [Meteor package](https://atmospherejs.com/kyleking/juxtapose-js) available. 
+
 ###Create a Juxtapose Slider
 
 ####Create an iFrame
