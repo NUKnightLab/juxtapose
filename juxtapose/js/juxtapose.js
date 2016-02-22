@@ -228,11 +228,6 @@
       var pageY = getPageY(input);
       var relativeY = pageY - offset.top;
       topPercent = (relativeY / width) * 100;
-
-      console.log("sliderRect", sliderRect);
-      console.log("pageY", pageY);
-      console.log("relativeY", relativeY);
-      console.log("topPercent", topPercent);
     }
     return topPercent;
   }
