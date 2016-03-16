@@ -1,5 +1,5 @@
-/* juxtapose - v1.1.7 - 2015-11-07
- * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab 
+/* juxtapose - v2016-03-16-22-27-04 - 2016-03-16
+ * Copyright (c) 2016 Alex Duner and Northwestern University Knight Lab 
  */
 /* juxtapose - v1.1.2 - 2015-07-16
  * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab
@@ -231,11 +231,6 @@
       var pageY = getPageY(input);
       var relativeY = pageY - offset.top;
       topPercent = (relativeY / width) * 100;
-
-      console.log("sliderRect", sliderRect);
-      console.log("pageY", pageY);
-      console.log("relativeY", relativeY);
-      console.log("topPercent", topPercent);
     }
     return topPercent;
   }
