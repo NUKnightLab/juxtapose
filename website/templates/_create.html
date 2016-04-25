@@ -7,25 +7,36 @@
   <div class="container-fluid">
     <form id="authoring-form">
       <div class="row-fluid">
-        <div class="span6">
+        <div class="span8">
           <div class="imgBefore row-fluid">
-            <h6>Left image</h6>
-            <input type="url" id="before-src" class="urlBox span11 auto-update" placeholder="https://example.com/firstimage.jpg" value="https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg">
-            <input type="text" id="before-label" value="Apr. 2005" class="span3 auto-update" placeholder="Label (optional)">
-            <input type="text" id="before-credit" class="span8 auto-update" placeholder="Credit (optional)">
-            <button class="dropbox-picker" data-image='before'>Dropbox</button>
+            <div class="span11">
+              <h6>Left image</h6>
+              <div class="input-group">
+                <input type="url" id="before-src" class="urlBox auto-update" placeholder="https://example.com/firstimage.jpg" value="https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg">
+                <div class="buttons">
+                  <button class="btn btn-default dropbox-picker" data-image="before" type="button"><i class="icon-large icon-dropbox" aria-hidden="true"></i></button>
+                </div>
+              </div>
+              <input type="text" id="before-label" value="Apr. 2005" class="span4 auto-update" placeholder="Label (optional)">
+              <input type="text" id="before-credit" class="span8 auto-update" placeholder="Credit (optional)">
+            </div>
           </div>
-
           <div class="imgAfter row-fluid">
+            <div class="span11">
               <h6>Right image</h6>
-              <input type="url" id="after-src" class="urlBox span11 auto-update" placeholder="https://example.com/secondimage.jpg" value="https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg">
-              <input type="text" id="after-label" value="Nov. 2013" class="span3 auto-update" placeholder="Label (optional)">
+              <div class="input-group">
+                  <input type="url" id="after-src" class="urlBox auto-update" placeholder="https://example.com/secondimage.jpg" value="https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg">
+                  <div class="buttons">
+                    <button class="btn btn-default dropbox-picker" data-image="after" type="button"><i class="icon-large icon-dropbox" aria-hidden="true"></i></button>
+                  </div>
+              </div>
+              <input type="text" id="after-label" value="Nov. 2013" class="span4 auto-update" placeholder="Label (optional)">
               <input type="text" id="after-credit" class="span8 auto-update" placeholder="Credit (optional)">
-              <button class="dropbox-picker" data-image='after'>Dropbox</button>
+            </div>
           </div>
           <p class="tip"><span class="tip-plus">+</span>If you don't have a web server for your images, you can host them on Flickr, Dropbox, or Google Drive.</p>
         </div>
-        <div class="span6">
+        <div class="span4">
           <div class="row-fluid">
             <div class="span12">
               <h6>Slider start position</h6>

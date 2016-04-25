@@ -258,6 +258,24 @@ span.tip-plus {
   max-width: none !important;
 }
 
+/* FORMS */
+.input-group input {
+  width: calc(100% - 3em - 12px - 1px - 1em);
+}
+.input-group .buttons {
+  display: inline-block;
+  float: right;
+}
+.input-group:after {
+  content: '';
+  display: block;
+  float: none;
+  clear: both;
+}
+.input-group button {
+  width: 3em;
+}
+
 /* preview */
 h6 {
   text-transform: none;
