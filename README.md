@@ -42,7 +42,7 @@ The easiest way to implement the image slider is to add this code to your markup
 <div class="juxtapose">
     <img src="http://example.com/firstimage.jpg" />
     <img src="http://example.com/secondimage.jpg" />
-<div>
+</div>
 <script src="https://cdn.knightlab.com/libs/juxtapose/latest/js/juxtapose.min.js"></script>
 <link rel="stylesheet" href="https://cdn.knightlab.com/libs/juxtapose/latest/css/juxtapose.css">
 ```
