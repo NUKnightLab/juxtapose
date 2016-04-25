@@ -164,7 +164,6 @@ $("#publish-slider").click(publishSlider);
 
 // THIRD PARTY CHOOSERS
 $('.dropbox-picker').click(function(e) {
-    alert("PICKERD");
     e.preventDefault();
 
     var image = $(this).data('image');
