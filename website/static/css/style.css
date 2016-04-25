@@ -276,11 +276,14 @@ span.tip-plus {
   width: 3em;
 }
 
+.warning {
+  font-size: .875em;
+}
+
 /* preview */
 h6 {
   text-transform: none;
 }
-#slider-size-warning { display: none; }
 #embed-code {
   height: 100px;
 }
@@ -296,4 +299,12 @@ h6 {
 #publish-error {
   display: none;
   margin: 10px 0;
+}
+
+#slider-preview-warning {
+  margin-top: 1em;
+}
+.preview-row {
+  margin-top: 1.5em;
+  margin-bottom: 3em;
 }

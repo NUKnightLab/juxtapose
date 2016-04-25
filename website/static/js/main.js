@@ -1,12 +1,12 @@
 function imageDataFromForm() {
     return [
         {
-            src: processThirdPartyLinks($("#before-src").val()),
+            src: processThirdPartyLinks($("#before-src").val(), "before-src"),
             label: $("#before-label").val(),
             credit: $("#before-credit").val()
         },
         {
-            src: processThirdPartyLinks($("#after-src").val()),
+            src: processThirdPartyLinks($("#after-src").val(), "after-src"),
             label: $("#after-label").val(),
             credit: $("#after-credit").val()
         }
@@ -42,15 +42,22 @@ function setDims(dim, images){
 
 function createSliderFromForm() {
     $("#create-slider-preview").html('');
-    document.getElementById('slider-size-warning').style.display = 'none';
+    removeAllWarnings();
+
     var opts = optionsFromForm();
+
     opts.callback = function(jx) {
-      var result = jx.optimizeWrapper($('.row-fluid').width());
-      if (result == juxtapose.OPTIMIZATION_WAS_CONSTRAINED){
-        document.getElementById('slider-size-warning').style.display = 'block';
-      }
+        var result = jx.optimizeWrapper($('.row-fluid').width());
+        if (result == juxtapose.OPTIMIZATION_WAS_CONSTRAINED) {
+            createWarning($('#slider-preview-warning'), "One or both of your photos is larger than your browser window. The preview below has been resized to fit your screen, but your embedded Juxtapose will retain your original image dimensions.")
+        }
+        if (window.slider_preview.checkImages() === false) {
+            createWarning($('#slider-preview-warning'), "Your images have different aspect ratios. Your Juxtapose will still work fine, but you may want to crop your images.")
+        }
     };
+
     window.slider_preview = new juxtapose.JXSlider("#create-slider-preview", imageDataFromForm(), opts);
+
 }
 
 $("#update-preview").click(createSliderFromForm);
@@ -164,11 +171,10 @@ $("#publish-slider").click(publishSlider);
 
 // THIRD PARTY PICKERS
 
-function processThirdPartyLinks(url) {
+function processThirdPartyLinks(url, pos) {
     if (url.indexOf("www.dropbox.com") > 0) {
-        return handleDropboxLink(url);
+        return handleDropboxLink(url, pos);
     }
-    // HANDLE 
     return url
 }
 
@@ -183,7 +189,12 @@ $('.dropbox-picker').click(function(e) {
     });
 });
 
-function handleDropboxLink(url) {
+function handleDropboxLink(url, pos) {
+    // Warn if /home and not share link
+    if (url.indexOf("home") > 0) { 
+        createWarning($("#" + pos).parent(), "<strong>Not An Image Link:</strong> It looks like you copied the wrong link from Dropbox. Try using the image's <a href='https://www.dropbox.com/help/167'>share url</a>.")
+    }
+
     if (url.indexOf("?") > 0) {
         url = url.split("?")[0]
     }
@@ -198,5 +209,19 @@ function handleDropboxPickerLink(files, image) {
         $("#after-src").val(files[0].link);
     }
     createSliderFromForm();
+}
+
+// ALERT
+
+function removeAllWarnings() {
+    $(".warning").remove();
+}
+
+function createWarning(elToAppendTo, message) {
+    $warning = "<div class='alert alert-danger warning' role='alert'> \
+                  <span class='icon icon-exclamation-sign' aria-hidden='true'></span> \
+                  <span class='error-message'>" + message + "</span> \
+                </div>"
+    elToAppendTo.append($warning)
 }
 
