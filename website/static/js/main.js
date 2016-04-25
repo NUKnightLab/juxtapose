@@ -192,7 +192,7 @@ $('.dropbox-picker').click(function(e) {
 function handleDropboxLink(url, pos) {
     // Warn if /home and not share link
     if (url.indexOf("home") > 0) { 
-        createWarning($("#" + pos).parent(), "<strong>Not An Image Link:</strong> It looks like you copied the wrong link from Dropbox. Try using the image's <a href='https://www.dropbox.com/help/167'>share url</a>.")
+        createWarning($("#" + pos).parent(), "<strong>Not An Image Link:</strong> It looks like you copied the wrong link from Dropbox. Try using the image's <a href='https://www.dropbox.com/help/167' target='_blank'>share url</a>.")
     }
 
     if (url.indexOf("?") > 0) {
