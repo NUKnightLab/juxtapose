@@ -429,6 +429,7 @@
       this.setWrapperDimensions();
       return result;
     },
+
     _onLoaded: function() {
 
       if (this.imgBefore && this.imgBefore.loaded === true &&

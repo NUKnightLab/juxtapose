@@ -1,12 +1,12 @@
 function imageDataFromForm() {
     return [
         {
-            src: $("#before-src").val(),
+            src: processThirdPartyLinks($("#before-src").val(), "before-src"),
             label: $("#before-label").val(),
             credit: $("#before-credit").val()
         },
         {
-            src: $("#after-src").val(),
+            src: processThirdPartyLinks($("#after-src").val(), "after-src"),
             label: $("#after-label").val(),
             credit: $("#after-credit").val()
         }
@@ -42,16 +42,22 @@ function setDims(dim, images){
 
 function createSliderFromForm() {
     $("#create-slider-preview").html('');
-    document.getElementById('slider-size-warning').style.display = 'none';
+    removeAllWarnings();
+
     var opts = optionsFromForm();
+
     opts.callback = function(jx) {
-      var result = jx.optimizeWrapper($('.row-fluid').width());
-      if (result == juxtapose.OPTIMIZATION_WAS_CONSTRAINED){
-        document.getElementById('slider-size-warning').style.display = 'block';
-      }
-    }
+        var result = jx.optimizeWrapper($('.row-fluid').width());
+        if (result == juxtapose.OPTIMIZATION_WAS_CONSTRAINED) {
+            createWarning($('#slider-preview-warning'), "One or both of your photos is larger than your browser window. The preview below has been resized to fit your screen, but your embedded Juxtapose will retain your original image dimensions.")
+        }
+        if (window.slider_preview.checkImages() === false) {
+            createWarning($('#slider-preview-warning'), "Your images have different aspect ratios. Your Juxtapose will still work fine, but you may want to crop your images.")
+        }
+    };
+
     window.slider_preview = new juxtapose.JXSlider("#create-slider-preview", imageDataFromForm(), opts);
-    updateEmbedCode();
+
 }
 
 $("#update-preview").click(createSliderFromForm);
@@ -68,31 +74,6 @@ function imageTagForObject(o) {
 function updateEmbedCode() {
     var imgs = imageDataFromForm();
     var opts = optionsFromForm();
-    /*
-            animate: w.getAttribute('data-animate'),
-            showLabels: w.getAttribute('data-showlabels'),
-            showCredits: w.getAttribute('data-showcredits'),
-            startingPosition: w.getAttribute('data-startingposition')
-
-    */
-    // code =  '<div class="juxtapose" data-startingposition="'
-    //             + opts.startingPosition
-    //             + '" data-showlabels="'
-    //             + opts.showLabels
-    //             + '" data-showcredits="'
-    //             + opts.showCredits
-    //             +'" data-animate="'
-    //             + opts.animate
-    //             +'" data-mode="'
-    //             + opts.mode
-    //             +'">\n'
-    //             + imageTagForObject(imgs[0])
-    //             + '\n'
-    //             + imageTagForObject(imgs[1])
-    //             +'\n'
-    //         + '</div>'
-
-    // $('#embed-code').text(code);
 }
 
 $('a.help').popover({
@@ -112,7 +93,7 @@ $(document).click(function(e) {
 
 $("#authoring-form input.auto-update").change(function(evt) {
     createSliderFromForm();
-})
+});
 
 $("#authoring-form input#starting-position").change(function(evt) {
     try {
@@ -125,19 +106,17 @@ $("#authoring-form input#starting-position").change(function(evt) {
     } catch(e) {
         evt.preventDefault();
     }
-})
+});
 
 $("#use-current-position").click(function(){
     var pos = slider_preview.getPosition();
     pos = pos.replace('%','').split('.')[0];
     $("#starting-position").val(pos);
-    updateEmbedCode();
 });
 
 createSliderFromForm();
 
 var iFrameURL = 'https://cdn.knightlab.com/libs/juxtapose/latest/embed/index.html';
-
 function createIFrameCode(data) {
     var uid = data.uid;
     var url = iFrameURL + '?uid=' + uid;
@@ -154,7 +133,7 @@ function getJSONToPublish() {
     data = {
         'images': imageDataFromForm(),
         'options': optionsFromForm(),
-    }
+    };
     return data;
 }
 
@@ -190,4 +169,59 @@ function publishSlider() {
 $("#publish-slider").click(publishSlider);
 
 
+// THIRD PARTY PICKERS
+
+function processThirdPartyLinks(url, pos) {
+    if (url.indexOf("www.dropbox.com") > 0) {
+        return handleDropboxLink(url, pos);
+    }
+    return url
+}
+
+$('.dropbox-picker').click(function(e) {
+    e.preventDefault();
+
+    var image = $(this).data('image');
+    Dropbox.choose({
+        success: function(files) { handleDropboxPickerLink(files, image); },
+        linkType: "preview", 
+        extensions: ['images']
+    });
+});
+
+function handleDropboxLink(url, pos) {
+    // Warn if /home and not share link
+    if (url.indexOf("home") > 0) { 
+        createWarning($("#" + pos).parent(), "<strong>Not An Image Link:</strong> It looks like you copied the wrong link from Dropbox. Try using the image's <a href='https://www.dropbox.com/help/167' target='_blank'>share url</a>.")
+    }
+
+    if (url.indexOf("?") > 0) {
+        url = url.split("?")[0]
+    }
+    url += "?raw=1"
+    return url;
+}
+
+function handleDropboxPickerLink(files, image) {
+    if (image == 'before') {
+        $("#before-src").val(files[0].link);
+    } else if (image == 'after') {
+        $("#after-src").val(files[0].link);
+    }
+    createSliderFromForm();
+}
+
+// ALERT
+
+function removeAllWarnings() {
+    $(".warning").remove();
+}
+
+function createWarning(elToAppendTo, message) {
+    $warning = "<div class='alert alert-danger warning' role='alert'> \
+                  <span class='icon icon-exclamation-sign' aria-hidden='true'></span> \
+                  <span class='error-message'>" + message + "</span> \
+                </div>"
+    elToAppendTo.append($warning)
+}
 
