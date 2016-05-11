@@ -260,7 +260,7 @@ span.tip-plus {
 
 /* FORMS */
 .input-group input {
-  width: calc(100% - 3em - 12px - 1px - 1em);
+  width: calc(100% - 6em - 12px - 1px - 1em);
 }
 .input-group .buttons {
   display: inline-block;

@@ -175,7 +175,7 @@ function processThirdPartyLinks(url, pos) {
     if (url.indexOf("www.dropbox.com") > 0) {
         return handleDropboxLink(url, pos);
     }
-    return url
+    return url;
 }
 
 $('.dropbox-picker').click(function(e) {
@@ -210,6 +210,94 @@ function handleDropboxPickerLink(files, image) {
     }
     createSliderFromForm();
 }
+
+// GOOGLE API STUFF
+// The Browser API key obtained from the Google Developers Console.
+var developerKey = 'AIzaSyCTSfFKwdxxBf4b7-XVBfFdPear2HS8OFk';
+// The Client ID obtained from the Google Developers Console.
+var clientId = "439829333191-jkvfj8grh008amdkbe1nn2cadcneei50.apps.googleusercontent.com"
+// Scope to use to access user's photos.
+var scope = ['https://www.googleapis.com/auth/drive.readonly'];
+
+var pickerApiLoaded = false;
+var oauthToken;
+
+$('.drive-picker').click(function(e) {
+    var image = $(this).data('image');
+    onApiLoad(image);
+});
+
+// Use the API Loader script to load google.picker and gapi.auth.
+function onApiLoad(image) {
+    console.log(image);
+    gapi.load('auth', {'callback': function() { onAuthApiLoad(image); }});
+    gapi.load('picker', {'callback': function() { onPickerApiLoad(image); }});
+}
+
+function onAuthApiLoad(image) {
+    window.gapi.auth.authorize(
+    {
+      'client_id': clientId,
+      'scope': scope,
+      'immediate': false
+    },
+    handleAuthResult(image));
+}
+
+function onPickerApiLoad(image) {
+    pickerApiLoaded = true;
+    createPicker(image);
+}
+
+function handleAuthResult(authResult, image) {
+    if (authResult && !authResult.error) {
+      oauthToken = authResult.access_token;
+      createPicker(image);
+    }
+}
+
+// Create and render a Picker object for picking user Photos.
+function createPicker(image) {
+    if (pickerApiLoaded && oauthToken) {
+
+        console.log("CREATEPICKER")
+
+        var myImageView = new google.picker.DocsView(google.picker.ViewId.DOCS_IMAGES)
+            .setIncludeFolders(true)
+            .setOwnedByMe(true);
+
+        var sharedImageView = new google.picker.DocsView(google.picker.ViewId.DOCS_IMAGES)
+            .setIncludeFolders(true)
+            .setOwnedByMe(false);
+
+        var picker = new google.picker.PickerBuilder().
+            addView(myImageView).
+            addView(sharedImageView).
+            addView(google.picker.ViewId.PHOTO_UPLOAD).
+            setOAuthToken(oauthToken).
+            setDeveloperKey(developerKey).
+            setCallback(pickerCallback(image)).
+            build();
+        picker.setVisible(true);
+    }
+}
+
+// A simple callback implementation.
+function pickerCallback(data, image) {
+    console.log(image);
+    var id;
+    console.log(data);
+    if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+        var doc = data[google.picker.Response.DOCUMENTS][0];
+        id = doc[google.picker.Document.Id];
+        var message = 'You picked: ' + id;
+
+    }
+}
+
+
+
+
 
 // ALERT
 

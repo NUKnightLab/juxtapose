@@ -24,8 +24,6 @@
 
   <!-- Third Party Choosers -->
   <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="{{ DROPBOX_APP_KEY }}"></script>
-  <script type="text/javascript" src="https://apis.google.com/js/api.js?onload=onApiLoad"></script>
-
 
   {# Google Analytics: don't mess with this stuff #}
   {# named tracker notes from https://developers.google.com/analytics/devguides/collection/gajs/ #}
@@ -154,5 +152,7 @@
   });
   </script>
   {% block extrascripts %}{% endblock %}
+  <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+
 </body>
 </html>
