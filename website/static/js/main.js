@@ -131,14 +131,14 @@ function createIFrameCode(data) {
 
 function getJSONToPublish() {
     data = {
-        'images': imageDataFromForm(),
+        'images': encodeImageData(imageDataFromForm()),
         'options': optionsFromForm(),
     };
     return data;
 }
 
 function callCreateAPI(data) {
-
+    console.log(data);
     $.ajax({
       type: "POST",
       data: JSON.stringify(data),
@@ -169,11 +169,35 @@ function publishSlider() {
 $("#publish-slider").click(publishSlider);
 
 
+// BASE 64 ENCODING
+function encodeImageData(imgData) {
+    var data = imgData;
+    // use existing img element loaded in the juxtapose, not the src from the data
+    data[0].src = encode64BitImg(window.slider_preview.imgBefore.image);
+    data[1].src = encode64BitImg(window.slider_preview.imgAfter.image);
+    return data;
+}
+
+function encode64BitImg(image) {
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    var dataURL;
+    canvas.height = image.height;
+    canvas.width = image.width;
+    ctx.drawImage(image, 0, 0);
+    dataURL = canvas.toDataURL();
+    return dataURL;
+}
+
+
 // THIRD PARTY PICKERS
 
 function processThirdPartyLinks(url, pos) {
     if (url.indexOf("www.dropbox.com") > 0) {
         return handleDropboxLink(url, pos);
+    }
+    if (url.indexOf("drive.google.com") > 0) {
+        return handleDriveURL(url, pos);
     }
     return url;
 }
@@ -192,13 +216,13 @@ $('.dropbox-picker').click(function(e) {
 function handleDropboxLink(url, pos) {
     // Warn if /home and not share link
     if (url.indexOf("home") > 0) { 
-        createWarning($("#" + pos).parent(), "<strong>Not An Image Link:</strong> It looks like you copied the wrong link from Dropbox. Try using the image's <a href='https://www.dropbox.com/help/167' target='_blank'>share url</a>.")
+        createWarning($("#" + pos).parent(), "<strong>Not An Image Link:</strong> It looks like you copied the wrong link from Dropbox. Try using the image's <a href='https://www.dropbox.com/help/167' target='_blank'>share url</a>.");
     }
 
     if (url.indexOf("?") > 0) {
-        url = url.split("?")[0]
+        url = url.split("?")[0];
     }
-    url += "?raw=1"
+    url += "?raw=1";
     return url;
 }
 
@@ -211,6 +235,7 @@ function handleDropboxPickerLink(files, image) {
     createSliderFromForm();
 }
 
+
 // GOOGLE API STUFF
 // The Browser API key obtained from the Google Developers Console.
 var developerKey = 'AIzaSyCTSfFKwdxxBf4b7-XVBfFdPear2HS8OFk';
@@ -221,78 +246,103 @@ var scope = ['https://www.googleapis.com/auth/drive.readonly'];
 
 var pickerApiLoaded = false;
 var oauthToken;
+var apiLoaded = false;
 
 $('.drive-picker').click(function(e) {
     var image = $(this).data('image');
-    onApiLoad(image);
+    if (!apiLoaded) { 
+        onApiLoad(image);
+    } else {
+        createPicker(image);
+    }
 });
+
+function handleDriveURL(url, pos) {
+    createWarning($("#" + pos).parent(), "<strong>Not An Image Link:</strong> It looks like you are trying to use an image from Google Drive. Copy and pasting the link won't work, instead use the Google Drive picker button.");
+    return url;
+}
 
 // Use the API Loader script to load google.picker and gapi.auth.
 function onApiLoad(image) {
-    console.log(image);
     gapi.load('auth', {'callback': function() { onAuthApiLoad(image); }});
     gapi.load('picker', {'callback': function() { onPickerApiLoad(image); }});
 }
 
 function onAuthApiLoad(image) {
-    window.gapi.auth.authorize(
-    {
+    window.gapi.auth.authorize({
       'client_id': clientId,
       'scope': scope,
       'immediate': false
     },
-    handleAuthResult(image));
+    (function(authResult) {
+        handleAuthResult(authResult, image);
+    }));
 }
 
 function onPickerApiLoad(image) {
     pickerApiLoaded = true;
-    createPicker(image);
+    finishedLoadingAPIs(image);
 }
 
 function handleAuthResult(authResult, image) {
     if (authResult && !authResult.error) {
       oauthToken = authResult.access_token;
-      createPicker(image);
+      finishedLoadingAPIs(image);
+    }
+}
+
+function finishedLoadingAPIs(image) {
+    if (pickerApiLoaded && oauthToken) {
+        apiLoaded = true;
+        createPicker(image);
     }
 }
 
 // Create and render a Picker object for picking user Photos.
+// TODO: Dont call this every time you do something probably
 function createPicker(image) {
-    if (pickerApiLoaded && oauthToken) {
+    var myImageView = new google.picker.DocsView(google.picker.ViewId.DOCS_IMAGES)
+        .setIncludeFolders(true)
+        .setOwnedByMe(true);
 
-        console.log("CREATEPICKER")
+    var sharedImageView = new google.picker.DocsView(google.picker.ViewId.DOCS_IMAGES)
+        .setIncludeFolders(true)
+        .setOwnedByMe(false);
 
-        var myImageView = new google.picker.DocsView(google.picker.ViewId.DOCS_IMAGES)
-            .setIncludeFolders(true)
-            .setOwnedByMe(true);
-
-        var sharedImageView = new google.picker.DocsView(google.picker.ViewId.DOCS_IMAGES)
-            .setIncludeFolders(true)
-            .setOwnedByMe(false);
-
-        var picker = new google.picker.PickerBuilder().
-            addView(myImageView).
-            addView(sharedImageView).
-            addView(google.picker.ViewId.PHOTO_UPLOAD).
-            setOAuthToken(oauthToken).
-            setDeveloperKey(developerKey).
-            setCallback(pickerCallback(image)).
-            build();
-        picker.setVisible(true);
-    }
+    var picker = new google.picker.PickerBuilder().
+        addView(myImageView).
+        addView(sharedImageView).
+        addView(google.picker.ViewId.PHOTO_UPLOAD).
+        setOAuthToken(oauthToken).
+        setDeveloperKey(developerKey).
+        setCallback(function(data) {
+            pickerCallback(data, image);
+        }).
+        build();
+    picker.setVisible(true);
 }
 
 // A simple callback implementation.
 function pickerCallback(data, image) {
-    console.log(image);
-    var id;
+    console.log("CALLBACK")
     console.log(data);
     if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
         var doc = data[google.picker.Response.DOCUMENTS][0];
-        id = doc[google.picker.Document.Id];
-        var message = 'You picked: ' + id;
-
+        handleDrivePickerResult(doc, image);
     }
+}
+
+function handleDrivePickerResult(data, image) {
+    if (image == 'before') {
+        $("#before-src").val(driveLinkFromID(data['id']));
+    } else if (image == 'after') {
+        $("#after-src").val(driveLinkFromID(data['id']));
+    }
+    createSliderFromForm();
+}
+
+function driveLinkFromID(id) {
+    return "https://drive.google.com/uc?id=" + id;
 }
 
 
