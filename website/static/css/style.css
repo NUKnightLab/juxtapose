@@ -279,3 +279,9 @@ h6 {
   display: none;
   margin: 10px 0;
 }
+
+.or {
+  display: inline-block;
+  margin-left: 0.625em;
+  font-family: Apres, Helvetica;
+}
