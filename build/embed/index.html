@@ -13,7 +13,7 @@
       padding: 0px;
       margin: 0px;
     }
-    #juxtapose-embed { 
+    #juxtapose-embed {
       width: 100%;
       max-width: initial;
     }
@@ -64,6 +64,12 @@
       xhr.open("GET", url, true);
       xhr.send();
     }
+
+    var oembed_link = document.createElement('link');
+    oembed_link['rel'] = 'alternate';
+    oembed_link['type'] = 'application/json+oembed';
+    oembed_link['href'] = 'https://oembed.knightlab.com/juxtapose/?url=' + encodeURIComponent(window.location.href);
+    document.head.appendChild(oembed_link);
 
   </script>
 
