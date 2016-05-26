@@ -175,6 +175,11 @@ function processThirdPartyLinks(url, pos) {
     if (url.indexOf("www.dropbox.com") > 0) {
         return handleDropboxLink(url, pos);
     }
+
+    if (url.indexOf("drive.google.com") > 0) {
+        return handleGoogleDriveLink(url, pos);
+    }
+
     return url
 }
 
@@ -209,6 +214,17 @@ function handleDropboxPickerLink(files, image) {
         $("#after-src").val(files[0].link);
     }
     createSliderFromForm();
+}
+
+function handleGoogleDriveLink(url, pos) {
+    // https://drive.google.com/open?id=0By5R-j9oQKMJQUlYRFVSQ1pWZWc
+    var re = /^https:\/\/drive\.google\.com\/open\?id=(.*)$/;
+    if (url.match(re)) {
+        var correctedUrl = "https://drive.google.com/uc?export=view&id=" + url.match(re)[1]
+        createWarning($("#" + pos).parent(), "<strong>Not An Image Link:</strong> It looks like you're trying to use the share link from Google Drive, which doesn't work as an image link. We've swapped it out with <a href='" + correctedUrl + "' target='_blank'>this one instead</a>.");
+    }
+
+    return correctedUrl;
 }
 
 // ALERT
