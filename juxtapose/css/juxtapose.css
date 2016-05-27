@@ -11,6 +11,7 @@ div.jx-slider {
 	cursor: pointer;
 }
 
+
 div.jx-handle {
 	position: absolute;
 	height: 100%;
@@ -20,6 +21,17 @@ div.jx-handle {
 	margin-left: -20px;
 }
 
+div.jx-control {
+	box-shadow: 0px -1px 10px 1px rgba(0,0,0,0.4)
+}
+
+div.jx-controller {
+	box-shadow: 
+		0 5px 0px 0px white,
+		0 -5px 0px 0px white,
+		1px 0 10px -2px rgba(0,0,0,0.4),
+		-1px 0 10px -2px rgba(0,0,0,0.4);
+}
 
 .vertical div.jx-handle {
 	height: 40px;
