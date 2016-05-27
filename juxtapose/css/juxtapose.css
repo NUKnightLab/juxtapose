@@ -21,16 +21,16 @@ div.jx-handle {
 	margin-left: -20px;
 }
 
-div.jx-control {
-	box-shadow: 0px -1px 10px 1px rgba(0,0,0,0.4)
+div.jx-arrow {
+	box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.3);
 }
 
 div.jx-controller {
-	box-shadow: 
-		0 5px 0px 0px white,
-		0 -5px 0px 0px white,
-		1px 0 10px -2px rgba(0,0,0,0.4),
-		-1px 0 10px -2px rgba(0,0,0,0.4);
+	// box-shadow: 
+	// 	0 4px 0px 0px #f3f3f3,
+	// 	0 -4px 0px 0px #f3f3f3,
+	// 	0px 0px 4px 1px rgba(0,0,0,0.3),
+	// 	0px 0px 4px 1px rgba(0,0,0,0.3);
 }
 
 .vertical div.jx-handle {
@@ -46,13 +46,13 @@ div.jx-control {
 	margin-right: auto;
 	margin-left: auto;
 	width: 3px;
-	background-color: white;
+	background-color: #f3f3f3;
 }
 
 .vertical div.jx-control {
 	height: 3px;
 	width: 100%;
-	background-color: white;
+	background-color: #f3f3f3;
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);
@@ -66,7 +66,7 @@ div.jx-controller {
 	height: 60px;
 	width: 9px;
 	margin-left: -3px;
-	background-color: white;
+	background-color: #f3f3f3;
 }
 
 .vertical div.jx-controller {
@@ -103,14 +103,14 @@ div.jx-arrow.jx-left {
 	left: 2px;
 	border-style: solid;
 	border-width: 8px 8px 8px 0;
-	border-color: transparent #FFF transparent transparent;
+	border-color: transparent #f3f3f3 transparent transparent;
 }
 
 div.jx-arrow.jx-right {
 	right: 2px;
 	border-style: solid;
 	border-width: 8px 0 8px 8px;
-	border-color: transparent transparent transparent #FFF;
+	border-color: transparent transparent transparent #f3f3f3;
 }
 
 .vertical div.jx-arrow.jx-left {
@@ -118,7 +118,7 @@ div.jx-arrow.jx-right {
 	top: 2px;
 	border-style: solid;
 	border-width: 0px 8px 8px 8px;
-	border-color: transparent transparent #FFF transparent;
+	border-color: transparent transparent #f3f3f3 transparent;
 }
 
 .vertical div.jx-arrow.jx-right {
@@ -127,7 +127,7 @@ div.jx-arrow.jx-right {
 	bottom: 2px;
 	border-style: solid;
 	border-width: 8px 8px 0 8px;
-	border-color: #FFF transparent transparent transparent;
+	border-color: #f3f3f3 transparent transparent transparent;
 }
 
 div.jx-handle:hover div.jx-arrow.jx-left,
