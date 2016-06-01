@@ -12,3 +12,4 @@ sys.stdout = sys.stderr
 os.environ.setdefault('FLASK_SETTINGS_MODULE', 'core.settings.stg')
 
 from app import app as application
+app.debug = True
