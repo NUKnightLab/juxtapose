@@ -117,7 +117,7 @@ $("#use-current-position").click(function(){
 createSliderFromForm();
 
 var iFrameURL = 'https://cdn.knightlab.com/libs/juxtapose/latest/embed/index.html';
-function createIFrameCode(data) {
+function updateEmbedCodes(data) {
     var uid = data.uid;
     var url = iFrameURL + '?uid=' + uid;
     var images = [slider_preview.imgBefore.image, slider_preview.imgAfter.image];
@@ -126,6 +126,7 @@ function createIFrameCode(data) {
     var height = slider_preview.calculateDims(setDims("naturalWidth", images), null).height;
     code = '<iframe frameborder="0" class="juxtapose" width="' + width + '" height="' + height + '" src="' + url + '"></iframe>';
     $('#embed-code').text(code);
+    $('#oembed-url').val(url);
 
 }
 
@@ -147,7 +148,7 @@ function callCreateAPI(data) {
       url: "/juxtapose/create/",
       complete: function(data) { $("#publish-slider").removeClass('disabled'); },
       success: function(data) {
-        createIFrameCode(data);
+        updateEmbedCodes(data);
       },
       error: function(xhr, status, errorMsg) {
         $("#publish-error").html("<strong>Error:</strong> " + errorMsg).show();
@@ -161,7 +162,7 @@ function publishSlider() {
     if (!$("#publish-slider").hasClass('disabled')) {
         $("#publish-error").html("").hide();
         $("#publish-slider").addClass('disabled');
-        $("#publish-note").show();
+        $(".show-after-publish").show();
         data = getJSONToPublish();
         callCreateAPI(data);
     }
@@ -189,14 +190,14 @@ $('.dropbox-picker').click(function(e) {
     var image = $(this).data('image');
     Dropbox.choose({
         success: function(files) { handleDropboxPickerLink(files, image); },
-        linkType: "preview", 
+        linkType: "preview",
         extensions: ['images']
     });
 });
 
 function handleDropboxLink(url, pos) {
     // Warn if /home and not share link
-    if (url.indexOf("home") > 0) { 
+    if (url.indexOf("home") > 0) {
         createWarning($("#" + pos).parent(), "<strong>Not An Image Link:</strong> It looks like you copied the wrong link from Dropbox. Try using the image's <a href='https://www.dropbox.com/help/167' target='_blank'>share url</a>.")
     }
 
@@ -240,4 +241,3 @@ function createWarning(elToAppendTo, message) {
                 </div>"
     elToAppendTo.append($warning)
 }
-

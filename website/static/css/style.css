@@ -22,7 +22,7 @@ a.help {
 }
 
 #update-preview {
-  margin-top: 
+  margin-top:
 }
 
 #update-preview-wrapper { margin-top: 20px;}
@@ -288,12 +288,18 @@ h6 {
   height: 100px;
 }
 
-#publish-note {
+#oembed-url {
+  height: 3em;
+}
+.show-after-publish {
   display: none;
+}
+
+.publish-note {
   font-size: smaller;
   font-style: italic;
   margin-top: -30px;
-  padding: 0 20px 0;
+  padding: 0 20px 0 0;
 }
 
 #publish-error {
