@@ -7,12 +7,6 @@ type: flask
 init_env_common:
   PROJECT_NAME: "{{ project_name }}"
   APPLICATION_DOMAINS: "{{ domains }}" # space-delimited
-  DB_ENGINE__DEFAULT: "django.db.backends.postgresql_psycopg2"
-  DB_NAME__DEFAULT: "{{ project_name }}_{{ env }}"
-  DB_USER__DEFAULT: "{{ vault_db_user__default }}"
-  DB_PASSWORD__DEFAULT: "{{ vault_db_password__default }}"
-  DB_HOST__DEFAULT: "{{ vault_db_host__default }}"
-  DB_PORT__DEFAULT: "{{ vault_db_port__default }}"
   FLASK_SECRET_KEY: "{{ vault_flask_secret_key }}"
   AWS_ACCESS_KEY_ID: "{{ vault_aws_access_key_id }}"
   AWS_SECRET_ACCESS_KEY: "{{ vault_aws_secret_access_key }}"
