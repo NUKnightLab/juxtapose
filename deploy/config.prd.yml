@@ -1,0 +1,18 @@
+domains: "{{ project_name }}.knightlab.com"
+staticbucket: "media.knightlab.com/{{ project_name }}"
+gunicorn_reload: False
+
+ssl:
+  ssl_certificate: "/etc/nginx/ssl/knightlab/knightlab-bundle.crt"
+  ssl_certificate_key: "/etc/nginx/ssl/knightlab/knightlab-com.key"
+
+init_env_prd:
+  STATIC_URL: "//media.knightlab.com/{{ project_name }}/"
+  AWS_STORAGE_BUCKET_NAME: "uploads.knightlab.com"
+  AWS_STORAGE_BUCKET_URL: "//s3.amazonaws.com/uploads.knightlab.com/"
+  AWS_STORAGE_BUCKET_KEY: "{{ project_name }}"
+  CDN_URL: "//s3.amazonaws.com/cdn.knightlab.com/libs/juxtapose/latest/"
+
+# Note that env vars set in the upstart config will also be set when using the
+# modified manage.py file for db migration and custom management commands
+init_env: "{{ init_env_common|combine(init_env_prd) }}"

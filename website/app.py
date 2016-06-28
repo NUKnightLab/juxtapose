@@ -23,7 +23,7 @@ except ImportError, e:
 
 
 app = Flask(__name__)
-app.config.from_envvar('FLASK_CONFIG_MODULE')
+app.config.from_envvar('FLASK_SETTINGS_FILE')
 
 settings = sys.modules[settings_module]
 

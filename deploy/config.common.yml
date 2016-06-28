@@ -1,0 +1,51 @@
+project_name: juxtapose
+port: 9015
+python: python2
+type: flask
+
+# these will be merged with deployment-specific env into init_env
+init_env_common:
+  PROJECT_NAME: "{{ project_name }}"
+  APPLICATION_DOMAINS: "{{ domains }}" # space-delimited
+  DB_ENGINE__DEFAULT: "django.db.backends.postgresql_psycopg2"
+  DB_NAME__DEFAULT: "{{ project_name }}_{{ env }}"
+  DB_USER__DEFAULT: "{{ vault_db_user__default }}"
+  DB_PASSWORD__DEFAULT: "{{ vault_db_password__default }}"
+  DB_HOST__DEFAULT: "{{ vault_db_host__default }}"
+  DB_PORT__DEFAULT: "{{ vault_db_port__default }}"
+  FLASK_SECRET_KEY: "{{ vault_flask_secret_key }}"
+  AWS_ACCESS_KEY_ID: "{{ vault_aws_access_key_id }}"
+  AWS_SECRET_ACCESS_KEY: "{{ vault_aws_secret_access_key }}"
+  DROPBOX_APP_KEY: "{{ vault_dropbox_app_key }}"
+  DROPBOX_APP_SECRET: "{{ vault_dropbox_app_secret }}"
+  FLASK_SETTINGS_MODULE: "core.settings"
+  FLASK_SETTINGS_FILE: "core/settings.py"
+
+
+# Flask specific configs
+static_dir: "{{ application_dir }}/static"
+
+application_dir: "{{ deploy_dir }}/website"
+
+# Configs below will not usually change
+deploy_dir: "{{ install_root }}/{{ project_name }}"
+env_setup_script: "{{ deploy_dir }}/env.sh"
+env_run_script: "{{ deploy_dir }}/env_run.sh"
+project_repo: "git@github.com:NUKnightLab/{{ project_name }}.git"
+requirements_file: "{{ deploy_dir }}/requirements.txt"
+virtualenv: "{{ virtualenv_root }}/{{ project_name }}"
+wsgi_application: "core.wsgi:application"
+service_name: "apps/{{ project_name }}" # application services are now kept
+                                        # in /etc/init/apps
+
+
+# Configs common to all projects
+application_user: apps
+install_root: /home/{{ application_user }}/sites
+virtualenv_root: /home/{{ application_user }}/env
+
+# environment keys must match deployment branch names. Value is the name
+# of the branch to be merged into this environment during deployment.
+supported_envs:
+  stg: master
+  prd: stg
