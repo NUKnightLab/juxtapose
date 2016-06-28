@@ -1,4 +1,4 @@
-from os.path import dirname
+from os.path import dirname, abspath
 from os import environ as env
 
 CORE_ROOT = dirname(dirname(abspath(__file__)))
