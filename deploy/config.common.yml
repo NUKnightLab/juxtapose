@@ -1,3 +1,4 @@
+# git-deploy 1.0.1
 project_name: juxtapose
 port: 9015
 python: python2
