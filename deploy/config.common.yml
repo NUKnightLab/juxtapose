@@ -1,5 +1,5 @@
-# git-deploy 1.0.1
 project_name: juxtapose
+gitdeploy_version: "1.0.1"
 port: 9015
 python: python2
 type: flask
