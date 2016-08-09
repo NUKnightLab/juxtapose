@@ -1,5 +1,5 @@
 domains: "{{ project_name }}.knightlab.com"
-staticbucket: "media.knightlab.com/{{ project_name }}"
+static_bucket: "media.knightlab.com"
 gunicorn_reload: False
 
 ssl:
