@@ -23,29 +23,18 @@
       slider._onLoaded();
     };
 
-    this.image.src = properties.src;
-    this.label = properties.label || false;
-    this.credit = properties.credit || false;
-  }
-
-  function FlickrGraphic(properties, slider) {
-    var self = this;
-    this.image = new Image();
-
-    this.loaded = false;
-    this.image.onload = function() {
-      self.loaded = true;
-      slider._onLoaded();
-    };
-
-    this.flickrID = this.getFlickrID(properties.src);
-    this.callFlickrAPI(this.flickrID, self);
+    if (checkFlickr(properties.src)) {
+        this.flickrID = this.getFlickrID(properties.src);
+        this.callFlickrAPI(this.flickrID, self);
+    } else {
+        this.image.src = properties.src;
+    }
 
     this.label = properties.label || false;
     this.credit = properties.credit || false;
   }
 
-  FlickrGraphic.prototype = {
+  Graphic.prototype = {
     getFlickrID: function(url) {
       var idx = url.indexOf("flickr.com/photos/");
       var pos = idx + "flickr.com/photos/".length;
@@ -267,19 +256,8 @@
     }
 
     if (images.length == 2) {
-
-      if(checkFlickr(images[0].src)) {
-        this.imgBefore = new FlickrGraphic(images[0], this);
-      } else {
         this.imgBefore = new Graphic(images[0], this);
-      }
-
-      if(checkFlickr(images[1].src)) {
-        this.imgAfter = new FlickrGraphic(images[1], this);
-      } else {
         this.imgAfter = new Graphic(images[1], this);
-      }
-
     } else {
       console.warn("The images parameter takes two Image objects.");
     }
