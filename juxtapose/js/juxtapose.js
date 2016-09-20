@@ -456,7 +456,6 @@
         this.rightImage.className = 'jx-image jx-right';
         this.rightImage.appendChild(this.imgAfter.image);
 
-
         this.leftImage = document.createElement("div");
         this.leftImage.className = 'jx-image jx-left';
         this.leftImage.appendChild(this.imgBefore.image);
