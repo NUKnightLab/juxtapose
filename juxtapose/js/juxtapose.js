@@ -345,6 +345,17 @@
             addClass(this.slider, "jx-error");
             this.errorNotice = document.createElement("div");
             this.errorNotice.className = 'jx-error-notice';
+            this.errorText = document.createElement("p");
+            this.errorText.className = 'jx-error-text';
+            setText(this.errorText, "There was a problem loading the images for this Juxtapose image slider.");
+            this.errorLink = document.createElement("a");
+            this.errorLink.href = 'http://juxtapose.knightlab.com';
+            this.errorLink.className = 'jx-error-link';
+            setText(this.errorLink, "Learn more here.");
+
+            this.errorNotice.appendChild(this.errorText);
+            this.errorNotice.appendChild(this.errorLink);
+
             this.slider.appendChild(this.errorNotice);
         },
 
@@ -499,7 +510,7 @@
 
                         this.wrapper.style.width = '100%';
                         this.setWrapperDimensions();
-                        
+
                         this.displayError();
 
                         var self = this;

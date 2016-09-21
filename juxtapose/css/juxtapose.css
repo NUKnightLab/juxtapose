@@ -352,6 +352,31 @@ a.jx-knightlab:focus span.juxtapose-name{
 
 /* Error */
 div.jx-error {
-	background-color: grey;
+	display: table;
+	background-color: #ddd;
 	cursor: default;
+}
+div.jx-error-notice {
+	display: table-cell;
+	vertical-align: middle;
+	padding: 35px;
+}
+
+p.jx-error-text,
+a.jx-error-link {
+	max-width: 400px;
+	margin: 0 auto;
+	display: block;
+	text-align: center;
+}
+
+p.jx-error-text {
+	color: #147693;
+	font-weight: bold;
+}
+
+a.jx-error-link {
+	margin-top: 1em;
+	font-size: .875em;
+	color: #c34528;
 }
