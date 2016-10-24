@@ -165,7 +165,7 @@ div.jx-image {
 .vertical div.jx-image {
 	width: 100%;
 	left: 0;
-	top: initial;
+	top: auto;
 }
 
 div.jx-image img {
@@ -181,7 +181,7 @@ div.jx-image img {
 }
 
 .vertical div.jx-image img {
-	height: initial;
+	height: auto;
 	width: 100%;
 }
 
