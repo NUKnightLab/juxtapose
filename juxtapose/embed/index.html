@@ -44,8 +44,6 @@
             json.images[0].src += "?" + new Date().getTime();
             json.images[1].src += "?" + new Date().getTime();
         }
-
-        console.log(json.images[0].src)
         slider = new juxtapose.JXSlider('#juxtapose-embed', json.images, json.options);
     }
 
