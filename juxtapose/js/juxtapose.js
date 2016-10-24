@@ -342,14 +342,22 @@
         },
 
         displayError: function() {
+
+            console.log(this.imgBefore);
+            var whichImg = '';
+            if (!this.imgBefore.loaded) { whichImg = 'left image'; }
+            if (!this.imgAfter.loaded) { whichImg = 'right image'; }
+            if (!this.imgBefore.loaded && !this.imgAfter.loaded) { whichImg = 'images'; }
+
             addClass(this.slider, "jx-error");
             this.errorNotice = document.createElement("div");
             this.errorNotice.className = 'jx-error-notice';
             this.errorText = document.createElement("p");
             this.errorText.className = 'jx-error-text';
-            setText(this.errorText, "There was a problem loading the images for this Juxtapose image slider.");
+            setText(this.errorText, "There was a problem loading the " + whichImg + " for this Juxtapose image slider.");
             this.errorLink = document.createElement("a");
             this.errorLink.href = 'http://juxtapose.knightlab.com';
+            this.errorLink.target = '_blank';
             this.errorLink.className = 'jx-error-link';
             setText(this.errorLink, "Learn more here.");
 
