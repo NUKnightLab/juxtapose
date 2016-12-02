@@ -221,7 +221,7 @@
     } else {
       var sliderRect = slider.getBoundingClientRect();
       var offset = {
-        top: sliderRect.top + document.body.scrollTop,
+        top: sliderRect.top + (document.documentElement || document.body.parentNode || document.body).scrollTop,
         left: sliderRect.left + document.body.scrollLeft
       };
       var width = slider.offsetHeight;
