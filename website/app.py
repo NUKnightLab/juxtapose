@@ -12,7 +12,7 @@ import boto
 # Import settings module
 if __name__ == "__main__":
     if not os.environ.get('FLASK_SETTINGS_MODULE', ''):
-        os.environ['FLASK_SETTINGS_MODULE'] = 'core.settings.loc'
+        os.environ['FLASK_SETTINGS_MODULE'] = 'core.settings'
 
 settings_module = os.environ.get('FLASK_SETTINGS_MODULE')
 
