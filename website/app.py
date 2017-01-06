@@ -62,6 +62,11 @@ def inject_urls():
         DROPBOX_APP_KEY=dropbox_app_key, dropbox_app_key=dropbox_app_key)
 
 
+@app.route('/orangeline')
+def orangeline():
+    return render_template('orangeline.html')
+
+
 @app.route('/')
 @app.route('/<path:path>')
 def catch_all(path='index.html', context=None):
