@@ -1,0 +1,78 @@
+    <section class="section-color fill-color-grey--lightest" id="examples">
+        <div class="container">
+        <h2>Examples</h2>
+        <div class="example-grid">
+        {% for example in examples %}
+        {#
+            Add/edit examples in the examples.json file.
+            Depends upon inject_index_data in app.py for these to be available to render.
+        #}
+        <div class="grid-item">
+            <a href="{{ example.link }}" class="button button-light" target="_blank">
+                <figure class="examples">
+                    <img src="{{ example.thumbnail }}" alt="{{ example.title }}">
+                </figure>
+                <img src="{{ example.source_logo }}" alt="{{ example.source }}" class="logo-inline">
+                <h4>{{ example.title }}</h4>
+            </a>
+        </div>
+        {% endfor %}
+    </section>
+
+{# TODO: Add these to examples.json
+
+                <div class="grid-item">
+                    <a href="http://apps.washingtonpost.com/g/page/world/map-how-isis-is-carving-out-a-new-country/1095/" class="button button-light">
+                        <figure class="examples">
+                            <img src="https://media.knightlab.com/StoryMapJS/img/thumbnails/thumb_islamicstate.jpg" alt="How the Islamic State is Carving out a New Country">
+                        </figure>
+                        <img src="https://media.knightlab.com/StoryMapJS/img/logos/logo_wapo.png" class="logo-inline">
+                        <h4>How the Islamic State is Carving out a New Country</h4>
+                    </a>
+                </div>
+                <div class="grid-item">
+                    <a href="http://extras.thetimes.co.uk/public/2014/maps/25-02/Yanukovych_storymap.html" class="button button-light">
+                        <figure class="examples">
+                            <img src="https://media.knightlab.com/StoryMapJS/img/thumbnails/thetimes_victor_yanukovych.jpg" alt="Yanukovych on the Run">
+                        </figure>
+                        <img src="https://media.knightlab.com/StoryMapJS/img/logos/logo_thetimes.png" class="logo-inline">
+                        <h4>Yanukovych on the Run</h4>
+                    </a>
+                </div>
+                <div class="grid-item">
+                    <a href="http://www.minnpost.com/stroll/2014/06/hockey-hip-hop-and-other-green-line-highlights" class="button button-light">
+                        <figure class="examples">
+                            <img src="https://media.knightlab.com/StoryMapJS/img/thumbnails/thumb_greenline.jpg" alt="Hockey, Hip-hop, and Other Green Line Highlights">
+                        </figure>
+                        <img src="https://media.knightlab.com/StoryMapJS/img/logos/logo_minn.png" class="logo-inline">
+                        <h4>Hockey, Hip-hop, and Other Green Line Highlights</h4>
+                    </a>
+                </div>
+                <div class="grid-item">
+                    <a href="http://thecityjournal.net/data-alex-tutorial/0-89-million-pounds-expensive-transfers-football-history/" class="button button-light">
+                        <figure class="examples">
+                            <img src="https://media.knightlab.com/StoryMapJS/img/thumbnails/thumb_football.png" alt="From 0-89 Million Pounds - The Most Expensive Transfers in Football History">
+                        </figure>
+                        <img src="https://media.knightlab.com/StoryMapJS/img/logos/logo_city_journal.png" class="logo-inline">
+                        <h4>From 0-89 Million Pounds - The Most Expensive Transfers in Football History</h4>
+                    </a>
+                </div>
+                <div class="grid-item">
+                    <a href="https://storymap.knightlab.com/examples/aryas-journey/" class="button button-light">
+                        <figure class="examples">
+                            <img src="https://media.knightlab.com/StoryMapJS/img/thumbnails/knightlab_arya.png" alt="Game of Thrones: Arya&#x27;s Journey">
+                        </figure>
+
+                        <h4>Game of Thrones: Arya&#x27;s Journey</h4>
+                    </a>
+                </div>
+                <div class="grid-item">
+                    <a href="https://storymap.knightlab.com/examples/bosch-garden/" class="button button-light">
+                        <figure class="examples">
+                            <img src="https://media.knightlab.com/StoryMapJS/img/thumbnails/knightlab_bosch.png" alt="Hieronymus Bosch: Garden of Earthly Delights">
+                        </figure>
+
+                        <h4>Hieronymus Bosch: Garden of Earthly Delights</h4>
+                    </a>
+                </div>
+#}

@@ -15,6 +15,8 @@ if __name__ == "__main__":
         os.environ['FLASK_SETTINGS_MODULE'] = 'core.settings'
 
 settings_module = os.environ.get('FLASK_SETTINGS_MODULE')
+examples_json = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'examples.json')
+faq_json = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'faq.json')
 
 try:
     importlib.import_module(settings_module)
@@ -62,9 +64,14 @@ def inject_urls():
         DROPBOX_APP_KEY=dropbox_app_key, dropbox_app_key=dropbox_app_key)
 
 
+@app.context_processor
+def inject_index_data():
+    return dict(examples=json.load(open(examples_json)),faqs=json.load(open(faq_json)))
+
+
 @app.route('/orangeline')
 def orangeline():
-    return render_template('orangeline.html')
+    return render_template('orangeline/index.html')
 
 
 @app.route('/')
