@@ -69,11 +69,6 @@ def inject_index_data():
     return dict(examples=json.load(open(examples_json)),faqs=json.load(open(faq_json)))
 
 
-@app.route('/orangeline')
-def orangeline():
-    return render_template('orangeline/index.html')
-
-
 @app.route('/')
 @app.route('/<path:path>')
 def catch_all(path='index.html', context=None):
