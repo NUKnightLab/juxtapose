@@ -42,5 +42,5 @@ virtualenv_root: /home/{{ application_user }}/env
 # environment keys must match deployment branch names. Value is the name
 # of the branch to be merged into this environment during deployment.
 supported_envs:
-  stg: master
+  stg: orangeline
   prd: stg
