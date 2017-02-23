@@ -57,7 +57,6 @@ function createSliderFromForm() {
     };
 
     window.slider_preview = new juxtapose.JXSlider("#create-slider-preview", imageDataFromForm(), opts);
-
 }
 
 $("#update-preview").click(createSliderFromForm);
@@ -76,19 +75,19 @@ function updateEmbedCode() {
     var opts = optionsFromForm();
 }
 
-$('a.help').popover({
-    trigger: 'manual'
-}).click(function(event) {
-    if(!$(this).next().hasClass('popover')) {
-        $('a.help').not(this).popover('hide');
-    }
-    $(this).popover('toggle');
-    event.stopPropagation();
-});
-
-$(document).click(function(e) {
-    $('a.help').popover('hide');
-});
+// $('a.help').popover({
+//     trigger: 'manual'
+// }).click(function(event) {
+//     if(!$(this).next().hasClass('popover')) {
+//         $('a.help').not(this).popover('hide');
+//     }
+//     $(this).popover('toggle');
+//     event.stopPropagation();
+// });
+//
+// $(document).click(function(e) {
+//     $('a.help').popover('hide');
+// });
 
 
 $("#authoring-form input.auto-update").change(function(evt) {
@@ -235,7 +234,7 @@ function removeAllWarnings() {
 }
 
 function createWarning(elToAppendTo, message) {
-    $warning = "<div class='alert alert-danger warning' role='alert'> \
+    $warning = "<div class='alert alert-danger warning column-12 note' role='alert'> \
                   <span class='icon icon-exclamation-sign' aria-hidden='true'></span> \
                   <span class='error-message'>" + message + "</span> \
                 </div>"
