@@ -60,15 +60,30 @@ Files in the `website` directory are specific to the website.
 `config.json` is used to control building, staging, and deployment
 
 
-## Deploying to the CDN
+## Deploying Juxtapose to the KnightLab CDN
+
+#### `fab stage` to create a version number:
 
 To stage your changes to a versioned directory in your local CDN repository, type `fab stage` This runs a build, copies the files into a versioned directory in your local `cdn.knightlab.com` repository, and tags the last commit with a version number.
 
+#### `fab stage_dev` to copy current code to CDN dev path:
+
+To stage your changes to the `dev` directory in your local CDN repository, type `fab stage_dev` This copies files from a versioned directory in your local `cdn.knightlab.com` respository into the corresponding `dev` directory.
+
+#### `fab stage_latest` to copy current code to CDN latest path:
+
 To stage your changes to the `latest` directory in your local CDN repository, type `fab stage_latest` This copies files from a versioned directory in your local `cdn.knightlab.com` respository into the corresponding `latest` directory.
 
-You must push and deploy all CDN changes separately from that repository.
+#### Deploy to CDN
+
+Commit copied changes within the `cdn.knightlab.com` repo and run `fab deploy`
 
 
-## Deploying to S3 (timeline.knightlab.com)
+## Deploying the website
 
-To deploy to S3, type `fab stg deploy` or `fab prd deploy` depending on whether you want to deploy it to the production or testing server.
+The website deployment is managed by git-deploy:
+
+`git deploy stg`
+`git deploy prd`
+
+Note that env var configs in git deploy set the CDN paths for these respective deployments. Staging (juxtapose.knilab.com) uses the current dev version of the CDN. Production (juxtapose.knightlab.com) uses the latest version of the CDN
