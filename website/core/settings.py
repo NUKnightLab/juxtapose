@@ -3,7 +3,6 @@ from os import environ as env
 
 CORE_ROOT = dirname(dirname(abspath(__file__)))
 PROJECT_ROOT = dirname(CORE_ROOT)
-JUXTAPOSE_ROOT = dirname(PROJECT_ROOT)
 
 STATIC_URL = env['STATIC_URL']
 CDN_URL = env['CDN_URL']

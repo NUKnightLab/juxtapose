@@ -40,6 +40,13 @@
     # Install python requirements
     pip install -r requirements.txt
 
+    # copy env.sh.example to env.sh, edit it for your environment
+
+## Running for development
+
+    # source env.sh
+    . env.sh
+
     # Run the development server
     fab serve
 
@@ -51,8 +58,6 @@ Files in the inner `juxtapose` directory are resources for deployment to the CDN
 Files in the `website` directory are specific to the website.
 
 `config.json` is used to control building, staging, and deployment
-
-If you're making changes to anything that eventually ends up in the `build` directory (e.g. anything in the `juxtapose` directory), it is recommended that you run a simple HTTP server in a separate window to serve up those files, because otherwise the website won't have access to them. To do this, `cd` into the root directory of the project and run `python -m SimpleHTTPServer`. You will also have to change your `env.sh` file to have `export CDN_URL="http://localhost:<port number>/build/"` and run `source env.sh` in order to save your changes.
 
 
 ## Deploying to the CDN
