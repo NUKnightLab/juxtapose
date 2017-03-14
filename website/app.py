@@ -29,8 +29,8 @@ app.config.from_envvar('FLASK_SETTINGS_FILE')
 
 settings = sys.modules[settings_module]
 
-build_dir = os.path.join(settings.JUXTAPOSE_ROOT, 'build')
-source_dir = os.path.join(settings.JUXTAPOSE_ROOT, 'juxtapose')
+build_dir = os.path.join(settings.PROJECT_ROOT, 'build')
+source_dir = os.path.join(settings.PROJECT_ROOT, 'juxtapose')
 
 
 @app.context_processor
@@ -87,6 +87,14 @@ def catch_source(path):
     Serve /source/... urls from the source directory
     """
     return send_from_directory(source_dir, path)
+
+
+@app.route('/build/<path:path>')
+def catch_build(path):
+    """
+    Serve urls from the build directory
+    """
+    return send_from_directory(build_dir, path)
 
 
 # Juxtapose API
