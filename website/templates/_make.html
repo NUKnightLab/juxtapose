@@ -5,11 +5,11 @@
                 <p>
                     It is free, easy to use, and works on all devices. All you need to get started are links to the images you'd like to compare.
                 </p>
+                <form id="authoring-form">
                 <h4>Images</h4>
                 <div class="grid">
                     <div class="column-6">
                         <h6>Left Image</h6>
-                        <form>
                             <div class="input-group-label">
                                 <label class="input-group-addon" for="inlinelabel">URL</label>
                                 <input id="before-src" class="urlBox auto-update" type="text" value="https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg" name="inlinelabel">
@@ -28,11 +28,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
                     </div>
                     <div class="column-6">
                         <h6>Right Image</h6>
-                        <form>
                             <div class="input-group-label">
                                 <label class="input-group-addon" for="inlinelabel">URL</label>
                                 <input id="after-src" class="urlBox auto-update" type="text" value="https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg" name="inlinelabel">
@@ -51,11 +49,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
                     </div>
                     <div class="column-3">
                         <h4>Options</h4>
-                        <form>
                             <div class="input-group-label">
                                 <label for="slider-start">Slider start position</label>
                                 <input id="starting-position" type="number" size="2" placeholder="50" value="50" min="0" max="100" name="slider-start" step="1" style=" width: 70px;">
@@ -91,7 +87,7 @@
                                 {# No equiv popup fcn in orangeline. Commented for now
                                 <a class="help" href="javascript:" data-placement="right" data-content="If checked, the divider will move vertically instead of horizontally." data-original-title="" title="">&nbsp;<i class="icon-question-sign icon-large"></i></a> #}
                             </div>
-                        </form>
+                        </form> <!-- #autoring-form -->
                         <!-- % <a href="javascript:" id="use-current-position">(use current position)</a> -->
                         <!-- <p class="note">
                             You don't have to start with the slider in the middle. You can set it anywhere if that tells your story better.
