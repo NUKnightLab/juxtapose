@@ -345,3 +345,17 @@ input#starting-position {
     margin-left: 3px;
     width: 40px;
 }
+
+a.button.dropbox-picker {
+    position: relative;
+    top: 7px;
+    height: 2.3125rem;
+    width: 3rem;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fa-dropbox {
+    font-size: 2rem;
+}
