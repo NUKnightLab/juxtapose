@@ -319,3 +319,29 @@ h6 {
   margin-left: 0.625em;
   font-family: Apres, Helvetica;
 }
+
+#authoring-form  .column-3,.column-6,.column-9 {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+#authoring-form h4,h6 {
+    margin-top: 0px;
+}
+
+.show-after-publish textarea{
+    margin-bottom: 1rem;
+}
+
+.show-after-publish textarea:last-of-type{
+    margin-bottom: 0px;
+}
+
+label[for=slider-start] {
+    font-size: 80%;
+}
+
+input#starting-position {
+    margin-left: 3px;
+    width: 40px;
+}
