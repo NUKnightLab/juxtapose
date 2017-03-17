@@ -112,9 +112,7 @@ def upload_juxtapose_json():
         uid = _get_uid()
         s3 = boto.connect_s3(
             aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-            calling_format=OrdinaryCallingFormat(),
-            host='s3-us-east-1.amazonaws.com')
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
         bucket = s3.get_bucket(settings.AWS_STORAGE_BUCKET_NAME)
         k = boto.s3.key.Key(bucket)
         k.key = 'juxtapose/' + uid + '.json'
