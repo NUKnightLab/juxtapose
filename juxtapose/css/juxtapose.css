@@ -170,6 +170,7 @@ div.jx-image {
 
 div.jx-image img {
 	height: 100%;
+	width: auto;
 	z-index: 5;
 	position: absolute;
 	margin-bottom: 0;
