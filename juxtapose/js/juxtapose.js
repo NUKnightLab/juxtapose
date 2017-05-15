@@ -384,7 +384,7 @@
     },
 
     responsivizeIframe: function(dims){
-      //Check the slider dimensions against the iframe (window) dimensions
+//Check the slider dimensions against the iframe (window) dimensions
       if (dims.height < window.innerHeight){
         //If the aspect ratio is greater than 1, imgs are landscape, so letterbox top and bottom
         if (dims.ratio >= 1){

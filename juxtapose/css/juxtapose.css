@@ -1,6 +1,9 @@
 div.juxtapose {
 	width: 100%;
 	font-family: Helvetica, Arial, sans-serif;
+    max-width: 100%;
+    min-width: 100%;
+    height: auto;
 }
 
 div.jx-slider {
@@ -9,6 +12,11 @@ div.jx-slider {
 	position: relative;
 	overflow: hidden;
 	cursor: pointer;
+/*
+    max-width: 100%;
+    min-width: 100%;
+    height: auto;
+*/
 }
 
 

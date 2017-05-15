@@ -1,4 +1,4 @@
-/* juxtapose - v2017-03-16-19-29-42 - 2017-03-16
+/* juxtapose - v2017-05-15-21-06-53 - 2017-05-15
  * Copyright (c) 2017 Alex Duner and Northwestern University Knight Lab 
  */
 /* juxtapose - v1.1.2 - 2015-07-16
@@ -387,7 +387,7 @@
     },
 
     responsivizeIframe: function(dims){
-      //Check the slider dimensions against the iframe (window) dimensions
+//Check the slider dimensions against the iframe (window) dimensions
       if (dims.height < window.innerHeight){
         //If the aspect ratio is greater than 1, imgs are landscape, so letterbox top and bottom
         if (dims.ratio >= 1){
