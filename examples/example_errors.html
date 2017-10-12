@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+	<title>JuxtaposeJS</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<link rel="stylesheet" href="../juxtapose/css/juxtapose.css">
+	<link rel="icon" type="image/x-icon" href="http://blueline.knightlab.com/assets/logos/favicon.ico" />
+
+	<style>
+		.juxtapose {
+			max-width: 600px;
+		}
+		.jx-slider {
+			margin-top: 1em;
+		}
+	</style>
+</head>
+<body>
+
+	<img src="google.com" alt="">
+	
+	<div class="juxtapose">
+		<img src="http://placekitten.com/500/300" data-label="Cat" alt="A cat" />
+		<img src="http://placebear.com/500/300" data-label="Bear" alt="A bear"/>
+	</div>
+
+	<h1>with errors</h1>
+	<div class="juxtapose">
+		<img src="http://google.com" data-label="Cat" alt="A cat" />
+		<img src="http://placebear.com/500/300" data-label="Bear" alt="A bear"/>
+	</div>
+	<script src='../juxtapose/js/juxtapose.js'></script>
+</body>

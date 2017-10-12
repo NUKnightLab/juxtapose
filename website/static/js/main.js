@@ -1,16 +1,21 @@
 function imageDataFromForm() {
     return [
         {
-            src: processThirdPartyLinks($("#before-src").val(), "before-src"),
+            src: processLinks($("#before-src").val(), "before-src"),
             label: $("#before-label").val(),
             credit: $("#before-credit").val()
         },
         {
-            src: processThirdPartyLinks($("#after-src").val(), "after-src"),
+            src: processLinks($("#after-src").val(), "after-src"),
             label: $("#after-label").val(),
             credit: $("#after-credit").val()
         }
     ];
+}
+
+
+function processLinks(link) {
+    return checkIfImage(processThirdPartyLinks(link));
 }
 
 function optionsFromForm() {
