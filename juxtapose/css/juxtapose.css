@@ -112,7 +112,7 @@ div.jx-arrow.jx-right {
 
 .vertical div.jx-arrow.jx-right {
 	right: 0px;
-	top: initial;
+	top: auto;
 	bottom: 2px;
 	border-style: solid;
 	border-width: 8px 8px 0 8px;
@@ -247,7 +247,7 @@ div.jx-image.jx-right div.jx-label {
 .vertical div.jx-image.jx-right div.jx-label {
 	left: 0;
 	bottom: 0;
-	top: initial;
+	top: auto;
 }
 
 div.jx-credit {

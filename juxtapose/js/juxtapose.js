@@ -231,8 +231,8 @@
     } else {
       var sliderRect = slider.getBoundingClientRect();
       var offset = {
-        top: sliderRect.top + document.body.scrollTop,
-        left: sliderRect.left + document.body.scrollLeft
+        top: sliderRect.top + document.body.scrollTop + document.documentElement.scrollTop,
+        left: sliderRect.left + document.body.scrollLeft + document.documentElement.scrollLeft
       };
       var width = slider.offsetWidth;
       var pageX = getPageX(input);
@@ -248,8 +248,8 @@
     } else {
       var sliderRect = slider.getBoundingClientRect();
       var offset = {
-        top: sliderRect.top + document.body.scrollTop,
-        left: sliderRect.left + document.body.scrollLeft
+        top: sliderRect.top + document.body.scrollTop + document.documentElement.scrollTop,
+        left: sliderRect.left + document.body.scrollLeft + document.documentElement.scrollLeft
       };
       var width = slider.offsetHeight;
       var pageY = getPageY(input);
