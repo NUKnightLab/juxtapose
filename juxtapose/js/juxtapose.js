@@ -24,6 +24,7 @@
     };
 
     this.image.src = properties.src;
+    this.image.alt = properties.alt || '';
     this.label = properties.label || false;
     this.credit = properties.credit || false;
   }
@@ -668,12 +669,14 @@
         {
           src: images[0].src,
           label: images[0].getAttribute('data-label'),
-          credit: images[0].getAttribute('data-credit')
+          credit: images[0].getAttribute('data-credit'),
+          alt: images[0].alt
         },
         {
           src: images[1].src,
           label: images[1].getAttribute('data-label'),
-          credit: images[1].getAttribute('data-credit')
+          credit: images[1].getAttribute('data-credit'),
+          alt: images[1].alt
         }
       ],
       options
