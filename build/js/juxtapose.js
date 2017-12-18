@@ -1,5 +1,5 @@
-/* juxtapose - v2017-03-16-19-29-42 - 2017-03-16
- * Copyright (c) 2017 Alex Duner and Northwestern University Knight Lab 
+/* juxtapose - v1.2.0 - 2017-12-18
+ * Copyright (c) 2017 Alex Duner and Northwestern University Knight Lab
  */
 /* juxtapose - v1.1.2 - 2015-07-16
  * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab
@@ -27,6 +27,7 @@
     };
 
     this.image.src = properties.src;
+    this.image.alt = properties.alt || '';
     this.label = properties.label || false;
     this.credit = properties.credit || false;
   }
@@ -50,6 +51,10 @@
 
   FlickrGraphic.prototype = {
     getFlickrID: function(url) {
+      if (url.match(/flic.kr\/.+/i)) {
+        var encoded = url.split('/').slice(-1)[0];
+        return base58Decode(encoded);
+      }
       var idx = url.indexOf("flickr.com/photos/");
       var pos = idx + "flickr.com/photos/".length;
       var photo_info = url.substr(pos);
@@ -193,6 +198,9 @@
   }
 
   function checkFlickr(url) {
+    if (url.match(/flic.kr\/.+/i)) {
+      return true;
+    }
     var idx = url.indexOf("flickr.com/photos/");
     if (idx == -1) {
       return false;
@@ -201,14 +209,33 @@
     }
   }
 
+  function base58Decode(encoded) {
+    var alphabet = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ',
+        base = alphabet.length;
+    if (typeof encoded !== 'string') {
+      throw '"base58Decode" only accepts strings.';
+    }
+    var decoded = 0;
+    while (encoded) {
+      var alphabetPosition = alphabet.indexOf(encoded[0]);
+      if (alphabetPosition < 0) {
+        throw '"base58Decode" can\'t find "' + encoded[0] + '" in the alphabet: "' + alphabet + '"';
+      }
+      var powerOf = encoded.length - 1;
+      decoded += alphabetPosition * (Math.pow(base, powerOf));
+      encoded = encoded.substring(1);
+    }
+    return decoded.toString();
+  }
+
   function getLeftPercent(slider, input) {
     if (typeof(input) === "string" || typeof(input) === "number") {
       leftPercent = parseInt(input, 10);
     } else {
       var sliderRect = slider.getBoundingClientRect();
       var offset = {
-        top: sliderRect.top + document.body.scrollTop,
-        left: sliderRect.left + document.body.scrollLeft
+        top: sliderRect.top + document.body.scrollTop + document.documentElement.scrollTop,
+        left: sliderRect.left + document.body.scrollLeft + document.documentElement.scrollLeft
       };
       var width = slider.offsetWidth;
       var pageX = getPageX(input);
@@ -224,8 +251,8 @@
     } else {
       var sliderRect = slider.getBoundingClientRect();
       var offset = {
-        top: sliderRect.top + document.body.scrollTop,
-        left: sliderRect.left + document.body.scrollLeft
+        top: sliderRect.top + document.body.scrollTop + document.documentElement.scrollTop,
+        left: sliderRect.left + document.body.scrollLeft + document.documentElement.scrollLeft
       };
       var width = slider.offsetHeight;
       var pageY = getPageY(input);
@@ -671,12 +698,14 @@
         {
           src: images[0].src,
           label: images[0].getAttribute('data-label'),
-          credit: images[0].getAttribute('data-credit')
+          credit: images[0].getAttribute('data-credit'),
+          alt: images[0].alt
         },
         {
           src: images[1].src,
           label: images[1].getAttribute('data-label'),
-          credit: images[1].getAttribute('data-credit')
+          credit: images[1].getAttribute('data-credit'),
+          alt: images[1].alt
         }
       ],
       options
@@ -699,32 +728,32 @@
 }(document, window));
 
 
-// addEventListener polyfill 1.0 / Eirik Backer / MIT Licence
-(function(win, doc){
-  if(win.addEventListener)return;   //No need to polyfill
+// addEventListener polyfill / jonathantneal
+!window.addEventListener && (function (WindowPrototype, DocumentPrototype, ElementPrototype, addEventListener, removeEventListener, dispatchEvent, registry) {
+	WindowPrototype[addEventListener] = DocumentPrototype[addEventListener] = ElementPrototype[addEventListener] = function (type, listener) {
+		var target = this;
 
-  function docHijack(p){var old = doc[p];doc[p] = function(v){return addListen(old(v));};}
-  function addEvent(on, fn, self){
-    return (self = this).attachEvent('on' + on, function(e) {
-      var e = e || win.event;
-      e.preventDefault  = e.preventDefault  || function(){e.returnValue = false;};
-      e.stopPropagation = e.stopPropagation || function(){e.cancelBubble = true;};
-      fn.call(self, e);
-    });
-  }
-  function addListen(obj, i){
-    if(i = obj.length)while(i--)obj[i].addEventListener = addEvent;
-    else obj.addEventListener = addEvent;
-    return obj;
-  }
+		registry.unshift([target, type, listener, function (event) {
+			event.currentTarget = target;
+			event.preventDefault = function () { event.returnValue = false };
+			event.stopPropagation = function () { event.cancelBubble = true };
+			event.target = event.srcElement || target;
 
-  addListen([doc, win]);
-  if('Element' in win)win.Element.prototype.addEventListener = addEvent;      //IE8
-  else{                                     //IE < 8
-    doc.attachEvent('onreadystatechange', function(){addListen(doc.all);});   //Make sure we also init at domReady
-    docHijack('getElementsByTagName');
-    docHijack('getElementById');
-    docHijack('createElement');
-    addListen(doc.all);
-  }
-})(window, document);
+			listener.call(target, event);
+		}]);
+
+		this.attachEvent("on" + type, registry[0][3]);
+	};
+
+	WindowPrototype[removeEventListener] = DocumentPrototype[removeEventListener] = ElementPrototype[removeEventListener] = function (type, listener) {
+		for (var index = 0, register; register = registry[index]; ++index) {
+			if (register[0] == this && register[1] == type && register[2] == listener) {
+				return this.detachEvent("on" + type, registry.splice(index, 1)[0][3]);
+			}
+		}
+	};
+
+	WindowPrototype[dispatchEvent] = DocumentPrototype[dispatchEvent] = ElementPrototype[dispatchEvent] = function (eventObject) {
+		return this.fireEvent("on" + eventObject.type, eventObject);
+	};
+})(Window.prototype, HTMLDocument.prototype, Element.prototype, "addEventListener", "removeEventListener", "dispatchEvent", []);

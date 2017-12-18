@@ -1,5 +1,5 @@
-/* juxtapose - v2017-03-16-19-29-42 - 2017-03-16
- * Copyright (c) 2017 Alex Duner and Northwestern University Knight Lab 
+/* juxtapose - v1.2.0 - 2017-12-18
+ * Copyright (c) 2017 Alex Duner and Northwestern University Knight Lab
  */
 div.juxtapose {
 	width: 100%;
@@ -12,6 +12,7 @@ div.jx-slider {
 	position: relative;
 	overflow: hidden;
 	cursor: pointer;
+	color: #f3f3f3;
 }
 
 
@@ -22,18 +23,6 @@ div.jx-handle {
 	cursor: col-resize;
 	z-index: 15;
 	margin-left: -20px;
-}
-
-div.jx-arrow {
-	// box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.3);
-}
-
-div.jx-controller {
-	// box-shadow:
-	// 	0 4px 0px 0px #f3f3f3,
-	// 	0 -4px 0px 0px #f3f3f3,
-	// 	0px 0px 4px 1px rgba(0,0,0,0.3),
-	// 	0px 0px 4px 1px rgba(0,0,0,0.3);
 }
 
 .vertical div.jx-handle {
@@ -49,13 +38,13 @@ div.jx-control {
 	margin-right: auto;
 	margin-left: auto;
 	width: 3px;
-	background-color: #f3f3f3;
+	background-color: currentColor;
 }
 
 .vertical div.jx-control {
 	height: 3px;
 	width: 100%;
-	background-color: #f3f3f3;
+	background-color: currentColor;
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);
@@ -69,7 +58,7 @@ div.jx-controller {
 	height: 60px;
 	width: 9px;
 	margin-left: -3px;
-	background-color: #f3f3f3;
+	background-color: currentColor;
 }
 
 .vertical div.jx-controller {
@@ -106,14 +95,14 @@ div.jx-arrow.jx-left {
 	left: 2px;
 	border-style: solid;
 	border-width: 8px 8px 8px 0;
-	border-color: transparent #f3f3f3 transparent transparent;
+	border-color: transparent currentColor transparent transparent;
 }
 
 div.jx-arrow.jx-right {
 	right: 2px;
 	border-style: solid;
 	border-width: 8px 0 8px 8px;
-	border-color: transparent transparent transparent #f3f3f3;
+	border-color: transparent transparent transparent currentColor;
 }
 
 .vertical div.jx-arrow.jx-left {
@@ -121,16 +110,16 @@ div.jx-arrow.jx-right {
 	top: 2px;
 	border-style: solid;
 	border-width: 0px 8px 8px 8px;
-	border-color: transparent transparent #f3f3f3 transparent;
+	border-color: transparent transparent currentColor transparent;
 }
 
 .vertical div.jx-arrow.jx-right {
 	right: 0px;
-	top: initial;
+	top: auto;
 	bottom: 2px;
 	border-style: solid;
 	border-width: 8px 8px 0 8px;
-	border-color: #f3f3f3 transparent transparent transparent;
+	border-color: currentColor transparent transparent transparent;
 }
 
 div.jx-handle:hover div.jx-arrow.jx-left,
@@ -168,11 +157,12 @@ div.jx-image {
 .vertical div.jx-image {
 	width: 100%;
 	left: 0;
-	top: initial;
+	top: auto;
 }
 
 div.jx-image img {
 	height: 100%;
+	width: auto;
 	z-index: 5;
 	position: absolute;
 	margin-bottom: 0;
@@ -184,7 +174,7 @@ div.jx-image img {
 }
 
 .vertical div.jx-image img {
-	height: initial;
+	height: auto;
 	width: 100%;
 }
 
@@ -260,7 +250,7 @@ div.jx-image.jx-right div.jx-label {
 .vertical div.jx-image.jx-right div.jx-label {
 	left: 0;
 	bottom: 0;
-	top: initial;
+	top: auto;
 }
 
 div.jx-credit {
