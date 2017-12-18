@@ -48,6 +48,10 @@
 
   FlickrGraphic.prototype = {
     getFlickrID: function(url) {
+      if (url.match(/flic.kr\/.+/i)) {
+        var encoded = url.split('/').slice(-1)[0];
+        return base58Decode(encoded);
+      }
       var idx = url.indexOf("flickr.com/photos/");
       var pos = idx + "flickr.com/photos/".length;
       var photo_info = url.substr(pos);
@@ -191,12 +195,34 @@
   }
 
   function checkFlickr(url) {
+    if (url.match(/flic.kr\/.+/i)) {
+      return true;
+    }
     var idx = url.indexOf("flickr.com/photos/");
     if (idx == -1) {
       return false;
     } else {
       return true;
     }
+  }
+
+  function base58Decode(encoded) {
+    var alphabet = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ',
+        base = alphabet.length;
+    if (typeof encoded !== 'string') {
+      throw '"base58Decode" only accepts strings.';
+    }
+    var decoded = 0;
+    while (encoded) {
+      var alphabetPosition = alphabet.indexOf(encoded[0]);
+      if (alphabetPosition < 0) {
+        throw '"base58Decode" can\'t find "' + encoded[0] + '" in the alphabet: "' + alphabet + '"';
+      }
+      var powerOf = encoded.length - 1;
+      decoded += alphabetPosition * (Math.pow(base, powerOf));
+      encoded = encoded.substring(1);
+    }
+    return decoded.toString();
   }
 
   function getLeftPercent(slider, input) {
