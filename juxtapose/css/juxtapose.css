@@ -9,6 +9,7 @@ div.jx-slider {
 	position: relative;
 	overflow: hidden;
 	cursor: pointer;
+	color: #f3f3f3;
 }
 
 
@@ -19,18 +20,6 @@ div.jx-handle {
 	cursor: col-resize;
 	z-index: 15;
 	margin-left: -20px;
-}
-
-div.jx-arrow {
-	// box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.3);
-}
-
-div.jx-controller {
-	// box-shadow: 
-	// 	0 4px 0px 0px #f3f3f3,
-	// 	0 -4px 0px 0px #f3f3f3,
-	// 	0px 0px 4px 1px rgba(0,0,0,0.3),
-	// 	0px 0px 4px 1px rgba(0,0,0,0.3);
 }
 
 .vertical div.jx-handle {
@@ -46,13 +35,13 @@ div.jx-control {
 	margin-right: auto;
 	margin-left: auto;
 	width: 3px;
-	background-color: #f3f3f3;
+	background-color: currentColor;
 }
 
 .vertical div.jx-control {
 	height: 3px;
 	width: 100%;
-	background-color: #f3f3f3;
+	background-color: currentColor;
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);
@@ -66,7 +55,7 @@ div.jx-controller {
 	height: 60px;
 	width: 9px;
 	margin-left: -3px;
-	background-color: #f3f3f3;
+	background-color: currentColor;
 }
 
 .vertical div.jx-controller {
@@ -82,7 +71,7 @@ div.jx-arrow {
 	position: absolute;
 	margin: auto;
 	top: 0;
-	bottom: 0; 
+	bottom: 0;
 	width: 0;
 	height: 0;
 	transition: all .2s ease;
@@ -92,7 +81,7 @@ div.jx-arrow {
 	position: absolute;
 	margin: 0 auto;
 	left: 0;
-	right: 0; 
+	right: 0;
 	width: 0;
 	height: 0;
 	transition: all .2s ease;
@@ -103,14 +92,14 @@ div.jx-arrow.jx-left {
 	left: 2px;
 	border-style: solid;
 	border-width: 8px 8px 8px 0;
-	border-color: transparent #f3f3f3 transparent transparent;
+	border-color: transparent currentColor transparent transparent;
 }
 
 div.jx-arrow.jx-right {
 	right: 2px;
 	border-style: solid;
 	border-width: 8px 0 8px 8px;
-	border-color: transparent transparent transparent #f3f3f3;
+	border-color: transparent transparent transparent currentColor;
 }
 
 .vertical div.jx-arrow.jx-left {
@@ -118,7 +107,7 @@ div.jx-arrow.jx-right {
 	top: 2px;
 	border-style: solid;
 	border-width: 0px 8px 8px 8px;
-	border-color: transparent transparent #f3f3f3 transparent;
+	border-color: transparent transparent currentColor transparent;
 }
 
 .vertical div.jx-arrow.jx-right {
@@ -127,7 +116,7 @@ div.jx-arrow.jx-right {
 	bottom: 2px;
 	border-style: solid;
 	border-width: 8px 8px 0 8px;
-	border-color: #f3f3f3 transparent transparent transparent;
+	border-color: currentColor transparent transparent transparent;
 }
 
 div.jx-handle:hover div.jx-arrow.jx-left,
@@ -135,7 +124,7 @@ div.jx-handle:active div.jx-arrow.jx-left {
 	left: -1px;
 }
 
-div.jx-handle:hover div.jx-arrow.jx-right, 
+div.jx-handle:hover div.jx-arrow.jx-right,
 div.jx-handle:active div.jx-arrow.jx-right {
 	right: -1px;
 }
@@ -146,7 +135,7 @@ div.jx-handle:active div.jx-arrow.jx-right {
 	top: 0px;
 }
 
-.vertical div.jx-handle:hover div.jx-arrow.jx-right, 
+.vertical div.jx-handle:hover div.jx-arrow.jx-right,
 .vertical div.jx-handle:active div.jx-arrow.jx-right {
 	right: 0px;
 	bottom: 0px;
@@ -173,6 +162,7 @@ div.jx-image img {
 	width: auto;
 	z-index: 5;
 	position: absolute;
+	margin-bottom: 0;
 
 	max-height: none;
 	max-width: none;
@@ -335,8 +325,9 @@ a.jx-knightlab span.juxtapose-name {
 	color: white;
 	font-size: 10px;
 	padding-left: 0.375em;
-  	vertical-align: middle;
-  	line-height: normal;
+	vertical-align: middle;
+	line-height: normal;
+	text-shadow: none;
 }
 
 /* keyboard accessibility */

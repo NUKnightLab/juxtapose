@@ -1,0 +1,58 @@
+[
+  {
+      "link": "http://interaktiv.morgenpost.de/berlin-1945-2015/",
+      "thumbnail": "/static/img/examples/thumbs/thumb_berlin1945.jpg",
+      "source": "MorgenPost",
+      "source_logo": "/static/img/examples/logos/logo_berliner.png",
+      "title": "Berlin — 1945 and today"
+  },
+  {
+      "link": "http://espn.go.com/espn/feature/story/_/id/12748163/floyd-mayweather-prepares-2-fight-seal-legacy",
+      "thumbnail": "/static/img/examples/thumbs/thumb_mayweather.jpg",
+      "source": "ESPN",
+      "source_logo": "/static/img/examples/logos/logo_espn.jpg",
+      "title": "Floyd Mayweather prepares to seal legacy"
+  },
+  {
+      "link": "http://www.bostonglobe.com/metro/2014/10/23/returning-jackie-kennedy-vision/t7TCSfcdkjcQNBBkdbuvEO/story.html",
+      "thumbnail": "/static/img/examples/thumbs/thumb_coin.jpg",
+      "source": "Boston Globe",
+      "source_logo": "/static/img/examples/logos/logo_boston_globe.png",
+      "title": "New half-dollar"
+  },
+  {
+      "link": "http://fusion.net/story/112590/hot-mess-to-haute-couture-how-kim-gaga-and-nicki-toned-down-their-over-the-top-looks/",
+      "thumbnail": "/static/img/examples/thumbs/thumb_gaga.jpg",
+      "source": "Fusion",
+      "source_logo": "/static/img/examples/logos/logo_fusion.png",
+      "title": "Hot mess to haute couture"
+  },
+  {
+      "link": "http://www.chicagotribune.com/chi-tornado-damage-washington-illinois-infographic-20141112-htmlstory.html",
+      "thumbnail": "/static/img/examples/thumbs/thumb_tornado.jpg",
+      "source": "Chicago Tribune",
+      "source_logo": "/static/img/examples/logos/logo_tribune.png",
+      "title": "Tornado damage in Washington, Illinois"
+  },
+  {
+      "link": "http://www.mystatesman.com/interactive/news/flooding-lake-travis?ecmp=statesman_social_twitter_2014_sfp",
+      "thumbnail": "/static/img/examples/thumbs/thumb_drought.jpg",
+      "source": "Austin American-Statesman",
+      "source_logo": "/static/img/examples/logos/logo_austin_statesman.png",
+      "title": "Memorial Day floods in Texas"
+  },
+  {
+      "link": "http://espn.go.com/nba/story/_/id/12499977/guess-stars-nicknames",
+      "thumbnail": "/static/img/examples/thumbs/thumb_illustration.png",
+      "source": "ESPN",
+      "source_logo": "/static/img/examples/logos/logo_espn.jpg",
+      "title": "Guess NBA stars and nicknames"
+  },
+  {
+      "link": "http://www.chicagotribune.com/news/history/chi-then-and-now-photos-the-aragon-and-apollo-20150424-htmlstory.html",
+      "thumbnail": "/static/img/examples/thumbs/thumb_chicago_theater.jpg",
+      "source": "Chicago Tribune",
+      "source_logo": "/static/img/examples/logos/logo_tribune.png",
+      "title": "Two iconic Chicago theaters"
+  }
+]

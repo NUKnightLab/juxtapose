@@ -1,6 +1,7 @@
 *.pyc
 build/website
 .DS_Store
+env.sh
 
 website/static/.DS_Store
 secrets

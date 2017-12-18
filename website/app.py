@@ -7,14 +7,17 @@ import uuid
 import json
 import traceback
 import boto
+from boto.s3.connection import OrdinaryCallingFormat
 
 
 # Import settings module
 if __name__ == "__main__":
     if not os.environ.get('FLASK_SETTINGS_MODULE', ''):
-        os.environ['FLASK_SETTINGS_MODULE'] = 'core.settings.loc'
+        os.environ['FLASK_SETTINGS_MODULE'] = 'core.settings'
 
 settings_module = os.environ.get('FLASK_SETTINGS_MODULE')
+examples_json = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'examples.json')
+faq_json = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'faq.json')
 
 try:
     importlib.import_module(settings_module)
@@ -27,8 +30,8 @@ app.config.from_envvar('FLASK_SETTINGS_FILE')
 
 settings = sys.modules[settings_module]
 
-build_dir = os.path.join(settings.JUXTAPOSE_ROOT, 'build')
-source_dir = os.path.join(settings.JUXTAPOSE_ROOT, 'juxtapose')
+build_dir = os.path.join(settings.PROJECT_ROOT, 'build')
+source_dir = os.path.join(settings.PROJECT_ROOT, 'juxtapose')
 
 
 @app.context_processor
@@ -62,6 +65,11 @@ def inject_urls():
         DROPBOX_APP_KEY=dropbox_app_key, dropbox_app_key=dropbox_app_key)
 
 
+@app.context_processor
+def inject_index_data():
+    return dict(examples=json.load(open(examples_json)),faqs=json.load(open(faq_json)))
+
+
 @app.route('/')
 @app.route('/<path:path>')
 def catch_all(path='index.html', context=None):
@@ -80,6 +88,14 @@ def catch_source(path):
     Serve /source/... urls from the source directory
     """
     return send_from_directory(source_dir, path)
+
+
+@app.route('/build/<path:path>')
+def catch_build(path):
+    """
+    Serve urls from the build directory
+    """
+    return send_from_directory(build_dir, path)
 
 
 # Juxtapose API

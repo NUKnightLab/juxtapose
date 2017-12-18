@@ -1,0 +1,75 @@
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JuxtaposeJS</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="Knight Lab JuxtaposeJS">
+    <link rel="stylesheet" href="https://cloud.webtype.com/css/d4767ecb-457a-4677-8761-72f890add836.css"/>
+    <link rel="stylesheet" href="https://cdn.knightlab.com/libs/orangeline/latest/css/orangeline.min.css"/>
+
+    <!-- favicons -->
+     <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/apple-touch-icon.png">
+     <link rel="icon" type="image/png" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/favicon-32x32.png" sizes="32x32">
+     <link rel="icon" type="image/png" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/favicon-16x16.png" sizes="16x16">
+     <link rel="manifest" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/manifest.json">
+     <link rel="mask-icon" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/safari-pinned-tab.svg" color="#5bbad5">
+     <meta name="theme-color" content="#ffffff">
+     <!-- /favicons -->
+
+     <!-- Meta -->
+     <meta name="keywords" content="story, news, social media, create, twitter, journalism, flickr">
+     <meta name="description" content="Easy-to-make frame comparisons.">
+     <!-- /Meta -->
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Juxtapose" />
+    <meta property="og:description" content="Easy-to-make frame comparisons." />
+    <meta property="og:image" content="https://cdn.knightlab.com/libs/orangeline/latest/assets/screenshot-juxtapose.jpg" />
+    <meta property="og:url" content="https://juxtapose.knightlab.com" />
+    <meta property="og:site_name" content="Juxtapose" />
+    <!-- /Open Graph -->
+
+    <!-- Twitter Card -->
+    <meta name="twitter:title" content="Juxtapose">
+    <meta name="twitter:description" content="Easy-to-make frame comparisons.">
+    <meta name="twitter:image" content="https://cdn.knightlab.com/libs/orangeline/latest/assets/screenshot-juxtapose.jpg">
+    <meta name="twitter:site" content="@knightlab">
+    <meta name="twitter:creator" content="@knightlab">
+    <!-- /Twitter Card -->
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" />
+    <!-- build:css //cdn.knightlab.com/libs/juxtapose/%(cdn)s/css/juxtapose.css -->
+    <link rel="stylesheet" href="{{ CDN_URL }}css/juxtapose.css" />
+    <!-- build:js //cdn.knightlab.com/libs/juxtapose/%(cdn)s/js/juxtapose.js -->
+    <script type="text/javascript" src="{{ CDN_URL }}js/juxtapose.js"></script>
+    <!-- endbuild -->
+    <!--[if lt IE 9]>
+    <script src="{{ STATIC_URL }}js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Third Party Choosers -->
+    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="{{ DROPBOX_APP_KEY }}"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/api.js?onload=onApiLoad"></script>
+
+
+    {# Google Analytics: don't mess with this stuff #}
+    {# named tracker notes from https://developers.google.com/analytics/devguides/collection/gajs/ #}
+    {# multi-domain tracking notes from https://developers.google.com/analytics/devguides/collection/gajs/gaTrackingSite #}
+    <script>
+    var _gaq = _gaq || [];
+    _gaq.push(
+              function() {
+                  var pageTracker = _gat._createTracker('UA-27829802-1', 'knightlabTracker');
+               },
+              ['knightlabTracker._setDomainName', 'knightlab.com'] // DON'T CHANGE THIS FOR SUBDOMAINS
+              ['knightlabTracker._setAllowLinker', true],
+              ['knightlabTracker._trackPageview']
+    );
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    {# End Google Analytics #}

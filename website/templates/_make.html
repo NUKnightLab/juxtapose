@@ -1,0 +1,122 @@
+
+        <section class="section-color section-color-complement" id="make">
+            <div class="container">
+                <h2>Create a Juxtapose</h2>
+                <p>
+                    It is free, easy to use, and works on all devices. All you need to get started are links to the images you'd like to compare.
+                </p>
+                <form id="authoring-form">
+                <h4>Images</h4>
+                <div class="grid">
+                    <div class="column-6">
+                        <h6>Left Image</h6>
+                            <div class="input-group-label">
+                                <label class="input-group-addon" for="inlinelabel">URL</label>
+                                <input id="before-src" class="urlBox auto-update" type="text" value="https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg" name="inlinelabel">
+                                <a class="button button-light button-smallest dropbox-picker" data-image="before"><span class="icon-dropbox"></span></a>
+                            </div>
+                            <div class="grid">
+                                <div class="grid-item">
+                                    <div class="input-group-label">
+                                        <label class="input-group-addon" for="inlinelabel">Label</label>
+                                        <input id="before-label" type="text" placeholder="Apr. 2005" name="inlinelabel">
+                                    </div>
+                                </div>
+                                <div class="grid-item">
+                                    <div class="input-group-label">
+                                        <label class="input-group-addon" for="inlinelabel">Credit</label>
+                                        <input id="before-credit" type="text" placeholder="Google Earth" name="inlinelabel">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="column-6">
+                        <h6>Right Image</h6>
+                            <div class="input-group-label">
+                                <label class="input-group-addon" for="inlinelabel">URL</label>
+                                <input id="after-src" class="urlBox auto-update" type="text" value="https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg" name="inlinelabel">
+                                <a class="button button-light button-smallest dropbox-picker" data-image="after"><span class="icon-dropbox"></span></a>
+                            </div>
+                            <div class="grid">
+                                <div class="grid-item">
+                                    <div class="input-group-label">
+                                        <label class="input-group-addon" for="inlinelabel">Label</label>
+                                        <input id="after-label" type="text" placeholder="Apr. 2005" name="inlinelabel">
+                                    </div>
+                                </div>
+                                <div class="grid-item">
+                                    <div class="input-group-label">
+                                        <label class="input-group-addon" for="inlinelabel">Credit</label>
+                                        <input id="after-credit" type="text" placeholder="Google Earth" name="inlinelabel">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="column-3">
+                        <h4>Options</h4>
+                            <div class="input-group-label">
+                                <label for="slider-start">Slider start position</label>
+                                <input id="starting-position" type="number" size="2" placeholder="50" value="50" min="0" max="100" name="slider-start" step="1" style=" width: 70px;">
+                                <div class='input-group-addon'>%</div>
+                            </div>
+                            <div class="input-group-label">
+                                <input id="show-labels" class="auto-update" type="checkbox" value="true" checked="">
+                                <label for="show-labels">Show Labels</label>
+                                {# No equiv popup fcn in orangeline. Commented for now
+                                <a class="help" href="javascript:" data-placement="right" data-content="If checked, your labels will be displayed. You must have labels for both images, or they won't be shown, even if this is checked." data-original-title="" title="">&nbsp;<i class="icon-question-sign icon-large"></i></a>#}
+                            </div>
+                            <div class="input-group-label">
+                                <input id="show-credits" class="auto-update" type="checkbox" value="true" checked="">
+                                <label for="show-credits">Show Credits</label>
+                                {# No equiv popup fcn in orangeline. Commented for now
+                                <a class="help" href="javascript:" data-placement="right" data-content="If checked, image credits will be displayed below the slider. You must have credits for both images, or they won't be shown, even if this is checked." data-original-title="" title="">&nbsp;<i class="icon-question-sign icon-large"></i></a>#}
+                            </div>
+                            <div class="input-group-label">
+                                <input id="animate" class="auto-update" type="checkbox" value="true" checked="">
+                                <label for="animate">Animate</label>
+                                {# No equiv popup fcn in orangeline. Commented for now
+                                <a class="help" href="javascript:" data-placement="right" data-content="If checked, the divider will glide to the point where someone clicks; otherwise, it will jump." data-original-title="" title="">&nbsp;<i class="icon-question-sign icon-large"></i></a> #}
+                            </div>
+                            <div class="input-group-label">
+                                <input id="make-responsive" class="auto-update" type="checkbox" value="true" checked="">
+                                <label for="make-responsive">Make Responsive</label>
+                                {# No equiv popup fcn in orangeline. Commented for now
+                                <a class="help" href="javascript:" data-placement="right" data-content="If checked, the iframe will be set to 100% width instead of an absolute pixel value." data-original-title="" title="">&nbsp;<i class="icon-question-sign icon-large"></i></a> #}
+                            </div>
+                            <div class="input-group-label">
+                                <input id="vertical" class="auto-update" type="checkbox" value="false">
+                                <label for="vertical">Vertical</label>
+                                {# No equiv popup fcn in orangeline. Commented for now
+                                <a class="help" href="javascript:" data-placement="right" data-content="If checked, the divider will move vertically instead of horizontally." data-original-title="" title="">&nbsp;<i class="icon-question-sign icon-large"></i></a> #}
+                            </div>
+                        </form> <!-- #autoring-form -->
+                        <!-- % <a href="javascript:" id="use-current-position">(use current position)</a> -->
+                        <!-- <p class="note">
+                            You don't have to start with the slider in the middle. You can set it anywhere if that tells your story better.
+                        </p> -->
+                    </div>
+                    <div class="column-9">
+                        <a href="#preview-embed" id="update-preview" class="button button-complement">Preview</a>&nbsp;
+                        <a id="publish-slider" class="button button-light">Publish</a>
+                        <div class="show-after-publish">
+                          <h6>Share Link</h6>
+                          <p class="small">To embed in a Medium blog post, copy the code in the box below and paste it on a line by itself where you want your juxtapose to appear. (Learn more about oEmbed.) If you update the settings, don't forget to click "Publish" again.</p>
+                              <textarea id="oembed-url" rows="3" type="text" readonly="readonly" name="textplaceholder" value="" style="height:4rem;"></textarea>
+                          <h6>Embed</h6>
+                          <p class="small">Copy the code in the box below and paste it into your web page or CMS. If you update the settings, don't forget to click "Publish" again.</p>
+                              <textarea id="embed-code" rows="3" readonly="readonly" type="text" name="textplaceholder" value="" style="height:5rem;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="preview-embed" class="container">
+                <div class="container">
+                    <h3>Preview Embed</h3>
+                </div>
+                <div id="preview-container" class="container" style="width: 100%;">
+                  <div id="create-slider-preview">
+                  </div>
+                </div>
+                <div id="slider-preview-warning" class="grid"></div>
+            </div>
+        </section>

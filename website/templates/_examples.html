@@ -1,85 +1,20 @@
-
-<section id="examples" class="container">
-  <h2>Examples</h2>
-  <p>Have you used JuxtaposeJS? <span><a href="mailto:support@knightlab.zendesk.com?subject=JuxtaposeJS+Example" target="_blank">Let us know</a>, and we might feature your work here.</span></p>
-
-  <!-- Examples Row 1-->
-  <div class="row">
-
-    <!-- Example-->
-    <div class="span3">
-      <a href="http://interaktiv.morgenpost.de/berlin-1945-2015/" target="_blank">
-        <img src="/static/img/examples/thumbs/thumb_berlin1945.jpg" class="thumbnail">
-        <img src="/static/img/examples/logos/logo_berliner.png" alt="MorgenPost">
-        <h3>Berlin — 1945 and today </h3>
-      </a>
-    </div>
-
-     <!-- Example-->
-     <div class="span3">
-      <a href="http://espn.go.com/espn/feature/story/_/id/12748163/floyd-mayweather-prepares-2-fight-seal-legacy" target="_blank">
-      <img src="/static/img/examples/thumbs/thumb_mayweather.jpg" class="thumbnail">
-      <img src="/static/img/examples/logos/logo_espn.jpg" alt="ESPN">
-      <h3>Floyd Mayweather prepares to seal legacy</h3>
-      </a>
-    </div>
-
-    <!-- Example-->
-   <div class="span3">
-      <a href="http://www.bostonglobe.com/metro/2014/10/23/returning-jackie-kennedy-vision/t7TCSfcdkjcQNBBkdbuvEO/story.html" target="_blank">
-        <img src="/static/img/examples/thumbs/thumb_coin.jpg" class="thumbnail">
-        <img src="/static/img/examples/logos/logo_boston_globe.png" alt="Boston Globe">
-        <h3>New half-dollar</h3>
-      </a>
-    </div>
-
-    <!-- Example-->
-   <div class="span3">
-      <a href="http://fusion.net/story/112590/hot-mess-to-haute-couture-how-kim-gaga-and-nicki-toned-down-their-over-the-top-looks/" target="_blank">
-        <img src="/static/img/examples/thumbs/thumb_gaga.jpg" class="thumbnail">
-        <img src="/static/img/examples/logos/logo_fusion.png" alt="Fusion">
-        <h3>Hot mess to haute couture</h3>
-      </a>
-    </div>
-  </div>
-
-<!-- Examples Row 2-->
-  <div class="row">
-
-    <!-- Example-->
-    <div class="span3">
-      <a href="http://www.chicagotribune.com/chi-tornado-damage-washington-illinois-infographic-20141112-htmlstory.html">
-        <img src="/static/img/examples/thumbs/thumb_tornado.jpg" class="thumbnail">
-        <img src="/static/img/examples/logos/logo_tribune.png" alt="Chicago Tribune">
-        <h3>Tornado damage in Washington, Illinois</h3>
-      </a>
-    </div>
-
-     <!-- Example-->
-     <div class="span3">
-      <a href="http://www.mystatesman.com/interactive/news/flooding-lake-travis?ecmp=statesman_social_twitter_2014_sfp" target="_blank">
-        <img src="/static/img/examples/thumbs/thumb_drought.jpg" class="thumbnail">
-        <img src="/static/img/examples/logos/logo_austin_statesman.png" alt="Austin American-Statesman">
-        <h3>Memorial Day floods in Texas</h3>
-      </a>
-    </div>
-
-    <!-- Example-->
-   <div class="span3">
-      <a href="http://espn.go.com/nba/story/_/id/12499977/guess-stars-nicknames" target="_blank">
-        <img src="/static/img/examples/thumbs/thumb_illustration.png" class="thumbnail">
-        <img src="/static/img/examples/logos/logo_espn.jpg" alt="ESPN">
-        <h3>Guess NBA stars and nicknames</h3>
-      </a>
-    </div>
-
-    <!-- Example-->
-   <div class="span3">
-      <a href="http://www.chicagotribune.com/news/history/chi-then-and-now-photos-the-aragon-and-apollo-20150424-htmlstory.html" target="_blank">
-        <img src="/static/img/examples/thumbs/thumb_chicago_theater.jpg" class="thumbnail">
-        <img src="/static/img/examples/logos/logo_tribune.png" alt="Chicago Tribune">
-        <h3>Two iconic Chicago theaters</h3>
-      </a>
-    </div>
-  </div>
-</section>
+    <section class="section-color fill-color-grey--lightest" id="examples">
+        <div class="container">
+        <h2>Examples</h2>
+        <div class="example-grid">
+        {% for example in examples %}
+        {#
+            Add/edit examples in the examples.json file.
+            Depends upon inject_index_data in app.py for these to be available to render.
+        #}
+        <div class="grid-item">
+            <a href="{{ example.link }}" class="button button-light" target="_blank">
+                <figure class="examples">
+                    <img src="{{ example.thumbnail }}" alt="{{ example.title }}">
+                </figure>
+                <img src="{{ example.source_logo }}" alt="{{ example.source }}" class="logo-inline">
+                <h4>{{ example.title }}</h4>
+            </a>
+        </div>
+        {% endfor %}
+    </section>

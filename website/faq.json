@@ -1,0 +1,22 @@
+[
+  {
+      "slug": "",
+      "question": "Do I need to know code to use JuxtaposeJS?",
+      "answer": "Absolutely not. JuxtaposeJS is friction-free. If you have the links to two images, you are ready to use JuxtaposeJS."
+  },
+  {
+      "slug": "",
+      "question": "Can I customize what JuxtaposeJS looks like?",
+      "answer": "<p>In it's simplest form, JuxtaposeJS is embedded using an <code>&lt;iframe&gt;</code> tag. In this form, there's no way to customize the appearance.</p><p> If you are comfortable integrating markup and javascript into your own page, you can go beyond the  <code>&lt;iframe&gt;</code>. JuxtaposeJS is designed with a minimalist style meant to work with most websites. If you want to customize the appearance, you can change most of how it looks with CSS rules. Read more on the <a href='https://github.com/NUKnightLab/juxtapose/wiki/Styling-JuxtaposeJS'>Github Wiki.</a></p>"
+  },
+  {
+      "slug": "",
+      "question": "Does JuxtaposeJS work on iPhone, iPad, and other iOS devices?",
+      "answer": "Yes, JuxtaposeJS works normally on iOS devices."
+  },
+  {
+      "slug": "",
+      "question": "Can I help build new features for JuxtaposeJS?",
+      "answer": "Absolutely. <a href='http://www.github.com/NUKnightLab/juxtapose' target='_blank'>Fork the project</a> and get involved. <a href='http://knightlab.zendesk.com' target='_blank'>Send us feedback</a>. Help us make JuxtaposeJS the tool you need and want it to be."
+  }
+]
