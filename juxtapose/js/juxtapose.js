@@ -13,6 +13,22 @@
   var flickr_key = "d90fc2d1f4acc584e08b8eaea5bf4d6c";
   var FLICKR_SIZE_PREFERENCES = ['Large', 'Medium'];
 
+  var entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+    '/': '&#x2F;',
+    '`': '&#x60;',
+    '=': '&#x3D;'
+  };
+  function escapeHTML(value) {
+    return String(value).replace(/[&<>"'`=\/]/g, function (s) {
+      return entityMap[s];
+    });
+  }  
+  
   function Graphic(properties, slider) {
     var self = this;
     this.image = new Image();
@@ -375,8 +391,8 @@
       credit.className = "jx-credit";
 
       text = "<em>Photo Credits:</em>";
-      if (this.imgBefore.credit) { text += " <em>Before</em> " + this.imgBefore.credit; }
-      if (this.imgAfter.credit) { text += " <em>After</em> " + this.imgAfter.credit; }
+      if (this.imgBefore.credit) { text += " <em>Before</em> " + escapeHTML(this.imgBefore.credit); }
+      if (this.imgAfter.credit) { text += " <em>After</em> " + escapeHTML(this.imgAfter.credit); }
 
       credit.innerHTML = text;
 
