@@ -1,6 +1,6 @@
 # JuxtaposeJS
 
-[JuxtaposeJS][1] is a simple, open source tool for creating before/after image sliders. Just provide two image URLs and Juxtapose will do the rest of the work for you. Below are instructions for implementing Juxtapose with HTML and Javascript but we also have a [tool that lets you make a slider without needing to know any code](https://juxtapose.knightlab.com#create-new).
+[JuxtaposeJS][https://juxtapose.knightlab.com] is a simple, open source tool for creating before/after image sliders. Just provide two image URLs and Juxtapose will do the rest of the work for you. Below are instructions for implementing Juxtapose with HTML and Javascript but we also have a [tool that lets you make a slider without needing to know any code](https://juxtapose.knightlab.com#create-new).
 
 If you want to contribute to Juxtapose, check out the `DEVELOPERS.md` file for installation instructions. Fork the project, create a new branch with your features, and submit a pull request. Thanks for your help!
 
@@ -11,9 +11,10 @@ If you want to contribute to Juxtapose, check out the `DEVELOPERS.md` file for i
     * [HTML Implementation](#html-implementation)
     * [Javascript Implementation](#javascript-implementation)
 * [Modifications and Custom Behavior](#modifications-and-custom-behavior)
+* [Security Information](#security-information)
 
 ### Installation
-The easiest way to create a Juxtapose slider is to go to to [http://juxtapose.knightlab.com][1] and use the tool to generate an embedable code snippet that you can use on any website. There are a number of other ways to install Juxtapose on your website. 
+The easiest way to create a Juxtapose slider is to go to to [http://juxtapose.knightlab.com][1] and use the tool to generate an embedable code snippet that you can use on any website. There are a number of other ways to install Juxtapose on your website.
 
 **CDN** — Juxtapose is available on the Knight Lab CDN. Just add this code to the `<head>` of your HTML page:
 ```html
@@ -28,7 +29,7 @@ npm install --save juxtaposejs
 bower install --save juxtapose
 ```
 
-There is also a [Meteor package](https://atmospherejs.com/kyleking/juxtapose-js) available. 
+There is also a [Meteor package](https://atmospherejs.com/kyleking/juxtapose-js) available.
 
 ### Create a Juxtapose Slider
 
@@ -109,5 +110,8 @@ JXSlider.updateSlider(percentage, animate);
 
 *Percentage* indicates where you want to set the handle relative to the left side of the slider. If you set *animate* to `true`, the handle will animate to the new location; if animate is set to `false`, the handle will not.
 
+### Security Information
 
-[1]: http://juxtapose.knightlab.com
+As part of rendering a juxtapose instance, this library renders a "credit" as HTML. Juxtapose passes this string directly through from the `data-credit` attribute, or from the `credit` property of the configuration object for either of the images.
+
+In the strictest sense, this exposes an XSS vulnerability; however, we believe that for JuxtaposeJS to exist as a tool in a toolkit, it is both responsible and optimal to leave any HTML sanitizing as the responsibility of integrators, who may have their own ideas about what is appropriate. Therefore, take note: if you are providing a service which helps people to create juxtapose instances, you should take appropriate responsibility for preventing the injection of malicious code.
