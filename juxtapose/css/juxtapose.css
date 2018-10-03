@@ -47,18 +47,21 @@ div.jx-control {
 	transform: translateY(-50%);
 }
 
-div.jx-controller {
+button.jx-controller {
 	position: absolute;
 	margin: auto;
 	top: 0;
 	bottom: 0;
 	height: 60px;
 	width: 9px;
+	border: none;
+	padding: 0;
 	margin-left: -3px;
+	color: inherit;
 	background-color: currentColor;
 }
 
-.vertical div.jx-controller {
+.vertical button.jx-controller {
 	height: 9px;
 	width: 100px;
 	margin-left: auto;
@@ -333,7 +336,7 @@ a.jx-knightlab span.juxtapose-name {
 }
 
 /* keyboard accessibility */
-div.jx-controller:focus,
+button.jx-controller:focus,
 a.jx-knightlab:focus {
 	background: #eae34a;
 	color: #000;

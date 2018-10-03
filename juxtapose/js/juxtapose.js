@@ -510,18 +510,15 @@
         this.leftArrow = document.createElement("div");
         this.rightArrow = document.createElement("div");
         this.control = document.createElement("div");
-        this.controller = document.createElement("div");
+        this.controller = document.createElement("button");
 
+        this.controller.setAttribute('type', 'button');
+        this.controller.setAttribute('aria-hidden', 'true');
+
+        this.controller.className = 'jx-controller';
         this.leftArrow.className = 'jx-arrow jx-left';
         this.rightArrow.className = 'jx-arrow jx-right';
         this.control.className = 'jx-control';
-        this.controller.className = 'jx-controller';
-
-        this.controller.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
-        this.controller.setAttribute('role', 'slider');
-        this.controller.setAttribute('aria-valuenow', 50);
-        this.controller.setAttribute('aria-valuemin', 0);
-        this.controller.setAttribute('aria-valuemax', 100);
 
         this.handle.appendChild(this.leftArrow);
         this.handle.appendChild(this.control);
@@ -608,7 +605,6 @@
             ariaValue = ariaValue - 1;
             var leftStart = parseFloat(this.style.left) - 1;
             self.updateSlider(leftStart, false);
-            self.controller.setAttribute('aria-valuenow', ariaValue);
           }
 
           //move jx-controller right
@@ -617,7 +613,6 @@
             ariaValue = ariaValue + 1;
             var rightStart = parseFloat(this.style.left) + 1;
             self.updateSlider(rightStart, false);
-            self.controller.setAttribute('aria-valuenow', ariaValue);
           }
       });
 
@@ -626,7 +621,6 @@
            var key = event.which || event.keyCode;
             if ((key == 13) || (key ==32)) {
               self.updateSlider("90%", true);
-                self.controller.setAttribute('aria-valuenow', 90);
             }
       });
 
@@ -634,8 +628,7 @@
       this.rightFigure.addEventListener("keydown", function (event) {
            var key = event.which || event.keyCode;
             if ((key == 13) || (key ==32)) {
-            self.updateSlider("10%", true);
-            self.controller.setAttribute('aria-valuenow', 10);
+              self.updateSlider("10%", true);
             }
       });
 
