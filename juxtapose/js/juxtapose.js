@@ -602,20 +602,22 @@
         var key = e.which || e.keyCode;
         var ariaValue = parseFloat(this.style.left);
 
-          //move jx-controller left
-          if (key == 37) {
+        //move jx-controller left
+        if (key == 37 || key == 40) {
+            e.preventDefault();
             ariaValue = ariaValue - 1;
-          var leftStart = parseFloat(this.style.left) - 1;
-          self.updateSlider(leftStart, false);
-          self.controller.setAttribute('aria-valuenow', ariaValue);
+            var leftStart = parseFloat(this.style.left) - 1;
+            self.updateSlider(leftStart, false);
+            self.controller.setAttribute('aria-valuenow', ariaValue);
           }
 
           //move jx-controller right
-          if (key == 39) {
+          if (key == 38 || key == 39) {
+            e.preventDefault();
             ariaValue = ariaValue + 1;
-          var rightStart = parseFloat(this.style.left) + 1;
-          self.updateSlider(rightStart, false);
-          self.controller.setAttribute('aria-valuenow', ariaValue);
+            var rightStart = parseFloat(this.style.left) + 1;
+            self.updateSlider(rightStart, false);
+            self.controller.setAttribute('aria-valuenow', ariaValue);
           }
       });
 
