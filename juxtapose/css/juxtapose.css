@@ -47,18 +47,21 @@ div.jx-control {
 	transform: translateY(-50%);
 }
 
-div.jx-controller {
+button.jx-controller {
 	position: absolute;
 	margin: auto;
 	top: 0;
 	bottom: 0;
 	height: 60px;
 	width: 9px;
+	border: none;
+	padding: 0;
 	margin-left: -3px;
+	color: inherit;
 	background-color: currentColor;
 }
 
-.vertical div.jx-controller {
+.vertical button.jx-controller {
 	height: 9px;
 	width: 100px;
 	margin-left: auto;
@@ -142,22 +145,23 @@ div.jx-handle:active div.jx-arrow.jx-right {
 }
 
 
-div.jx-image {
+figure.jx-image {
 	position: absolute;
 	height: 100%;
 	display: inline-block;
 	top: 0;
+	margin: 0;
 	overflow: hidden;
 	-webkit-backface-visibility: hidden;
 }
 
-.vertical div.jx-image {
+.vertical figure.jx-image {
 	width: 100%;
 	left: 0;
 	top: auto;
 }
 
-div.jx-image img {
+figure.jx-image img {
 	height: 100%;
 	width: auto;
 	z-index: 5;
@@ -170,56 +174,57 @@ div.jx-image img {
 	max-width: initial;
 }
 
-.vertical div.jx-image img {
+.vertical figure.jx-image img {
 	height: auto;
 	width: 100%;
 }
 
-div.jx-image.jx-left {
+figure.jx-image.jx-left {
 	left: 0;
 	background-position: left;
 }
 
-div.jx-image.jx-left img {
+figure.jx-image.jx-left img {
 	left: 0;
 }
 
-div.jx-image.jx-right {
+figure.jx-image.jx-right {
 	right: 0;
 	background-position: right;
 }
 
-div.jx-image.jx-right img {
+figure.jx-image.jx-right img {
 	right: 0;
 	bottom: 0;
 }
 
 
-.veritcal div.jx-image.jx-left {
+.veritcal figure.jx-image.jx-left {
 	top: 0;
 	background-position: top;
 }
 
-.veritcal div.jx-image.jx-left img {
+.veritcal figure.jx-image.jx-left img {
 	top: 0;
 }
 
-.vertical div.jx-image.jx-right {
+.vertical figure.jx-image.jx-right {
 	bottom: 0;
 	background-position: bottom;
 }
 
-.veritcal div.jx-image.jx-right img {
+.veritcal figure.jx-image.jx-right img {
 	bottom: 0;
 }
 
 
-div.jx-image div.jx-label {
+figure.jx-image figcaption.jx-label {
 	font-size: 1em;
 	padding: .25em .75em;
 	position: relative;
 	display: inline-block;
 	top: 0;
+	margin: 0;
 	background-color: #000; /* IE 8 */
 	background-color: rgba(0,0,0,.7);
 	color: white;
@@ -229,22 +234,22 @@ div.jx-image div.jx-label {
 	vertical-align: middle;
 }
 
-div.jx-image.jx-left div.jx-label {
+figure.jx-image.jx-left figcaption.jx-label {
 	float: left;
 	left: 0;
 }
 
-div.jx-image.jx-right div.jx-label {
+figure.jx-image.jx-right figcaption.jx-label {
 	float: right;
 	right: 0;
 }
 
-.vertical div.jx-image div.jx-label {
+.vertical figure.jx-image figcaption.jx-label {
 	display: table;
 	position: absolute;
 }
 
-.vertical div.jx-image.jx-right div.jx-label {
+.vertical figure.jx-image.jx-right figcaption.jx-label {
 	left: 0;
 	bottom: 0;
 	top: auto;
@@ -263,7 +268,7 @@ div.jx-credit em {
 
 /* Animation */
 
-div.jx-image.transition {
+figure.jx-image.transition {
 	transition: width .5s ease;
 }
 
@@ -271,7 +276,7 @@ div.jx-handle.transition {
 	transition: left .5s ease;
 }
 
-.vertical div.jx-image.transition {
+.vertical figure.jx-image.transition {
 	transition: height .5s ease;
 }
 
@@ -331,9 +336,7 @@ a.jx-knightlab span.juxtapose-name {
 }
 
 /* keyboard accessibility */
-div.jx-controller:focus,
-div.jx-image.jx-left div.jx-label:focus,
-div.jx-image.jx-right div.jx-label:focus,
+button.jx-controller:focus,
 a.jx-knightlab:focus {
 	background: #eae34a;
 	color: #000;

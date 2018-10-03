@@ -335,23 +335,23 @@
 
       if (leftPercentNum > 0 && leftPercentNum < 100) {
         removeClass(this.handle, 'transition');
-        removeClass(this.rightImage, 'transition');
-        removeClass(this.leftImage, 'transition');
+        removeClass(this.rightFigure, 'transition');
+        removeClass(this.leftFigure, 'transition');
 
         if (this.options.animate && animate) {
           addClass(this.handle, 'transition');
-          addClass(this.leftImage, 'transition');
-          addClass(this.rightImage, 'transition');
+          addClass(this.leftFigure, 'transition');
+          addClass(this.rightFigure, 'transition');
         }
 
         if (this.options.mode === "vertical") {
           this.handle.style.top = leftPercent;
-          this.leftImage.style.height = leftPercent;
-          this.rightImage.style.height = rightPercent;
+          this.leftFigure.style.height = leftPercent;
+          this.rightFigure.style.height = rightPercent;
         } else {
           this.handle.style.left = leftPercent;
-          this.leftImage.style.width = leftPercent;
-          this.rightImage.style.width = rightPercent;
+          this.leftFigure.style.width = leftPercent;
+          this.rightFigure.style.width = rightPercent;
         }
         this.sliderPosition = leftPercent;
       }
@@ -362,12 +362,10 @@
     },
 
     displayLabel: function(element, labelText) {
-      label = document.createElement("div");
+      label = element.getElementsByTagName("figcaption")[0];
       label.className = 'jx-label';
-      label.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
 
       setText(label, labelText);
-      element.appendChild(label);
     },
 
     displayCredits: function() {
@@ -479,14 +477,18 @@
         this.handle = document.createElement("div");
         this.handle.className = 'jx-handle';
 
-        this.rightImage = document.createElement("div");
-        this.rightImage.className = 'jx-image jx-right';
-        this.rightImage.appendChild(this.imgAfter.image);
+        this.rightFigure = document.createElement("figure");
+        this.rightFigcaption = document.createElement("figcaption");
+        this.rightFigure.className = 'jx-image jx-right';
+        this.rightFigure.appendChild(this.imgAfter.image);
+        this.rightFigure.appendChild(this.rightFigcaption);
 
+        this.leftFigure = document.createElement("figure");
+        this.leftFigcaption = document.createElement("figcaption");
+        this.leftFigure.className = 'jx-image jx-left';
+        this.leftFigure.appendChild(this.imgBefore.image);
+        this.leftFigure.appendChild(this.leftFigcaption);
 
-        this.leftImage = document.createElement("div");
-        this.leftImage.className = 'jx-image jx-left';
-        this.leftImage.appendChild(this.imgBefore.image);
 
         this.labCredit = document.createElement("a");
         this.labCredit.setAttribute('href', 'http://juxtapose.knightlab.com');
@@ -501,25 +503,22 @@
         this.labCredit.appendChild(this.projectName);
 
         this.slider.appendChild(this.handle);
-        this.slider.appendChild(this.leftImage);
-        this.slider.appendChild(this.rightImage);
+        this.slider.appendChild(this.leftFigure);
+        this.slider.appendChild(this.rightFigure);
         this.slider.appendChild(this.labCredit);
 
         this.leftArrow = document.createElement("div");
         this.rightArrow = document.createElement("div");
         this.control = document.createElement("div");
-        this.controller = document.createElement("div");
+        this.controller = document.createElement("button");
 
+        this.controller.setAttribute('type', 'button');
+        this.controller.setAttribute('aria-hidden', 'true');
+
+        this.controller.className = 'jx-controller';
         this.leftArrow.className = 'jx-arrow jx-left';
         this.rightArrow.className = 'jx-arrow jx-right';
         this.control.className = 'jx-control';
-        this.controller.className = 'jx-controller';
-
-        this.controller.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
-        this.controller.setAttribute('role', 'slider');
-        this.controller.setAttribute('aria-valuenow', 50);
-        this.controller.setAttribute('aria-valuemin', 0);
-        this.controller.setAttribute('aria-valuemax', 100);
 
         this.handle.appendChild(this.leftArrow);
         this.handle.appendChild(this.control);
@@ -539,8 +538,8 @@
       this.updateSlider(this.options.startingPosition, false);
 
       if (this.options.showLabels === true) {
-        if (this.imgBefore.label) { this.displayLabel(this.leftImage, this.imgBefore.label); }
-        if (this.imgAfter.label) { this.displayLabel(this.rightImage, this.imgAfter.label); }
+        if (this.imgBefore.label) { this.displayLabel(this.leftFigure, this.imgBefore.label); }
+        if (this.imgAfter.label) { this.displayLabel(this.rightFigure, this.imgAfter.label); }
       }
 
       if (this.options.showCredits === true) {
@@ -600,38 +599,36 @@
         var key = e.which || e.keyCode;
         var ariaValue = parseFloat(this.style.left);
 
-          //move jx-controller left
-          if (key == 37) {
+        //move jx-controller left
+        if (key == 37 || key == 40) {
+            e.preventDefault();
             ariaValue = ariaValue - 1;
-          var leftStart = parseFloat(this.style.left) - 1;
-          self.updateSlider(leftStart, false);
-          self.controller.setAttribute('aria-valuenow', ariaValue);
+            var leftStart = parseFloat(this.style.left) - 1;
+            self.updateSlider(leftStart, false);
           }
 
           //move jx-controller right
-          if (key == 39) {
+          if (key == 38 || key == 39) {
+            e.preventDefault();
             ariaValue = ariaValue + 1;
-          var rightStart = parseFloat(this.style.left) + 1;
-          self.updateSlider(rightStart, false);
-          self.controller.setAttribute('aria-valuenow', ariaValue);
+            var rightStart = parseFloat(this.style.left) + 1;
+            self.updateSlider(rightStart, false);
           }
       });
 
       //toggle right-hand image visibility
-      this.leftImage.addEventListener("keydown", function (event) {
+      this.leftFigure.addEventListener("keydown", function (event) {
            var key = event.which || event.keyCode;
             if ((key == 13) || (key ==32)) {
               self.updateSlider("90%", true);
-                self.controller.setAttribute('aria-valuenow', 90);
             }
       });
 
       //toggle left-hand image visibility
-      this.rightImage.addEventListener("keydown", function (event) {
+      this.rightFigure.addEventListener("keydown", function (event) {
            var key = event.which || event.keyCode;
             if ((key == 13) || (key ==32)) {
-            self.updateSlider("10%", true);
-            self.controller.setAttribute('aria-valuenow', 10);
+              self.updateSlider("10%", true);
             }
       });
 
