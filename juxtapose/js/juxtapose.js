@@ -364,7 +364,6 @@
     displayLabel: function(element, labelText) {
       label = document.createElement("div");
       label.className = 'jx-label';
-      label.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
 
       setText(label, labelText);
       element.appendChild(label);
