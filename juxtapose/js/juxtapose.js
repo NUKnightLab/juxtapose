@@ -226,6 +226,8 @@
   }
 
   function getLeftPercent(slider, input) {
+    var leftPercent;
+
     if (typeof(input) === "string" || typeof(input) === "number") {
       leftPercent = parseInt(input, 10);
     } else {
@@ -321,7 +323,7 @@
   JXSlider.prototype = {
 
     updateSlider: function(input, animate) {
-      var leftPercent, rightPercent;
+      var leftPercent, rightPercent, leftPercentNum;
 
       if (this.options.mode === "vertical") {
         leftPercent = getTopPercent(this.slider, input);
@@ -362,7 +364,7 @@
     },
 
     displayLabel: function(element, labelText) {
-      label = document.createElement("div");
+      var label = document.createElement("div");
       label.className = 'jx-label';
       label.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
 
@@ -561,7 +563,8 @@
         e = e || window.event;
         e.preventDefault();
         self.updateSlider(e, true);
-        animate = true;
+        var animate = true;
+        var onMouseUp;
 
         this.addEventListener("mousemove", function(e) {
           e = e || window.event;
@@ -569,11 +572,11 @@
           if (animate) { self.updateSlider(e, false); }
         });
 
-        this.addEventListener('mouseup', function(e) {
+        onMouseUp = this.addEventListener('mouseup', function(e) {
           e = e || window.event;
           e.preventDefault();
           e.stopPropagation();
-          this.removeEventListener('mouseup', arguments.callee);
+          this.removeEventListener('mouseup', onMouseUp);
           animate = false;
         });
       });
@@ -678,10 +681,10 @@
       options.mode = w.getAttribute('data-makeresponsive');
     }
 
-    specificClass = 'juxtapose-' + idx;
+    var specificClass = 'juxtapose-' + idx;
     addClass(element, specificClass);
 
-    selector = '.' + specificClass;
+    var selector = '.' + specificClass;
 
     if (w.innerHTML) {
       w.innerHTML = '';
@@ -689,7 +692,7 @@
       w.innerText = '';
     }
 
-    slider = new juxtapose.JXSlider(
+    var slider = new juxtapose.JXSlider(
       selector,
       [
         {
