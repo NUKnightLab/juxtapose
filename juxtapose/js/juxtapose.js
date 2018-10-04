@@ -324,6 +324,7 @@
 
     updateSlider: function(input, animate) {
       var leftPercent, rightPercent, leftPercentNum;
+      var ariaValueNow;
 
       if (this.options.mode === "vertical") {
         leftPercent = getTopPercent(this.slider, input);
@@ -331,6 +332,7 @@
         leftPercent = getLeftPercent(this.slider, input);
       }
 
+      ariaValueNow = Math.round(leftPercent);
       leftPercent = leftPercent.toFixed(2) + "%";
       leftPercentNum = parseFloat(leftPercent);
       rightPercent = (100 - leftPercentNum) + "%";
@@ -355,7 +357,9 @@
           this.leftImage.style.width = leftPercent;
           this.rightImage.style.width = rightPercent;
         }
+
         this.sliderPosition = leftPercent;
+        this.controller.setAttribute('aria-valuenow', ariaValueNow);
       }
     },
 
@@ -367,9 +371,13 @@
       var label = document.createElement("div");
       label.className = 'jx-label';
       label.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
+      label.setAttribute('role', 'button');
+      label.setAttribute('aria-label', 'Show ' + labelText + ' Image');
 
       setText(label, labelText);
       element.appendChild(label);
+
+      return label;
     },
 
     displayCredits: function() {
@@ -541,8 +549,13 @@
       this.updateSlider(this.options.startingPosition, false);
 
       if (this.options.showLabels === true) {
-        if (this.imgBefore.label) { this.displayLabel(this.leftImage, this.imgBefore.label); }
-        if (this.imgAfter.label) { this.displayLabel(this.rightImage, this.imgAfter.label); }
+        if (this.imgBefore.label) {
+          this.leftLabel = this.displayLabel(this.leftImage, this.imgBefore.label);
+        }
+
+        if (this.imgAfter.label) {
+          this.rightLabel = this.displayLabel(this.rightImage, this.imgAfter.label);
+        }
       }
 
       if (this.options.showCredits === true) {
@@ -601,42 +614,56 @@
       this.handle.addEventListener("keydown", function (e) {
         e = e || window.event;
         var key = e.which || e.keyCode;
-        var ariaValue = parseFloat(this.style.left);
+        var leftStart = parseFloat(this.style.left);
 
           //move jx-controller left
           if (key == 37) {
-            ariaValue = ariaValue - 1;
-          var leftStart = parseFloat(this.style.left) - 1;
-          self.updateSlider(leftStart, false);
-          self.controller.setAttribute('aria-valuenow', ariaValue);
+            self.updateSlider(leftStart - 1, false);
           }
 
           //move jx-controller right
           if (key == 39) {
-            ariaValue = ariaValue + 1;
-          var rightStart = parseFloat(this.style.left) + 1;
-          self.updateSlider(rightStart, false);
-          self.controller.setAttribute('aria-valuenow', ariaValue);
+            self.updateSlider(leftStart + 1, false);
           }
       });
 
       //toggle right-hand image visibility
-      this.leftImage.addEventListener("keydown", function (event) {
-           var key = event.which || event.keyCode;
-            if ((key == 13) || (key ==32)) {
-              self.updateSlider("90%", true);
-                self.controller.setAttribute('aria-valuenow', 90);
-            }
-      });
+      function showLeftImage() {
+        self.updateSlider(90, true);
+      }
+
+      function onShowLeftImage(event) {
+        var key = event.which || event.keyCode;
+        if ((key == 13) || (key == 32)) {
+          showLeftImage();
+        }
+      }
+
+      this.leftImage.addEventListener("keydown", onShowLeftImage);
+
+      if (this.leftLabel) {
+        this.leftLabel.addEventListener("keydown", onShowLeftImage);
+        this.leftLabel.addEventListener("click", showLeftImage);
+      }
 
       //toggle left-hand image visibility
-      this.rightImage.addEventListener("keydown", function (event) {
-           var key = event.which || event.keyCode;
-            if ((key == 13) || (key ==32)) {
-            self.updateSlider("10%", true);
-            self.controller.setAttribute('aria-valuenow', 10);
-            }
-      });
+      function showRightImage() {
+        self.updateSlider(10, true);
+      }
+
+      function onShowRightImage(event) {
+        var key = event.which || event.keyCode;
+        if ((key == 13) || (key == 32)) {
+          showRightImage();
+        }
+      }
+
+      this.rightImage.addEventListener("keydown", onShowRightImage);
+
+      if (this.rightLabel) {
+        this.rightLabel.addEventListener("keydown", onShowRightImage);
+        this.rightLabel.addEventListener("click", showRightImage);
+      }
 
       juxtapose.sliders.push(this);
 
