@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Page structure from the Twitter Bootstrap starter template: https://getbootstrap.com/docs/4.3/getting-started/introduction/#starter-template -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Juxtapose examples: Whitespace fix with Javascript</title>
+
+  </head>
+  <body>
+    <div class="container">
+        <h1>Juxtapose Examples</h1>
+        <h2>Whitespace fix with Javascript</h2>
+        <div class="row">
+            <div class="col">
+                <iframe frameborder="0" class="juxtapose" width="100%" src="https://cdn.knightlab.com/libs/juxtapose/latest/embed/index.html?uid=1ac1cfdc-3458-11e9-9dba-0edaf8f81e27"></iframe>
+                <p>Here is some content directly below the Juxtapose iframe</p>
+            </div> <!-- .col -->
+        </div> <!-- .row -->
+    </div>
+
+    <script>
+        /**
+         * Your width calculation will vary according to the aspect ratio
+         * of your Juxtapose images.
+         */
+        var calculateHeight = function(width) {
+            return width * (360 / 640);
+        }
+
+        var setJuxtaposeHeight = function() {
+            var frame = document.getElementsByClassName("juxtapose")[0];
+            frame.setAttribute('height', calculateHeight(frame.offsetWidth));
+        };
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            setJuxtaposeHeight();
+        });
+    </script>
+
+  </body>
+</html>
