@@ -590,7 +590,7 @@
           e = e || window.event;
           e.preventDefault();
           e.stopPropagation();
-          self.updateSlider(event, false);
+          self.updateSlider(e, false);
         });
 
       });
@@ -750,6 +750,7 @@
 				return this.detachEvent("on" + type, registry.splice(index, 1)[0][3]);
 			}
 		}
+		return null;
 	};
 
 	WindowPrototype[dispatchEvent] = DocumentPrototype[dispatchEvent] = ElementPrototype[dispatchEvent] = function (eventObject) {
