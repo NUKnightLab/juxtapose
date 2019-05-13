@@ -57,7 +57,7 @@
       var photo_info = url.substr(pos);
       if (photo_info.indexOf('/') == -1) return null;
       if (photo_info.indexOf('/') === 0) photo_info = photo_info.substr(1);
-      id = photo_info.split("/")[1];
+      var id = photo_info.split("/")[1];
       return id;
     },
 
@@ -70,7 +70,7 @@
       request.open('GET', url, true);
       request.onload = function() {
         if (request.status >= 200 && request.status < 400){
-          data = JSON.parse(request.responseText);
+          var data = JSON.parse(request.responseText);
           var flickr_url = self.bestFlickrUrl(data.sizes.size);
           self.setFlickrImage(flickr_url);
         } else {
@@ -152,8 +152,8 @@
         height: parseInt(getComputedStyle(element).height, 10)
       };
     } else {
-      w = element.getBoundingClientRect().right - element.getBoundingClientRect().left;
-      h = element.getBoundingClientRect().bottom - element.getBoundingClientRect().top;
+      var w = element.getBoundingClientRect().right - element.getBoundingClientRect().left;
+      var h = element.getBoundingClientRect().bottom - element.getBoundingClientRect().top;
       return {
         width: parseInt(w, 10) || 0,
         height: parseInt(h, 10) || 0
@@ -226,6 +226,7 @@
   }
 
   function getLeftPercent(slider, input) {
+    var leftPercent;
     if (typeof(input) === "string" || typeof(input) === "number") {
       leftPercent = parseInt(input, 10);
     } else {
@@ -243,6 +244,7 @@
   }
 
   function getTopPercent(slider, input) {
+    var topPercent;
     if (typeof(input) === "string" || typeof(input) === "number") {
       topPercent = parseInt(input, 10);
     } else {
@@ -330,7 +332,7 @@
       }
 
       leftPercent = leftPercent.toFixed(2) + "%";
-      leftPercentNum = parseFloat(leftPercent);
+      var leftPercentNum = parseFloat(leftPercent);
       rightPercent = (100 - leftPercentNum) + "%";
 
       if (leftPercentNum > 0 && leftPercentNum < 100) {
@@ -362,7 +364,7 @@
     },
 
     displayLabel: function(element, labelText) {
-      label = document.createElement("div");
+      var label = document.createElement("div");
       label.className = 'jx-label';
       label.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
 
@@ -371,10 +373,10 @@
     },
 
     displayCredits: function() {
-      credit = document.createElement("div");
+      var credit = document.createElement("div");
       credit.className = "jx-credit";
 
-      text = "<em>Photo Credits:</em>";
+      var text = "<em>Photo Credits:</em>";
       if (this.imgBefore.credit) { text += " <em>Before</em> " + this.imgBefore.credit; }
       if (this.imgAfter.credit) { text += " <em>After</em> " + this.imgAfter.credit; }
 
@@ -561,7 +563,7 @@
         e = e || window.event;
         e.preventDefault();
         self.updateSlider(e, true);
-        animate = true;
+        var animate = true;
 
         this.addEventListener("mousemove", function(e) {
           e = e || window.event;
@@ -678,10 +680,10 @@
       options.mode = w.getAttribute('data-makeresponsive');
     }
 
-    specificClass = 'juxtapose-' + idx;
+    var specificClass = 'juxtapose-' + idx;
     addClass(element, specificClass);
 
-    selector = '.' + specificClass;
+    var selector = '.' + specificClass;
 
     if (w.innerHTML) {
       w.innerHTML = '';
@@ -689,7 +691,7 @@
       w.innerText = '';
     }
 
-    slider = new juxtapose.JXSlider(
+    var slider = new juxtapose.JXSlider(
       selector,
       [
         {
