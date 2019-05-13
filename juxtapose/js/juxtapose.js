@@ -167,7 +167,7 @@
       a = 'client';
       e = document.documentElement || document.body;
     }
-    return { width : e[ a+'Width' ] , height : e[ a+'Height' ] }
+    return { width : e[ a+'Width' ] , height : e[ a+'Height' ] };
   }
 
   function getPageX(e) {
@@ -734,8 +734,8 @@
 
 		registry.unshift([target, type, listener, function (event) {
 			event.currentTarget = target;
-			event.preventDefault = function () { event.returnValue = false };
-			event.stopPropagation = function () { event.cancelBubble = true };
+			event.preventDefault = function () { event.returnValue = false; };
+			event.stopPropagation = function () { event.cancelBubble = true; };
 			event.target = event.srcElement || target;
 
 			listener.call(target, event);
