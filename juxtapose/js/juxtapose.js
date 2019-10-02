@@ -280,6 +280,7 @@
       makeResponsive: true,
       startingPosition: "50%",
       mode: 'horizontal',
+      interaction: 'click',
       callback: null // pass a callback function if you like
     };
 
@@ -552,32 +553,56 @@
         self.setWrapperDimensions();
       });
 
-
       // Set up Javascript Events
-      // On mousedown, call updateSlider then set animate to false
-      // (if animate is true, adds css transition when updating).
-
-      this.slider.addEventListener("mousedown", function(e) {
-        e = e || window.event;
-        e.preventDefault();
-        self.updateSlider(e, true);
-        animate = true;
-
-        this.addEventListener("mousemove", function(e) {
+      if (this.options.interaction == 'click') {
+        // On mousedown, call updateSlider then set animate to false
+        // (if animate is true, adds css transition when updating).
+        this.slider.addEventListener("mousedown", function(e) {
           e = e || window.event;
           e.preventDefault();
-          if (animate) { self.updateSlider(e, false); }
-        });
+          self.updateSlider(e, true);
+          animate = true;
 
-        this.addEventListener('mouseup', function(e) {
+          this.addEventListener("mousemove", function(e) {
+            e = e || window.event;
+            e.preventDefault();
+            if (animate) { self.updateSlider(e, false); }
+          });
+
+          this.addEventListener('mouseup', function(e) {
+            e = e || window.event;
+            e.preventDefault();
+            e.stopPropagation();
+            this.removeEventListener('mouseup', arguments.callee);
+            animate = false;
+          });
+        });
+      } else if (this.options.interaction == 'hover') {
+        // On mouseover, call updateSlider and set animate to false on
+        // mouseout. If animate is true, adds css transitions when updating.
+        this.slider.addEventListener("mouseover", function(e) {
           e = e || window.event;
           e.preventDefault();
-          e.stopPropagation();
-          this.removeEventListener('mouseup', arguments.callee);
-          animate = false;
-        });
-      });
+          self.updateSlider(e, true);
+          animate = true;
 
+          this.addEventListener("mousemove", function(e) {
+            e = e || window.event;
+            e.preventDefault();
+            if (animate) { self.updateSlider(e, false); }
+          });
+
+          this.addEventListener('mouseout', function(e) {
+            e = e || window.event;
+            e.preventDefault();
+            e.stopPropagation();
+            this.removeEventListener('mouseup', arguments.callee);
+            animate = false;
+          });
+        });
+      }
+
+      // Always add event listeners for touchscreens
       this.slider.addEventListener("touchstart", function(e) {
         e = e || window.event;
         e.preventDefault();
@@ -676,6 +701,9 @@
     }
     if (w.getAttribute('data-makeresponsive')) {
       options.mode = w.getAttribute('data-makeresponsive');
+    }
+    if (w.getAttribute('data-interaction')) {
+      options.interaction = w.getAttribute('data-interaction');
     }
 
     specificClass = 'juxtapose-' + idx;
