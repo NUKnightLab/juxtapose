@@ -1,4 +1,4 @@
-domains: "{{ project_name }}.knilab.com"
+domains: "stg-{{ project_name }}.knightlab.com"
 static_bucket: "media.knilab.com"
 gunicorn_reload: True # generally True on staging only
 ssl:
