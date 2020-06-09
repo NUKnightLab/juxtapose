@@ -9,6 +9,6 @@ boto==2.31.0
 #ply==3.4
 #pycrypto==2.6
 #wsgiref==0.1.2
-#gunicorn==19.3.0
+gunicorn==19.3.0
 #pyOpenSSL==0.15.1
 

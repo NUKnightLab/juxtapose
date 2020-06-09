@@ -1,9 +1,9 @@
 domains: "{{ project_name }}.knilab.com"
 static_bucket: "media.knilab.com"
 gunicorn_reload: True # generally True on staging only
-ssl:
-  ssl_certificate: "/etc/nginx/ssl/knilab/knilab-bundle.crt"
-  ssl_certificate_key: "/etc/nginx/ssl/knilab/knilab-com.key"
+#ssl:
+#  ssl_certificate: "/etc/nginx/ssl/knilab/knilab-bundle.crt"
+#  ssl_certificate_key: "/etc/nginx/ssl/knilab/knilab-com.key"
 
 init_env_stg:
   STATIC_URL: "//media.knilab.com/{{ project_name }}/"
