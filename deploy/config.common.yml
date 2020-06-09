@@ -22,6 +22,8 @@ static_dir: "{{ application_dir }}/static"
 
 application_dir: "{{ deploy_dir }}/website"
 
+nginx_conf: "{{ deploy_dir }}/nginx/conf.d/{{ project_name }}.conf"
+
 # Configs below will not usually change
 deploy_dir: "{{ install_root }}/{{ project_name }}"
 env_file: "{{ deploy_dir }}/.env"
