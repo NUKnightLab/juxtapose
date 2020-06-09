@@ -2,6 +2,9 @@
 build/website
 .DS_Store
 env.sh
+.in
+.env
+venv
 
 website/static/.DS_Store
 secrets
