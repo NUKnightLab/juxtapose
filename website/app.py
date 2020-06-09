@@ -110,13 +110,25 @@ def upload_juxtapose_json():
     try:
         data = request.json
         uid = _get_uid()
-        s3 = boto.connect_s3(
+        import boto3
+        _conn = boto3.client('s3',
+            verify=True,
             aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
             aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
-        bucket = s3.get_bucket(settings.AWS_STORAGE_BUCKET_NAME)
-        k = boto.s3.key.Key(bucket)
-        k.key = 'juxtapose/' + uid + '.json'
-        k.set_contents_from_string(json.dumps(data), policy='public-read')
+        _conn.put_object(
+            ACL='public-read',
+            Body=json.dumps(data),
+            Bucket=settings.AWS_STORAGE_BUCKET_NAME,
+            Key='juxtapose/' + uid + '.json',
+            ContentType='application/json')
+        #s3 = boto.connect_s3(
+        #    calling_format=OrdinaryCallingFormat,
+        #    aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+        #    aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
+        #bucket = s3.get_bucket(settings.AWS_STORAGE_BUCKET_NAME)
+        #k = boto.s3.key.Key(bucket)
+        #k.key = 'juxtapose/' + uid + '.json'
+        #k.set_contents_from_string(json.dumps(data), policy='public-read')
         if request.host == 'juxtapose.knilab.com':
             uid = 'https://s3.amazonaws.com/uploads.knilab.com/%s' % k.key
         return jsonify({'uid': uid})
