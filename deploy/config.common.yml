@@ -29,7 +29,7 @@ project_repo: "git@github.com:NUKnightLab/{{ project_name }}.git"
 requirements_file: "{{ deploy_dir }}/requirements.txt"
 virtualenv: "{{ virtualenv_root }}/{{ project_name }}"
 wsgi_application: "core.wsgi:application"
-service_name: "apps/{{ project_name }}"
+service_name: "{{ project_name }}"
 static_service: "s3"
 static_dest: "s3://{{ static_bucket }}/{{ project_name }}"
 
