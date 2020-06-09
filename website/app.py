@@ -129,7 +129,7 @@ def upload_juxtapose_json():
         #k = boto.s3.key.Key(bucket)
         #k.key = 'juxtapose/' + uid + '.json'
         #k.set_contents_from_string(json.dumps(data), policy='public-read')
-        if request.host == 'juxtapose.knilab.com':
+        if request.host == 'stg-juxtapose.knightlab.com':
             uid = 'https://s3.amazonaws.com/uploads.knilab.com/%s' % k.key
         return jsonify({'uid': uid})
     except Exception as e:
