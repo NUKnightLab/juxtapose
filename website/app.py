@@ -21,7 +21,7 @@ faq_json = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'faq.json')
 
 try:
     importlib.import_module(settings_module)
-except ImportError, e:
+except ImportError as e:
     raise ImportError("Could not import settings '%s' (Is it on sys.path?): %s" % (settings_module, e))
 
 
@@ -120,7 +120,7 @@ def upload_juxtapose_json():
         if request.host == 'juxtapose.knilab.com':
             uid = 'https://s3.amazonaws.com/uploads.knilab.com/%s' % k.key
         return jsonify({'uid': uid})
-    except Exception, e:
+    except Exception as e:
         traceback.print_exc()
         return jsonify({'error': str(e)})
 
@@ -139,10 +139,10 @@ if __name__ == "__main__":
             elif opt in ('-p', '--port'):
                 port = int(arg)
             else:
-                print 'Usage: app.py [-s]'
+                print('Usage: app.py [-s]')
                 sys.exit(1)
     except getopt.GetoptError:
-        print 'Usage: app.py [-s] [-p port]'
+        print('Usage: app.py [-s] [-p port]')
         sys.exit(1)
 
     app.run(host='0.0.0.0', port=5000, debug=True, ssl_context=ssl_context)
