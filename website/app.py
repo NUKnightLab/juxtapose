@@ -107,10 +107,11 @@ def _get_uid():
 @app.route('/juxtapose/create/', methods=['POST'])
 def upload_juxtapose_json():
     """Post JSON to S3 Bucket"""
+    import boto3
     try:
         data = request.json
         uid = _get_uid()
-        import boto3
+        key = 'juxtapose/' + uid + '.json'
         _conn = boto3.client('s3',
             verify=True,
             aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
@@ -119,7 +120,7 @@ def upload_juxtapose_json():
             ACL='public-read',
             Body=json.dumps(data),
             Bucket=settings.AWS_STORAGE_BUCKET_NAME,
-            Key='juxtapose/' + uid + '.json',
+            Key=key,
             ContentType='application/json')
         #s3 = boto.connect_s3(
         #    calling_format=OrdinaryCallingFormat,
@@ -130,7 +131,7 @@ def upload_juxtapose_json():
         #k.key = 'juxtapose/' + uid + '.json'
         #k.set_contents_from_string(json.dumps(data), policy='public-read')
         if request.host == 'stg-juxtapose.knightlab.com':
-            uid = 'https://s3.amazonaws.com/uploads.knilab.com/%s' % k.key
+            uid = 'https://s3.amazonaws.com/uploads.knilab.com/%s' % key
         return jsonify({'uid': uid})
     except Exception as e:
         traceback.print_exc()
