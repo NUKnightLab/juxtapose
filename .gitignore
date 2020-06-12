@@ -4,6 +4,7 @@ build/website
 env.sh
 .in
 .env
+.envrc
 venv
 
 website/static/.DS_Store
