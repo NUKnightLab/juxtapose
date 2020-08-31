@@ -30,6 +30,7 @@ function optionsFromForm() {
         showCredits: $("#show-credits").prop('checked'),
         makeResponsive: $("#make-responsive").prop('checked'),
         mode: ($("#vertical").prop('checked')) ? 'vertical' : 'horizontal',
+        interaction: ($("#interaction").prop('checked')) ? 'hover' : 'click',
         startingPosition: pos,
     };
     return options;
