@@ -1,22 +1,26 @@
-[
-  {
-      "slug": "",
-      "question": "Do I need to know code to use JuxtaposeJS?",
-      "answer": "Absolutely not. JuxtaposeJS is friction-free. If you have the links to two images, you are ready to use JuxtaposeJS."
-  },
-  {
-      "slug": "",
-      "question": "Can I customize what JuxtaposeJS looks like?",
-      "answer": "<p>In it's simplest form, JuxtaposeJS is embedded using an <code>&lt;iframe&gt;</code> tag. In this form, there's no way to customize the appearance.</p><p> If you are comfortable integrating markup and javascript into your own page, you can go beyond the  <code>&lt;iframe&gt;</code>. JuxtaposeJS is designed with a minimalist style meant to work with most websites. If you want to customize the appearance, you can change most of how it looks with CSS rules. Read more on the <a href='https://github.com/NUKnightLab/juxtapose/wiki/Styling-JuxtaposeJS'>Github Wiki.</a></p>"
-  },
-  {
-      "slug": "",
-      "question": "Does JuxtaposeJS work on iPhone, iPad, and other iOS devices?",
-      "answer": "Yes, JuxtaposeJS works normally on iOS devices."
-  },
-  {
-      "slug": "",
-      "question": "Can I help build new features for JuxtaposeJS?",
-      "answer": "Absolutely. <a href='http://www.github.com/NUKnightLab/juxtapose' target='_blank'>Fork the project</a> and get involved. <a href='http://knightlab.zendesk.com' target='_blank'>Send us feedback</a>. Help us make JuxtaposeJS the tool you need and want it to be."
-  }
+[{
+        "slug": "",
+        "question": "Do I need to know code to use JuxtaposeJS?",
+        "answer": "Absolutely not. JuxtaposeJS is friction-free. If you have the links to two images, you are ready to use JuxtaposeJS."
+    },
+    {
+        "slug": "",
+        "question": "Can I customize what JuxtaposeJS looks like?",
+        "answer": "<p>In it's simplest form, JuxtaposeJS is embedded using an <code>&lt;iframe&gt;</code> tag. In this form, there's no way to customize the appearance.</p><p> If you are comfortable integrating markup and javascript into your own page, you can go beyond the  <code>&lt;iframe&gt;</code>. JuxtaposeJS is designed with a minimalist style meant to work with most websites. If you want to customize the appearance, you can change most of how it looks with CSS rules. Read more on the <a href='https://github.com/NUKnightLab/juxtapose/wiki/Styling-JuxtaposeJS'>Github Wiki.</a></p>"
+    },
+    {
+        "slug": "",
+        "question": "Does JuxtaposeJS work on iPhone, iPad, and other iOS devices?",
+        "answer": "Yes, JuxtaposeJS works normally on iOS devices."
+    },
+    {
+        "slug": "",
+        "question": "Can I help build new features for JuxtaposeJS?",
+        "answer": "Absolutely. <a href='http://www.github.com/NUKnightLab/juxtapose' target='_blank'>Fork the project</a> and get involved. <a href='http://knightlab.zendesk.com' target='_blank'>Send us feedback</a>. Help us make JuxtaposeJS the tool you need and want it to be."
+    },
+    {
+        "slug": "",
+        "question": "Can I upload images to Juxtapose? Can I use [some service] to host images?",
+        "answer": "<p>Juxtapose does not support uploading images. The URLs for the left and right image should be direct URLs to images, except if you are using Flickr to host images, in which case Juxtapose can transform the Flickr image page URL to the correct format. You can also use images stored on Dropbox.com by clicking on the button with the Dropbox logo. <p>Services like Imgur and Photobucket generally prohibit 'hotlinking' to images they serve, which is what Juxtapose does, so those will not work, or will stop working after appearing to work.<p><a href='https://blog.usejournal.com/host-static-images-for-your-apps-or-website-on-google-drive-hotlink-to-gdrive-images-358d6fcf8ef7'>This page</a> describes a method for using images stored on Google Drive, but this is not technically supported, and could stop working at any time.<p><a href='https://stackoverflow.com/questions/13678036/is-there-a-way-to-hotlink-images-from-a-box-account'>This page</a> describes a method for using images stored on Box.com, but this, also, is not technically supported, and could stop working at any time."
+    }
 ]
