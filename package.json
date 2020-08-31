@@ -15,6 +15,7 @@
     "build/js/juxtapose.min.js",
     "README.md"
   ],
+  "main": "build/js/juxtapose.js",
   "keywords": [
     "image",
     "ui",
@@ -28,5 +29,5 @@
   "bugs": {
     "url": "https://github.com/NUKnightLab/juxtapose/issues"
   },
-  "homepage": "juxtapose.knightlab.com"
+  "homepage": "https://juxtapose.knightlab.com"
 }
