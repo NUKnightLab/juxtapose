@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>JuxtaposeJS Embed</title>
     <meta charset="utf-8">
@@ -8,15 +9,17 @@
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <style>
-    html, body {
-        height:100%;
-        padding: 0px;
-        margin: 0px;
-    }
-    #juxtapose-embed {
-        width: 100%;
-        max-width: initial;
-    }
+        html,
+        body {
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+        }
+        
+        #juxtapose-embed {
+            width: 100%;
+            max-width: initial;
+        }
     </style>
 
     <link rel="stylesheet" href="../css/juxtapose.css">
@@ -24,78 +27,88 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-27829802-9"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
-        gtag('config', 'UA-27829802-9', { 'anonymize_ip': true });
+        gtag('config', 'UA-27829802-9', {
+            'anonymize_ip': true
+        });
     </script>
 
 </head>
+
 <body>
     <div id="juxtapose-embed"></div>
 
     <script type="text/javascript" src="../js/juxtapose.js"></script>
     <script type="text/javascript">
-    function getURLParameter(variable) {
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i = 0; i < vars.length; i++) {
-            var pair = vars[i].split("=");
-            if (pair[0] == variable) { return pair[1]; }
-        }
-        return false;
-    }
-
-    function createJuxtapose(json) {
-        // https://css-tricks.com/snippets/jquery/fixing-load-in-ie-for-cached-images/
-        var msie = document.documentMode;
-        if (msie < 9) {
-            json.images[0].src += "?" + new Date().getTime();
-            json.images[1].src += "?" + new Date().getTime();
-        }
-        slider = new juxtapose.JXSlider('#juxtapose-embed', json.images, json.options);
-    }
-
-    var uid = getURLParameter('uid');
-    if (uid.indexOf('http') === 0) {
-        var url = uid;
-    } else {
-        if (uid[uid.length - 1] == '/') {
-            uid = uid.substr(0, uid.length - 1);
-        }
-        var url = 'https://s3.amazonaws.com/uploads.knightlab.com/juxtapose/' + uid + '.json';
-    }
-
-    if (url) {
-        // http://stackoverflow.com/questions/20624476/xdomainrequest-cors-for-xml-causing-access-is-denied-error-in-ie8-ie9
-        var xhr = new XMLHttpRequest();
-        var ie = false;
-        if ("withCredentials" in xhr) {
-            xhr.open('get', url, true);
-        } else if(typeof XDomainRequest != "undefined") {
-            // XDomainRequest for IE.
-            url = url.replace(/^https:\/\//i, 'http://');
-            xhr = new XDomainRequest();
-            xhr.open('get', url);
-            ie = true;
-        }
-
-        xhr.onload = function() {
-            if ((xhr.readyState == 4 && xhr.status == 200 && !ie) || ie) {
-                var json = JSON.parse(xhr.responseText);
-                createJuxtapose(json);
+        function getURLParameter(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) {
+                    return pair[1];
+                }
             }
-        };
-        setTimeout(function () { xhr.send(); }, 0);
-    }
+            return false;
+        }
 
-    var head = document.head || document.getElementsByTagName("head")[0];
-    var oembed_link = document.createElement('link');
-    oembed_link['rel'] = 'alternate';
-    oembed_link['type'] = 'application/json+oembed';
-    oembed_link['href'] = 'https://oembed.knightlab.com/juxtapose/?url=' + encodeURIComponent(window.location.href);
-    head.appendChild(oembed_link);
+        function createJuxtapose(json) {
+            // https://css-tricks.com/snippets/jquery/fixing-load-in-ie-for-cached-images/
+            var msie = document.documentMode;
+            if (msie < 9) {
+                json.images[0].src += "?" + new Date().getTime();
+                json.images[1].src += "?" + new Date().getTime();
+            }
+            slider = new juxtapose.JXSlider('#juxtapose-embed', json.images, json.options);
+        }
 
+        var uid = getURLParameter('uid');
+        if (uid.indexOf('http') === 0) {
+            var url = uid;
+        } else {
+            if (uid[uid.length - 1] == '/') {
+                uid = uid.substr(0, uid.length - 1);
+            }
+            var url = 'https://s3.amazonaws.com/uploads.knightlab.com/juxtapose/' + uid + '.json';
+        }
+
+        if (url) {
+            // https://stackoverflow.com/questions/20624476/xdomainrequest-cors-for-xml-causing-access-is-denied-error-in-ie8-ie9
+            var xhr = new XMLHttpRequest();
+            var ie = false;
+            if ("withCredentials" in xhr) {
+                xhr.open('get', url, true);
+            } else if (typeof XDomainRequest != "undefined") {
+                // XDomainRequest for IE.
+                url = url.replace(/^https:\/\//i, 'http://');
+                xhr = new XDomainRequest();
+                xhr.open('get', url);
+                ie = true;
+            }
+
+            xhr.onload = function() {
+                if ((xhr.readyState == 4 && xhr.status == 200 && !ie) || ie) {
+                    var json = JSON.parse(xhr.responseText);
+                    createJuxtapose(json);
+                }
+            };
+            setTimeout(function() {
+                xhr.send();
+            }, 0);
+        }
+
+        var head = document.head || document.getElementsByTagName("head")[0];
+        var oembed_link = document.createElement('link');
+        oembed_link['rel'] = 'alternate';
+        oembed_link['type'] = 'application/json+oembed';
+        oembed_link['href'] = 'https://oembed.knightlab.com/juxtapose/?url=' + encodeURIComponent(window.location.href);
+        head.appendChild(oembed_link);
     </script>
 
 </body>
+
 </html>

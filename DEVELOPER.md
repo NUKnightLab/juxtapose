@@ -2,11 +2,11 @@
 
  python 2.7.x
 
- [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/)
+ [virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/)
 
- [Node.js](http://nodejs.org)
+ [Node.js](https://nodejs.org)
 
- [LESS](http://lesscss.org)
+ [LESS](https://lesscss.org)
 
     # npm install -g less
 

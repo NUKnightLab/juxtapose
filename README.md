@@ -14,7 +14,7 @@ If you want to contribute to Juxtapose, check out the `DEVELOPERS.md` file for i
 * [Security Information](#security-information)
 
 ### Installation
-The easiest way to create a Juxtapose slider is to go to to [http://juxtapose.knightlab.com][1] and use the tool to generate an embedable code snippet that you can use on any website. There are a number of other ways to install Juxtapose on your website.
+The easiest way to create a Juxtapose slider is to go to to [https://juxtapose.knightlab.com][1] and use the tool to generate an embedable code snippet that you can use on any website. There are a number of other ways to install Juxtapose on your website.
 
 **CDN** — Juxtapose is available on the Knight Lab CDN. Just add this code to the `<head>` of your HTML page:
 ```html
@@ -22,7 +22,7 @@ The easiest way to create a Juxtapose slider is to go to to [http://juxtapose.kn
 <link rel="stylesheet" href="https://cdn.knightlab.com/libs/juxtapose/latest/css/juxtapose.css">
 ```
 
-**Package Managers** — Juxtapose is available on both the [npm](https://www.npmjs.com/package/juxtaposejs) and [Bower](http://bower.io/) package registries. The following commands will, respectively, save Juxtapose to your package.json and bower.json requirements files.
+**Package Managers** — Juxtapose is available on both the [npm](https://www.npmjs.com/package/juxtaposejs) and [Bower](https://bower.io/) package registries. The following commands will, respectively, save Juxtapose to your package.json and bower.json requirements files.
 
 ```bash
 npm install --save juxtaposejs
@@ -34,15 +34,15 @@ There is also a [Meteor package](https://atmospherejs.com/kyleking/juxtapose-js)
 ### Create a Juxtapose Slider
 
 #### Create an iFrame
-The easiest way to create a Juxtapose slider is to go to to [http://juxtapose.knightlab.com][1] and use the tool to generate an embedable code snippet that you can use on any website. The tool is easy to use and requires no coding knowledge whatsoever. If you want to use JuxtaposeJS without using the embed generator, keep reading to learn about different implementation methods.
+The easiest way to create a Juxtapose slider is to go to to [https://juxtapose.knightlab.com][1] and use the tool to generate an embedable code snippet that you can use on any website. The tool is easy to use and requires no coding knowledge whatsoever. If you want to use JuxtaposeJS without using the embed generator, keep reading to learn about different implementation methods.
 
 #### HTML Implementation
 The easiest way to implement the image slider is to add this code to your markup:
 
 ```html
 <div class="juxtapose">
-    <img src="http://example.com/firstimage.jpg" />
-    <img src="http://example.com/secondimage.jpg" />
+    <img src="https://example.com/firstimage.jpg" />
+    <img src="https://example.com/secondimage.jpg" />
 </div>
 <script src="https://cdn.knightlab.com/libs/juxtapose/latest/js/juxtapose.min.js"></script>
 <link rel="stylesheet" href="https://cdn.knightlab.com/libs/juxtapose/latest/css/juxtapose.css">
@@ -51,7 +51,7 @@ The easiest way to implement the image slider is to add this code to your markup
 Each `img` can also take additional attributes like so:
 
 ```html
-<img src="http://image.jpg" data-label="2009" data-credit="Alex Duner/Northwestern Knight Lab" />
+<img src="https://example.com/image.jpg" data-label="2009" data-credit="Alex Duner/Northwestern Knight Lab" />
 ```
 
 If each image has an `data-label` attribute defined, the slider will display a label on each image. If each image has a `data-credit` attribute defined, the slider will display a credit for each image.
@@ -64,7 +64,7 @@ The slider wrapper can also take some additional attributes as well to specify a
 
 Specifying a starting position with `data-startingposition` lets you focus the users attention on the part of the image where the change is most noticeable. To toggle the visibility of the labels and the credits respectively, set `data-showlabels` and `data-showcredits` to false. And to disable the animation, set `data-animate` to false.
 
-If you are using Juxtapose in an existing responsive iFrame solution like [pym.js](http://blog.apps.npr.org/pym.js/) and don't want to use Juxtapose's built in (but faily opinionated) responsive iFrame solution, you can set `data-makeresponsive` to false.
+If you are using Juxtapose in an existing responsive iFrame solution like [pym.js](https://blog.apps.npr.org/pym.js/) and don't want to use Juxtapose's built in (but faily opinionated) responsive iFrame solution, you can set `data-makeresponsive` to false.
 
 #### Javascript Implementation
 The `JXSlider` class takes three arguments. First, is the string of the ID of the element you want to turn into a slider. Second is an array of two objects. Each object *must* have `src` defined and can optionally define a `label` and a `credit`. The third argument lets you set additional options for the image slider.
@@ -75,12 +75,12 @@ The `JXSlider` class takes three arguments. First, is the string of the ID of th
 slider = new juxtapose.JXSlider('#foo',
     [
         {
-            src: 'http://firstimage.jpg',
+            src: 'https://example.com/firstimage.jpg',
             label: '2009',
             credit: 'Image Credit'
         },
         {
-            src: 'http://secondimage.jpg',
+            src: 'https://example.com/secondimage.jpg',
             label: '2014',
             credit: "Image Credit"
         }

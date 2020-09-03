@@ -1,48 +1,53 @@
 <!DOCTYPE html>
-<head>
-	<title>JuxtaposeJS</title>
-	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-	<link rel="stylesheet" href="../juxtapose/css/juxtapose.css">
-	<link rel="icon" type="image/x-icon" href="http://blueline.knightlab.com/assets/logos/favicon.ico" />
 
-	<style>
-		.juxtapose {
-			max-width: 600px;
-		}
-		.jx-slider {
-			margin-top: 1em;
-		}
-	</style>
-</head>
-<body>
-    
-    <div class="juxtapose" id="horizontal-demo">
+<head>
+    <title>JuxtaposeJS</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../juxtapose/css/juxtapose.css">
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/manifest.json">
+    <link rel="mask-icon" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+    <!-- /favicons -->
+
+    <style>
+        .juxtapose {
+            max-width: 600px;
+        }
         
+        .jx-slider {
+            margin-top: 1em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="juxtapose" id="horizontal-demo">
+
     </div>
 
-	<div class="juxtapose" id="vertical-demo">
-		
-	</div>
+    <div class="juxtapose" id="vertical-demo">
+
+    </div>
 
 
-	<script src='../juxtapose/js/juxtapose.js'></script>
+    <script src='../juxtapose/js/juxtapose.js'></script>
 </body>
 
 <script>
-slider_vertical = new juxtapose.JXSlider('#vertical-demo',
-    [
-        {
-            src: './images/Sochi_11April2005.jpg',
-            label: '2009',
-            credit: 'Image Credit'
-        },
-        {
-            src: './images/Sochi_22Nov2013.jpg',
-            label: '2014',
-            credit: "Image Credit"
-        }
-    ],
-    {
+    slider_vertical = new juxtapose.JXSlider('#vertical-demo', [{
+        src: './images/Sochi_11April2005.jpg',
+        label: '2009',
+        credit: 'Image Credit'
+    }, {
+        src: './images/Sochi_22Nov2013.jpg',
+        label: '2014',
+        credit: "Image Credit"
+    }], {
         animate: true,
         showLabels: true,
         showCredits: true,
@@ -51,25 +56,19 @@ slider_vertical = new juxtapose.JXSlider('#vertical-demo',
         mode: "vertical"
     });
 
-slider_horizontal = new juxtapose.JXSlider('#horizontal-demo',
-    [
-        {
-            src: './images/Sochi_11April2005.jpg',
-            label: '2009',
-            credit: 'Image Credit'
-        },
-        {
-            src: './images/Sochi_22Nov2013.jpg',
-            label: '2014',
-            credit: "Image Credit"
-        }
-    ],
-    {
+    slider_horizontal = new juxtapose.JXSlider('#horizontal-demo', [{
+        src: './images/Sochi_11April2005.jpg',
+        label: '2009',
+        credit: 'Image Credit'
+    }, {
+        src: './images/Sochi_22Nov2013.jpg',
+        label: '2014',
+        credit: "Image Credit"
+    }], {
         animate: true,
         showLabels: true,
         showCredits: true,
         startingPosition: "25%",
         makeResponsive: true
     });
-
 </script>

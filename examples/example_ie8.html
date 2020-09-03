@@ -1,49 +1,59 @@
 <!DOCTYPE html>
+
 <head>
-	<title>JuxtaposeJS</title>
-	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-	<link rel="stylesheet" href="../juxtapose/css/juxtapose.css">
-	<link rel="icon" type="image/x-icon" href="http://blueline.knightlab.com/assets/logos/favicon.ico" />
+    <title>JuxtaposeJS</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../juxtapose/css/juxtapose.css">
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/manifest.json">
+    <link rel="mask-icon" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+    <!-- /favicons -->
 
-	<style>
-		.juxtapose {
-			max-width: 600px;
-		}
-		.jx-slider {
-			margin-top: 1em;
-		}
-	</style>
+    <style>
+        .juxtapose {
+            max-width: 600px;
+        }
+        
+        .jx-slider {
+            margin-top: 1em;
+        }
+    </style>
 </head>
+
 <body>
- 	<div class="juxtapose">
-		<img src="http://placekitten.com/500/300" data-label="Cat" alt="A cat" />
-		<img src="http://placebear.com/500/300" data-label="Bear" alt="A bear"/>
-	</div>
+    <div class="juxtapose">
+        <img src="https://placekitten.com/500/300" data-label="Cat" alt="A cat" />
+        <img src="https://placebear.com/500/300" data-label="Bear" alt="A bear" />
+    </div>
 
- 	<div class="juxtapose">
-		<img src="http://placekitten.com/400/300" data-label="Cat" alt="A cat" />
-		<img src="http://placebear.com/500/300" data-label="Bear" alt="A bear"/>
-	</div>
+    <div class="juxtapose">
+        <img src="https://placekitten.com/400/300" data-label="Cat" alt="A cat" />
+        <img src="https://placebear.com/500/300" data-label="Bear" alt="A bear" />
+    </div>
 
- 	<div class="juxtapose">
-		<img src="http://placekitten.com/500/300" data-label="Cat" alt="A cat" />
-		<img src="http://placebear.com/400/300" data-label="Bear" alt="A bear"/>
-	</div>
+    <div class="juxtapose">
+        <img src="https://placekitten.com/500/300" data-label="Cat" alt="A cat" />
+        <img src="https://placebear.com/400/300" data-label="Bear" alt="A bear" />
+    </div>
 
-	<div class="juxtapose">
-		<img class="left" src="http://online.wsj.com/media/LIONDOORA.jpg" data-label="2009" alt="Maidan square in 2009" data-credit="WSJ"/>
-		<img class="right" src="http://online.wsj.com/media/LIONDOOR_2A.jpg" data-label="2014" alt="Maidan square in 2014" data-credit="" />
-	</div>
+    <div class="juxtapose">
+        <img class="left" src="https://online.wsj.com/media/LIONDOORA.jpg" data-label="2009" alt="Maidan square in 2009" data-credit="WSJ" />
+        <img class="right" src="https://online.wsj.com/media/LIONDOOR_2A.jpg" data-label="2014" alt="Maidan square in 2014" data-credit="" />
+    </div>
 
-	<div class="juxtapose" data-startingposition="25%" data-mode="vertical">
-		<img class="left" src="./images/Sochi_11April2005.jpg" data-label="April 2005" alt="Aerial view of Sochi in 2005"/>
-		<img class="right" src="./images/Sochi_22Nov2013.jpg" data-label="Nov. 2013" alt="Aerial view of Sochi in 2013" />
-	</div>
+    <div class="juxtapose" data-startingposition="25%" data-mode="vertical">
+        <img class="left" src="./images/Sochi_11April2005.jpg" data-label="April 2005" alt="Aerial view of Sochi in 2005" />
+        <img class="right" src="./images/Sochi_22Nov2013.jpg" data-label="Nov. 2013" alt="Aerial view of Sochi in 2013" />
+    </div>
 
-	<div class="juxtapose">
-		<img src="http://www.bostonglobe.com/rw//Boston/2011-2020/WebGraphics/Politics/BostonGlobe.com/2014/10/24kennedy/Kennedy19972.jpg" alt="" class="left">
-		<img src="http://www.bostonglobe.com/rw//Boston/2011-2020/WebGraphics/Politics/BostonGlobe.com/2014/10/24kennedy/Kennedy2014.jpg" alt="" class="right">
-	</div>
+    <div class="juxtapose">
+        <img src="https://www.bostonglobe.com/rw//Boston/2011-2020/WebGraphics/Politics/BostonGlobe.com/2014/10/24kennedy/Kennedy19972.jpg" alt="" class="left">
+        <img src="https://www.bostonglobe.com/rw//Boston/2011-2020/WebGraphics/Politics/BostonGlobe.com/2014/10/24kennedy/Kennedy2014.jpg" alt="" class="right">
+    </div>
 
-	<script src='../juxtapose/js/juxtapose.js'></script>
+    <script src='../juxtapose/js/juxtapose.js'></script>
 </body>
