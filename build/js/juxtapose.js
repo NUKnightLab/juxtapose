@@ -1,4 +1,4 @@
-/* juxtapose - v2020-09-03-15-14-17 - 2020-09-03
+/* juxtapose - v1.2.2 - 2020-09-03
  * Copyright (c) 2020 Alex Duner and Northwestern University Knight Lab
  */
 /* juxtapose - v1.1.2 - 2015-07-16
