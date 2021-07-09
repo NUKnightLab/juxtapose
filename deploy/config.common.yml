@@ -1,8 +1,16 @@
 project_name: juxtapose
-gitdeploy_version: "1.0.5"
-port: 9015
-python: python3.7
-type: flask
+service_name: "{{ project_name|lower }}"
+gitdeploy_version: "1.0.6"
+service_port: "{{ juxtapose_port }}"
+python_version: "3.7.7"
+python: /home/apps/sites/twxplorer/.venv/bin/python
+# type: flask
+nginx_template: juxtapose.conf
+
+playbooks:
+  - playbook.deploy-repo.yml
+  - playbook.deploy-web.yml
+  - playbook.restart.yml
 
 # these will be merged with deployment-specific env into init_env
 init_env_common:
@@ -22,7 +30,7 @@ static_dir: "{{ application_dir }}/static"
 
 application_dir: "{{ deploy_dir }}/website"
 
-nginx_conf: "{{ deploy_dir }}/nginx/conf.d/{{ project_name }}.conf"
+# nginx_conf: "{{ deploy_dir }}/nginx/conf.d/{{ project_name }}.conf"
 
 # Configs below will not usually change
 deploy_dir: "{{ install_root }}/{{ project_name }}"
@@ -32,7 +40,6 @@ project_repo: "git@github.com:NUKnightLab/{{ project_name }}.git"
 requirements_file: "{{ deploy_dir }}/requirements.txt"
 virtualenv: "{{ virtualenv_root }}/venv"
 wsgi_application: "core.wsgi:application"
-service_name: "{{ project_name }}"
 static_service: "s3"
 static_dest: "s3://{{ static_bucket }}/{{ project_name }}"
 
@@ -40,9 +47,3 @@ static_dest: "s3://{{ static_bucket }}/{{ project_name }}"
 application_user: apps
 install_root: /home/{{ application_user }}/sites
 virtualenv_root: "{{ deploy_dir }}"
-
-# environment keys must match deployment branch names. Value is the name
-# of the branch to be merged into this environment during deployment.
-supported_envs:
-  stg: master
-  prd: stg

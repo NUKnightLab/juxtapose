@@ -6,6 +6,7 @@ env.sh
 .env
 .envrc
 venv
+.venv
 
 website/static/.DS_Store
 secrets

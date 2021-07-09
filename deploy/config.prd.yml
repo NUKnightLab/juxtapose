@@ -1,4 +1,5 @@
 domains: "{{ project_name }}.knightlab.com"
+service_exec: "{{ virtualenv}}/bin/gunicorn -b :{{ service_port }} --workers 3 {{ wsgi_application }}"
 static_bucket: "media.knightlab.com"
 gunicorn_reload: False
 
@@ -7,7 +8,8 @@ ssl:
   ssl_certificate_key: "/etc/nginx/ssl/knightlab/knightlab-com.key"
 
 init_env_prd:
-  STATIC_URL: "//media.knightlab.com/{{ project_name }}/"
+  # STATIC_URL: "//media.knightlab.com/{{ project_name }}/"
+  STATIC_URL: /
   AWS_STORAGE_BUCKET_NAME: "uploads.knightlab.com"
   AWS_STORAGE_BUCKET_URL: "//s3.amazonaws.com/uploads.knightlab.com/"
   AWS_STORAGE_BUCKET_KEY: "{{ project_name }}"

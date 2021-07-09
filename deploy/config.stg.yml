@@ -1,12 +1,14 @@
 domains: "{{ project_name }}.knilab.com"
+service_exec: "{{ virtualenv}}/bin/gunicorn -b :{{ service_port }} --workers 1 --reload {{ wsgi_application }}"
 static_bucket: "media.knilab.com"
-gunicorn_reload: True # generally True on staging only
+# gunicorn_reload: True # generally True on staging only
 #ssl:
 #  ssl_certificate: "/etc/nginx/ssl/knilab/knilab-bundle.crt"
 #  ssl_certificate_key: "/etc/nginx/ssl/knilab/knilab-com.key"
 
 init_env_stg:
-  STATIC_URL: "//media.knilab.com/{{ project_name }}/"
+  # STATIC_URL: "//media.knilab.com/{{ project_name }}/"
+  STATIC_URL: /
   AWS_STORAGE_BUCKET_NAME: "uploads.knilab.com"
   AWS_STORAGE_BUCKET_URL: "//s3.amazonaws.com/uploads.knilab.com/"
   AWS_STORAGE_BUCKET_KEY: "{{ project_name }}"

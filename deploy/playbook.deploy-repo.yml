@@ -1,0 +1,14 @@
+- hosts: "{{ env }}"
+  vars_files:
+    - "{{ config_dir }}/config.common.yml"
+    - "{{ config_dir }}/config.{{ env }}.yml"
+    - "{{ vault }}"
+  gather_facts: false
+
+  roles:
+    - role: knightlab
+    - role: repo
+    - role: dotenv
+    - role: virtualenv
+    - role: service
+    - role: nginx
