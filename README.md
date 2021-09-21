@@ -1,8 +1,14 @@
 # JuxtaposeJS
 
-[JuxtaposeJS][https://juxtapose.knightlab.com] is a simple, open source tool for creating before/after image sliders. Just provide two image URLs and Juxtapose will do the rest of the work for you. Below are instructions for implementing Juxtapose with HTML and Javascript but we also have a [tool that lets you make a slider without needing to know any code](https://juxtapose.knightlab.com#create-new).
+[JuxtaposeJS]: https://juxtapose.knightlab.com/ "JuxaposeJS homepage"
+[Juxtapose embed generator]: https://juxtapose.knightlab.com/#make "tool to generate an embedable JuxtaposeJS code snippet"
 
-If you want to contribute to Juxtapose, check out the `DEVELOPERS.md` file for installation instructions. Fork the project, create a new branch with your features, and submit a pull request. Thanks for your help!
+[JuxtaposeJS] is a simple, open source tool for creating before/after image sliders.  
+Just provide two image URLs and Juxtapose will do the rest of the work for you :tada:
+
+Below are instructions for implementing Juxtapose with HTML and Javascript. We also have a [tool that lets you make a slider without needing to know any code][Juxtapose embed generator].
+
+If you want to contribute to Juxtapose, check out the [`DEVELOPER.md`](DEVELOPER.md) file for installation instructions. Then, fork the project, create a new branch with your features, and submit a pull request. Thanks for your help!
 
 #### Contents
 * [Installation](#installation)
@@ -14,7 +20,9 @@ If you want to contribute to Juxtapose, check out the `DEVELOPERS.md` file for i
 * [Security Information](#security-information)
 
 ### Installation
-The easiest way to create a Juxtapose slider is to go to to [https://juxtapose.knightlab.com][1] and use the tool to generate an embedable code snippet that you can use on any website. There are a number of other ways to install Juxtapose on your website.
+The easiest way to create a Juxtapose slider is to go to the [Juxtapose embed generator] on JuxtaposeJS homepage and then use it to generate an embeddable code snippet that you can add to any website. This tool is easy to use and requires no coding knowledge whatsoever. 
+
+There also are a number of other ways to install Juxtapose on your website:
 
 **CDN** — Juxtapose is available on the Knight Lab CDN. Just add this code to the `<head>` of your HTML page:
 ```html
@@ -33,22 +41,29 @@ There is also a [Meteor package](https://atmospherejs.com/kyleking/juxtapose-js)
 
 ### Create a Juxtapose Slider
 
-#### Create an iFrame
-The easiest way to create a Juxtapose slider is to go to to [https://juxtapose.knightlab.com][1] and use the tool to generate an embedable code snippet that you can use on any website. The tool is easy to use and requires no coding knowledge whatsoever. If you want to use JuxtaposeJS without using the embed generator, keep reading to learn about different implementation methods.
+#### Create an iframe
+The easiest way to create a Juxtapose slider is to go to the [Juxtapose embed generator] on JuxtaposeJS homepage and then use it to generate an embeddable code snippet that you can add to any website. This tool is easy to use and requires no coding knowledge whatsoever. 
+
+If you want to use JuxtaposeJS _without_ using the embed generator, keep reading to learn about different implementation methods.
 
 #### HTML Implementation
-The easiest way to implement the image slider is to add this code to your markup:
+The easiest way to implement the image slider in HTML is to add this code to your file
 
+`<head>`:
+```html
+<link rel="stylesheet" href="https://cdn.knightlab.com/libs/juxtapose/latest/css/juxtapose.css">
+<script src="https://cdn.knightlab.com/libs/juxtapose/latest/js/juxtapose.min.js"></script>
+```
+
+`<body>`:
 ```html
 <div class="juxtapose">
     <img src="https://example.com/firstimage.jpg" />
     <img src="https://example.com/secondimage.jpg" />
 </div>
-<script src="https://cdn.knightlab.com/libs/juxtapose/latest/js/juxtapose.min.js"></script>
-<link rel="stylesheet" href="https://cdn.knightlab.com/libs/juxtapose/latest/css/juxtapose.css">
 ```
 
-Each `img` can also take additional attributes like so:
+Each `<img>` can also take additional attributes like so:
 
 ```html
 <img src="https://example.com/image.jpg" data-label="2009" data-credit="Alex Duner/Northwestern Knight Lab" />
@@ -97,7 +112,7 @@ slider = new juxtapose.JXSlider('#foo',
 
 ### Modifications and Custom Behavior
 #### CSS
-You can customize how JuxtaposeJS looks by modifying its CSS. For instructions, [click here](https://github.com/NUKnightLab/juxtapose/wiki/Styling-the-Slider).
+You can customize how JuxtaposeJS looks by modifying its CSS. For instructions, [click here](https://github.com/NUKnightLab/juxtapose/wiki/Styling-JuxtaposeJS).
 
 #### JavaScript
 
