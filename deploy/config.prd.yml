@@ -1,7 +1,7 @@
 domains: "{{ project_name }}.knightlab.com"
 service_exec: "{{ virtualenv}}/bin/gunicorn -b :{{ service_port }} --workers 3 {{ wsgi_application }}"
 static_bucket: "media.knightlab.com"
-gunicorn_reload: False
+# gunicorn_reload: False
 
 ssl:
   ssl_certificate: "/etc/nginx/ssl/knightlab/knightlab-bundle.crt"
