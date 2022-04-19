@@ -76,7 +76,7 @@ window.jxpGIF = class jxpGIF {
                     console.log(status)
                     console.log(xhr)
 
-                    let bufferData = Buffer.from(data);
+                    let bufferData = Buffer.from(data, 'base64');
                     console.log(bufferData);
                     resolve(bufferData);
                 },
@@ -101,7 +101,7 @@ window.jxpGIF = class jxpGIF {
             promise_a = Jimp.read(image_promises[0]);
             promise_b = Jimp.read(image_promises[1]);
 
-            Promise.all([promise_a]).then((promises) => {
+            Promise.all([promise_a, promise_b]).then((promises) => {
                 let img_a = promises[0];
                 let img_b = promises[1];
                 let width = 500;
