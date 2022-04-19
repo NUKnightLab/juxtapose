@@ -52,8 +52,9 @@
                                 </div>
                             </div>
                     </div>
-                    <div class="column-3">
+                    <div class="column-12">
                         <h4>Options</h4>
+                        <form>
                             <div class="input-group-label">
                                 <label for="slider-start">Slider start position</label>
                                 <input id="starting-position" type="number" size="2" placeholder="50" value="50" min="0" max="100" name="slider-start" step="1" style=" width: 70px;">
@@ -95,9 +96,33 @@
                             You don't have to start with the slider in the middle. You can set it anywhere if that tells your story better.
                         </p> -->
                     </div>
-                    <div class="column-9">
-                        <a href="#preview-embed" id="update-preview" class="button button-complement">Preview</a>&nbsp;
-                        <a id="publish-slider" class="button button-light">Publish</a>
+                    <div id="preview-embed" class="container column-12">
+                        <div class="container">
+                            <h3>Preview</h3>
+                        </div>
+
+                        <div id="preview-container" class="container" style="width: 100%;">
+                            <div id="gif-container" style="background-color: green; height: 200px"></div>
+                            <h5>GIF</h5>
+                          </div>
+
+                        
+                        <div id="preview-container" class="container" style="width: 100%;">
+                          <div id="create-slider-preview">
+                          </div>
+                          <h5>Embed</h5>
+                        </div>
+                        <div id="slider-preview-warning" class="grid"></div>
+                    </div>
+                    <div class="column-12">
+                        <div class="container">
+                            <h3>Publish</h3>
+                        </div>
+                        <div class="container">
+                            <h5>Share</h5>
+                            <a href="#preview-embed" id="update-preview" class="button button-complement">Preview</a>&nbsp;
+                            <a id="publish-slider" class="button button-light">Publish</a>
+                        </div>
                         <div class="show-after-publish">
                           <h6>Share Link</h6>
                           <p class="small">To embed in a Medium blog post, copy the code in the box below and paste it on a line by itself where you want your juxtapose to appear. (Learn more about oEmbed.) If you update the settings, don't forget to click "Publish" again.</p>
@@ -109,14 +134,23 @@
                     </div>
                 </div>
             </div>
-            <div id="preview-embed" class="container">
-                <div class="container">
-                    <h3>Preview Embed</h3>
-                </div>
-                <div id="preview-container" class="container" style="width: 100%;">
-                  <div id="create-slider-preview">
-                  </div>
-                </div>
-                <div id="slider-preview-warning" class="grid"></div>
-            </div>
         </section>
+
+        <script type="text/javascript" src="../static/js/jxp-gif.js"></script>
+        <script>
+            function ready(fn) {
+                if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+                    fn();
+                } else {
+                    document.addEventListener('DOMContentLoaded', fn);
+                }
+            }
+    
+            ready(function() {
+                console.log("MAKE");
+                // let juxtapose_gif = new jxpGIF('https://images.pexels.com/photos/298842/pexels-photo-298842.jpeg', 'https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg', {container_id: 'gif-container'})
+                let juxtapose_gif = new jxpGIF('https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg', 'https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg', {container_id: 'gif-container'});
+                // let juxtapose_gif = new jxpGIF('../static/img/mad_max_fire_before.jpg', '../static/img/mad_max_fire_after.jpg', {container_id: 'gif-container'});
+            })
+    
+        </script>

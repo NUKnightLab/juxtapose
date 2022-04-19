@@ -1,4 +1,4 @@
-from flask import Flask, request, session, redirect, url_for, \
+from flask import Flask, Response, stream_with_context, request, session, redirect, url_for, \
     render_template, jsonify, abort, send_from_directory
 import os
 import sys
@@ -6,8 +6,7 @@ import importlib
 import uuid
 import json
 import traceback
-import boto
-from boto.s3.connection import OrdinaryCallingFormat
+import requests
 
 
 # Import settings module
@@ -97,6 +96,25 @@ def catch_build(path):
     """
     return send_from_directory(build_dir, path)
 
+method_requests_mapping = {
+    'GET': requests.get,
+    'HEAD': requests.head,
+    'POST': requests.post,
+    'PUT': requests.put,
+    'DELETE': requests.delete,
+    'PATCH': requests.patch,
+    'OPTIONS': requests.options,
+}
+
+@app.route('/image_proxy/<path:path>', methods=method_requests_mapping.keys())
+def get_image_proxy(path):
+    requests_function = method_requests_mapping[request.method]
+    req = requests_function(path, stream=True, params=request.args)
+    response = Response(stream_with_context(req.iter_content(chunk_size=2048)),
+                              content_type=req.headers['content-type'],
+                              status=req.status_code)
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
 
 # Juxtapose API
 def _get_uid():

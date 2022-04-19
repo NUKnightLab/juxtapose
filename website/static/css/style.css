@@ -259,6 +259,10 @@ span.tip-plus {
 }
 
 /* FORMS */
+.input-group-checkbox label {
+  display: inline;
+}
+
 .input-group input {
   width: calc(100% - 3em - 12px - 1px - 1em - 1.625em);
 }
