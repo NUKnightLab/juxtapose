@@ -63,35 +63,6 @@ window.jxpGIF = class jxpGIF {
         
     }
 
-    dissolve(img_a, img_b, gif){
-        var i;
-            
-        let fps = 12;
-        let duration = 1.5;
-        let numFrames = Math.round(fps*duration);
-        let increment = (Math.round(100 / numFrames))/100;
-        let delay = (duration*1000) / fps;
-        
-        //add frame to linger on image a
-        this.addFrameFromComposite(img_a, gif, delay*5);
-        for (i = 0; i <= 1; i = i + increment) {
-            let img_b_faded = img_b.clone().opacity(i);
-            let composite = img_a.clone().composite(img_b_faded, 0, 0);
-
-            this.addFrameFromComposite(composite, gif, delay);
-        }
-        
-        //add frame to linger on image b
-        this.addFrameFromComposite(img_b, gif, delay*5);
-        for (i = 0; i <= 1; i = i + increment) {
-            let img_a_faded = img_a.clone().opacity(i);
-            let composite = img_b.clone().composite(img_a_faded, 0, 0);
-
-            this.addFrameFromComposite(composite, gif, delay);
-        }
-        
-    }
-
     getImageData(image_path) {
         console.log("start");
         return new Promise((resolve, reject) => {
@@ -105,7 +76,7 @@ window.jxpGIF = class jxpGIF {
                     console.log(status)
                     console.log(xhr)
 
-                    let bufferData = Buffer(data);
+                    let bufferData = Buffer.from(data);
                     console.log(bufferData);
                     resolve(bufferData);
                 },
@@ -118,19 +89,21 @@ window.jxpGIF = class jxpGIF {
     }
 
     createComposite(image_a, image_b, container_id){
-        var image_data_a, image_data_b;
         var promise_a, promise_b;
 
-        this.getImageData(image_a).then((data) => {
-            image_data_a = data;
-            console.log(data);
-            promise_a = Jimp.read(image_data_a);
-            promise_b = Jimp.read(image_data_a);
+        var image_a_promise = this.getImageData(image_a);
+        var image_b_promise = this.getImageData(image_b);
 
-            Promise.all([promise_a, promise_b]).then((promises) => {
+        Promise.all([image_a_promise, image_b_promise]).then((image_promises) => {
+            console.log(image_promises[0])
+            console.log(image_promises[1])
+            
+            promise_a = Jimp.read(image_promises[0]);
+            promise_b = Jimp.read(image_promises[1]);
+
+            Promise.all([promise_a]).then((promises) => {
                 let img_a = promises[0];
                 let img_b = promises[1];
-                let frames = [];
                 let width = 500;
                 img_a.resize(width, Jimp.AUTO);
                 img_b.resize(width, Jimp.AUTO);
@@ -153,10 +126,6 @@ window.jxpGIF = class jxpGIF {
                 //swipe
                 this.leftRightSwipe(img_a, img_b, gif);
     
-                //dissolve
-                //this.dissolve(img_a, img_b, gif);
-                
-    
                 gif.on('finished', function(blob) {
                     var gif_src = URL.createObjectURL(blob);
                     const img = dom.createElement('img', 'img', '', document.getElementById(container_id));
@@ -165,18 +134,13 @@ window.jxpGIF = class jxpGIF {
                   
                 gif.render();
     
+            })
+            .catch((error) => {
+                console.log(error.message);
             });
         })
         .catch((error) => {
-            console.log(error)
+            console.log(error);
         })
-
-        // this.getImageData(image_b).then((data) => {
-        //     image_data_b = data;
-        //     promise_b = Jimp.read(image_data_b);
-        // })
-        // .catch((error) => {
-        //     console.log(error)
-        // })
     }
 }

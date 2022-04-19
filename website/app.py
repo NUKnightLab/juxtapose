@@ -114,6 +114,7 @@ def get_image_proxy(path):
                               content_type=req.headers['content-type'],
                               status=req.status_code)
     response.headers['Access-Control-Allow-Origin'] = '*'
+    
     return response
 
 # Juxtapose API
