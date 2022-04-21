@@ -94,7 +94,11 @@ window.jxpGIF = class jxpGIF {
             Promise.all([promise_a, promise_b]).then((promises) => {
                 let img_a = promises[0];
                 let img_b = promises[1];
-                let width = 500;
+
+                // get container div for sizing
+                let container_div = document.getElementById(container_id);
+
+                let width = container_div.clientWidth;
                 img_a.resize(width, Jimp.AUTO);
                 img_b.resize(width, Jimp.AUTO);
     
