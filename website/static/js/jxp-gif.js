@@ -64,7 +64,6 @@ window.jxpGIF = class jxpGIF {
     }
 
     getImageData(image_path) {
-        console.log("start");
         return new Promise((resolve, reject) => {
             $.ajax({
                 url: "/image_proxy/" + image_path,
@@ -72,16 +71,10 @@ window.jxpGIF = class jxpGIF {
                     console.log("complete");
                 },
                 success: function(data, status, xhr) {
-                    console.log("success")
-                    console.log(status)
-                    console.log(xhr)
-
                     let bufferData = Buffer.from(data, 'base64');
-                    console.log(bufferData);
                     resolve(bufferData);
                 },
                 error: function(xhr, status, errorMsg) {
-                    console.log("error");
                     reject(xhr);
                 }
               });
@@ -95,9 +88,6 @@ window.jxpGIF = class jxpGIF {
         var image_b_promise = this.getImageData(image_b);
 
         Promise.all([image_a_promise, image_b_promise]).then((image_promises) => {
-            console.log(image_promises[0])
-            console.log(image_promises[1])
-            
             promise_a = Jimp.read(image_promises[0]);
             promise_b = Jimp.read(image_promises[1]);
 

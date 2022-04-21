@@ -7,6 +7,7 @@ import uuid
 import json
 import traceback
 import requests
+import base64
 
 
 # Import settings module
@@ -115,7 +116,7 @@ def get_image_proxy(path):
                               status=req.status_code)
     response.headers['Access-Control-Allow-Origin'] = '*'
     
-    return response
+    return base64.b64encode(response.get_data())
 
 # Juxtapose API
 def _get_uid():
