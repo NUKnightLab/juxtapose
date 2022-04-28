@@ -59,6 +59,17 @@ function createSliderFromForm() {
     let imageData = imageDataFromForm();
     window.slider_preview = new juxtapose.JXSlider("#create-slider-preview", imageData, opts);
 
+    // remove img-gif id if there and readd loader
+    let imgGIF = document.getElementById("gif-img");
+    if (imgGIF) {
+        imgGIF.remove();
+    }
+
+    let loader = document.getElementById("loader-spinner");
+    if (loader) {
+        loader.style.display = "block";
+    }
+
     // create juxtapose gif
     let linkOne = imageData[0].src;
     let linkTwo = imageData[1].src;

@@ -122,9 +122,19 @@ window.jxpGIF = class jxpGIF {
     
                 gif.on('finished', function(blob) {
                     var gif_src = URL.createObjectURL(blob);
-                    let loader = document.getElementById('loader-spinner');
-                    loader.remove();
-                    const img = dom.createElement('img', 'img', '', document.getElementById(container_id));
+
+                    // remove loader and any previous gif
+                    let loader = document.getElementById("loader-spinner");
+                    if (loader) {
+                        loader.style.display = "none";
+                    }
+
+                    let prevGIF = document.getElementById('gif-img');
+                    if (prevGIF) {
+                        prevGIF.remove();
+                    }
+                    
+                    const img = dom.createElement('img', 'gif-img', '', document.getElementById(container_id));
                     img.setAttribute('src', gif_src);
                   });
                   
