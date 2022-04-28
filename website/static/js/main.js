@@ -56,7 +56,13 @@ function createSliderFromForm() {
         }
     };
 
-    window.slider_preview = new juxtapose.JXSlider("#create-slider-preview", imageDataFromForm(), opts);
+    let imageData = imageDataFromForm();
+    window.slider_preview = new juxtapose.JXSlider("#create-slider-preview", imageData, opts);
+
+    // create juxtapose gif
+    let linkOne = imageData[0].src;
+    let linkTwo = imageData[1].src;
+    window.juxtapose_gif = new jxpGIF(linkOne, linkTwo, {container_id: 'gif-container'});
 }
 
 $("#update-preview").click(createSliderFromForm);

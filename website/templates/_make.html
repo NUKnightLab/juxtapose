@@ -60,35 +60,39 @@
                                 <input id="starting-position" type="number" size="2" placeholder="50" value="50" min="0" max="100" name="slider-start" step="1" style=" width: 70px;">
                                 <div class='input-group-addon'>%</div>
                             </div>
-                            <div class="input-group-label">
-                                <input id="show-labels" class="auto-update" type="checkbox" value="true" checked="">
-                                <label for="show-labels">Show Labels</label>
-                                {# No equiv popup fcn in orangeline. Commented for now
-                                <a class="help" href="javascript:" data-placement="right" data-content="If checked, your labels will be displayed. You must have labels for both images, or they won't be shown, even if this is checked." data-original-title="" title="">&nbsp;<i class="icon-question-sign icon-large"></i></a>#}
-                            </div>
-                            <div class="input-group-label">
-                                <input id="show-credits" class="auto-update" type="checkbox" value="true" checked="">
-                                <label for="show-credits">Show Credits</label>
-                                {# No equiv popup fcn in orangeline. Commented for now
-                                <a class="help" href="javascript:" data-placement="right" data-content="If checked, image credits will be displayed below the slider. You must have credits for both images, or they won't be shown, even if this is checked." data-original-title="" title="">&nbsp;<i class="icon-question-sign icon-large"></i></a>#}
-                            </div>
-                            <div class="input-group-label">
-                                <input id="animate" class="auto-update" type="checkbox" value="true" checked="">
-                                <label for="animate">Animate</label>
-                                {# No equiv popup fcn in orangeline. Commented for now
-                                <a class="help" href="javascript:" data-placement="right" data-content="If checked, the divider will glide to the point where someone clicks; otherwise, it will jump." data-original-title="" title="">&nbsp;<i class="icon-question-sign icon-large"></i></a> #}
-                            </div>
-                            <div class="input-group-label">
-                                <input id="make-responsive" class="auto-update" type="checkbox" value="true" checked="">
-                                <label for="make-responsive">Make Responsive</label>
-                                {# No equiv popup fcn in orangeline. Commented for now
-                                <a class="help" href="javascript:" data-placement="right" data-content="If checked, the iframe will be set to 100% width instead of an absolute pixel value." data-original-title="" title="">&nbsp;<i class="icon-question-sign icon-large"></i></a> #}
-                            </div>
-                            <div class="input-group-label">
-                                <input id="vertical" class="auto-update" type="checkbox" value="false">
-                                <label for="vertical">Vertical</label>
-                                {# No equiv popup fcn in orangeline. Commented for now
-                                <a class="help" href="javascript:" data-placement="right" data-content="If checked, the divider will move vertically instead of horizontally." data-original-title="" title="">&nbsp;<i class="icon-question-sign icon-large"></i></a> #}
+                            <div class="input-group-checkbox">
+                                <label for="show-labels">
+                                    <input id="show-labels" class="auto-update" type="checkbox" value="true" checked="">
+                                    <div class="button">Show Labels</div>
+                                </label>
+
+                                <label for="show-credits">
+                                    <input id="show-credits" class="auto-update" type="checkbox" value="true" checked="">
+                                    <div class="button">Show Credits</div>
+                                    {# No equiv popup fcn in orangeline. Commented for now
+                                    <a class="help" href="javascript:" data-placement="right" data-content="If checked, image credits will be displayed below the slider. You must have credits for both images, or they won't be shown, even if this is checked." data-original-title="" title="">&nbsp;<i class="icon-question-sign icon-large"></i></a>#}
+                                </label>
+
+                                <label for="animate">
+                                    <input id="animate" class="auto-update" type="checkbox" value="true" checked="">
+                                    <div class="button">Animate</div>
+                                    {# No equiv popup fcn in orangeline. Commented for now
+                                    <a class="help" href="javascript:" data-placement="right" data-content="If checked, the divider will glide to the point where someone clicks; otherwise, it will jump." data-original-title="" title="">&nbsp;<i class="icon-question-sign icon-large"></i></a> #}
+                                </label>
+
+                                <label for="make-responsive">
+                                    <input id="make-responsive" class="auto-update" type="checkbox" value="true" checked="">
+                                    <div class="button">Make Responsive</div>
+                                    {# No equiv popup fcn in orangeline. Commented for now
+                                    <a class="help" href="javascript:" data-placement="right" data-content="If checked, the iframe will be set to 100% width instead of an absolute pixel value." data-original-title="" title="">&nbsp;<i class="icon-question-sign icon-large"></i></a> #}
+                                </label>
+                                
+                                <label for="vertical">
+                                    <input id="vertical" class="auto-update" type="checkbox" value="false">
+                                    <div class="button">Vertical</div>
+                                    {# No equiv popup fcn in orangeline. Commented for now
+                                    <a class="help" href="javascript:" data-placement="right" data-content="If checked, the divider will move vertically instead of horizontally." data-original-title="" title="">&nbsp;<i class="icon-question-sign icon-large"></i></a> #}
+                                </label>
                             </div>
                         </form> <!-- #autoring-form -->
                         <!-- % <a href="javascript:" id="use-current-position">(use current position)</a> -->
@@ -100,12 +104,6 @@
                         <div class="container">
                             <h3>Preview</h3>
                         </div>
-
-                        <div id="preview-container" class="container" style="width: 50%;">
-                            <div id="gif-container" style="background-color: #d7f1fc; height: 200px"></div>
-                            <h5>GIF</h5>
-                          </div>
-
                         
                         <div id="preview-container" class="container" style="width: 100%;">
                           <div id="create-slider-preview">
@@ -113,6 +111,12 @@
                           <h5>Embed</h5>
                         </div>
                         <div id="slider-preview-warning" class="grid"></div>
+
+                        <div id="preview-container" class="container" style="margin-top: 2.5%; width: 100%;">
+                            <div class="loader" id="loader-spinner"></div>
+                            <div id="gif-container" style="background-color: #d7f1fc;"></div>
+                            <h5>GIF</h5>
+                        </div>
                     </div>
                     <div class="column-12">
                         <div class="container">
@@ -135,21 +139,3 @@
                 </div>
             </div>
         </section>
-
-        <script type="text/javascript" src="../static/js/jxp-gif.js"></script>
-        <script>
-            function ready(fn) {
-                if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
-                    fn();
-                } else {
-                    document.addEventListener('DOMContentLoaded', fn);
-                }
-            }
-    
-            ready(function() {
-                // let juxtapose_gif = new jxpGIF('https://images.pexels.com/photos/298842/pexels-photo-298842.jpeg', 'https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg', {container_id: 'gif-container'})
-                let juxtapose_gif = new jxpGIF('https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg', 'https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg', {container_id: 'gif-container'});
-                // let juxtapose_gif = new jxpGIF('../static/img/mad_max_fire_before.jpg', '../static/img/mad_max_fire_after.jpg', {container_id: 'gif-container'});
-            })
-    
-        </script>

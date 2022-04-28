@@ -122,6 +122,8 @@ window.jxpGIF = class jxpGIF {
     
                 gif.on('finished', function(blob) {
                     var gif_src = URL.createObjectURL(blob);
+                    let loader = document.getElementById('loader-spinner');
+                    loader.remove();
                     const img = dom.createElement('img', 'img', '', document.getElementById(container_id));
                     img.setAttribute('src', gif_src);
                   });
