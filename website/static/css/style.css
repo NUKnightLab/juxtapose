@@ -364,12 +364,6 @@ a.button.dropbox-picker {
     font-size: 1.8rem;
 }
 
-/* .input-group-checkbox label input:checked ~ .button {
-  background: #2bc758;
-  border-color: #24a549;
-  color: #fff;
-} */
-
 .loader {
   border: 8px solid #f3f3f3; /* Light grey */
   border-top: 8px solid #353535; /* Blue */

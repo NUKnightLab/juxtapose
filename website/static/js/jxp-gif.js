@@ -24,9 +24,12 @@ const version = 'Juxtapose GIF Creator Version: 0.0.1 (2019-01-04)';
 
 window.jxpGIF = class jxpGIF {
 
+    isGenerated = false;
+
     constructor(image_a, image_b, options) {
         this.createComposite(image_a, image_b, options.container_id);
         
+        this.isGenerated = false;
     }
 
     addFrameFromComposite(composite, gif, delay){
@@ -133,9 +136,19 @@ window.jxpGIF = class jxpGIF {
                     if (prevGIF) {
                         prevGIF.remove();
                     }
-                    
+
                     const img = dom.createElement('img', 'gif-img', '', document.getElementById(container_id));
                     img.setAttribute('src', gif_src);
+
+                    // display download button
+                    const downloadButton = document.getElementById('download-gif');
+                    downloadButton.style.display = "inline";
+
+                    downloadButton.onclick = function(){
+                        // download gif
+                    };
+
+                    this.isGenerated = true;
                   });
                   
                 gif.render();

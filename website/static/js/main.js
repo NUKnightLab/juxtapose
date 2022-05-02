@@ -70,11 +70,31 @@ function createSliderFromForm() {
         loader.style.display = "block";
     }
 
+    let downloadButton = document.getElementById('download-gif');
+    if (downloadButton) {
+        downloadButton.style.display = "none";
+    }
+
     // create juxtapose gif
     let linkOne = imageData[0].src;
     let linkTwo = imageData[1].src;
-    window.juxtapose_gif = new jxpGIF(linkOne, linkTwo, {container_id: 'gif-container'});
-}
+    
+    // delay gif call to handle toggle spam
+    setTimeout(function() {
+        console.log("1");
+        if (window.juxtapose_gif) {
+            console.log("2");
+            console.log(window.juxtapose_gif.isGenerated);
+            if (window.juxtapose_gif.isGenerated) {
+                console.log("3");
+                window.juxtapose_gif = new jxpGIF(linkOne, linkTwo, {container_id: 'gif-container'});
+            }
+        } else {
+            console.log("4");
+            // juxtapose gif hasn't been created yet so create one
+            window.juxtapose_gif = new jxpGIF(linkOne, linkTwo, {container_id: 'gif-container'});
+        }
+    }, 2000);}
 
 $("#update-preview").click(createSliderFromForm);
 
