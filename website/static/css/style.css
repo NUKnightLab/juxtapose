@@ -364,6 +364,7 @@ a.button.dropbox-picker {
     font-size: 1.8rem;
 }
 
+/* juxtapose gif loader animation */
 .loader {
   border: 8px solid #f3f3f3; /* Light grey */
   border-top: 8px solid #353535; /* Blue */
@@ -376,4 +377,64 @@ a.button.dropbox-picker {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* checkbox styling */
+.input-group-checkbox {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.input-group-checkbox label {
+  margin-right: 0.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.input-group-checkbox label .button {
+  display: block;
+  width: 100%;
+  box-shadow: none;
+  text-transform: none;
+  margin: 0;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.input-group-checkbox label input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.input-group-checkbox label input:checked ~ .button {
+  background: #2bc758;
+  border-color: #24a549;
+  color: #fff;
+}
+
+*::after {
+  box-sizing: border-box;
+}
+
+.input-group-checkbox label .button:after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: transparent;
+  top: 0.5rem;
+  left: 0.6rem;
+  border: 1px solid #b8b8b8;
+}
+
+.input-group-checkbox label input:checked ~ .button:after {
+  width: 15px;
+  height: 7px;
+  top: 0.7rem;
+  left: 0.6rem;
+  border: 3px solid #fff;
+  border-top: none;
+  border-right: none;
+  transform: rotate(-45deg);
 }

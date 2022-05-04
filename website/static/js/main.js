@@ -58,8 +58,17 @@ function createSliderFromForm() {
 
     let imageData = imageDataFromForm();
     window.slider_preview = new juxtapose.JXSlider("#create-slider-preview", imageData, opts);
+}
 
-    // remove img-gif id if there and readd loader
+$("#update-preview").click(createSliderFromForm);
+
+function generateGIF() {
+    // get the two links
+    let imageData = imageDataFromForm();
+    let linkOne = imageData[0].src;
+    let linkTwo = imageData[1].src;
+    
+    // generate gif
     let imgGIF = document.getElementById("gif-img");
     if (imgGIF) {
         imgGIF.remove();
@@ -75,28 +84,8 @@ function createSliderFromForm() {
         downloadButton.style.display = "none";
     }
 
-    // create juxtapose gif
-    let linkOne = imageData[0].src;
-    let linkTwo = imageData[1].src;
-    
-    // delay gif call to handle toggle spam
-    setTimeout(function() {
-        console.log("1");
-        if (window.juxtapose_gif) {
-            console.log("2");
-            console.log(window.juxtapose_gif.isGenerated);
-            if (window.juxtapose_gif.isGenerated) {
-                console.log("3");
-                window.juxtapose_gif = new jxpGIF(linkOne, linkTwo, {container_id: 'gif-container'});
-            }
-        } else {
-            console.log("4");
-            // juxtapose gif hasn't been created yet so create one
-            window.juxtapose_gif = new jxpGIF(linkOne, linkTwo, {container_id: 'gif-container'});
-        }
-    }, 2000);}
-
-$("#update-preview").click(createSliderFromForm);
+    window.juxtapose_gif = new jxpGIF(linkOne, linkTwo, {container_id: 'gif-container'});
+}
 
 function imageTagForObject(o) {
     return '<img src="' + o.src
