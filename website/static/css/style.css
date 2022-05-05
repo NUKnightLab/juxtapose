@@ -372,8 +372,8 @@ a.button.dropbox-picker {
 
 /* juxtapose gif loader animation */
 .loader {
-  border: 8px solid #f3f3f3; /* Light grey */
-  border-top: 8px solid #353535; /* Blue */
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #353535;
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -385,7 +385,7 @@ a.button.dropbox-picker {
   100% { transform: rotate(360deg); }
 }
 
-/* checkbox styling */
+/* checkbox styling (all in Orangline but for some reason it wasn't being applied to these */
 .input-group-checkbox {
   display: flex;
   flex-wrap: wrap;

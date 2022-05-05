@@ -24,12 +24,8 @@ const version = 'Juxtapose GIF Creator Version: 0.0.1 (2019-01-04)';
 
 window.jxpGIF = class jxpGIF {
 
-    isGenerated = false;
-
     constructor(image_a, image_b, options) {
         this.createComposite(image_a, image_b, options.container_id);
-        
-        this.isGenerated = false;
     }
 
     addFrameFromComposite(composite, gif, delay){
@@ -66,6 +62,7 @@ window.jxpGIF = class jxpGIF {
         
     }
 
+    // call the proxy and return image data based on a url
     getImageData(image_path) {
         return new Promise((resolve, reject) => {
             $.ajax({
@@ -101,22 +98,29 @@ window.jxpGIF = class jxpGIF {
                 // get container div for sizing
                 let container_div = document.getElementById(container_id);
 
-                // let width = container_div.clientWidth;
-                let width = 500;
-                img_a.resize(width, Jimp.AUTO);
-                img_b.resize(width, Jimp.AUTO);
+                // this dimension should be max. 640px
+                let dim = 500;
+                if (img_a.bitmap.width > img_a.bitmap.height) {
+                    // make width the dominant dimension
+                    img_a.resize(dim, Jimp.AUTO);
+                    img_b.resize(dim, Jimp.AUTO);
+                } else {
+                    // make height the dominant dimension
+                    img_a.resize(JIMP.AUTO, dim);
+                    img_b.resize(JIMP.AUTO, dim);
+                }                
     
                 //make sure images are the same size - this is a crappy way to do this
-                if (img_a.height < img_b.height) {
-                    img_b.resize(width, img_a.height);
+                if (img_a.bitmap.height < img_b.bitmap.height) {
+                    img_b.resize(width, img_a.bitmap.height);
                 }
-                else if(img_a.height > img_b.height) {
-                    img_a.resize(width, img_b.height);
+                else if(img_a.bitmap.height > img_b.bitmap.height) {
+                    img_a.resize(width, img_b.bitmap.height);
                 }
     
                 var gif = new GIF(
                     {
-                        quality: 20,
+                        quality: 30,
                         workerScript: '../static/js/utils/gif.worker.js'
                     }
                 );
@@ -154,8 +158,6 @@ window.jxpGIF = class jxpGIF {
                         imgLink.click();
                         document.body.removeChild(imgLink);
                     };
-
-                    this.isGenerated = true;
                   });
                   
                 gif.render();
