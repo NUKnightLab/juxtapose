@@ -364,6 +364,12 @@ a.button.dropbox-picker {
     font-size: 1.8rem;
 }
 
+/* gif img */
+#gif-img {
+  display: block;
+  width: 100%;
+}
+
 /* juxtapose gif loader animation */
 .loader {
   border: 8px solid #f3f3f3; /* Light grey */

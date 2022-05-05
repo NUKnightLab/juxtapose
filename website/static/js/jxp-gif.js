@@ -101,7 +101,8 @@ window.jxpGIF = class jxpGIF {
                 // get container div for sizing
                 let container_div = document.getElementById(container_id);
 
-                let width = container_div.clientWidth;
+                // let width = container_div.clientWidth;
+                let width = 500;
                 img_a.resize(width, Jimp.AUTO);
                 img_b.resize(width, Jimp.AUTO);
     
@@ -146,6 +147,12 @@ window.jxpGIF = class jxpGIF {
 
                     downloadButton.onclick = function(){
                         // download gif
+                        let imgLink = document.createElement('a');
+                        imgLink.href = img.src;
+                        imgLink.download = 'juxtapose-gif.gif';
+                        document.body.appendChild(imgLink);
+                        imgLink.click();
+                        document.body.removeChild(imgLink);
                     };
 
                     this.isGenerated = true;
