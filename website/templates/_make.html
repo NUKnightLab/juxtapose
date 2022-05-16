@@ -5,54 +5,102 @@
                 <p>
                     It is free, easy to use, and works on all devices. All you need to get started are links to the images you'd like to compare.
                 </p>
+
+                <div class="make-buttons">
+                    <button class="make-button button button-complement active" onclick="makeTabClick(event, 'interactive')">Interactive</button>
+                    <button class="make-button button button-default" onclick="makeTabClick(event, 'gif')">GIF</button>
+                </div>
+
                 <form id="authoring-form">
                 <h4>Images</h4>
                 <div class="grid">
                     <div class="column-6">
                         <h6>Left Image</h6>
-                            <div class="input-group-label">
-                                <label class="input-group-addon" for="inlinelabel">URL</label>
-                                <input id="before-src" class="urlBox auto-update" type="text" value="https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg" name="inlinelabel">
-                                <a class="button button-light button-smallest dropbox-picker" data-image="before"><span class="icon-dropbox"></span></a>
-                            </div>
-                            <div class="grid">
-                                <div class="grid-item">
-                                    <div class="input-group-label">
-                                        <label class="input-group-addon" for="inlinelabel">Label</label>
-                                        <input id="before-label" type="text" placeholder="Apr. 2005" name="inlinelabel">
-                                    </div>
-                                </div>
-                                <div class="grid-item">
-                                    <div class="input-group-label">
-                                        <label class="input-group-addon" for="inlinelabel">Credit</label>
-                                        <input id="before-credit" type="text" placeholder="Google Earth" name="inlinelabel">
-                                    </div>
+                        <div class="gif-content upload-box" style="display: none;">
+                            <div class="image-upload-wrap">
+                                <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                                <div class="drag-text">
+                                <h3>drag and drop or click to upload an image</h3>
                                 </div>
                             </div>
+                            <div class="file-upload-content">
+                                <img class="file-upload-image" src="#" alt="your image" />
+                                <div class="image-title-wrap">
+                                <button type="button" onclick="removeUpload()" class="remove-image">Click to remove image</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group-label interactive-content">
+                            <label class="input-group-addon" for="inlinelabel">URL</label>
+                            <input id="before-src" class="urlBox auto-update" type="text" value="https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg" name="inlinelabel">
+                            <a class="button button-light button-smallest dropbox-picker" data-image="before"><span class="icon-dropbox"></span></a>
+                        </div>
+                        <div class="input-group-label gif-content" style="display: none;">
+                            <label class="input-group-addon" for="inlinelabel">URL</label>
+                            <input id="gif-before-src" class="urlBox auto-update" onchange="gifBeforeChange()" type="text" value="https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg" name="inlinelabel">
+                            <a class="button button-light button-smallest dropbox-picker" data-image="before"><span class="icon-dropbox"></span></a>
+                        </div>
+
+                        <div class="grid interactive-content">
+                            <div class="grid-item">
+                                <div class="input-group-label">
+                                    <label class="input-group-addon" for="inlinelabel">Label</label>
+                                    <input id="before-label" type="text" placeholder="Apr. 2005" name="inlinelabel">
+                                </div>
+                            </div>
+                            <div class="grid-item">
+                                <div class="input-group-label">
+                                    <label class="input-group-addon" for="inlinelabel">Credit</label>
+                                    <input id="before-credit" type="text" placeholder="Google Earth" name="inlinelabel">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="column-6">
                         <h6>Right Image</h6>
-                            <div class="input-group-label">
-                                <label class="input-group-addon" for="inlinelabel">URL</label>
-                                <input id="after-src" class="urlBox auto-update" type="text" value="https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg" name="inlinelabel">
-                                <a class="button button-light button-smallest dropbox-picker" data-image="after"><span class="icon-dropbox"></span></a>
-                            </div>
-                            <div class="grid">
-                                <div class="grid-item">
-                                    <div class="input-group-label">
-                                        <label class="input-group-addon" for="inlinelabel">Label</label>
-                                        <input id="after-label" type="text" placeholder="Apr. 2005" name="inlinelabel">
-                                    </div>
-                                </div>
-                                <div class="grid-item">
-                                    <div class="input-group-label">
-                                        <label class="input-group-addon" for="inlinelabel">Credit</label>
-                                        <input id="after-credit" type="text" placeholder="Google Earth" name="inlinelabel">
-                                    </div>
+                        <div class="gif-content upload-box" style="display: none;">
+                            <div class="image-upload-wrap">
+                                <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                                <div class="drag-text">
+                                <h3>drag and drop or click to upload an image</h3>
                                 </div>
                             </div>
+                            <div class="file-upload-content">
+                                <img class="file-upload-image" src="#" alt="your image" />
+                                <div class="image-title-wrap">
+                                <button type="button" onclick="removeUpload()" class="remove-image">Click to remove image</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group-label interactive-content">
+                            <label class="input-group-addon" for="inlinelabel">URL</label>
+                            <input id="after-src" class="urlBox auto-update" type="text" value="https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg" name="inlinelabel">
+                            <a class="button button-light button-smallest dropbox-picker" data-image="after"><span class="icon-dropbox"></span></a>
+                        </div>
+                        <div class="input-group-label gif-content" style="display: none;">
+                            <label class="input-group-addon" for="inlinelabel">URL</label>
+                            <input id="gif-after-src" class="urlBox auto-update" onchange="gifAfterChange()" type="text" value="https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg" name="inlinelabel">
+                            <a class="button button-light button-smallest dropbox-picker" data-image="after"><span class="icon-dropbox"></span></a>
+                        </div>
+
+                        <div class="grid interactive-content">
+                            <div class="grid-item">
+                                <div class="input-group-label">
+                                    <label class="input-group-addon" for="inlinelabel">Label</label>
+                                    <input id="after-label" type="text" placeholder="Apr. 2005" name="inlinelabel">
+                                </div>
+                            </div>
+                            <div class="grid-item">
+                                <div class="input-group-label">
+                                    <label class="input-group-addon" for="inlinelabel">Credit</label>
+                                    <input id="after-credit" type="text" placeholder="Google Earth" name="inlinelabel">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="column-12">
+                    <div class="column-12 interactive-content">
                         <h4>Options</h4>
                         <form>
                             <div class="input-group-label">
@@ -97,14 +145,14 @@
                             <h3>Preview</h3>
                         </div>
                         
-                        <div id="preview-container" class="container" style="width: 100%;">
+                        <div id="preview-container" class="container interactive-content" style="width: 100%;">
                           <div id="create-slider-preview">
                           </div>
-                          <h5>Embed</h5>
+                          <h5>Interactive</h5>
                         </div>
-                        <div id="slider-preview-warning" class="grid"></div>
+                        <div id="slider-preview-warning" class="grid interactive-content"></div>
 
-                        <div id="preview-container" class="container" style="margin-top: 2.5%; width: 100%;">
+                        <div id="preview-container" class="container gif-content" style="margin-top: 2.5%; width: 100%; display: none;">
                             <a id="generate-gif" onclick="generateGIF()" class="button button-complement">Generate GIF</a>
 
                             <div class="loader" id="loader-spinner" style="display: none;"></div>
@@ -115,14 +163,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="column-12">
+                    <div class="column-12 interactive-content">
                         <div class="container">
-                            <h3>Publish</h3>
-                        </div>
-                        <div class="container">
-                            <h5>Share</h5>
-                            <a href="#preview-embed" id="update-preview" class="button button-complement">Preview</a>&nbsp;
-                            <a id="publish-slider" class="button button-light">Publish</a>
+                            <a id="publish-slider" class="button button-complement button-large">Publish</a>
                         </div>
                         <div class="show-after-publish">
                           <h6>Share Link</h6>

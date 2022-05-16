@@ -108,7 +108,7 @@ window.jxpGIF = class jxpGIF {
                     // make height the dominant dimension
                     img_a.resize(JIMP.AUTO, dim);
                     img_b.resize(JIMP.AUTO, dim);
-                }                
+                }
     
                 //make sure images are the same size - this is a crappy way to do this
                 if (img_a.bitmap.height < img_b.bitmap.height) {
@@ -164,10 +164,32 @@ window.jxpGIF = class jxpGIF {
     
             })
             .catch((error) => {
+                // remove loader and any previous gif
+                let loader = document.getElementById("loader-spinner");
+                if (loader) {
+                    loader.style.display = "none";
+                }
+
+                let prevGIF = document.getElementById('gif-img');
+                if (prevGIF) {
+                    prevGIF.remove();
+                }
+
                 console.log(error.message);
             });
         })
         .catch((error) => {
+            // remove loader and any previous gif
+            let loader = document.getElementById("loader-spinner");
+            if (loader) {
+                loader.style.display = "none";
+            }
+
+            let prevGIF = document.getElementById('gif-img');
+            if (prevGIF) {
+                prevGIF.remove();
+            }
+            
             console.log(error);
         })
     }

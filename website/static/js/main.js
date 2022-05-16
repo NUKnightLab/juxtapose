@@ -1,3 +1,68 @@
+
+function makeTabClick(event, buttonType) {
+    makeButtons = document.getElementsByClassName("make-button");
+    for (i = 0; i < makeButtons.length; i++) {
+        makeButtons[i].className = makeButtons[i].className.replace(" button-complement", " button-default");
+    }
+
+    event.currentTarget.className = event.currentTarget.className.replace(" button-default", " button-complement");
+
+    // hide show corresponding content
+    interactiveContent = document.getElementsByClassName("interactive-content");
+    gifContent = document.getElementsByClassName("gif-content");
+    if (buttonType == "interactive") {
+        // show interactive
+        for (i=0; i<interactiveContent.length; i++) {
+            interactiveContent[i].style = "display: auto;"
+        }
+
+        for (i=0; i<gifContent.length; i++) {
+            gifContent[i].style = "display: none;"
+        }
+    } else {
+        // show gif
+        for (i=0; i<interactiveContent.length; i++) {
+            interactiveContent[i].style = "display: none;"
+        }
+
+        for (i=0; i<gifContent.length; i++) {
+            gifContent[i].style = "display: auto;"
+        }
+    }
+}
+
+// upload buttons taken and adapted from https://speckyboy.com/custom-file-upload-fields/
+function readURL(input) {
+    if (input.files && input.files[0]) {
+  
+      var reader = new FileReader();
+  
+      reader.onload = function(e) {
+        $('.image-upload-wrap').hide();
+  
+        $('.file-upload-image').attr('src', e.target.result);
+        $('.file-upload-content').show();
+      };
+  
+      reader.readAsDataURL(input.files[0]);
+  
+    } else {
+      removeUpload();
+    }
+  }
+  
+  function removeUpload() {
+    $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+    $('.file-upload-content').hide();
+    $('.image-upload-wrap').show();
+  }
+  $('.image-upload-wrap').bind('dragover', function () {
+      $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function () {
+      $('.image-upload-wrap').removeClass('image-dropping');
+  });
+
 function imageDataFromForm() {
     return [
         {
@@ -11,6 +76,27 @@ function imageDataFromForm() {
             credit: $("#after-credit").val()
         }
     ];
+}
+
+function gifImageDataFromForm() {
+    return [
+        {
+            src: gifBeforeURL
+        },
+        {
+            src: gifAfterURL
+        }
+    ];
+}
+
+var gifBeforeURL = "https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg";
+var gifAfterURL = "https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg";
+function gifBeforeChange() {
+    gifBeforeURL = processThirdPartyLinks($("#gif-before-src").val(), "gif-before-src");
+}
+
+function gifAfterChange() {
+   gifAfterURL = processThirdPartyLinks($("#gif-after-src").val(), "gif-after-src");
 }
 
 function optionsFromForm() {
@@ -64,7 +150,7 @@ $("#update-preview").click(createSliderFromForm);
 
 function generateGIF() {
     // get the two links
-    let imageData = imageDataFromForm();
+    let imageData = gifImageDataFromForm();
     let linkOne = imageData[0].src;
     let linkTwo = imageData[1].src;
     
@@ -100,21 +186,6 @@ function updateEmbedCode() {
     var imgs = imageDataFromForm();
     var opts = optionsFromForm();
 }
-
-// $('a.help').popover({
-//     trigger: 'manual'
-// }).click(function(event) {
-//     if(!$(this).next().hasClass('popover')) {
-//         $('a.help').not(this).popover('hide');
-//     }
-//     $(this).popover('toggle');
-//     event.stopPropagation();
-// });
-//
-// $(document).click(function(e) {
-//     $('a.help').popover('hide');
-// });
-
 
 $("#authoring-form input.auto-update").change(function(evt) {
     createSliderFromForm();
