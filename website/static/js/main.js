@@ -32,16 +32,22 @@ function makeTabClick(event, buttonType) {
 }
 
 // upload buttons taken and adapted from https://speckyboy.com/custom-file-upload-fields/
-function readURL(input) {
+function readURL(input, box) {
     if (input.files && input.files[0]) {
   
       var reader = new FileReader();
   
       reader.onload = function(e) {
-        $('.image-upload-wrap').hide();
+        $('.image-upload-wrap.' + box).hide();
   
-        $('.file-upload-image').attr('src', e.target.result);
-        $('.file-upload-content').show();
+        $('.file-upload-image.' + box).attr('src', e.target.result);
+        $('.file-upload-content.' + box).show();
+
+        if (box == '1') {
+            gifBeforeURL = e.target.result;
+        } else if (box == '2') {
+            gifAfterURL = e.target.result;
+        }
       };
   
       reader.readAsDataURL(input.files[0]);
@@ -51,10 +57,15 @@ function readURL(input) {
     }
   }
   
-  function removeUpload() {
-    $('.file-upload-input').replaceWith($('.file-upload-input').clone());
-    $('.file-upload-content').hide();
-    $('.image-upload-wrap').show();
+  function removeUpload(box) {
+      if (box == '1') {
+          gifBeforeChange();
+      } else if (box == '2') {
+          gifAfterChange();
+      }
+    $('.file-upload-input.' + box).replaceWith($('.file-upload-input.' + box).clone());
+    $('.file-upload-content.' + box).hide();
+    $('.image-upload-wrap.' + box).show();
   }
   $('.image-upload-wrap').bind('dragover', function () {
       $('.image-upload-wrap').addClass('image-dropping');

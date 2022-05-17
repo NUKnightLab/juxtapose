@@ -84,8 +84,19 @@ window.jxpGIF = class jxpGIF {
     createComposite(image_a, image_b, container_id){
         var promise_a, promise_b;
 
-        var image_a_promise = this.getImageData(image_a);
-        var image_b_promise = this.getImageData(image_b);
+        var image_a_promise, image_b_promise;
+
+        if (image_a.startsWith('data:image')) {
+            image_a_promise = Promise.resolve(image_a);
+        } else {
+            image_a_promise = this.getImageData(image_a);
+        }
+
+        if (image_b.startsWith('data:image')) {
+            image_b_promise = Promise.resolve(image_b);
+        } else {
+            image_b_promise = this.getImageData(image_b);
+        }
 
         Promise.all([image_a_promise, image_b_promise]).then((image_promises) => {
             promise_a = Jimp.read(image_promises[0]);
@@ -94,9 +105,6 @@ window.jxpGIF = class jxpGIF {
             Promise.all([promise_a, promise_b]).then((promises) => {
                 let img_a = promises[0];
                 let img_b = promises[1];
-
-                // get container div for sizing
-                let container_div = document.getElementById(container_id);
 
                 // this dimension should be max. 640px
                 let dim = 500;
@@ -112,10 +120,10 @@ window.jxpGIF = class jxpGIF {
     
                 //make sure images are the same size - this is a crappy way to do this
                 if (img_a.bitmap.height < img_b.bitmap.height) {
-                    img_b.resize(width, img_a.bitmap.height);
+                    img_b.resize(dim, img_a.bitmap.height);
                 }
                 else if(img_a.bitmap.height > img_b.bitmap.height) {
-                    img_a.resize(width, img_b.bitmap.height);
+                    img_a.resize(dim, img_b.bitmap.height);
                 }
     
                 var gif = new GIF(
