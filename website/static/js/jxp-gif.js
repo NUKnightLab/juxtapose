@@ -84,94 +84,46 @@ window.jxpGIF = class jxpGIF {
     createComposite(image_a, image_b, container_id){
         var promise_a, promise_b;
 
-        var image_a_promise, image_b_promise;
+        promise_a = Jimp.read(image_a);
+        promise_b = Jimp.read(image_b);
 
-        if (image_a.startsWith('data:image')) {
-            image_a_promise = Promise.resolve(image_a);
-        } else {
-            image_a_promise = this.getImageData(image_a);
-        }
+        Promise.all([promise_a, promise_b]).then((promises) => {
+            let img_a = promises[0];
+            let img_b = promises[1];
 
-        if (image_b.startsWith('data:image')) {
-            image_b_promise = Promise.resolve(image_b);
-        } else {
-            image_b_promise = this.getImageData(image_b);
-        }
+            // this dimension should be max. 640px
+            let dim = 500;
+            if (img_a.bitmap.width > img_a.bitmap.height) {
+                // make width the dominant dimension
+                img_a.resize(dim, Jimp.AUTO);
+                img_b.resize(dim, Jimp.AUTO);
+            } else {
+                // make height the dominant dimension
+                img_a.resize(Jimp.AUTO, dim);
+                img_b.resize(Jimp.AUTO, dim);
+            }
 
-        Promise.all([image_a_promise, image_b_promise]).then((image_promises) => {
-            promise_a = Jimp.read(image_promises[0]);
-            promise_b = Jimp.read(image_promises[1]);
+            //make sure images are the same size - this is a crappy way to do this
+            if (img_a.bitmap.height < img_b.bitmap.height) {
+                img_b.resize(dim, img_a.bitmap.height);
+            }
+            else if(img_a.bitmap.height > img_b.bitmap.height) {
+                img_a.resize(dim, img_b.bitmap.height);
+            }
 
-            Promise.all([promise_a, promise_b]).then((promises) => {
-                let img_a = promises[0];
-                let img_b = promises[1];
-
-                // this dimension should be max. 640px
-                let dim = 500;
-                if (img_a.bitmap.width > img_a.bitmap.height) {
-                    // make width the dominant dimension
-                    img_a.resize(dim, Jimp.AUTO);
-                    img_b.resize(dim, Jimp.AUTO);
-                } else {
-                    // make height the dominant dimension
-                    img_a.resize(JIMP.AUTO, dim);
-                    img_b.resize(JIMP.AUTO, dim);
+            var gif = new GIF(
+                {
+                    quality: 30,
+                    workerScript: '../static/js/utils/gif.worker.js'
                 }
-    
-                //make sure images are the same size - this is a crappy way to do this
-                if (img_a.bitmap.height < img_b.bitmap.height) {
-                    img_b.resize(dim, img_a.bitmap.height);
-                }
-                else if(img_a.bitmap.height > img_b.bitmap.height) {
-                    img_a.resize(dim, img_b.bitmap.height);
-                }
-    
-                var gif = new GIF(
-                    {
-                        quality: 30,
-                        workerScript: '../static/js/utils/gif.worker.js'
-                    }
-                );
-    
-                //swipe
-                this.leftRightSwipe(img_a, img_b, gif);
-    
-                gif.on('finished', function(blob) {
-                    var gif_src = URL.createObjectURL(blob);
+            );
 
-                    // remove loader and any previous gif
-                    let loader = document.getElementById("loader-spinner");
-                    if (loader) {
-                        loader.style.display = "none";
-                    }
+            //swipe
+            this.leftRightSwipe(img_a, img_b, gif);
 
-                    let prevGIF = document.getElementById('gif-img');
-                    if (prevGIF) {
-                        prevGIF.remove();
-                    }
+            gif.on('finished', function(blob) {
+                var gif_src = URL.createObjectURL(blob);
 
-                    const img = dom.createElement('img', 'gif-img', '', document.getElementById(container_id));
-                    img.setAttribute('src', gif_src);
-
-                    // display download button
-                    const downloadButton = document.getElementById('download-gif');
-                    downloadButton.style.display = "inline";
-
-                    downloadButton.onclick = function(){
-                        // download gif
-                        let imgLink = document.createElement('a');
-                        imgLink.href = img.src;
-                        imgLink.download = 'juxtapose-gif.gif';
-                        document.body.appendChild(imgLink);
-                        imgLink.click();
-                        document.body.removeChild(imgLink);
-                    };
-                  });
-                  
-                gif.render();
-    
-            })
-            .catch((error) => {
                 // remove loader and any previous gif
                 let loader = document.getElementById("loader-spinner");
                 if (loader) {
@@ -183,8 +135,26 @@ window.jxpGIF = class jxpGIF {
                     prevGIF.remove();
                 }
 
-                console.log(error.message);
-            });
+                const img = dom.createElement('img', 'gif-img', '', document.getElementById(container_id));
+                img.setAttribute('src', gif_src);
+
+                // display download button
+                const downloadButton = document.getElementById('download-gif');
+                downloadButton.style.display = "inline";
+
+                downloadButton.onclick = function(){
+                    // download gif
+                    let imgLink = document.createElement('a');
+                    imgLink.href = img.src;
+                    imgLink.download = 'juxtapose-gif.gif';
+                    document.body.appendChild(imgLink);
+                    imgLink.click();
+                    document.body.removeChild(imgLink);
+                };
+                });
+                
+            gif.render();
+
         })
         .catch((error) => {
             // remove loader and any previous gif
@@ -197,8 +167,8 @@ window.jxpGIF = class jxpGIF {
             if (prevGIF) {
                 prevGIF.remove();
             }
-            
-            console.log(error);
-        })
+
+            console.log(error.message);
+        });
     }
 }

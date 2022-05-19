@@ -59,20 +59,46 @@ function readURL(input, box) {
   
   function removeUpload(box) {
       if (box == '1') {
+          let inputField = document.getElementById("gif-before-src");
+          inputField.value = "";
+
           gifBeforeChange();
       } else if (box == '2') {
+          let inputField = document.getElementById("gif-after-src");
+          inputField.value = "";
+
           gifAfterChange();
       }
     $('.file-upload-input.' + box).replaceWith($('.file-upload-input.' + box).clone());
     $('.file-upload-content.' + box).hide();
     $('.image-upload-wrap.' + box).show();
   }
+
   $('.image-upload-wrap').bind('dragover', function () {
       $('.image-upload-wrap').addClass('image-dropping');
     });
     $('.image-upload-wrap').bind('dragleave', function () {
       $('.image-upload-wrap').removeClass('image-dropping');
   });
+
+  // call the proxy and return image data based on a url
+  function getImageData(image_path) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/image_proxy/" + image_path,
+            complete: function(data) { 
+                console.log("complete");
+            },
+            success: function(data, status, xhr) {
+                let bufferData = Buffer.from(data, 'base64');
+                resolve(bufferData);
+            },
+            error: function(xhr, status, errorMsg) {
+                reject(xhr);
+            }
+          });
+    })
+}
 
 function imageDataFromForm() {
     return [
@@ -100,14 +126,64 @@ function gifImageDataFromForm() {
     ];
 }
 
-var gifBeforeURL = "https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg";
-var gifAfterURL = "https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg";
+var gifBeforeURL = "";
+var gifAfterURL = "";
 function gifBeforeChange() {
-    gifBeforeURL = processThirdPartyLinks($("#gif-before-src").val(), "gif-before-src");
+    gifURL = processThirdPartyLinks($("#gif-before-src").val(), "gif-before-src");
+
+    getImageData(gifURL).then(imgSrc => {
+        gifBeforeURL = `data:image/jpeg;base64,${toBase64(imgSrc)}`;
+
+        $('.image-upload-wrap.1').hide();
+  
+        $('.file-upload-image.1').attr('src', gifBeforeURL);
+        $('.file-upload-content.1').show();
+    })
 }
 
+function toBase64(arr) {
+    //arr = new Uint8Array(arr) if it's an ArrayBuffer
+    return btoa(
+       arr.reduce((data, byte) => data + String.fromCharCode(byte), '')
+    );
+ }
+
 function gifAfterChange() {
-   gifAfterURL = processThirdPartyLinks($("#gif-after-src").val(), "gif-after-src");
+   gifURL = processThirdPartyLinks($("#gif-after-src").val(), "gif-after-src");
+
+    getImageData(gifURL).then(imgSrc => {
+        gifAfterURL = `data:image/jpeg;base64,${toBase64(imgSrc)}`;
+
+        $('.image-upload-wrap.2').hide();
+
+        $('.file-upload-image.2').attr('src', gifAfterURL);
+        $('.file-upload-content.2').show();
+    })
+}
+
+function generateGIF() {
+    // get the two links
+    let imageData = gifImageDataFromForm();
+    let linkOne = imageData[0].src;
+    let linkTwo = imageData[1].src;
+    
+    // generate gif
+    let imgGIF = document.getElementById("gif-img");
+    if (imgGIF) {
+        imgGIF.remove();
+    }
+
+    let loader = document.getElementById("loader-spinner");
+    if (loader) {
+        loader.style.display = "block";
+    }
+
+    let downloadButton = document.getElementById('download-gif');
+    if (downloadButton) {
+        downloadButton.style.display = "none";
+    }
+
+    window.juxtapose_gif = new jxpGIF(linkOne, linkTwo, {container_id: 'gif-container'});
 }
 
 function optionsFromForm() {
@@ -158,31 +234,6 @@ function createSliderFromForm() {
 }
 
 $("#update-preview").click(createSliderFromForm);
-
-function generateGIF() {
-    // get the two links
-    let imageData = gifImageDataFromForm();
-    let linkOne = imageData[0].src;
-    let linkTwo = imageData[1].src;
-    
-    // generate gif
-    let imgGIF = document.getElementById("gif-img");
-    if (imgGIF) {
-        imgGIF.remove();
-    }
-
-    let loader = document.getElementById("loader-spinner");
-    if (loader) {
-        loader.style.display = "block";
-    }
-
-    let downloadButton = document.getElementById('download-gif');
-    if (downloadButton) {
-        downloadButton.style.display = "none";
-    }
-
-    window.juxtapose_gif = new jxpGIF(linkOne, linkTwo, {container_id: 'gif-container'});
-}
 
 function imageTagForObject(o) {
     return '<img src="' + o.src

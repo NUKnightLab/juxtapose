@@ -38,7 +38,7 @@
                         </div>
                         <div class="input-group-label gif-content" style="display: none;">
                             <label class="input-group-addon" for="inlinelabel">URL</label>
-                            <input id="gif-before-src" class="urlBox auto-update" onchange="gifBeforeChange()" type="text" value="https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg" name="inlinelabel">
+                            <input id="gif-before-src" class="urlBox auto-update" onchange="gifBeforeChange()" type="text" value="" name="inlinelabel">
                             <a class="button button-light button-smallest dropbox-picker" data-image="before"><span class="icon-dropbox"></span></a>
                         </div>
 
@@ -81,7 +81,7 @@
                         </div>
                         <div class="input-group-label gif-content" style="display: none;">
                             <label class="input-group-addon" for="inlinelabel">URL</label>
-                            <input id="gif-after-src" class="urlBox auto-update" onchange="gifAfterChange()" type="text" value="https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg" name="inlinelabel">
+                            <input id="gif-after-src" class="urlBox auto-update" onchange="gifAfterChange()" type="text" value="" name="inlinelabel">
                             <a class="button button-light button-smallest dropbox-picker" data-image="after"><span class="icon-dropbox"></span></a>
                         </div>
 
@@ -148,19 +148,15 @@
                         <div id="preview-container" class="container interactive-content" style="width: 100%;">
                           <div id="create-slider-preview">
                           </div>
-                          <h5>Interactive</h5>
                         </div>
                         <div id="slider-preview-warning" class="grid interactive-content"></div>
 
                         <div id="preview-container" class="container gif-content" style="margin-top: 2.5%; width: 100%; display: none;">
                             <a id="generate-gif" onclick="generateGIF()" class="button button-complement">Generate GIF</a>
+                            <a id="download-gif" class="button button-light" style="display: none;">Download</a>
 
                             <div class="loader" id="loader-spinner" style="display: none;"></div>
                             <div id="gif-container" style="background-color: #d7f1fc;"></div>
-                            <div>
-                                <h5 style="padding-top: 5px; display: inline;">GIF</h5>
-                                <a id="download-gif" class="button button-light" style="display: none;">Download</a>
-                            </div>
                         </div>
                     </div>
                     <div class="column-12 interactive-content">
