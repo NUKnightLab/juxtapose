@@ -445,12 +445,6 @@ a.button.dropbox-picker {
   transform: rotate(-45deg);
 }
 
-.product-demo {
-  display: inline;
-  float: left;
-  width : 45%;
-}
-
 .make-buttons button {
   text-shadow: none !important;
   box-shadow: none !important;
@@ -528,4 +522,19 @@ a.button.dropbox-picker {
 .remove-image:active {
   border: 0;
   transition: all .2s ease;
+}
+
+/* Interactive demo preview styling */
+.interactive-demo-contents {
+  width: 98%;
+  margin-left: 2%;
+}
+
+.gif-demo-contents {
+  width: 98%;
+  margin-right: 2%;
+}
+
+#interactive-demo-preview {
+  margin-bottom: 1rem;
 }

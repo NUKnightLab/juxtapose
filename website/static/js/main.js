@@ -115,6 +115,21 @@ function imageDataFromForm() {
     ];
 }
 
+function demoImageData() {
+    return [
+        {
+            src: "https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg",
+            label: "Apr. 2005",
+            credit: ""
+        },
+        {
+            src: "https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg",
+            label: "Nov. 2013",
+            credit: ""
+        }
+    ];
+}
+
 function gifImageDataFromForm() {
     return [
         {
@@ -142,7 +157,6 @@ function gifBeforeChange() {
 }
 
 function toBase64(arr) {
-    //arr = new Uint8Array(arr) if it's an ArrayBuffer
     return btoa(
        arr.reduce((data, byte) => data + String.fromCharCode(byte), '')
     );
@@ -232,6 +246,16 @@ function createSliderFromForm() {
     let imageData = imageDataFromForm();
     window.slider_preview = new juxtapose.JXSlider("#create-slider-preview", imageData, opts);
 }
+
+function createInteractiveDemoPreview() {
+    $("#interactive-demo-preview").html('');
+
+    var opts = optionsFromForm();
+    let imageData = demoImageData();
+    window.demo_preview = new juxtapose.JXSlider("#interactive-demo-preview", imageData, opts);
+}
+
+createInteractiveDemoPreview();
 
 $("#update-preview").click(createSliderFromForm);
 
