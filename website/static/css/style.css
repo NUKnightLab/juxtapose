@@ -525,16 +525,37 @@ a.button.dropbox-picker {
 }
 
 /* Interactive demo preview styling */
-.interactive-demo-contents {
-  width: 98%;
-  margin-left: 2%;
-}
-
-.gif-demo-contents {
-  width: 98%;
-  margin-right: 2%;
-}
-
 #interactive-demo-preview {
   margin-bottom: 1rem;
+}
+
+.demo-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+
+  width: 97%;
+  margin: auto;
+}
+
+.interactive-demo {
+  grid-column: 1 / 2;
+}
+
+.gif-demo {
+  grid-column: 2 / 3;
+}
+
+@media only screen and (max-width: 768px) {
+  .demo-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .interactive-demo {
+    grid-column: 1 / 2;
+  }
+
+  .gif-demo {
+    grid-column: 1 / 2;
+  }
 }
