@@ -678,7 +678,7 @@
             options.mode = w.getAttribute('data-mode');
         }
         if (w.getAttribute('data-makeresponsive')) {
-            options.mode = w.getAttribute('data-makeresponsive');
+            options.makeResponsive = w.getAttribute('data-makeresponsive');
         }
 
         specificClass = 'juxtapose-' + idx;
