@@ -1,4 +1,3 @@
-
 function makeTabClick(event, buttonType) {
     makeButtons = document.getElementsByClassName("make-button");
     for (i = 0; i < makeButtons.length; i++) {
@@ -12,20 +11,20 @@ function makeTabClick(event, buttonType) {
     gifContent = document.getElementsByClassName("gif-content");
     if (buttonType == "interactive") {
         // show interactive
-        for (i=0; i<interactiveContent.length; i++) {
+        for (i = 0; i < interactiveContent.length; i++) {
             interactiveContent[i].style = "display: auto;"
         }
 
-        for (i=0; i<gifContent.length; i++) {
+        for (i = 0; i < gifContent.length; i++) {
             gifContent[i].style = "display: none;"
         }
     } else {
         // show gif
-        for (i=0; i<interactiveContent.length; i++) {
+        for (i = 0; i < interactiveContent.length; i++) {
             interactiveContent[i].style = "display: none;"
         }
 
-        for (i=0; i<gifContent.length; i++) {
+        for (i = 0; i < gifContent.length; i++) {
             gifContent[i].style = "display: auto;"
         }
     }
@@ -33,60 +32,63 @@ function makeTabClick(event, buttonType) {
 
 // upload buttons taken and adapted from https://speckyboy.com/custom-file-upload-fields/
 function readURL(input, box) {
+    console.log(`readURL box: ${box}`)
     if (input.files && input.files[0]) {
-  
-      var reader = new FileReader();
-  
-      reader.onload = function(e) {
-        $('.image-upload-wrap.' + box).hide();
-  
-        $('.file-upload-image.' + box).attr('src', e.target.result);
-        $('.file-upload-content.' + box).show();
 
-        if (box == '1') {
-            gifBeforeURL = e.target.result;
-        } else if (box == '2') {
-            gifAfterURL = e.target.result;
-        }
-      };
-  
-      reader.readAsDataURL(input.files[0]);
-  
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            console.log(`readURL onload handler for box ${box}`)
+            $(`#image-upload-wrap-${box}`).hide();
+
+            $(`#file-upload-image-${box}`).attr('src', e.target.result);
+            $(`#file-upload-content-${box}`).show();
+
+            if (box == '1') {
+                gifBeforeURL = e.target.result;
+            } else if (box == '2') {
+                gifAfterURL = e.target.result;
+            }
+        };
+        console.log(`readURL about to read ${input.files[0]}`)
+        reader.readAsDataURL(input.files[0]);
+
     } else {
-      removeUpload();
+        console.log(`readURL in else`)
+        removeUpload();
     }
-  }
-  
-  function removeUpload(box) {
-      if (box == '1') {
-          let inputField = document.getElementById("gif-before-src");
-          inputField.value = "";
+}
 
-          gifBeforeChange();
-      } else if (box == '2') {
-          let inputField = document.getElementById("gif-after-src");
-          inputField.value = "";
+function removeUpload(box) {
+    if (box == '1') {
+        let inputField = document.getElementById("gif-before-src");
+        inputField.value = "";
 
-          gifAfterChange();
-      }
-    $('.file-upload-input.' + box).replaceWith($('.file-upload-input.' + box).clone());
-    $('.file-upload-content.' + box).hide();
-    $('.image-upload-wrap.' + box).show();
-  }
+        gifBeforeChange();
+    } else if (box == '2') {
+        let inputField = document.getElementById("gif-after-src");
+        inputField.value = "";
 
-  $('.image-upload-wrap').bind('dragover', function () {
-      $('.image-upload-wrap').addClass('image-dropping');
-    });
-    $('.image-upload-wrap').bind('dragleave', function () {
-      $('.image-upload-wrap').removeClass('image-dropping');
-  });
+        gifAfterChange();
+    }
+    $(`#file-upload-input-${box}`).replaceWith($(`#file-upload-input-${box}`).clone());
+    $(`#file-upload-content-${box}`).hide();
+    $(`#image-upload-wrap-${box}`).show();
+}
 
-  // call the proxy and return image data based on a url
-  function getImageData(image_path) {
+$('.image-upload-wrap').bind('dragover', function() {
+    $('.image-upload-wrap').addClass('image-dropping');
+});
+$('.image-upload-wrap').bind('dragleave', function() {
+    $('.image-upload-wrap').removeClass('image-dropping');
+});
+
+// call the proxy and return image data based on a url
+function getImageData(image_path) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: "/image_proxy/" + image_path,
-            complete: function(data) { 
+            complete: function(data) {
                 console.log("complete");
             },
             success: function(data, status, xhr) {
@@ -96,13 +98,12 @@ function readURL(input, box) {
             error: function(xhr, status, errorMsg) {
                 reject(xhr);
             }
-          });
+        });
     })
 }
 
 function imageDataFromForm() {
-    return [
-        {
+    return [{
             src: processThirdPartyLinks($("#before-src").val(), "before-src"),
             label: $("#before-label").val(),
             credit: $("#before-credit").val()
@@ -116,8 +117,7 @@ function imageDataFromForm() {
 }
 
 function demoImageData() {
-    return [
-        {
+    return [{
             src: "https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg",
             label: "Apr. 2005",
             credit: ""
@@ -131,8 +131,7 @@ function demoImageData() {
 }
 
 function gifImageDataFromForm() {
-    return [
-        {
+    return [{
             src: gifBeforeURL
         },
         {
@@ -143,6 +142,7 @@ function gifImageDataFromForm() {
 
 var gifBeforeURL = "";
 var gifAfterURL = "";
+
 function gifBeforeChange() {
     gifURL = processThirdPartyLinks($("#gif-before-src").val(), "gif-before-src");
 
@@ -150,7 +150,7 @@ function gifBeforeChange() {
         gifBeforeURL = `data:image/jpeg;base64,${toBase64(imgSrc)}`;
 
         $('.image-upload-wrap.1').hide();
-  
+
         $('.file-upload-image.1').attr('src', gifBeforeURL);
         $('.file-upload-content.1').show();
     })
@@ -158,12 +158,12 @@ function gifBeforeChange() {
 
 function toBase64(arr) {
     return btoa(
-       arr.reduce((data, byte) => data + String.fromCharCode(byte), '')
+        arr.reduce((data, byte) => data + String.fromCharCode(byte), '')
     );
- }
+}
 
 function gifAfterChange() {
-   gifURL = processThirdPartyLinks($("#gif-after-src").val(), "gif-after-src");
+    gifURL = processThirdPartyLinks($("#gif-after-src").val(), "gif-after-src");
 
     getImageData(gifURL).then(imgSrc => {
         gifAfterURL = `data:image/jpeg;base64,${toBase64(imgSrc)}`;
@@ -180,7 +180,7 @@ function generateGIF() {
     let imageData = gifImageDataFromForm();
     let linkOne = imageData[0].src;
     let linkTwo = imageData[1].src;
-    
+
     // generate gif
     let imgGIF = document.getElementById("gif-img");
     if (imgGIF) {
@@ -197,7 +197,7 @@ function generateGIF() {
         downloadButton.style.display = "none";
     }
 
-    window.juxtapose_gif = new jxpGIF(linkOne, linkTwo, {container_id: 'gif-container'});
+    window.juxtapose_gif = new jxpGIF(linkOne, linkTwo, { container_id: 'gif-container' });
 }
 
 function optionsFromForm() {
@@ -207,7 +207,7 @@ function optionsFromForm() {
     }
     try {
         var test = parseInt(pos);
-    } catch(e) {
+    } catch (e) {
         console.log('invalid position');
         pos = '50';
     }
@@ -223,8 +223,8 @@ function optionsFromForm() {
 }
 
 // Set the iframe height/width equal to that of the image with the smaller respective dimension
-function setDims(dim, images){
-  return images[0][dim] > images[1][dim] ? images[1][dim] : images[0][dim];
+function setDims(dim, images) {
+    return images[0][dim] > images[1][dim] ? images[1][dim] : images[0][dim];
 }
 
 function createSliderFromForm() {
@@ -260,12 +260,12 @@ createInteractiveDemoPreview();
 $("#update-preview").click(createSliderFromForm);
 
 function imageTagForObject(o) {
-    return '<img src="' + o.src
-    + '" data-label="'
-    + o.label
-    + '" data-credit="'
-    + o.credit
-    + '">';
+    return '<img src="' + o.src +
+        '" data-label="' +
+        o.label +
+        '" data-credit="' +
+        o.credit +
+        '">';
 }
 
 function updateEmbedCode() {
@@ -277,28 +277,33 @@ $("#authoring-form input.auto-update").change(function(evt) {
     createSliderFromForm();
 });
 
+$("input").change(function() { // any changes require republishing
+    $(".show-after-publish").hide();
+})
+
 $("#authoring-form input#starting-position").change(function(evt) {
     try {
         var value = parseInt($(evt.target).val());
         if (value < 0 || value > 100) {
             evt.preventDefault();
         } else {
-            slider_preview.updateSlider(value,false);
+            slider_preview.updateSlider(value, false);
         }
-    } catch(e) {
+    } catch (e) {
         evt.preventDefault();
     }
 });
 
-$("#use-current-position").click(function(){
+$("#use-current-position").click(function() {
     var pos = slider_preview.getPosition();
-    pos = pos.replace('%','').split('.')[0];
+    pos = pos.replace('%', '').split('.')[0];
     $("#starting-position").val(pos);
 });
 
 createSliderFromForm();
 
 var iFrameURL = 'https://cdn.knightlab.com/libs/juxtapose/latest/embed/index.html';
+
 function updateEmbedCodes(data) {
     var uid = data.uid;
     var url = iFrameURL + '?uid=' + uid;
@@ -323,19 +328,19 @@ function getJSONToPublish() {
 function callCreateAPI(data) {
 
     $.ajax({
-      type: "POST",
-      data: JSON.stringify(data),
-      contentType: 'application/json',
-      dataType: 'json',
-      url: "/juxtapose/create/",
-      complete: function(data) { $("#publish-slider").removeClass('disabled'); },
-      success: function(data) {
-        updateEmbedCodes(data);
-      },
-      error: function(xhr, status, errorMsg) {
-        $("#publish-error").html("<strong>Error:</strong> " + errorMsg).show();
-        console.log(xhr);
-      }
+        type: "POST",
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        dataType: 'json',
+        url: "/juxtapose/create/",
+        complete: function(data) { $("#publish-slider").removeClass('disabled'); },
+        success: function(data) {
+            updateEmbedCodes(data);
+        },
+        error: function(xhr, status, errorMsg) {
+            $("#publish-error").html("<strong>Error:</strong> " + errorMsg).show();
+            console.log(xhr);
+        }
     });
 
 }

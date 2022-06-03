@@ -1,177 +1,177 @@
+<section class="section-color section-color-complement" id="make">
+    <div class="container">
+        <h2>Create a Juxtapose</h2>
 
-        <section class="section-color section-color-complement" id="make">
-            <div class="container">
-                <h2>Create a Juxtapose</h2>
-                <p>
-                    It is free, easy to use, and works on all devices. All you need to get started are links to the images you'd like to compare.
-                </p>
+        <div class="make-buttons">
+            <button class="make-button button button-complement active" onclick="makeTabClick(event, 'interactive')">Interactive<br>(best for web pages)</button>
+            <button class="make-button button button-default" onclick="makeTabClick(event, 'gif')">GIF<br>(best for social media)</button>
+        </div>
 
-                <div class="make-buttons">
-                    <button class="make-button button button-complement active" onclick="makeTabClick(event, 'interactive')">Interactive</button>
-                    <button class="make-button button button-default" onclick="makeTabClick(event, 'gif')">GIF</button>
-                </div>
-
-                <form id="authoring-form">
-                <h4>Images</h4>
-                <div class="grid">
-                    <div class="column-6">
-                        <h6>Left Image</h6>
-                        <div class="gif-content upload-box" style="display: none;">
-                            <div class="image-upload-wrap 1">
-                                <input class="file-upload-input 1" type='file' onchange="readURL(this, '1');" accept="image/*" />
-                                <div class="drag-text 1">
+        <form id="authoring-form">
+            <h4>Images</h4>
+            <p class="gif-content" style="display: none;">For GIF Juxtapose, you can upload images from your computer or from Dropbox, or provide direct URLs to images.</p>
+            <p class="interactive-content">For interactive Juxtapose, you can load images from Dropbox, or provide direct URLs to images. We don't support uploads for interactive Juxtapose.</p>
+            <div class="grid">
+                <div class="column-6">
+                    <h6>Left Image</h6>
+                    <div class="gif-content upload-box" style="display: none;">
+                        <div id="image-upload-wrap-1" class="image-upload-wrap">
+                            <input id="file-upload-input-1" class="file-upload-input" type='file' onchange="readURL(this, '1');" accept="image/*" />
+                            <div id="drag-text-1" class="drag-text">
                                 <h3>drag and drop or click to upload an image</h3>
-                                </div>
-                            </div>
-                            <div class="file-upload-content 1">
-                                <img class="file-upload-image 1" src="#" alt="your image" />
-                                <div class="image-title-wrap 1">
-                                <button type="button" onclick="removeUpload('1')" class="remove-image 1">Click to remove image</button>
-                                </div>
                             </div>
                         </div>
-
-                        <div class="input-group-label interactive-content">
-                            <label class="input-group-addon" for="inlinelabel">URL</label>
-                            <input id="before-src" class="urlBox auto-update" type="text" value="https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg" name="inlinelabel">
-                            <a class="button button-light button-smallest dropbox-picker" data-image="before"><span class="icon-dropbox"></span></a>
-                        </div>
-                        <div class="input-group-label gif-content" style="display: none;">
-                            <label class="input-group-addon" for="inlinelabel">URL</label>
-                            <input id="gif-before-src" class="urlBox auto-update" onchange="gifBeforeChange()" type="text" value="" name="inlinelabel">
-                            <a class="button button-light button-smallest dropbox-picker" data-image="before"><span class="icon-dropbox"></span></a>
-                        </div>
-
-                        <div class="grid interactive-content">
-                            <div class="grid-item">
-                                <div class="input-group-label">
-                                    <label class="input-group-addon" for="inlinelabel">Label</label>
-                                    <input id="before-label" type="text" placeholder="Apr. 2005" name="inlinelabel">
-                                </div>
-                            </div>
-                            <div class="grid-item">
-                                <div class="input-group-label">
-                                    <label class="input-group-addon" for="inlinelabel">Credit</label>
-                                    <input id="before-credit" type="text" placeholder="Google Earth" name="inlinelabel">
-                                </div>
+                        <div id="file-upload-content-1" class="file-upload-content">
+                            <img id="file-upload-image-1" class="file-upload-image" src="#" alt="your image" />
+                            <div id="image-title-wrap-1" class="image-title-wrap">
+                                <button id="remove-image-1" type="button" onclick="removeUpload('1')" class="remove-image">remove image</button>
                             </div>
                         </div>
                     </div>
-                    <div class="column-6">
-                        <h6>Right Image</h6>
-                        <div class="gif-content upload-box" style="display: none;">
-                            <div class="image-upload-wrap 2">
-                                <input class="file-upload-input 2" type='file' onchange="readURL(this, '2');" accept="image/*" />
-                                <div class="drag-text 2">
-                                <h3>drag and drop or click to upload an image</h3>
-                                </div>
-                            </div>
-                            <div class="file-upload-content 2">
-                                <img class="file-upload-image 2" src="#" alt="your image" />
-                                <div class="image-title-wrap 2">
-                                <button type="button" onclick="removeUpload('2')" class="remove-image 2">Click to remove image</button>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="input-group-label interactive-content">
-                            <label class="input-group-addon" for="inlinelabel">URL</label>
-                            <input id="after-src" class="urlBox auto-update" type="text" value="https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg" name="inlinelabel">
-                            <a class="button button-light button-smallest dropbox-picker" data-image="after"><span class="icon-dropbox"></span></a>
-                        </div>
-                        <div class="input-group-label gif-content" style="display: none;">
-                            <label class="input-group-addon" for="inlinelabel">URL</label>
-                            <input id="gif-after-src" class="urlBox auto-update" onchange="gifAfterChange()" type="text" value="" name="inlinelabel">
-                            <a class="button button-light button-smallest dropbox-picker" data-image="after"><span class="icon-dropbox"></span></a>
-                        </div>
-
-                        <div class="grid interactive-content">
-                            <div class="grid-item">
-                                <div class="input-group-label">
-                                    <label class="input-group-addon" for="inlinelabel">Label</label>
-                                    <input id="after-label" type="text" placeholder="Apr. 2005" name="inlinelabel">
-                                </div>
-                            </div>
-                            <div class="grid-item">
-                                <div class="input-group-label">
-                                    <label class="input-group-addon" for="inlinelabel">Credit</label>
-                                    <input id="after-credit" type="text" placeholder="Google Earth" name="inlinelabel">
-                                </div>
-                            </div>
-                        </div>
+                    <div class="input-group-label interactive-content">
+                        <label class="input-group-addon" for="inlinelabel">URL</label>
+                        <input id="before-src" class="urlBox auto-update" type="text" value="https://juxtapose.knightlab.com/static/img/Sochi_11April2005.jpg" name="inlinelabel">
+                        <a class="button button-light button-smallest dropbox-picker" data-image="before"><span class="icon-dropbox"></span></a>
                     </div>
-                    <div class="column-12 interactive-content">
-                        <h4>Options</h4>
-                        <form>
+                    <div class="input-group-label gif-content" style="display: none;">
+                        <label class="input-group-addon" for="inlinelabel">URL</label>
+                        <input id="gif-before-src" class="urlBox auto-update" onchange="gifBeforeChange()" type="text" value="" name="inlinelabel">
+                        <a class="button button-light button-smallest dropbox-picker" data-image="before"><span class="icon-dropbox"></span></a>
+                    </div>
+
+                    <div class="grid interactive-content">
+                        <div class="grid-item">
                             <div class="input-group-label">
-                                <label for="slider-start">Slider start position</label>
-                                <input id="starting-position" type="number" size="2" placeholder="50" value="50" min="0" max="100" name="slider-start" step="1" style=" width: 70px;">
-                                <div class='input-group-addon'>%</div>
+                                <label class="input-group-addon" for="inlinelabel">Label</label>
+                                <input id="before-label" class="auto-update" type="text" placeholder="Apr. 2005" name="inlinelabel">
                             </div>
-                            <div class="input-group-checkbox">
-                                <label for="show-labels">
+                        </div>
+                        <div class="grid-item">
+                            <div class="input-group-label">
+                                <label class="input-group-addon" for="inlinelabel">Credit</label>
+                                <input id="before-credit" class="auto-update" type="text" placeholder="Google Earth" name="inlinelabel">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column-6" id="right-image">
+                    <h6>Right Image</h6>
+                    <div class="gif-content upload-box" style="display: none;">
+                        <div id="image-upload-wrap-2" class="image-upload-wrap">
+                            <input id="file-upload-input-2" class="file-upload-input" type='file' onchange="readURL(this, '2');" accept="image/*" />
+                            <div id="drag-text-2" class="drag-text">
+                                <h3>drag and drop or click to upload an image</h3>
+                            </div>
+                        </div>
+                        <div id="file-upload-content-2" class="file-upload-content">
+                            <img id="file-upload-image-2" class="file-upload-image" src="#" alt="your image" />
+                            <div id="image-title-wrap-2" class="image-title-wrap">
+                                <button id="remove-image-2" type="button" onclick="removeUpload('2')" class="remove-image">remove image</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group-label interactive-content">
+                        <label class="input-group-addon" for="inlinelabel">URL</label>
+                        <input id="after-src" class="urlBox auto-update" type="text" value="https://juxtapose.knightlab.com/static/img/Sochi_22Nov2013.jpg" name="inlinelabel">
+                        <a class="button button-light button-smallest dropbox-picker" data-image="after"><span class="icon-dropbox"></span></a>
+                    </div>
+                    <div class="input-group-label gif-content" style="display: none;">
+                        <label class="input-group-addon" for="inlinelabel">URL</label>
+                        <input id="gif-after-src" class="urlBox auto-update" onchange="gifAfterChange()" type="text" value="" name="inlinelabel">
+                        <a class="button button-light button-smallest dropbox-picker" data-image="after"><span class="icon-dropbox"></span></a>
+                    </div>
+
+                    <div class="grid interactive-content">
+                        <div class="grid-item">
+                            <div class="input-group-label">
+                                <label class="input-group-addon" for="inlinelabel">Label</label>
+                                <input id="after-label" class="auto-update" type="text" placeholder="Apr. 2005" name="inlinelabel">
+                            </div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="input-group-label">
+                                <label class="input-group-addon" for="inlinelabel">Credit</label>
+                                <input id="after-credit" class="auto-update" type="text" placeholder="Google Earth" name="inlinelabel">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column-12 interactive-content">
+                    <h4>Options</h4>
+                    <form>
+                        <div class="input-group-label">
+                            <label for="slider-start">Slider start position</label>
+                            <input id="starting-position" type="number" size="2" placeholder="50" value="50" min="0" max="100" name="slider-start" step="1" style=" width: 70px;">
+                            <div class='input-group-addon'>%</div>
+                        </div>
+                        <div class="input-group-checkbox">
+                            <label for="show-labels">
                                     <input id="show-labels" class="auto-update" type="checkbox" value="true" checked="">
                                     <div class="button">Show Labels</div>
                                 </label>
 
-                                <label for="show-credits">
+                            <label for="show-credits">
                                     <input id="show-credits" class="auto-update" type="checkbox" value="true" checked="">
                                     <div class="button">Show Credits</div>
                                 </label>
 
-                                <label for="animate">
+                            <label for="animate">
                                     <input id="animate" class="auto-update" type="checkbox" value="true" checked="">
                                     <div class="button">Animate</div>
                                 </label>
 
-                                <label for="make-responsive">
+                            <label for="make-responsive">
                                     <input id="make-responsive" class="auto-update" type="checkbox" value="true" checked="">
                                     <div class="button">Make Responsive</div>    
                                 </label>
 
-                                <label for="vertical">
+                            <label for="vertical">
                                     <input id="vertical" class="auto-update" type="checkbox" value="false">
                                     <div class="button">Vertical</div>
                                 </label>
-                            </div>
-                        </form> <!-- #autoring-form -->
-                        <!-- % <a href="javascript:" id="use-current-position">(use current position)</a> -->
-                        <!-- <p class="note">
+                        </div>
+                    </form>
+                    <!-- #autoring-form -->
+                    <!-- % <a href="javascript:" id="use-current-position">(use current position)</a> -->
+                    <!-- <p class="note">
                             You don't have to start with the slider in the middle. You can set it anywhere if that tells your story better.
                         </p> -->
+                </div>
+                <div id="preview-embed" class="container column-12">
+                    <div class="container">
+                        <h3>Preview</h3>
                     </div>
-                    <div id="preview-embed" class="container column-12">
-                        <div class="container">
-                            <h3>Preview</h3>
-                        </div>
-                        
-                        <div id="preview-container" class="container interactive-content" style="width: 100%;">
-                          <div id="create-slider-preview">
-                          </div>
-                        </div>
-                        <div id="slider-preview-warning" class="grid interactive-content"></div>
 
-                        <div id="preview-container" class="container gif-content" style="margin-top: 2.5%; width: 100%; display: none;">
-                            <a id="generate-gif" onclick="generateGIF()" class="button button-complement">Generate GIF</a>
-                            <a id="download-gif" class="button button-light" style="display: none;">Download</a>
-
-                            <div class="loader" id="loader-spinner" style="display: none;"></div>
-                            <div id="gif-container" style="background-color: #d7f1fc;"></div>
+                    <div id="preview-container" class="container interactive-content" style="width: 100%;">
+                        <div id="create-slider-preview">
                         </div>
                     </div>
-                    <div class="column-12 interactive-content">
-                        <div class="container">
-                            <a id="publish-slider" class="button button-complement button-large">Publish</a>
-                        </div>
-                        <div class="show-after-publish">
-                          <h6>Share Link</h6>
-                          <p class="small">To embed in a Medium blog post, copy the code in the box below and paste it on a line by itself where you want your juxtapose to appear. (Learn more about oEmbed.) If you update the settings, don't forget to click "Publish" again.</p>
-                              <textarea id="oembed-url" rows="3" type="text" readonly="readonly" name="textplaceholder" value="" style="height:4rem;"></textarea>
-                          <h6>Embed</h6>
-                          <p class="small">Copy the code in the box below and paste it into your web page or CMS. If you update the settings, don't forget to click "Publish" again.</p>
-                              <textarea id="embed-code" rows="3" readonly="readonly" type="text" name="textplaceholder" value="" style="height:5rem;"></textarea>
-                        </div>
+                    <div id="slider-preview-warning" class="grid interactive-content"></div>
+
+                    <div id="preview-container" class="container gif-content" style="margin-top: 2.5%; width: 100%; display: none;">
+                        <a id="generate-gif" onclick="generateGIF()" class="button button-complement">Generate GIF</a>
+                        <a id="download-gif" class="button button-light" style="display: none;">Download</a>
+
+                        <div class="loader" id="loader-spinner" style="display: none;"></div>
+                        <div id="gif-container" style="background-color: #d7f1fc;"></div>
+                    </div>
+                </div>
+                <div class="column-12 interactive-content">
+                    <div class="container">
+                        <a id="publish-slider" class="button button-complement button-large">Publish</a>
+                    </div>
+                    <div class="show-after-publish">
+                        <h6>Share Link</h6>
+                        <p class="small">To embed in a Medium blog post, copy the code in the box below and paste it on a line by itself where you want your juxtapose to appear. (<a href="https://knightlab.northwestern.edu/2016/06/15/knight-lab-tools-now-embeddable-on-medium/"
+                                target="_blank">Learn more about oEmbed.</a>) If you update the settings, don't forget to click "Publish" again.</p>
+                        <textarea id="oembed-url" rows="3" type="text" readonly="readonly" name="textplaceholder" value="" style="height:4rem;"></textarea>
+                        <h6>Embed</h6>
+                        <p class="small">Copy the code in the box below and paste it into your web page or CMS. If you update the settings, don't forget to click "Publish" again.</p>
+                        <textarea id="embed-code" rows="3" readonly="readonly" type="text" name="textplaceholder" value="" style="height:5rem;"></textarea>
                     </div>
                 </div>
             </div>
-        </section>
+    </div>
+</section>
