@@ -137,7 +137,7 @@ window.jxpGIF = class jxpGIF {
 
                     // display download button
                     const downloadButton = document.getElementById('download-gif');
-                    downloadButton.style.display = "inline";
+                    downloadButton.style.display = "inline-block";
 
                     downloadButton.onclick = function() {
                         // download gif
