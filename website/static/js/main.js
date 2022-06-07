@@ -61,15 +61,11 @@ function readURL(input, box) {
 
 function removeUpload(box) {
     if (box == '1') {
-        let inputField = document.getElementById("gif-before-src");
-        inputField.value = "";
-
-        gifBeforeChange();
+        document.getElementById("gif-before-src").value = "";
+        gifBeforeURL = '';
     } else if (box == '2') {
-        let inputField = document.getElementById("gif-after-src");
-        inputField.value = "";
-
-        gifAfterChange();
+        document.getElementById("gif-after-src").value = "";
+        gifAfterURL = '';
     }
     $(`#file-upload-input-${box}`).replaceWith($(`#file-upload-input-${box}`).clone());
     $(`#file-upload-content-${box}`).hide();
@@ -130,16 +126,6 @@ function demoImageData() {
     ];
 }
 
-function gifImageDataFromForm() {
-    return [{
-            src: gifBeforeURL
-        },
-        {
-            src: gifAfterURL
-        }
-    ];
-}
-
 var gifBeforeURL = "";
 var gifAfterURL = "";
 
@@ -149,10 +135,10 @@ function gifBeforeChange() {
     getImageData(gifURL).then(imgSrc => {
         gifBeforeURL = `data:image/jpeg;base64,${toBase64(imgSrc)}`;
 
-        $('.image-upload-wrap.1').hide();
+        $('#image-upload-wrap-1').hide();
 
-        $('.file-upload-image.1').attr('src', gifBeforeURL);
-        $('.file-upload-content.1').show();
+        $('#file-upload-image-1').attr('src', gifBeforeURL);
+        $('#file-upload-content-1').show();
     })
 }
 
@@ -168,19 +154,18 @@ function gifAfterChange() {
     getImageData(gifURL).then(imgSrc => {
         gifAfterURL = `data:image/jpeg;base64,${toBase64(imgSrc)}`;
 
-        $('.image-upload-wrap.2').hide();
+        $('#image-upload-wrap-2').hide();
 
-        $('.file-upload-image.2').attr('src', gifAfterURL);
-        $('.file-upload-content.2').show();
+        $('#file-upload-image-2').attr('src', gifAfterURL);
+        $('#file-upload-content-2').show();
     })
 }
 
 function generateGIF() {
-    // get the two links
-    let imageData = gifImageDataFromForm();
-    let linkOne = imageData[0].src;
-    let linkTwo = imageData[1].src;
+    // make sure gifBeforeURL, gifAfterURL are defined, non-empty
+    if (!(gifBeforeURL && gifAfterURL)) {
 
+    }
     // generate gif
     let imgGIF = document.getElementById("gif-img");
     if (imgGIF) {
@@ -197,7 +182,7 @@ function generateGIF() {
         downloadButton.style.display = "none";
     }
 
-    window.juxtapose_gif = new jxpGIF(linkOne, linkTwo, { container_id: 'gif-container' });
+    window.juxtapose_gif = new jxpGIF(gifBeforeURL, gifAfterURL, { container_id: 'gif-container' });
 }
 
 function optionsFromForm() {
