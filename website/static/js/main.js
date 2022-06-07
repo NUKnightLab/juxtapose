@@ -32,13 +32,11 @@ function makeTabClick(event, buttonType) {
 
 // upload buttons taken and adapted from https://speckyboy.com/custom-file-upload-fields/
 function readURL(input, box) {
-    console.log(`readURL box: ${box}`)
     if (input.files && input.files[0]) {
 
         var reader = new FileReader();
 
         reader.onload = function(e) {
-            console.log(`readURL onload handler for box ${box}`)
             $(`#image-upload-wrap-${box}`).hide();
 
             $(`#file-upload-image-${box}`).attr('src', e.target.result);
@@ -50,11 +48,9 @@ function readURL(input, box) {
                 gifAfterURL = e.target.result;
             }
         };
-        console.log(`readURL about to read ${input.files[0]}`)
         reader.readAsDataURL(input.files[0]);
 
     } else {
-        console.log(`readURL in else`)
         removeUpload();
     }
 }
@@ -84,9 +80,6 @@ function getImageData(image_path) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: "/image_proxy/" + image_path,
-            complete: function(data) {
-                console.log("complete");
-            },
             success: function(data, status, xhr) {
                 let bufferData = Buffer.from(data, 'base64');
                 resolve(bufferData);

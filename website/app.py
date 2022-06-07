@@ -108,7 +108,7 @@ method_requests_mapping = {
 }
 
 @app.route('/image_proxy/<path:path>', methods=method_requests_mapping.keys())
-def get_image_proxy(path):
+def image_proxy(path):
     requests_function = method_requests_mapping[request.method]
     req = requests_function(path, stream=True, params=request.args)
     response = Response(stream_with_context(req.iter_content(chunk_size=2048)),

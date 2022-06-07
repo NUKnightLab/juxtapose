@@ -551,11 +551,6 @@ a.button.dropbox-picker {
     border: 4px dashed #646464;
 }
 
-.image-title-wrap {
-    padding: 0 15px 15px 15px;
-    color: #D4D4D4;
-}
-
 .drag-text {
     text-align: center;
 }
@@ -573,8 +568,9 @@ a.button.dropbox-picker {
 }
 
 .remove-image {
-    width: 200px;
     margin: 0;
+    padding: 0;
+    /* width: auto;
     color: #fff;
     background: #cd4535;
     border: none;
@@ -583,13 +579,13 @@ a.button.dropbox-picker {
     border-bottom: 4px solid #b02818;
     transition: all .2s ease;
     outline: none;
+    cursor: pointer; */
 }
 
 .remove-image:hover {
     background: #c13b2a;
     color: #ffffff;
     transition: all .2s ease;
-    cursor: pointer;
 }
 
 .remove-image:active {
