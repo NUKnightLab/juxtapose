@@ -92,23 +92,14 @@ window.jxpGIF = class jxpGIF {
                 let img_b = promises[1];
 
                 // this dimension should be max. 640px
-                let dim = 500;
-                if (img_a.bitmap.width > img_a.bitmap.height) {
-                    // make width the dominant dimension
-                    img_a.resize(dim, Jimp.AUTO);
-                    img_b.resize(dim, Jimp.AUTO);
-                } else {
-                    // make height the dominant dimension
-                    img_a.resize(Jimp.AUTO, dim);
-                    img_b.resize(Jimp.AUTO, dim);
-                }
+                let dominant_img_dim = Math.max(img_a.bitmap.height, img_a.bitmap.width, img_b.bitmap.height, img_b.bitmap.width)
+                let bbox_dim = Math.min(640, dominant_img_dim);
+                img_a.scaleToFit(bbox_dim, bbox_dim)
+                img_b.scaleToFit(bbox_dim, bbox_dim)
 
-                //make sure images are the same size - this is a crappy way to do this
-                if (img_a.bitmap.height < img_b.bitmap.height) {
-                    img_b.resize(dim, img_a.bitmap.height);
-                } else if (img_a.bitmap.height > img_b.bitmap.height) {
-                    img_a.resize(dim, img_b.bitmap.height);
-                }
+                // arbitrary: make the first (left) image the one which governs size
+                img_b.resize(img_a.bitmap.width, img_a.bitmap.height)
+
 
                 var gif = new GIF({
                     quality: 30,
@@ -134,6 +125,8 @@ window.jxpGIF = class jxpGIF {
 
                     const img = dom.createElement('img', 'gif-img', '', document.getElementById(container_id));
                     img.setAttribute('src', gif_src);
+                    img.setAttribute('width', `${img_a.bitmap.width}`)
+                    img.setAttribute('height', `${img_a.bitmap.height}`)
 
                     // display download button
                     const downloadButton = document.getElementById('download-gif');
