@@ -23,18 +23,15 @@
     </style>
 
     <link rel="stylesheet" href="../css/juxtapose.css">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-27829802-9"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'UA-27829802-9', {
-            'anonymize_ip': true
-        });
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CSB2TEXGV2"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-CSB2TEXGV2');
     </script>
 
 </head>
@@ -64,6 +61,7 @@
                 json.images[1].src += "?" + new Date().getTime();
             }
             slider = new juxtapose.JXSlider('#juxtapose-embed', json.images, json.options);
+            window.slider = slider
         }
 
         var uid = getURLParameter('uid');
