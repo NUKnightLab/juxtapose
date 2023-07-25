@@ -374,6 +374,9 @@ function handleDropboxLink(url, pos) {
 }
 
 function handleDropboxPickerLink(files, image) {
+    // www.dropbox.com image links tend to be to preview HTML pages and don't honor any Accept request header
+    // changing the domain name has historically worked to get a direct image link
+    let link = files[0].link.replace('www.dropbox.com', 'dl.dropboxusercontent.com')
     if (image == 'before') {
         $("#before-src").val(files[0].link);
     } else if (image == 'after') {
