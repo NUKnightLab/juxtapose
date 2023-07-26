@@ -378,9 +378,9 @@ function handleDropboxPickerLink(files, image) {
     // changing the domain name has historically worked to get a direct image link
     let link = files[0].link.replace('www.dropbox.com', 'dl.dropboxusercontent.com')
     if (image == 'before') {
-        $("#before-src").val(files[0].link);
+        $("#before-src").val(link);
     } else if (image == 'after') {
-        $("#after-src").val(files[0].link);
+        $("#after-src").val(link);
     }
     createSliderFromForm();
 }
