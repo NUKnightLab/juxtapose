@@ -97,7 +97,7 @@ slider = new juxtapose.JXSlider('#foo',
 
 ### Modifications and Custom Behavior
 #### CSS
-You can customize how JuxtaposeJS looks by modifying its CSS. For instructions, [click here](https://github.com/NUKnightLab/juxtapose/wiki/Styling-the-Slider).
+You can customize how JuxtaposeJS looks by modifying its CSS. For instructions, [click here](https://github.com/NUKnightLab/juxtapose/wiki/Styling-JuxtaposeJS).
 
 #### JavaScript
 
