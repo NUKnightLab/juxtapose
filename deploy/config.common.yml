@@ -44,6 +44,5 @@ static_service: "s3"
 static_dest: "s3://{{ static_bucket }}/{{ project_name }}"
 
 # Configs common to all projects
-application_user: apps
-install_root: /home/{{ application_user }}/sites
+install_root: /home/apps/sites
 virtualenv_root: "{{ deploy_dir }}"
