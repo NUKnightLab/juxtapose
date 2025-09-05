@@ -2,7 +2,7 @@ project_name: juxtapose
 service_name: "{{ project_name|lower }}"
 gitdeploy_version: "1.0.6"
 service_port: "{{ juxtapose_port }}"
-python_version: "3.7.7"
+python_version: "3.7.17"
 python: /home/apps/sites/juxtapose/.venv/bin/python
 # type: flask
 nginx_template: juxtapose.conf
