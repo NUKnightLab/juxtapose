@@ -1,4 +1,4 @@
 Flask==2.1.1
 boto3==1.13.26
-gunicorn==19.3.0
+gunicorn==19.5.0
 requests
