@@ -62,21 +62,21 @@ Files in the `website` directory are specific to the website.
 
 ## Deploying Juxtapose to the KnightLab CDN
 
-#### `fab stage` to create a version number:
+## Deploying changes to the JavaScript
 
-To stage your changes to a versioned directory in your local CDN repository, type `fab stage` This runs a build, copies the files into a versioned directory in your local `cdn.knightlab.com` repository, and tags the last commit with a version number.
+Before beginning to deploy, make sure all changes are thoroughly tested. Update package.json to the new version number.
 
-#### `fab stage_dev` to copy current code to CDN dev path:
+Deploying the JavaScript library uses `npm` scripts defined in `package.json`. To deploy to the Knight Lab CDN, use the following scripts:
 
-To stage your changes to the `dev` directory in your local CDN repository, type `fab stage_dev` This copies files from a versioned directory in your local `cdn.knightlab.com` respository into the corresponding `dev` directory.
+* npm run stage_latest (most common)
+* npm run stage
+* npm run stage_dev
 
-#### `fab stage_latest` to copy current code to CDN latest path:
-
-To stage your changes to the `latest` directory in your local CDN repository, type `fab stage_latest` This copies files from a versioned directory in your local `cdn.knightlab.com` respository into the corresponding `latest` directory.
+To stage a new release of JuxtaposeJS, use `npm run stage_latest`. This will ask you for a version number (tag), which should match what's in `package.json`.  It will also build the ZIP archive, and copy the distribution to the appropriate versioned subdirectory of the `cdn.knightlab.com` repository, as well as copying it to the `/latest/` directory.  In the rare case when you want to tag a version, but not change `latest`, use `npm run stage` although then copying that to `/latest/` is outside the scope of these tools. 
 
 #### Deploy to CDN
 
-Commit copied changes within the `cdn.knightlab.com` repo and run `fab deploy`
+Commit copied changes within the `cdn.knightlab.com` repo and run `./deploy.sh`
 
 
 ## Deploying the website

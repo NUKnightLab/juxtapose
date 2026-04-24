@@ -1,32 +1,41 @@
 {
-    "name": "juxtaposejs",
-    "version": "1.2.2",
-    "description": " JuxtaposeJS is a JavaScript library for making before/after image sliders",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/NUKnightLab/juxtapose.git"
-    },
-    "files": [
-        "build/css/juxtapose.css",
-        "build/js/juxtapose.js",
-        "build/js/juxtapose.min.js",
-        "README.md"
-    ],
-    "keywords": [
-        "image",
-        "ui",
-        "slider",
-        "juxtapose",
-        "before",
-        "after"
-    ],
-    "author": "knightlab@northwestern.edu",
-    "license": "MPL-2.0",
-    "bugs": {
-        "url": "https://github.com/NUKnightLab/juxtapose/issues"
-    },
-    "homepage": "juxtapose.knightlab.com"
+  "name": "juxtaposejs",
+  "version": "1.2.5",
+  "description": " JuxtaposeJS is a JavaScript library for making before/after image sliders",
+  "scripts": {
+    "dist": "node tasks/dist.js",
+    "stage": "npm run dist && node tasks/stage.js",
+    "stage_latest": "npm run dist && node tasks/stage.js latest",
+    "stage_dev": "npm run dist && node tasks/stage.js dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NUKnightLab/juxtapose.git"
+  },
+  "files": [
+    "dist/css/juxtapose.css",
+    "dist/js/juxtapose.js",
+    "dist/js/juxtapose.min.js",
+    "README.md"
+  ],
+  "keywords": [
+    "image",
+    "ui",
+    "slider",
+    "juxtapose",
+    "before",
+    "after"
+  ],
+  "author": "knightlab@northwestern.edu",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/NUKnightLab/juxtapose/issues"
+  },
+  "homepage": "juxtapose.knightlab.com",
+  "devDependencies": {
+    "adm-zip": "^0.5.17",
+    "prompt": "^1.3.0",
+    "simple-git": "^3.36.0",
+    "uglify-js": "^3.19.3"
+  }
 }

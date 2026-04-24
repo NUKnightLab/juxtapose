@@ -1,3 +1,6 @@
+.claude
+dist/
+node_modules/
 *.pyc
 build/website
 .DS_Store

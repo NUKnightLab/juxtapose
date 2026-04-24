@@ -1,7 +1,3 @@
-/* juxtapose - v1.1.2 - 2015-07-16
- * Copyright (c) 2015 Alex Duner and Northwestern University Knight Lab
- */
-
 (function(document, window) {
 
     var juxtapose = {
@@ -520,6 +516,7 @@
 
                 this.controller.setAttribute('tabindex', 0); //put the controller in the natural tab order of the document
                 this.controller.setAttribute('role', 'slider');
+                this.controller.setAttribute('aria-label', 'slider');
                 this.controller.setAttribute('aria-valuenow', 50);
                 this.controller.setAttribute('aria-valuemin', 0);
                 this.controller.setAttribute('aria-valuemax', 100);
