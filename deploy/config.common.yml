@@ -18,8 +18,6 @@ init_env_common:
   APPLICATION_DOMAINS: "{{ domains }}" # space-delimited
   FLASK_SECRET_KEY: "{{ vault_flask_secret_key }}"
   AWS_DEFAULT_REGION: "us-east-1"
-  AWS_ACCESS_KEY_ID: "{{ vault_aws_access_key_id }}"
-  AWS_SECRET_ACCESS_KEY: "{{ vault_aws_secret_access_key }}"
   DROPBOX_APP_KEY: "{{ vault_dropbox_app_key }}"
   DROPBOX_APP_SECRET: "{{ vault_dropbox_app_secret }}"
   FLASK_SETTINGS_MODULE: "core.settings"
