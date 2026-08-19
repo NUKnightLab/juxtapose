@@ -132,10 +132,11 @@ def upload_juxtapose_json():
         data = request.json
         uid = _get_uid()
         key = 'juxtapose/' + uid + '.json'
-        _conn = boto3.client('s3',
-            verify=True,
-            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
+        # Credentials resolve through boto3's default provider chain: the
+        # environment in development, the EC2 instance role via IMDS in
+        # production. Role credentials carry a session token and expire, so
+        # they must not be overridden here.
+        _conn = boto3.client('s3', verify=True)
         _conn.put_object(
             ACL='public-read',
             Body=json.dumps(data),
