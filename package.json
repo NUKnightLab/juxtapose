@@ -33,7 +33,7 @@
   },
   "homepage": "juxtapose.knightlab.com",
   "devDependencies": {
-    "adm-zip": "^0.5.17",
+    "adm-zip": "^0.6.0",
     "prompt": "^1.3.0",
     "simple-git": "^3.36.0",
     "uglify-js": "^3.19.3"
