@@ -1,4 +1,4 @@
-Flask==2.1.1
+Flask==2.2.5
 boto3==1.13.26
 gunicorn==23.0.0
 requests
