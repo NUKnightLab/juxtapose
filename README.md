@@ -90,7 +90,8 @@ slider = new juxtapose.JXSlider('#foo',
         showLabels: true,
         showCredits: true,
         startingPosition: "50%",
-        makeResponsive: true
+        makeResponsive: true,
+        mode: "vertical"
     });
 </script>
 ```
